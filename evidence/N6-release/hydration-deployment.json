@@ -1,0 +1,29 @@
+{
+  "recordedAt": "2026-09-09T04:36:00Z",
+  "result": "PASS",
+  "scope": "CLI production build and alias promotion only; independent anonymous browser checks follow separately",
+  "deploymentId": "dpl_B1pG38nm6xVYSbg1cjSTasgLyxfj",
+  "deploymentUrl": "https://cadre-ai-chatbot-r0tlmahc4-cadre-ai3.vercel.app",
+  "publicAlias": "https://cadre-ai-chatbot-tawny.vercel.app",
+  "readyState": "READY",
+  "team": "cadre-ai3",
+  "project": "cadre-ai-chatbot",
+  "cliVersion": "59.12.0",
+  "cliCommit": "384f76b",
+  "runtimeCommit": "c6f781cf588689deee9ae229261effdd08e5d24b",
+  "uiSha256": "3c44944e1876350fe3f460c2e14e00b5e98aaa156982eeafb5d2e8f8c288b051",
+  "dryUploadFiles": 26,
+  "dryUploadBytes": 342708,
+  "actualDeploymentFiles": 26,
+  "changedUploadBytesReported": "16.5KB",
+  "command": "rtk proxy env VERCEL_TELEMETRY_DISABLED=1 npm exec --yes --package=vercel@59.12.0 -- vercel deploy --yes --prod --scope cadre-ai3",
+  "exitCode": 0,
+  "environmentChanged": false,
+  "dependenciesChanged": false,
+  "gitPush": false,
+  "notes": [
+    "The reviewed deny-default upload excludes extension, Git, environment files, private inputs and process evidence.",
+    "Vercel compiled Next 16.3.4 and passed TypeScript/build; previous deployment retained as history.",
+    "No source publication, Git integration, paid add-on or domain purchase occurred."
+  ]
+}

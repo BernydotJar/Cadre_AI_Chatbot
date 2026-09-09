@@ -1,0 +1,15 @@
+{
+  "actor": "coordinator",
+  "builtSourceCommit": "a5693d8",
+  "command": "rtk proxy npm run test:e2e -- e2e/hydration.spec.ts",
+  "mode": "local mock; chat transport intercepted",
+  "startedAt": "2026-09-09T04:07:10.097Z",
+  "durationMs": 34817.245,
+  "exit": 1,
+  "expected": 0,
+  "unexpected": 4,
+  "skipped": 0,
+  "flaky": 0,
+  "observed": "Desktop and mobile project cases, with Next JavaScript held or disabled, all failed the first textarea toBeDisabled assertion: expected disabled, received enabled. All four failed before releasing chunks or submitting a chat request.",
+  "scope": "New regression source against the existing pre-repair build. A downstream character-count expectation was corrected from 19 to 20 during this run; that assertion was not reached. No provider inference. Separate independent diagnosis establishes actual lost-input behavior."
+}

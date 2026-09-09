@@ -1,0 +1,20 @@
+{
+  "actor": "coordinator",
+  "mode": "local mock with intercepted failure/hydration cases",
+  "command": "rtk proxy npm run test:e2e",
+  "exit": 0,
+  "stats": {
+    "startTime": "2026-09-09T04:10:16.266Z",
+    "duration": 11419.177,
+    "expected": 42,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "hashes": {
+    "src/ui/support-chat.tsx": "3c44944e1876350fe3f460c2e14e00b5e98aaa156982eeafb5d2e8f8c288b051",
+    "e2e/chat.spec.ts": "b0f1eddd58e6e493f563ffb5b04e5e620c3415bbb6d5d756c70dff9ae746a440",
+    "e2e/hydration.spec.ts": "ef68f6a3a9f78e338ef0b2e93c58698dbab532428a70b9abe8f1b0c902cd0a33",
+    "playwright.config.ts": "cda977cb1a81be9d0ecdfc63d7635f53efa8497f0e95fb46e0560011864ee2a8"
+  }
+}
