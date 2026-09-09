@@ -40,6 +40,26 @@ test("first impression feels like a Cadre page with an inviting Donna product", 
   await expect(reply.locator("a")).toHaveCount(0);
 });
 
+test("floating Donna closes with Escape and restores launcher focus", async ({ page }) => {
+  await expect(input(page)).toBeFocused();
+  await page.keyboard.press("Escape");
+  const launcher = page.getByRole("button", { name: /Ask Donna/ }).last();
+  await expect(page.locator(".chat-card")).toHaveCount(0);
+  await expect(launcher).toBeVisible();
+  await expect(launcher).toBeFocused();
+});
+
+test("reduced motion disables the new orb and glare animations", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.reload();
+  const launcher = page.getByRole("button", { name: /Ask Donna/ }).last();
+  await expect(launcher).toBeVisible();
+  const orb = launcher.locator(".donna-orb");
+  await expect(orb).toHaveCSS("animation-name", "none");
+  expect(await launcher.evaluate((element) => getComputedStyle(element, "::after").animationName)).toBe("none");
+  await expect(page.locator(".intro-media")).toHaveAttribute("data-motion", "poster");
+});
+
 test("ambient media is local, muted, bounded, and presentation-only", async ({ page }) => {
   const media = page.locator(".intro-media");
   await expect(media).toBeVisible();

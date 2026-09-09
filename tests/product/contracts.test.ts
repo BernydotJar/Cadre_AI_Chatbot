@@ -93,6 +93,22 @@ describe("product profile contracts", () => {
     expect(() => validateProductProfile(bad)).toThrow();
   });
 
+  it("rejects URLs in persona boundary tone and first-turn prompts", () => {
+    const badTone = fixture();
+    badTone.persona.boundaryVoice = {
+      pricingLead: "See https://example.com",
+      declineLead: "No guess.",
+      unknownLead: "Not sure.",
+      accountLead: "Privacy first.",
+      ambiguousLead: "Need one detail.",
+    };
+    expect(() => validateProductProfile(badTone)).toThrow(/boundary voice cannot contain URLs/);
+
+    const badPrompt = fixture();
+    badPrompt.experience.quickPrompts[0]!.message = "Open https://example.com";
+    expect(() => validateProductProfile(badPrompt)).toThrow(/quick prompts cannot contain URLs/);
+  });
+
   it("rejects proactive guidance for a topic the client does not own", () => {
     const bad = fixture();
     bad.persona.proactive.byTopic["pricing"] = { kind: "question", text: "Would pricing be useful to discuss next?" };
