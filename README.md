@@ -1,12 +1,12 @@
 # Cadre AI Chatbot
 
-A grounded customer-support chatbot for [Cadre AI](https://cadre.ai): it answers common questions from prospective and existing clients using a curated, versioned knowledge set, and redirects honestly when a question is outside its supported scope.
+A grounded support assistant for [Cadre AI](https://cadre.ai), covering services and industry fit, strategist contact, portal access guidance, the AI Maturity Index, model/security questions and honest escalation.
 
-**Status: partial, not released.** The foundation and knowledge-routing nodes are closed. The API/provider implementation passes 200 tests and a small live local smoke run, but its independent-review gate is blocked by unavailable agent execution. The conversation UI, browser suite, public deployment and verified source ZIP remain pending. See [checkpoint](progress/checkpoint.md) and [plan](plan.md).
+**Implementation in progress; not finally released.** API and early deployment gates passed. The completed UI passes the main unit/build/browser checks; independent review is resolving the last keyboard-focus finding. The [public URL](https://cadre-ai-chatbot-tawny.vercel.app) currently serves the earlier **mock scaffold**, not the finished local UI. Live public validation and the verified source ZIP remain pending. See [checkpoint](progress/checkpoint.md).
 
 ## Run locally
 
-Use Node 22.12+, 24.x or 26+ as declared in `package.json`; Node 26.5.0 was verified locally. Select and verify Node 24.x for the proposed Vercel target.
+Use the Node engine declared in package.json; local verification uses Node 26.5.0. Vercel is configured for Node 24.x.
 
 ```sh
 npm ci
@@ -17,9 +17,7 @@ npm run build
 npm run start
 ```
 
-The server binds to `http://127.0.0.1:3100`. `/` is currently a scaffold, not a finished chat interface. `/api/health` checks application availability only; it does not test the provider.
-
-Default mode is **mock**, requiring no key and making no inference calls. An API smoke request:
+Open http://127.0.0.1:3100. Default mode is **mock**: no provider key or inference charge. If an existing environment explicitly enables live mode, set CHAT_PROVIDER=mock for local checks. The UI labels its actual configured mode.
 
 ```sh
 curl http://127.0.0.1:3100/api/chat \
@@ -27,24 +25,49 @@ curl http://127.0.0.1:3100/api/chat \
   --data '{"messages":[{"role":"user","content":"What services does Cadre offer?"}]}'
 ```
 
-The API returns `{ "reply": "...", "kind": "grounded|clarify|redirect|decline|error" }`. All responses are non-cacheable. The UI must render replies as text and only turn exact approved URLs into links.
+The response is `{ "reply": "...", "kind": "grounded|clarify|redirect|decline|error" }`. POST /api/chat is non-cacheable. GET /api/health reports app availability, not provider health.
 
-For authorized live operation, create an ignored `.env.local` using the variable names in [.env.example](.env.example); never overwrite an existing secret file. Set `CHAT_PROVIDER=openrouter`, the approved key/model and operational expiry. Never use `NEXT_PUBLIC_` for a secret. Live mode fails closed on bad configuration or insufficient budget; it never silently falls back to a mock. See [provider decision](progress/provider-decision.md) for the seven-day authorization, $5 cap, reserve and model selection. The credential must not be used for coding assistance.
+For authorized live use, configure the server variables named in [.env.example](.env.example), including explicit mode, approved model and expiry. Never overwrite an existing secret file, expose a NEXT_PUBLIC_ credential or place a key in source. Invalid or expired live configuration fails closed; it never silently becomes a mock. Budget and deadline: [provider decision](progress/provider-decision.md).
 
-## Design and limitations
+## Where answers come from
 
-Configuration owns approved facts, URLs and routing vocabulary. Pure conversation logic handles input, topic selection, clarification and boundaries. A narrow server adapter asks the model to prioritize fact indices; the app retains all routed facts and app-owned links. This is intentionally **extractive model-assisted answering**, not general semantic retrieval or unconstrained generated business advice.
+The versioned knowledge store is [src/config/cadre.ts](src/config/cadre.ts), validated by [src/config/types.ts](src/config/types.ts). It separates client facts, routing vocabulary, approved URLs and boundaries from application logic. The [official-source audit](docs/knowledge-source-audit.md) maps every topic to pages, dates and unresolved questions. Research recommendations are not automatically shipped facts.
 
-Unknown pricing, private accounts and unsupported topics are handled deterministically. There is no authentication, database, persistent conversation storage, real booking, CRM or assessment execution. Process-local admission and budget reservations are best-effort, reset across instances and are not distributed abuse protection. The provider's key-side limit is the hard spending ceiling. Request media type, size, history, output, timeout and retry are bounded; direct anonymous clients can still consume the shared allowance.
+Pipeline: bounded input → deterministic topic/boundary routing → approved context → mock or server-side model adapter → deterministic fact/link assembly → safe text-only UI. The model prioritizes fact indices rather than generating arbitrary business assertions. This is **constrained, extractive model-assisted answering**, not vector RAG or open-ended company expertise.
 
-## Verification and delivery
+Unknown pricing, certifications and private account questions receive a boundary and official contact link. The bot cannot create bookings, access a portal, run an assessment or issue a maturity score. The second client fixture proves configuration separation at unit level, not production multi-tenancy.
 
-`npm run verify -- unique-run-label` retains real mock-test/typecheck/lint/build output under `evidence/runs/`. [N3 evidence](evidence/N3-chat-api-adapter/coordinator-verification.md) separates coordinator verification, live local checks and the blocked independent review. The E2E script is reserved for N4; a completed browser suite is not claimed yet.
+## Interface and verification
 
-Vercel is the proposed first target; the owner supplied `cadre-ai` and reports a Pro plan. CLI authentication succeeded, but that scope does not exist for this session: the accessible team is `Cadre_AI` / `cadre-ai3`. Confirm the intended target before deployment. No cloud resources, pushes, uploads or submissions have been performed. [Hosting tradeoffs](docs/hosting-options.md) explain why Terraform does not automatically make infrastructure provider-neutral. Packaging must retain `.git` and exclude `.env.local`, `.codex`, dependencies, build output and private inputs; no ready-to-submit ZIP exists yet.
+Responsive web chat includes six starting topics, multi-turn context, visible loading, cancellation, saved-draft retry, reset, bounded history and exact approved links. No conversation is stored by this app after refresh; live messages are processed by external services, and provider retention is not claimed to be zero.
 
-- Product plan and decision log: [plan.md](plan.md)
-- Canonical specification: [specs/001-support-chatbot/](specs/001-support-chatbot/)
-- Contributor and agent guide: [CLAUDE.md](CLAUDE.md)
-- Real roles, context and commands: [engineering workflow](docs/engineering-workflow.md)
-- Research-informed interface brief: [chatbot UX assessment](docs/chatbot-ux-assessment.md)
+```sh
+npm run verify -- unique-run-label
+npm exec -- playwright install chromium --only-shell
+npm run test:e2e
+```
+
+Build before E2E. The default Playwright configuration owns a mock production server on port 3100; do not start another server there simultaneously. An explicit E2E_BASE_URL targets an existing server and some tests make real API calls, so a live target requires budget-aware authorization.
+
+Sanitized command outputs live under evidence/runs/. Original failures and repairs remain under evidence/N4-ui/. Unit/mock, browser, live-local, public deployment and archive verification are separate claims.
+
+## Engineering and scope
+
+[CLAUDE.md](CLAUDE.md) is the concise onboarding contract: stack, boundaries, knowledge editing, security, commands and context recovery. [plan.md](plan.md) indexes decisions. Approved specs define scope; the frozen graph and append-only events record actual execution.
+
+Graph Engineering uses real producer, critic, fixer and independent-verifier roles with hashed evidence and gated closure. The pinned external runtime, provenance, commands and actual role examples are documented in [engineering workflow](docs/engineering-workflow.md). A role label or committed command definition alone is not execution evidence.
+
+No auth, database, CRM, analytics, persistent chat history, vector database, real booking or assessment integration. Serverless admission and budget reservations are process-local and cannot guarantee distributed abuse protection. The provider's key limit is the hard spending ceiling; anonymous users can consume the shared allowance.
+
+Vercel deployment is authorized in Cadre_AI / cadre-ai3. [Deployment notes](docs/deploy.md) distinguish the currently deployed snapshot from local changes. No Git push, paid add-on, source publication or final submission is implied.
+
+The optional [Chrome integration preview](docs/extension-preview-design.md) is a **design proposal**, not implemented or installed. It must remain a local adapter and cannot delay the mandatory public app.
+
+## Delivery
+
+The final source ZIP must include usable .git history and exclude .env.local, .codex, dependencies, generated build output, caches and private inputs. It must be extracted and checked in a clean directory before final closure is requested. **No verified delivery ZIP exists yet.**
+
+- [Canonical specifications](specs/001-support-chatbot/)
+- [Requirements recheck](docs/delivery-requirements-recheck.md)
+- [UI research](docs/chatbot-ux-assessment.md)
+- [Current source audit](docs/knowledge-source-audit.md)

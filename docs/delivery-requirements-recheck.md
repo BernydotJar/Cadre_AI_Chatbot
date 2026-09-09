@@ -1,0 +1,34 @@
+# Delivery requirements recheck
+
+Reviewed 2026-09-08 against the supplied v1.1 product brief, including its scenario list, deliverables, weighted review dimensions and engineering tips. The private original is not copied into the repository. The later owner-provided clarification allowing any coding assistant remains recorded; execution evidence must describe what actually happened.
+
+## Requirement-to-evidence map
+
+| Expectation | Current implementation/evidence | Remaining work |
+|---|---|---|
+| Plan before implementation | Root CLAUDE.md, plan.md, approved specs and original approval events | Keep instructions current; do not rewrite historical approvals |
+| Public working chatbot | Early anonymous mock scaffold under evidence/N5-deploy/ | Deploy verified complete UI and validate live conversations |
+| Six supported scenario families | src/config/cadre.ts, pure routing/policy, independent N2/N3 evidence | Source refresh decisions and final public evaluation |
+| Deliberate architecture | Separated config/core/provider/server/UI; mockable OpenRouter adapter | Final component inventory and limitations |
+| Real independent agent work | N2 and N3 critic/fixer/verifier reports; N4 critic finding actual browser defects | Repair N4 and obtain independent PASS |
+| Small authentic commits | Existing Git history with foundation, policy repairs, API, deployment and process increments | Continue staging bounded changes; retain .git in ZIP |
+| Custom commands/context management | npm graph/verify scripts; startup and role contracts in CLAUDE.md; resumable checkpoint | Demonstrate real commands, not invented slash-command or role history |
+| Test and inspect output | Unit/type/lint/build logs; browser suite with real recorded failures | Passing final browser/live/package evidence |
+| Explicit scope decisions | No auth/CRM/vector DB, real booking or account access; optional extension isolated | Keep stretch work behind core-readiness gate |
+| Lightweight complete archive | Exclusion rules and planned clean-extraction check | Create and independently verify source ZIP before closure |
+
+The brief weights workflow/context management 30%, architecture 25%, scope/speed 20%, verification 15% and communication 10%. More framework text or an extension does not by itself satisfy those dimensions. Specific instructions, actual review findings, fixed regressions and an anonymously working product provide the evidence.
+
+## CLAUDE.md refinement
+
+The prior file mentioned the graph but retained scaffold-era wording and omitted the concrete stack and operational lifecycle. It has been updated with the actual architecture, Graph Engineering role boundaries, startup recovery, knowledge ownership, runnable commands, safety constraints and context discipline. It links to detailed records rather than importing the entire history.
+
+The [Claude Academy lesson](https://academy.claude.com/courses/claude-code-101/the-claude-md-file) frames CLAUDE.md as project onboarding with stack, conventions, commands and useful references. Current [Claude Code memory guidance](https://code.claude.com/docs/en/memory) emphasizes concise, specific instructions; this file remains below 200 lines. These are instruction-design references, not evidence that a native Claude command or a particular model performed this work.
+
+## Extension decision
+
+The brief requires a public URL and lightweight source ZIP, not a browser extension. The owner suggested an optional local integration demonstration. Its design and safety gates are in [extension-preview-design.md](extension-preview-design.md). It must not replace, postpone or be misrepresented as the core product. The original site remains outside our deployment authority.
+
+## Status honesty
+
+Initial browser evidence (2026-09-08 local): the first run could not launch because its matching Chromium runtime was missing. After installing that runtime, the suite executed: 22 passed, 8 failed. Six failures were test selectors that included the framework's unrelated route announcer; two exposed a real Stop/Send duplicate-request bug. Independent review also reproduced initial welcome scrolling and keyboard focus loss. After repairs the expanded 38-case suite passed; independent verification then found another keyboard focus issue in Jump to latest. These dated observations do not close N4 or the release; follow-up reports and the ledger carry the current verdict.

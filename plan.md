@@ -1,6 +1,6 @@
 # Plan — Cadre AI Chatbot
 
-**Status: approved, implementation resumed.** Execution status is owned by the event ledger; this file and `feature_list.json` are projections. U1–U4 are resolved: OpenRouter, $5 total inference allowance, small local commits, and confirmed Vercel team `Cadre_AI` / `cadre-ai3`. Separate agents are running again. The N3 critic found a serialized-history defect, now repaired and undergoing independent verification. The first N5 mock scaffold is deployed and passes anonymous checks. This is not final release approval. See `progress/authorization-2026-09-08.md`.
+**Status: approved, implementation resumed.** Execution status is owned by the event ledger; this file and `feature_list.json` are projections. U1–U4 are resolved: OpenRouter, $5 total inference allowance, small local commits, and confirmed Vercel team `Cadre_AI` / `cadre-ai3`. N3 is independently verified and done; the first N5 mock scaffold is deployed and passes anonymous checks. N4 remains open while actual browser findings are repaired. This is not final release approval. See `progress/authorization-2026-09-08.md`.
 
 ## Objective
 
@@ -22,7 +22,7 @@ Canonical detail: `specs/001-support-chatbot/requirements.md`. This file is an i
 | M1 | App foundation, local walking skeleton | node `N1-foundation` | done (ledger: done; evidence/N1-foundation/) |
 | M2 | Knowledge base and routing | node `N2-knowledge-routing` | done: critic/fixer/independent verification, 114 tests and production build |
 | M3 | Chat API and provider adapter (mock-first) | node `N3-chat-api-adapter` | done: independent critic/fixer/verifier; 203 tests, typecheck, lint and build PASS |
-| M4 | Conversation UI and UX states | node `N4-ui` | running: UI producer and browser suite implementation |
+| M4 | Conversation UI and UX states | node `N4-ui` | review: 218 tests and 38 browser cases pass; independent verification found an additional keyboard-focus repair |
 | M5 | Early deployment — authorization-gated, attempted as soon as U3 resolves; may run in parallel with M2–M4 | node `N5-deploy` | done: authorized mock scaffold, anonymous checks and separate review PASS |
 | M6 | Verification, live evaluation, packaging, release readiness | node `N6-verify-release` | not started |
 
@@ -83,7 +83,14 @@ Reproducible validation (Python 3.11+, from the pinned runtime checkout, absolut
 
 Methodology conventions (spec layout, status vocabulary, gate discipline) are adapted from https://github.com/BernydotJar/harness-sdlc at revision `f5960564fd4c75e9e4c467a6445e3e39d5e32f1c`. That repository has no license file at the pinned revision, so no upstream text or templates were copied — only the conventions were re-expressed in this project's own words.
 
-## Risks
+## Current content and integration decisions
+
+- The owner requested a fresh review of the official Cadre site and the v1.1 brief. Research is recorded in `docs/knowledge-source-audit.md`; the shipped store remains `src/config/cadre.ts`. Admit factual updates only after tests and review, preserving all six topic boundaries.
+- `CLAUDE.md` now describes the concrete stack, Graph Engineering lifecycle, real subagent responsibilities, context recovery and verification commands. `docs/delivery-requirements-recheck.md` maps the brief to current evidence and remaining gaps.
+- The proposed Chrome adapter is optional stretch work, not a substitute for the public app. `docs/extension-preview-design.md` records proposed G9 entry gates and limits. No extension implementation or frozen-graph amendment is implied by drafting it. Generic label: “Integration Preview”; no site-owner installation claim.
+- Prioritize N4 repair and N6 live/public/package proof. Do not add a database or bulk scraper merely to store this small, versioned knowledge set. Do not let extension polish consume the core verification window.
+
+## Delivery risks
 
 - iCloud-hosted working copy: slow I/O and sync artifacts around `node_modules`/`.git` (accepted, documented; D6).
 - Serverless rate limiting is process-local, not a hard guarantee — it will be labeled honestly in docs and UI.
