@@ -206,6 +206,6 @@ The owner requested a temporary Gemini 3.8 Flash comparison. `docs/model-evaluat
 
 ## Next action
 
-Retry only the dedicated audited Git publication action from the current closure HEAD. Shared/container GitHub authentication is healthy, but the last audited publisher attempt returned `GITHUB_TOKEN is required for git_push`; if that persists, retain G10 BLOCKED and request reconnection/authorization of the **outer sandbox GitHub publisher channel**, not another `gh auth login` inside `/workspace`. Do not use shell `git push`, token extraction, force push, or GitHub Contents API commit reconstruction as a bypass because the candidate ZIP must preserve the authentic local history/SHA chain.
+Retry only the dedicated audited Git publication action from the current closure HEAD. Shared/container GitHub authentication is healthy, but the latest recorded audited publisher attempt from `8972fad6d8434605699bfc31a5f2f3eeaa630d43` returned `GITHUB_TOKEN is required for git_push`; if that persists, retain G10 BLOCKED and request reconnection/authorization of the **outer sandbox GitHub publisher channel**, not another `gh auth login` inside `/workspace`. Do not use shell `git push`, token extraction, force push, or GitHub Contents API commit reconstruction as a bypass because the candidate ZIP must preserve the authentic local history/SHA chain.
 
 Then rebuild and clean-room verify the candidate ZIP from the final closure commit with `.git` included and dependencies/build output/secrets excluded. Recruiting submission/upload remains a separate explicit action.
