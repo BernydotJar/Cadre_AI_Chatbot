@@ -19,6 +19,16 @@ describe("client config invariants", () => {
     }
   });
 
+  it("both client configurations provide the required clarification labels", () => {
+    for (const config of [cadre, acme]) {
+      expect(() => validateClientConfig(config)).not.toThrow();
+      for (const entry of config.knowledge) expect(entry.label.trim()).not.toBe("");
+      const missingLabel = structuredClone(config);
+      missingLabel.knowledge[0]!.label = "";
+      expect(() => validateClientConfig(missingLabel)).toThrow();
+    }
+  });
+
   it("rejects an approved link on a foreign domain", () => {
     const bad = structuredClone(cadre);
     bad.knowledge[0]!.approvedLinks.push({
@@ -58,4 +68,23 @@ describe("reuse hypothesis — the same core serves a second configuration", () 
     expect(reply.links).toEqual([acme.contact]);
     expect(reply.text).toContain("won't ask for account details");
   });
+
+  it.each(["store services", "the first one", "returns and exchanges", "the second one"])(
+    "resolves fixture-client clarifications with the same core: %s",
+    (selection) => {
+      const question = { role: "user" as const, content: "repair return" };
+      const first = respond([question], acme);
+      expect(first.kind).toBe("clarify");
+      const reply = respond([
+        question,
+        { role: "assistant", content: first.text },
+        { role: "user", content: selection },
+      ], acme);
+      expect(reply.kind).toBe("grounded");
+      const expected = selection === "store services" || selection === "the first one"
+        ? "gear repair" : "within 60 days";
+      expect(reply.text).toContain(expected);
+      expect(JSON.stringify(reply)).not.toMatch(/Cadre|cadre\.ai/);
+    },
+  );
 });

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { cadre } from "@/config/cadre";
+import { acme } from "@/config/fixtures/acme";
 import { containsPhrase, normalize, routeMessage } from "@/core/route";
 
 describe("normalize", () => {
@@ -27,6 +28,20 @@ describe("routeMessage over the Cadre knowledge set", () => {
     ["Do you work with real estate firms?", "industries"],
     ["How do I book a call with an AI strategist?", "strategist-call"],
     ["How do I access the client portal to track my AI tools and agents?", "portal"],
+    ["Please give me a link to log into my AI agents dashboard.", "portal"],
+    ["Where do I log in to my AI agents?", "portal"],
+    ["How do I access my AI agents dashboard?", "portal"],
+    ["Where can I sign into my AI agents dashboard?", "portal"],
+    ["Open the AI agents dashboard", "portal"],
+    ["How can I access my AI agents?", "portal"],
+    ["Which departments do you support?", "industries"],
+    ["Can you help with marketing?", "industries"],
+    ["Can you help with sales?", "industries"],
+    ["I want to contact sales", "strategist-call"],
+    ["Can I talk to sales?", "strategist-call"],
+    ["Can you build AI agents for my business?", "overview"],
+    ["What AI engineering services do you offer?", "overview"],
+    ["what Cadre AI does", "overview"],
     ["What is the AI Maturity Index and how do I get scored?", "maturity-index"],
     ["How does Cadre approach LLM selection and data security?", "models-security"],
   ];
@@ -56,5 +71,29 @@ describe("routeMessage over the Cadre knowledge set", () => {
     if (result.kind === "ambiguous") {
       expect(result.candidates.length).toBeGreaterThan(1);
     }
+  });
+
+  it("counts nested aliases once so distinct access intent can win", () => {
+    const fixture = structuredClone(acme);
+    fixture.knowledge[0]!.keywords = ["gear repair", "repair"];
+    fixture.knowledge[1]!.keywords = ["return", "gear repair return"];
+    const result = routeMessage("gear repair return", fixture);
+    expect(result.kind).toBe("match");
+    if (result.kind === "match") {
+      expect(result.entry.id).toBe("returns");
+      expect(result.score).toBe(3);
+    }
+  });
+
+  it("does not let a repeated keyword outweigh a more specific phrase", () => {
+    const result = routeMessage("agents agents agents log into my dashboard", cadre);
+    expect(result.kind).toBe("match");
+    if (result.kind === "match") expect(result.entry.topic).toBe("portal");
+  });
+
+  it("routes a second client's configured label without brand-specific logic", () => {
+    const result = routeMessage("returns and exchanges", acme);
+    expect(result.kind).toBe("match");
+    if (result.kind === "match") expect(result.entry.topic).toBe("returns");
   });
 });

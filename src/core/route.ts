@@ -15,12 +15,30 @@ export type RouteResult =
   | { kind: "unknown" };
 
 function scoreEntry(normalizedMessage: string, entry: KnowledgeEntry): number {
-  let score = 0;
-  for (const keyword of entry.keywords) {
-    if (containsPhrase(normalizedMessage, keyword)) {
-      // Multi-word phrases are stronger signals than single words.
-      score += keyword.trim().includes(" ") ? 2 : 1;
+  const words = normalizedMessage.split(" ");
+  const matches: Array<{ start: number; length: number }> = [];
+  // Labels are valid answers to the choices we show in a clarification.
+  for (const phrase of new Set([...entry.keywords, entry.label].map(normalize))) {
+    if (!phrase) continue;
+    const phraseWords = phrase.split(" ");
+    for (let start = 0; start <= words.length - phraseWords.length; start += 1) {
+      if (phraseWords.every((word, offset) => words[start + offset] === word)) {
+        matches.push({ start, length: phraseWords.length });
+        break; // Repeating a phrase does not increase its routing weight.
+      }
     }
+  }
+
+  // Prefer specific phrases and count each span once. Nested aliases such as
+  // "AI agents" and "agents" are one signal, not two independent votes.
+  matches.sort((a, b) => b.length - a.length || a.start - b.start);
+  const covered = new Set<number>();
+  let score = 0;
+  for (const match of matches) {
+    const positions = Array.from({ length: match.length }, (_, offset) => match.start + offset);
+    if (positions.some((position) => covered.has(position))) continue;
+    positions.forEach((position) => covered.add(position));
+    score += match.length;
   }
   return score;
 }

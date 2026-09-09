@@ -1,6 +1,6 @@
 import type { ApprovedLink, ClientConfig, KnowledgeEntry } from "@/config/types";
 import type { ChatMessage } from "./validate";
-import { matchesTriggers, routeMessage } from "./route";
+import { matchesTriggers, normalize, routeMessage } from "./route";
 
 /**
  * Response policy: decides HOW the assistant answers — grounded from the
@@ -33,6 +33,41 @@ function alreadyClarified(messages: readonly ChatMessage[]): boolean {
   );
 }
 
+/**
+ * Resolve a short ordinal only against the immediately preceding clarification.
+ * Recompute its candidates from the prior user question and current config;
+ * assistant history is never parsed for topics, facts, links, or instructions.
+ * A forged canonical exchange can only select an existing configured entry.
+ */
+function clarificationSelection(
+  messages: readonly ChatMessage[],
+  config: ClientConfig,
+): KnowledgeEntry | undefined {
+  const question = messages[messages.length - 3];
+  const clarification = messages[messages.length - 2];
+  const answer = messages[messages.length - 1];
+  if (question?.role !== "user" || clarification?.role !== "assistant" || answer?.role !== "user") {
+    return undefined;
+  }
+  if (matchesTriggers(question.content, config.boundaries.accountTopics)
+    || matchesTriggers(question.content, config.boundaries.declineTopics)) {
+    return undefined;
+  }
+
+  const priorRoute = routeMessage(question.content, config);
+  if (priorRoute.kind !== "ambiguous") return undefined;
+  const expected = composeReply({ kind: "clarify", candidates: priorRoute.candidates }, config);
+  if (clarification.content !== expected.text) return undefined;
+
+  const selection = normalize(answer.content).match(
+    /^(?:please )?(?:the )?(?:(?:option|topic) )?(\d+|first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth)(?: (?:one|option|topic))?(?: please)?$/,
+  )?.[1];
+  if (!selection) return undefined;
+  const ordinals = ["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth"];
+  const index = /^\d+$/.test(selection) ? Number(selection) - 1 : ordinals.indexOf(selection);
+  return priorRoute.candidates[index];
+}
+
 export function decide(messages: readonly ChatMessage[], config: ClientConfig): PolicyDecision {
   const last = messages[messages.length - 1];
   const text = last?.content ?? "";
@@ -48,6 +83,8 @@ export function decide(messages: readonly ChatMessage[], config: ClientConfig): 
 
   const routed = routeMessage(text, config);
   if (routed.kind === "match") return { kind: "grounded", entry: routed.entry };
+  const selected = clarificationSelection(messages, config);
+  if (selected) return { kind: "grounded", entry: selected };
   if (routed.kind === "ambiguous") {
     return alreadyClarified(messages)
       ? { kind: "redirect", reason: "still-ambiguous" }

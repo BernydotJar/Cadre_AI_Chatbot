@@ -57,7 +57,9 @@ const cadreConfig: ClientConfig = {
         "real estate", "financial services", "professional services",
         "construction", "manufacturing", "retail", "logistics", "mortgage",
         "lending", "e-commerce", "fit for", "case studies", "case study",
-        "clients",
+        "clients", "department", "departments", "sales", "marketing",
+        "customer success", "executive leadership", "finance", "operations",
+        "technology", "legal",
       ],
       facts: [
         "Cadre AI serves B2B companies across professional services, private equity, financial services, real estate, mortgage and lending, construction, retail and e-commerce, and manufacturing and logistics.",
@@ -77,7 +79,7 @@ const cadreConfig: ClientConfig = {
       keywords: [
         "book", "call", "meeting", "schedule", "talk to", "speak with",
         "strategist", "consultation", "demo", "get started", "appointment",
-        "reach out", "sales",
+        "reach out", "contact sales", "talk to sales",
       ],
       facts: [
         "You can request a conversation with an AI strategist through the official contact page — the site's 'Talk to an AI Strategist' action goes there.",
@@ -93,8 +95,9 @@ const cadreConfig: ClientConfig = {
       topic: "portal",
       label: "client portal access",
       keywords: [
-        "portal", "log in", "login", "sign in", "dashboard", "track my",
-        "client access", "my tools", "my agents", "my results",
+        "portal", "log in", "log into", "login", "sign in", "sign into",
+        "dashboard", "agent dashboard", "agents dashboard", "ai agents dashboard",
+        "track my", "client access", "my tools", "my agents", "my ai agents", "my results",
       ],
       facts: [
         "This assistant does not have access to client portals or account systems, and no public portal address is verified in its knowledge set.",

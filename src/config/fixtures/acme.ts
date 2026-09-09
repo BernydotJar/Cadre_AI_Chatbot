@@ -16,6 +16,7 @@ const acmeConfig: ClientConfig = {
     {
       id: "store-services",
       topic: "services",
+      label: "store services",
       keywords: ["repair", "rental", "fitting", "services", "what do you offer"],
       facts: [
         "Acme Outdoors offers gear repair, equipment rental, and boot fitting in every store.",
@@ -28,6 +29,7 @@ const acmeConfig: ClientConfig = {
     {
       id: "returns",
       topic: "returns",
+      label: "returns and exchanges",
       keywords: ["return", "returns", "exchange", "refund policy window"],
       facts: ["Acme Outdoors accepts returns within 60 days with a receipt."],
       approvedLinks: [

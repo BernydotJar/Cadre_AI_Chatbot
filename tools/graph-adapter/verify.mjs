@@ -17,7 +17,7 @@ for (const check of checks) {
   const result = spawnSync('npm', ['run', check], { cwd: root, encoding: 'utf8', timeout: 180000, maxBuffer: 8 * 1024 * 1024, env: { ...process.env, CHAT_PROVIDER: 'mock', NO_COLOR: '1', NEXT_TELEMETRY_DISABLED: '1' } });
   const exit = result.status ?? 1;
   const output = `Command: npm run ${check}\nMode: mock (no inference)\nExit: ${exit}\n\n${sanitize((result.stdout || '') + (result.stderr || '') + (result.error?.message || ''))}`;
-  writeFileSync(resolve(directory, `${check}.txt`), output, { flag: 'wx' });
+  writeFileSync(resolve(directory, `${check}.txt`), output.replace(/\r/g, '').replace(/[ \t]+$/gm, '').trimEnd() + '\n', { flag: 'wx' });
   results.push({ check, exit });
   console.log(`${check}: ${exit === 0 ? 'PASS' : 'FAIL'} (evidence/runs/${label}/${check}.txt)`);
 }
