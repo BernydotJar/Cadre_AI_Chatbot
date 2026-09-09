@@ -3,65 +3,235 @@
   "project_id": "cadre-donna-premium-experience",
   "mode": "MVP",
   "gate_definitions": [
-    {"id":"verification","required_evidence_kinds":["test_output"],"blocking":true},
-    {"id":"design-review","required_evidence_kinds":["review_report"],"blocking":true},
-    {"id":"integration-proof","required_evidence_kinds":["integration_check"],"blocking":true}
+    {
+      "id": "verification",
+      "required_evidence_kinds": [
+        "test_output"
+      ],
+      "blocking": true
+    },
+    {
+      "id": "design-review",
+      "required_evidence_kinds": [
+        "review_report"
+      ],
+      "blocking": true
+    },
+    {
+      "id": "integration-proof",
+      "required_evidence_kinds": [
+        "integration_check"
+      ],
+      "blocking": true
+    }
   ],
   "nodes": [
     {
-      "id":"PX2-donna-premium-identity",
-      "kind":"feature-increment",
-      "title":"Premium Donna identity, typography, and visual language",
-      "status":"spec_ready",
-      "depends_on":[],
-      "capability":"engineering",
-      "gates":{"done":["verification","design-review","integration-proof"]},
-      "allowed_paths":["app/**","src/ui/**","src/product/**","public/**","tests/**","e2e/**","docs/**","README.md","CLAUDE.md","plan.md","progress/premium-*","evidence/premium-*/**"],
-      "metadata":{"authorization":"progress/premium-authorization-2026-09-09.md","boundary":"Raise perceived quality through hierarchy, typography, whitespace, original Donna identity, and restrained motion language without weakening product/profile/safety contracts."}
+      "id": "PX2-donna-premium-identity",
+      "kind": "feature-increment",
+      "title": "Premium Donna identity, typography, and visual language",
+      "status": "spec_ready",
+      "depends_on": [],
+      "capability": "engineering",
+      "gates": {
+        "done": [
+          "verification",
+          "design-review",
+          "integration-proof"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "src/ui/**",
+        "src/product/**",
+        "public/**",
+        "tests/**",
+        "e2e/**",
+        "docs/**",
+        "README.md",
+        "CLAUDE.md",
+        "plan.md",
+        "progress/premium-*",
+        "evidence/premium-*/**"
+      ],
+      "metadata": {
+        "authorization": "progress/premium-authorization-2026-09-09.md",
+        "boundary": "Raise perceived quality through hierarchy, typography, whitespace, original Donna identity, and restrained motion language without weakening product/profile/safety contracts."
+      }
     },
     {
-      "id":"PX3-ambient-media",
-      "kind":"feature-increment",
-      "title":"Accessible cinematic ambient media layer",
-      "status":"spec_ready",
-      "depends_on":["PX2-donna-premium-identity"],
-      "capability":"engineering",
-      "gates":{"done":["verification","design-review","integration-proof"]},
-      "allowed_paths":["app/**","src/ui/**","src/product/**","public/**","tests/**","e2e/**","docs/**","README.md","CLAUDE.md","plan.md","progress/premium-*","evidence/premium-*/**"],
-      "metadata":{"authorization":"progress/premium-authorization-2026-09-09.md","boundary":"Ambient media is optional presentation only: muted, poster-backed, reduced-motion safe, low aggression, no embedded text, no factual authority."}
+      "id": "PX3-ambient-media",
+      "kind": "feature-increment",
+      "title": "Accessible cinematic ambient media layer",
+      "status": "spec_ready",
+      "depends_on": [
+        "PX2-donna-premium-identity"
+      ],
+      "capability": "engineering",
+      "gates": {
+        "done": [
+          "verification",
+          "design-review",
+          "integration-proof"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "src/ui/**",
+        "src/product/**",
+        "public/**",
+        "tests/**",
+        "e2e/**",
+        "docs/**",
+        "README.md",
+        "CLAUDE.md",
+        "plan.md",
+        "progress/premium-*",
+        "evidence/premium-*/**"
+      ],
+      "metadata": {
+        "authorization": "progress/premium-authorization-2026-09-09.md",
+        "boundary": "Ambient media is optional presentation only: muted, poster-backed, reduced-motion safe, low aggression, no embedded text, no factual authority."
+      }
     },
     {
-      "id":"PX3B-premium-shell-refinement",
-      "kind":"feature-increment",
-      "title":"Donna editorial identity and product shell refinement",
-      "status":"spec_ready",
-      "depends_on":["PX3-ambient-media"],
-      "capability":"engineering",
-      "gates":{"done":["verification","design-review","integration-proof"]},
-      "allowed_paths":["app/**","src/ui/**","src/product/**","public/**","tests/**","e2e/**","docs/**","README.md","CLAUDE.md","plan.md","progress/premium-*","evidence/premium-*/**"],
-      "metadata":{"authorization":"progress/premium-shell-refinement-authorization-2026-09-09.md","boundary":"Owner quality correction: remove synthetic AI-badge/gradient-avatar language, make Donna an understated editorial identity, and raise product-shell material/hierarchy quality without changing factual, routing, provider, or safety authority."}
+      "id": "PX3B-premium-shell-refinement",
+      "kind": "feature-increment",
+      "title": "Donna editorial identity and product shell refinement",
+      "status": "spec_ready",
+      "depends_on": [
+        "PX3-ambient-media"
+      ],
+      "capability": "engineering",
+      "gates": {
+        "done": [
+          "verification",
+          "design-review",
+          "integration-proof"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "src/ui/**",
+        "src/product/**",
+        "public/**",
+        "tests/**",
+        "e2e/**",
+        "docs/**",
+        "README.md",
+        "CLAUDE.md",
+        "plan.md",
+        "progress/premium-*",
+        "evidence/premium-*/**"
+      ],
+      "metadata": {
+        "authorization": "progress/premium-shell-refinement-authorization-2026-09-09.md",
+        "boundary": "Owner quality correction: remove synthetic AI-badge/gradient-avatar language, make Donna an understated editorial identity, and raise product-shell material/hierarchy quality without changing factual, routing, provider, or safety authority."
+      }
     },
     {
-      "id":"PX4-contextual-donna",
-      "kind":"feature-increment",
-      "title":"Bounded page-context awareness for Donna extension",
-      "status":"spec_ready",
-      "depends_on":["PX2-donna-premium-identity"],
-      "capability":"engineering",
-      "gates":{"done":["verification","design-review","integration-proof"]},
-      "allowed_paths":["extension/**","src/product/**","tests/**","docs/**","README.md","CLAUDE.md","plan.md","progress/premium-*","evidence/premium-*/**"],
-      "metadata":{"authorization":"progress/premium-authorization-2026-09-09.md","boundary":"Context derives only from existing allowlisted pathname/hash enums; one brief presentation aside maximum, no scraping and no change to factual/routing/network authority."}
+      "id": "PX4-contextual-donna",
+      "kind": "feature-increment",
+      "title": "Bounded page-context awareness for Donna extension",
+      "status": "spec_ready",
+      "depends_on": [
+        "PX2-donna-premium-identity"
+      ],
+      "capability": "engineering",
+      "gates": {
+        "done": [
+          "verification",
+          "design-review",
+          "integration-proof"
+        ]
+      },
+      "allowed_paths": [
+        "extension/**",
+        "src/product/**",
+        "tests/**",
+        "docs/**",
+        "README.md",
+        "CLAUDE.md",
+        "plan.md",
+        "progress/premium-*",
+        "evidence/premium-*/**"
+      ],
+      "metadata": {
+        "authorization": "progress/premium-authorization-2026-09-09.md",
+        "boundary": "Context derives only from existing allowlisted pathname/hash enums; one brief presentation aside maximum, no scraping and no change to factual/routing/network authority."
+      }
     },
     {
-      "id":"PX5-premium-release",
-      "kind":"feature-increment",
-      "title":"Premium integration, public verification, and release evidence",
-      "status":"spec_ready",
-      "depends_on":["PX3-ambient-media","PX3B-premium-shell-refinement","PX4-contextual-donna"],
-      "capability":"engineering",
-      "gates":{"done":["verification","design-review","integration-proof"]},
-      "allowed_paths":["app/**","src/**","extension/**","public/**","tests/**","e2e/**","docs/**","README.md","CLAUDE.md","plan.md","progress/**","evidence/premium-*/**"],
-      "metadata":{"authorization":"progress/premium-authorization-2026-09-09.md","boundary":"Release only to the existing Vercel project after strict design critique, regressions, accessibility/reduced-motion checks, and public equivalence evidence."}
+      "id": "PX5-premium-release",
+      "kind": "feature-increment",
+      "title": "Premium integration, public verification, and release evidence",
+      "status": "spec_ready",
+      "depends_on": [
+        "PX3-ambient-media",
+        "PX3B-premium-shell-refinement",
+        "PX4-contextual-donna"
+      ],
+      "capability": "engineering",
+      "gates": {
+        "done": [
+          "verification",
+          "design-review",
+          "integration-proof"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "src/**",
+        "extension/**",
+        "public/**",
+        "tests/**",
+        "e2e/**",
+        "docs/**",
+        "README.md",
+        "CLAUDE.md",
+        "plan.md",
+        "progress/**",
+        "evidence/premium-*/**"
+      ],
+      "metadata": {
+        "authorization": "progress/premium-authorization-2026-09-09.md",
+        "boundary": "Release only to the existing Vercel project after strict design critique, regressions, accessibility/reduced-motion checks, and public equivalence evidence."
+      }
+    },
+    {
+      "id": "PX6-cinematic-proactive-donna",
+      "kind": "feature-increment",
+      "title": "Cadre-native cinematic shell and proactive Donna interaction",
+      "status": "spec_ready",
+      "depends_on": [
+        "PX5-premium-release"
+      ],
+      "capability": "engineering",
+      "gates": {
+        "done": [
+          "verification",
+          "design-review",
+          "integration-proof"
+        ]
+      },
+      "allowed_paths": [
+        "app/**",
+        "src/**",
+        "public/**",
+        "tests/**",
+        "e2e/**",
+        "docs/**",
+        "README.md",
+        "CLAUDE.md",
+        "plan.md",
+        "progress/premium-*",
+        "progress/cinematic-*",
+        "evidence/premium-*/**"
+      ],
+      "metadata": {
+        "authorization": "progress/cinematic-proactive-authorization-2026-09-09.md",
+        "boundary": "Recompose the shipped experience around a Cadre-native cinematic page, a floating proactive Donna presence, grounded conversion-aware boundary copy, trust/explanation surfaces, and a simplified mark without changing factual authority, provider security, or action permissions."
+      }
     }
   ]
 }

@@ -225,3 +225,20 @@ PX3 ambient media is DONE: 8 seconds, muted/no audio track, no embedded text, in
 Build and independently verify the final source ZIP from the final closure commit with `.git` included and dependency/build/env/private artifacts excluded. Product/public release is complete; G10 remains documented as an automated-CD-only blocker until the existing Vercel binding is provisioned in GitHub `production`.
 
 Then rebuild and clean-room verify the source ZIP from the final closure commit with `.git` included and dependencies/build output/secrets excluded. External submission/upload remains a separate explicit action.
+
+## PX6 — Cadre-native cinematic + proactive Donna increment — 2026-09-09
+
+Owner direction: keep the verified Knowledge → Persona → Experience architecture, but move the public presentation from a static split demo toward an AI-native Cadre property. The page should borrow Cadre's own outcome-first rhythm (revenue, profitability, employee leverage), use the existing local ambient motion as a brand layer, and let Donna enter as a floating conversational product rather than permanently consuming half the viewport.
+
+### /plan
+
+1. **Cadre-native page shell.** Full-width editorial hero, current Cadre palette, local cinematic motion, outcome/proof strip, and a verified “Track your AI results” module. Remove the decorative dash before the verified-context label.
+2. **Donna presence.** Floating launcher with an original animated orb/face-like identity, one proactive fact/hint at rest, and a focused open chat panel. Mobile becomes a bounded sheet, not a squeezed desktop card.
+3. **Conversation affordance.** Add 3–4 high-value starter prompts and concise context-aware hints. During requests, replace the generic spinner with a Donna “Shaping…” state inspired by thinking-orb interaction language but implemented locally without a new runtime UI dependency.
+4. **Commercial empathy without invented claims.** Persona/config owns reviewed tone. Pricing/unknown/account replies acknowledge business value, stay short and human, bridge to verified Cadre outcomes, and still route to the approved contact link rather than fabricating a number or action.
+5. **Trust + engineering explanation.** Add a compact “How Donna works” section covering verified knowledge, bounded persona behavior, deterministic routing, and human handoff. Durable docs/persona source must match the runtime.
+6. **Microinteraction budget.** Maximum two new effects: Donna orb breathing/shaping + a restrained glare/sheen on the launcher/primary interaction. Existing ambient video remains the only cinematic media layer. Respect reduced motion.
+7. **Identity cleanup.** Replace the current favicon with a simpler project-owned Cadre/Donna signal mark.
+8. **Verification only after producer completion.** Then run full unit/type/lint/build/browser/extension matrices, an independent design/behavior critic (Claude Code when its authenticated session is available), fixer loop if needed, detached verification, Graph gates, exact-SHA publication, existing-project deployment, and anonymous public equivalence.
+
+Acceptance is evidence-based: no stale static split layout, no decorative dash before the verified-context label, Donna visibly invites interaction, the pricing example becomes empathetic but still bounded, the official tracking-results value proposition is represented with provenance, reduced-motion remains safe, and the complete regression/public release matrix is green before PX6 can be DONE.
