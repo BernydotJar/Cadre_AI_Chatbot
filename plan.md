@@ -20,8 +20,8 @@ Canonical detail: `specs/001-support-chatbot/requirements.md`. This file is an i
 |---|-----------|---------|--------|
 | M0 | Repository foundation and canonical spec | this document set | done (approved 2026-09-08) |
 | M1 | App foundation, local walking skeleton | node `N1-foundation` | done (ledger: done; evidence/N1-foundation/) |
-| M2 | Knowledge base and routing | node `N2-knowledge-routing` | in progress (ledger: running) |
-| M3 | Chat API and provider adapter (mock-first) | node `N3-chat-api-adapter` | not started |
+| M2 | Knowledge base and routing | node `N2-knowledge-routing` | done: critic/fixer/independent verification, 114 tests and production build |
+| M3 | Chat API and provider adapter (mock-first) | node `N3-chat-api-adapter` | running: OpenRouter integration with controlled live evaluation after mock checks |
 | M4 | Conversation UI and UX states | node `N4-ui` | not started |
 | M5 | Early deployment — authorization-gated, attempted as soon as U3 resolves; may run in parallel with M2–M4 | node `N5-deploy` | blocked (ledger: blocked awaiting U3) |
 | M6 | Verification, live evaluation, packaging, release readiness | node `N6-verify-release` | not started |
