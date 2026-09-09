@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+      - run: node extension/build.mjs
+      - run: npm exec -- vitest run --config extension/vitest.config.ts
+
+  browser:
+    needs: quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npm exec -- playwright install --with-deps chromium
+      - run: npm run build
+      - run: npm run test:e2e
+      - run: node extension/build.mjs
+      - run: node extension/tests/browser-mock.mjs ci-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Upload browser evidence on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-failure-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            test-results/
+            extension/evidence/ci-${{ github.run_id }}-${{ github.run_attempt }}/
+          if-no-files-found: ignore
+          retention-days: 7

@@ -1,0 +1,93 @@
+Cadre CI/CD local verification — 2026-09-09 UTC
+$ YAML parse
+.github/workflows/ci.yml: PASS jobs=['quality', 'browser']
+.github/workflows/deploy-production.yml: PASS jobs=['deploy']
+$ npm run lint
+
+> cadre-ai-chatbot@0.1.0 lint
+> eslint .
+
+$ npm run typecheck
+
+> cadre-ai-chatbot@0.1.0 typecheck
+> tsc --noEmit
+
+$ npm test
+
+> cadre-ai-chatbot@0.1.0 test
+> vitest run
+
+[33m(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `"type": "module"` in the closest package.json
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.[39m
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/tools/graph-baseline.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 35[2mms[22m[39m
+ [32m✓[39m tests/server/rate-limit.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+ [32m✓[39m tests/api/chat-route.test.ts [2m([22m[2m45 tests[22m[2m)[22m[32m 47[2mms[22m[39m
+ [32m✓[39m tests/provider/openrouter.test.ts [2m([22m[2m48 tests[22m[2m)[22m[32m 45[2mms[22m[39m
+ [32m✓[39m tests/config/knowledge-refresh.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+ [32m✓[39m tests/core/policy.test.ts [2m([22m[2m59 tests[22m[2m)[22m[32m 24[2mms[22m[39m
+ [32m✓[39m tests/provider/model-selection.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 29[2mms[22m[39m
+ [32m✓[39m tests/ui/conversation.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m tests/config/config.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m tests/core/route.test.ts [2m([22m[2m33 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+ [32m✓[39m tests/core/validate.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m11 passed[39m[22m[90m (11)[39m
+[2m      Tests [22m [1m[32m256 passed[39m[22m[90m (256)[39m
+[2m   Start at [22m 07:35:15
+[2m   Duration [22m 1.03s[2m (transform 43%, import 41%, tests 15%, worker 2%)[22m
+
+$ npm run build
+
+> cadre-ai-chatbot@0.1.0 build
+> next build
+
+▲ Next.js 16.3.4 (Turbopack)
+✓ Running next.config.ts took 72ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 2.6s
+  Running TypeScript ...
+  Finished TypeScript in 1640ms ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/5) ...
+  Generating static pages using 7 workers (1/5)
+  Generating static pages using 7 workers (2/5)
+  Generating static pages using 7 workers (3/5)
+✓ Generating static pages using 7 workers (5/5) in 596ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ○ /_not-found
+├ ƒ /api/chat
+├ ƒ /api/health
+└ ○ /icon.svg
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+$ node extension/build.mjs
+Extension generated: extension/dist (15 files; no provider config or credentials read)
+$ extension vitest
+[33m(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - ESM syntax in a file loaded as CommonJS (extension/vitest.config.ts:1:1). Use a `.mjs` extension or set `"type": "module"` in the closest package.json
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.[39m
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90m/workspace[39m
+
+ [32m✓[39m extension/tests/bridge.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+ [32m✓[39m extension/tests/build.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m extension/tests/contracts.test.ts [2m([22m[2m50 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m3 passed[39m[22m[90m (3)[39m
+[2m      Tests [22m [1m[32m72 passed[39m[22m[90m (72)[39m
+[2m   Start at [22m 07:35:24
+[2m   Duration [22m 365ms[2m (transform 62%, import 30%, tests 7%, worker 2%)[22m
+
+Local post-deploy marker contract: PASS
+hello.kind: greeting

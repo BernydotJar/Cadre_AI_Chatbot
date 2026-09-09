@@ -1,0 +1,27 @@
+{
+  "schema_version": "graph-harness.project.v1",
+  "project_id": "cadre-ai-cicd",
+  "mode": "MVP",
+  "gate_definitions": [
+    { "id": "verification", "required_evidence_kinds": ["test_output"], "blocking": true },
+    { "id": "code-review", "required_evidence_kinds": ["review_report"], "blocking": true },
+    { "id": "deploy-check", "required_evidence_kinds": ["deploy_check"], "blocking": true }
+  ],
+  "nodes": [
+    {
+      "id": "G10-vercel-cicd",
+      "kind": "feature-increment",
+      "title": "GitHub CI and gated Vercel production delivery",
+      "status": "spec_ready",
+      "depends_on": [],
+      "capability": "engineering",
+      "gates": { "done": ["verification", "code-review", "deploy-check"] },
+      "allowed_paths": [".github/**", "docs/deploy.md", "evidence/cicd/**", "progress/cicd-authorization-2026-09-09.md", "progress/cicd-graph.project.json", "progress/cicd-graph.events.jsonl"],
+      "metadata": {
+        "authorization": "progress/cicd-authorization-2026-09-09.md",
+        "core_graph": "graph-harness.project.json",
+        "boundary": "CI must be fully runnable without deployment secrets. CD may use only explicit repository/environment secrets for the existing Vercel project. Do not create an unrelated project to hide a project-binding failure."
+      }
+    }
+  ]
+}

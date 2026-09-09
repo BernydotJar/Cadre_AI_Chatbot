@@ -1,0 +1,108 @@
+name: Deploy production
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cadre-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: >-
+      ${{
+        github.event_name == 'workflow_dispatch' ||
+        (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
+      }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: production
+    steps:
+      - name: Resolve exact source revision
+        id: source
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_run" ]; then
+            echo "sha=${{ github.event.workflow_run.head_sha }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "sha=${{ github.sha }}" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.source.outputs.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Require an existing Vercel project binding
+        shell: bash
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          set -eu
+          test -n "$VERCEL_ORG_ID"
+          test -n "$VERCEL_PROJECT_ID"
+          test -n "$VERCEL_TOKEN"
+          mkdir -p .vercel
+          node -e 'const fs=require("fs"); fs.writeFileSync(".vercel/project.json", JSON.stringify({orgId:process.env.VERCEL_ORG_ID,projectId:process.env.VERCEL_PROJECT_ID})+"\n")'
+      - name: Pull production configuration
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: npx --yes vercel@59.12.0 pull --yes --environment=production --token="$VERCEL_TOKEN"
+      - name: Build with Vercel production settings
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: npx --yes vercel@59.12.0 build --prod --token="$VERCEL_TOKEN"
+      - name: Deploy exact prebuilt output
+        id: deploy
+        shell: bash
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          set -eu
+          url=$(npx --yes vercel@59.12.0 deploy --prebuilt --prod --token="$VERCEL_TOKEN")
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          echo "Deployed $url"
+      - name: Verify release markers
+        shell: bash
+        env:
+          DEPLOYMENT_URL: ${{ steps.deploy.outputs.url }}
+        run: |
+          set -eu
+          curl --fail --silent --show-error --retry 3 "$DEPLOYMENT_URL/api/health" > /tmp/health.json
+          curl --fail --silent --show-error --retry 3 "$DEPLOYMENT_URL/" > /tmp/index.html
+          curl --fail --silent --show-error --retry 3 "$DEPLOYMENT_URL/icon.svg" > /tmp/icon.svg
+          curl --fail --silent --show-error --retry 3 -H 'content-type: application/json' \
+            --data '{"messages":[{"role":"user","content":"hello"}]}' \
+            "$DEPLOYMENT_URL/api/chat" > /tmp/hello.json
+          node <<'NODE'
+          const fs=require('fs');
+          const health=JSON.parse(fs.readFileSync('/tmp/health.json','utf8'));
+          const hello=JSON.parse(fs.readFileSync('/tmp/hello.json','utf8'));
+          const html=fs.readFileSync('/tmp/index.html','utf8');
+          const icon=fs.readFileSync('/tmp/icon.svg','utf8');
+          if (health.status !== 'ok') throw new Error('health marker missing');
+          if (hello.kind !== 'greeting' || !/what would you like to explore/i.test(hello.reply)) throw new Error('new greeting contract missing');
+          if (!html.includes('Turn AI curiosity') || html.includes('YOUR NEXT STEP STARTS HERE')) throw new Error('new Cadre Signal hero not deployed');
+          if (!icon.includes('<svg')) throw new Error('app icon not deployed');
+          NODE
+      - name: Publish deployment receipt
+        shell: bash
+        env:
+          DEPLOYMENT_URL: ${{ steps.deploy.outputs.url }}
+        run: |
+          {
+            echo "### Cadre production deployment"
+            echo "- Source: \`${{ steps.source.outputs.sha }}\`"
+            echo "- URL: $DEPLOYMENT_URL"
+            echo "- Health, Cadre Signal hero, favicon, and deterministic hello: PASS"
+          } >> "$GITHUB_STEP_SUMMARY"

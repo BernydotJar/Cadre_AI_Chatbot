@@ -2,6 +2,20 @@
 
 Owner-approved target: `Cadre_AI` / `cadre-ai3`. Project: `cadre-ai-chatbot`. Public production alias: https://cadre-ai-chatbot-tawny.vercel.app.
 
+## Current delivery status — 2026-09-09
+
+The public alias is healthy but **stale** relative to the reviewed source: it still serves the previous “A little clarity” hero and returns the old unsupported redirect for exact `hello`. The current worktree instead has the Cadre Signal hero, `/icon.svg`, and deterministic `hello -> kind:greeting`; local post-deploy marker checks pass. Production equivalence therefore remains a release blocker, not an inferred success.
+
+The connected Vercel integration can see team `Cadre_AI` (`cadre-ai3`) but currently returns no projects; direct lookup of `cadre-ai-chatbot` and the known alias returns not-found in that integration. Its exposed deploy action is also unusable in this session because the runtime requires deployment inputs its callable schema does not expose. Sandbox Vercel CLI 59.12.0 is logged out. Do not create a replacement project merely to hide this binding problem.
+
+## GitHub CI/CD
+
+`.github/workflows/ci.yml` is the secret-free verification path for pull requests and `main`: locked install, lint, strict typecheck, unit/integration tests, production build, extension build/tests, Playwright, and a fully synthetic extension browser check. The owner-gated real-site extension test is intentionally excluded from routine CI.
+
+`.github/workflows/deploy-production.yml` is the gated production path. It runs only after successful CI on `main` or manual dispatch, binds the GitHub `production` environment, checks out the exact triggering SHA, and requires repository/environment secrets `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`, and `VERCEL_TOKEN`. It writes only an ephemeral `.vercel/project.json`, then runs `vercel pull --environment=production`, `vercel build --prod`, and `vercel deploy --prebuilt --prod`. It never calls `vercel link` or creates a project. Post-deploy checks require health, the new hero, `/icon.svg`, and deterministic greeting behavior before the workflow reports success.
+
+The workflow source is locally validated and its release-marker contract passes against the current production build in mock mode. Actual CD remains blocked until the existing Vercel project is visible to the authorized account and the three GitHub production secrets are provisioned. Vercel documents the `build` → `deploy --prebuilt` flow for CI environments; this keeps build and deployed output tied to one reviewed source revision.
+
 ## Current verified deployment
 
 Deployment `dpl_B1pG38nm6xVYSbg1cjSTasgLyxfj` contains cold-first-message repair `c6f781c`, invoked from CLI snapshot `384f76b`. Node 24.x configuration retained. The reviewed upload contained 26 files / 342,708 bytes and excluded extension, environment, Git, evidence and private inputs. Build and promotion passed without changing environment, dependencies or purchasing resources. Independent verification of this repaired alias passed 38 intercepted browser cases and exactly one real cold-load question, returning HTTP 200/grounded in 1,257 ms from submission. These checks are separate from CLI READY.
