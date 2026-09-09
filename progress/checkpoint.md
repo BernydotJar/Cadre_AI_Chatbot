@@ -8,7 +8,7 @@ Updated: 2026-09-09 UTC. This is a projection; the append-only Graph Harness led
 
 Public alias: `https://cadre-ai-chatbot-tawny.vercel.app`.
 
-The product, contextual extension, and CI/CD increments are now split into small commits. Human author metadata uses the repository's existing `Bernydotjar <fearlesed@gmail.com>` identity; the actual technical committer remains `ChatGPT Sandbox Agent`, and earlier history was not rewritten. Current HEAD before this projection update is the CI/CD gate closure line. Main graph sequence remains **149**. Extension graph sequence is **34**, last event `9db84544-4f7c-42fa-9605-e3f1983740d6`. CI/CD graph sequence is **12**, last event `4495e3a7-7302-426f-ad9f-33e67086f306`.
+The product, contextual extension, and CI/CD increments are now split into small commits. Human author metadata uses the repository's existing `Bernydotjar <fearlesed@gmail.com>` identity; the actual technical committer remains `ChatGPT Sandbox Agent`, and earlier history was not rewritten. Current HEAD before this projection update is `e080b06` after closing the n8n contract graph. Main graph sequence remains **149**. Extension graph sequence is **34**, last event `9db84544-4f7c-42fa-9605-e3f1983740d6`. CI/CD graph sequence is **12**, last event `4495e3a7-7302-426f-ad9f-33e67086f306`. n8n graph sequence is **12**, last event `a35c57ad-30b4-4fd7-aeec-ce11084d239c`.
 
 ## Main graph
 
@@ -96,7 +96,7 @@ Separate graph `progress/cicd-graph.*`: **G10 BLOCKED only at deploy-check**. `v
 
 ## Parallel n8n workstream
 
-An isolated second workspace was used so n8n work could not destabilize the candidate repo. No existing n8n runtime was found. Docker image extraction failed in the nested sandbox, so the workstream installed n8n **2.38.1** under a private Node **24.9.0** runtime with persistent SQLite data. `/healthz` is PASS. A `Cadre AI Concierge — Human Handoff` workflow was imported and published with `POST /webhook/cadre-handoff`, consent/email/source validation, typed route keys, structured notification payload and controlled 202/400 responses. Live local contract probes passed for qualified lead, client support, missing consent, and invalid email. No real recipient or credential is embedded; email-provider delivery is deliberately not claimed yet.
+Separate graph `progress/n8n-graph.*`: **G11 DONE** with `verification=PASS`, `code-review=PASS`, `integration-proof=PASS`. An isolated second workspace was used so n8n work could not destabilize the candidate repo. No existing n8n runtime was found. Docker image extraction failed in the nested sandbox, so the workstream installed n8n **2.38.1** under a private Node **24.9.0** runtime with persistent SQLite data. `/healthz` is PASS. A `Cadre AI Concierge — Human Handoff` workflow was imported and published with `POST /webhook/cadre-handoff`, consent/email/source validation, typed route keys, structured notification payload and controlled 202/400 responses. Live local contract probes passed for qualified lead, client support, missing consent, and invalid email. No real recipient or credential is embedded; email-provider delivery is deliberately not claimed yet.
 
 ## Model/cost state
 
@@ -104,11 +104,17 @@ Production default remains `openai/gpt-4.1-mini`; the optional Gemini 3.8 Flash 
 
 Retained observed cost ledger before this increment: user-reported coding spend $7.00; OpenRouter cumulative provider usage $0.001842 at the last metadata read; local Granite has no external inference charge observed. Provider accounting may lag.
 
+
+## Source publication blocker
+
+The local `main` branch is **22 commits ahead** of `origin/main` and has no remote-only commits. The dedicated audited repository-publication action was attempted and returned `GITHUB_TOKEN is required for git_push`; no shell credential workaround was used. Consequently the new GitHub Actions workflows are versioned and locally verified but are **not active on GitHub yet**. This is an account/tool credential blocker, not additional application development.
+
 ## Exact resume path
 
-1. Restore visibility/access to the existing Vercel `cadre-ai-chatbot` project and provision `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`, and `VERCEL_TOKEN` in the GitHub `production` environment; do not create a replacement project merely to make the gate green.
-2. Reopen G10/N6 only through supported graph transitions and deploy the exact reviewed SHA through the gated workflow or an equivalent authorized project binding.
-3. Repeat anonymous `/`, `/api/health`, exact `hello`, favicon/hero markers, and the 50-case browser/readability matrix against that deployment; run one bounded live-provider round trip only if the chatbot allowance is available.
-4. Clear G10 `deploy-check` and N6 `release-check`, transition them to done, update projections, then build and verify a **final** source ZIP from the exact closure commit.
-5. If the optional n8n handoff is promoted into the demo, add the `HumanHandoffProvider` application boundary and an approved email provider/recipient; require user consent and successful n8n acknowledgement before claiming a handoff occurred.
-6. Recruiting upload/email and Web Store publication remain separate actions unless explicitly authorized.
+1. Restore the audited GitHub publication credential and publish the current fast-forward `main` history so the CI/CD workflows actually exist on GitHub.
+2. Restore visibility/access to the existing Vercel `cadre-ai-chatbot` project and provision `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`, and `VERCEL_TOKEN` in the GitHub `production` environment; do not create a replacement project merely to make the gate green.
+3. Reopen G10/N6 only through supported graph transitions and deploy the exact reviewed SHA through the gated workflow or an equivalent authorized project binding.
+4. Repeat anonymous `/`, `/api/health`, exact `hello`, favicon/hero markers, and the 50-case browser/readability matrix against that deployment; run one bounded live-provider round trip only if the chatbot allowance is available.
+5. Clear G10 `deploy-check` and N6 `release-check`, transition them to done, update projections, then build and verify a **final** source ZIP from the exact closure commit.
+6. If the optional n8n handoff is promoted into the demo, add the `HumanHandoffProvider` application boundary and an approved email provider/recipient; require user consent and successful n8n acknowledgement before claiming a handoff occurred.
+7. Recruiting upload/email and Web Store publication remain separate actions unless explicitly authorized.
