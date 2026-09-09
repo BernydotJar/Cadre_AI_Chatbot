@@ -1,0 +1,109 @@
+
+> cadre-ai-chatbot@0.1.0 test:e2e
+> playwright test --config=playwright.config.ts
+
+
+Running 58 tests using 1 worker
+
+  ✓   1 [desktop] › e2e/chat.spec.ts:11:5 › first impression has a real app icon, one restrained Donna mark, generous composer, and useful greeting (2.2s)
+  ✘   2 [desktop] › e2e/chat.spec.ts:34:5 › ambient media is local, muted, bounded, and presentation-only (8.8s)
+  ✓   3 [desktop] › e2e/chat.spec.ts:55:5 › reduced motion keeps the static poster and never mounts the ambient video (1.2s)
+  ✓   4 [desktop] › e2e/chat.spec.ts:66:5 › ambient motion control never obscures the hero across responsive widths (1.6s)
+  ✓   5 [desktop] › e2e/chat.spec.ts:97:5 › anonymous conversation uses the real server and official links (4.3s)
+  ✓   6 [desktop] › e2e/chat.spec.ts:114:5 › Donna presentation handles one configured next step and an opt-out (746ms)
+  ✓   7 [desktop] › e2e/chat.spec.ts:136:5 › all six entry points are present and clarification preserves an ordinal follow-up (2.2s)
+  ✓   8 [desktop] › e2e/chat.spec.ts:150:5 › loading is announced and rapid Enter cannot duplicate a request (729ms)
+  ✓   9 [desktop] › e2e/chat.spec.ts:170:5 › retry preserves the failed turn and does not duplicate history (765ms)
+  ✓  10 [desktop] › e2e/chat.spec.ts:188:5 › network failure has a safe retry path (747ms)
+  ✓  11 [desktop] › e2e/chat.spec.ts:197:5 › cancelling prevents a late response from appearing and preserves a retry (686ms)
+  ✓  12 [desktop] › e2e/chat.spec.ts:219:5 › malformed responses produce a recoverable safe error (643ms)
+  ✓  13 [desktop] › e2e/chat.spec.ts:228:5 › model text is inert and only exact approved URLs become links (664ms)
+  ✓  14 [desktop] › e2e/chat.spec.ts:241:5 › blank input, multiline entry, and IME composition do not send accidentally (696ms)
+  ✓  15 [desktop] › e2e/chat.spec.ts:256:5 › new conversation clears local state without persistence (894ms)
+  ✓  16 [desktop] › e2e/chat.spec.ts:268:5 › viewport has no horizontal overflow and primary controls are reachable (681ms)
+  ✓  17 [desktop] › e2e/chat.spec.ts:279:5 › long conversations and composer input remain bounded (1.5s)
+  ✓  18 [desktop] › e2e/chat.spec.ts:303:5 › long inert response remains within the mobile viewport with reduced motion (648ms)
+  ✓  19 [desktop] › e2e/chat.spec.ts:312:5 › a new conversation cannot be overwritten by an older in-flight response (1.2s)
+  ✓  20 [desktop] › e2e/chat.spec.ts:336:5 › reading earlier messages is respected until Jump to latest is used (862ms)
+  ✓  21 [desktop] › e2e/chat.spec.ts:358:5 › welcome starts at the top and reset restores that position (750ms)
+  ✓  22 [desktop] › e2e/chat.spec.ts:377:5 › keyboard topic activation preserves a stable focus target (884ms)
+  ✓  23 [desktop] › e2e/chat.spec.ts:388:5 › keyboard retry preserves focus without duplicating the user turn (823ms)
+  ✓  24 [desktop] › e2e/chat.spec.ts:407:5 › client deadline yields a saved draft and does not accept late output (780ms)
+  ✓  25 [desktop] › e2e/hydration.spec.ts:3:5 › cold-load controls wait for hydration before accepting the first message (659ms)
+  ✓  26 [desktop] › e2e/hydration.spec.ts:44:5 › without JavaScript the contact route remains usable and chat is not falsely interactive (533ms)
+  ✓  27 [desktop] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 320x568 (761ms)
+  ✓  28 [desktop] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 360x640 (914ms)
+  ✓  29 [desktop] › e2e/readability.spec.ts:63:5 › important helper and privacy copy remains at least 12px (727ms)
+  ✓  30 [mobile] › e2e/chat.spec.ts:11:5 › first impression has a real app icon, one restrained Donna mark, generous composer, and useful greeting (1.3s)
+  ✓  31 [mobile] › e2e/chat.spec.ts:34:5 › ambient media is local, muted, bounded, and presentation-only (808ms)
+  ✓  32 [mobile] › e2e/chat.spec.ts:55:5 › reduced motion keeps the static poster and never mounts the ambient video (1.0s)
+  ✓  33 [mobile] › e2e/chat.spec.ts:66:5 › ambient motion control never obscures the hero across responsive widths (1.6s)
+  ✓  34 [mobile] › e2e/chat.spec.ts:97:5 › anonymous conversation uses the real server and official links (3.3s)
+  ✓  35 [mobile] › e2e/chat.spec.ts:114:5 › Donna presentation handles one configured next step and an opt-out (842ms)
+  ✓  36 [mobile] › e2e/chat.spec.ts:136:5 › all six entry points are present and clarification preserves an ordinal follow-up (2.1s)
+  ✓  37 [mobile] › e2e/chat.spec.ts:150:5 › loading is announced and rapid Enter cannot duplicate a request (756ms)
+  ✓  38 [mobile] › e2e/chat.spec.ts:170:5 › retry preserves the failed turn and does not duplicate history (702ms)
+  ✓  39 [mobile] › e2e/chat.spec.ts:188:5 › network failure has a safe retry path (787ms)
+  ✓  40 [mobile] › e2e/chat.spec.ts:197:5 › cancelling prevents a late response from appearing and preserves a retry (686ms)
+  ✓  41 [mobile] › e2e/chat.spec.ts:219:5 › malformed responses produce a recoverable safe error (904ms)
+  ✓  42 [mobile] › e2e/chat.spec.ts:228:5 › model text is inert and only exact approved URLs become links (1.2s)
+  ✓  43 [mobile] › e2e/chat.spec.ts:241:5 › blank input, multiline entry, and IME composition do not send accidentally (662ms)
+  ✓  44 [mobile] › e2e/chat.spec.ts:256:5 › new conversation clears local state without persistence (784ms)
+  ✓  45 [mobile] › e2e/chat.spec.ts:268:5 › viewport has no horizontal overflow and primary controls are reachable (588ms)
+  ✓  46 [mobile] › e2e/chat.spec.ts:279:5 › long conversations and composer input remain bounded (1.6s)
+  ✓  47 [mobile] › e2e/chat.spec.ts:303:5 › long inert response remains within the mobile viewport with reduced motion (711ms)
+  ✓  48 [mobile] › e2e/chat.spec.ts:312:5 › a new conversation cannot be overwritten by an older in-flight response (789ms)
+  ✓  49 [mobile] › e2e/chat.spec.ts:336:5 › reading earlier messages is respected until Jump to latest is used (902ms)
+  ✓  50 [mobile] › e2e/chat.spec.ts:358:5 › welcome starts at the top and reset restores that position (689ms)
+  ✓  51 [mobile] › e2e/chat.spec.ts:377:5 › keyboard topic activation preserves a stable focus target (796ms)
+  ✓  52 [mobile] › e2e/chat.spec.ts:388:5 › keyboard retry preserves focus without duplicating the user turn (777ms)
+  ✓  53 [mobile] › e2e/chat.spec.ts:407:5 › client deadline yields a saved draft and does not accept late output (1.5s)
+  ✓  54 [mobile] › e2e/hydration.spec.ts:3:5 › cold-load controls wait for hydration before accepting the first message (763ms)
+  ✓  55 [mobile] › e2e/hydration.spec.ts:44:5 › without JavaScript the contact route remains usable and chat is not falsely interactive (508ms)
+  ✓  56 [mobile] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 320x568 (844ms)
+  ✓  57 [mobile] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 360x640 (896ms)
+  ✓  58 [mobile] › e2e/readability.spec.ts:63:5 › important helper and privacy copy remains at least 12px (823ms)
+
+
+  1) [desktop] › e2e/chat.spec.ts:34:5 › ambient media is local, muted, bounded, and presentation-only
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator:  locator('.intro-media')
+    Expected: "paused"
+    Received: "video"
+    Timeout:  8000ms
+
+    Call log:
+      - Expect "toHaveAttribute" locator('.intro-media') with timeout 8000ms
+      - waiting for locator('.intro-media')
+        20 × locator resolved to <div aria-hidden="true" class="intro-media" data-motion="video">…</div>
+           - unexpected value "video"
+
+
+      47 |   await expect(pause).toBeVisible();
+      48 |   await pause.click();
+    > 49 |   await expect(media).toHaveAttribute("data-motion", "paused");
+         |                       ^
+      50 |   expect(await video.evaluate((node) => (node as HTMLVideoElement).paused)).toBe(true);
+      51 |   await page.getByRole("button", { name: "Play ambient motion" }).click();
+      52 |   await expect(media).toHaveAttribute("data-motion", "video");
+        at /workspace/e2e/chat.spec.ts:49:23
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/chat-ambient-media-is-loca-42144-unded-and-presentation-only-desktop/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/chat-ambient-media-is-loca-42144-unded-and-presentation-only-desktop/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/chat-ambient-media-is-loca-42144-unded-and-presentation-only-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/chat-ambient-media-is-loca-42144-unded-and-presentation-only-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [desktop] › e2e/chat.spec.ts:34:5 › ambient media is local, muted, bounded, and presentation-only
+  57 passed (1.2m)

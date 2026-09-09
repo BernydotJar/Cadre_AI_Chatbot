@@ -1,0 +1,17 @@
+PX5 anonymous public smoke — premium production
+runtime_source_sha=ded08392e2dfea76e4050a234165f5e7b8c4152b
+deployment_id=dpl_A6CvaDHT34auCMFFoNxnmDvCXCBY
+alias=https://cadre-ai-chatbot-tawny.vercel.app
+
+health={"status":"ok"}
+stale_candidate_marker=absent
+old_hero_marker=absent
+HTTP/2 200
+page_markers=PASS
+hello={"reply":"Hi - I can help you explore Cadre AI's services, industries, AI agents, the AI Maturity Index, client access guidance, or how to talk with an AI strategist. What would you like to explore?","kind":"greeting"}
+overview={"reply":"Cadre AI is an AI strategy and implementation consultancy that helps businesses move from AI confusion to AI confidence. Cadre AI works department by department to identify high-ROI AI opportunities, build workflows and agents, and train teams so changes stick. Core services are AI Strategy, AI Leadership & Facilitation, AI Engineering, and AI Agents. Its engineering approach considers existing tools, workflow automation, API connections, and custom agents according to the business problem. Cadre states that it has delivered more than 100 high-ROI use cases across more than 50 companies.\n\nWhich part of the business is creating the most repetitive work today?\n\nAI Strategy: https://cadre.ai/strategy\n\nAI Engineering: https://cadre.ai/ai-engineering\n\nAI Agents: https://cadre.ai/agents\n\nAI Leadership & Facilitation: https://cadre.ai/leadership-facilitation","kind":"grounded"}
+overview_optout={"reply":"Cadre AI is an AI strategy and implementation consultancy that helps businesses move from AI confusion to AI confidence. Cadre AI works department by department to identify high-ROI AI opportunities, build workflows and agents, and train teams so changes stick. Cadre states that it has delivered more than 100 high-ROI use cases across more than 50 companies. Core services are AI Strategy, AI Leadership & Facilitation, AI Engineering, and AI Agents. Its engineering approach considers existing tools, workflow automation, API connections, and custom agents according to the business problem.\n\nAI Strategy: https://cadre.ai/strategy\n\nAI Engineering: https://cadre.ai/ai-engineering\n\nAI Agents: https://cadre.ai/agents\n\nAI Leadership & Facilitation: https://cadre.ai/leadership-facilitation","kind":"grounded"}
+optout_followup=absent
+pricing_account_boundary={"reply":"I don't have verified information to answer that — I'd rather connect you with the team than guess. You can reach the Cadre AI team through the link below.\n\nContact Cadre AI: https://cadre.ai/contact","kind":"decline"}
+boundary_persona_guidance=absent
+public_smoke=PASS
