@@ -6,7 +6,7 @@
 
 One coordinator owns Git and the graph ledger. Implementers receive the active node, permitted files, frozen acceptance criteria and relevant findings. Critics and verifiers receive a fresh bounded context and may write only their own evidence report, not production code. This separates authorship from review; it does not claim a human or organizational audit.
 
-N2 example: `/root/n2_critic` reproduced four defects on the recovered implementation; `/root/n2_fixer` repaired them and added regressions; `/root/n2_verifier` independently checks the corrected snapshot. Reports retain actual commands and hashes under `evidence/N2-knowledge-routing/`. A task name documents execution provenance; it is not an authenticated human signature. Reports include findings and observable results, never private reasoning transcripts.
+N2 example: `/root/n2_critic` reproduced four defects on the recovered implementation; `/root/n2_fixer` repaired them and added regressions; `/root/n2_verifier` independently checked the corrected snapshot, first found a further singular-access defect, then passed the repaired follow-up. Reports retain actual commands and hashes under `evidence/N2-knowledge-routing/`. A task name documents execution provenance; it is not an authenticated human signature. Reports include findings and observable results, never private reasoning transcripts.
 
 ## Local commands
 

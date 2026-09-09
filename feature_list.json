@@ -15,7 +15,7 @@
       "id": "001-support-chatbot",
       "title": "Grounded support chatbot",
       "mode": "MVP",
-      "status": "in_progress",
+      "status": "blocked",
       "summary": "One-page grounded support chatbot: curated versioned knowledge with approved links, deterministic routing, narrow mockable provider adapter, bounded conversations, honest fallback, verified public deployment, reproducible verified source archive.",
       "nodes": [
         { "id": "N1-foundation", "alias": "N1", "title": "Application foundation (local)" },

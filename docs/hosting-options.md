@@ -2,6 +2,8 @@
 
 Reviewed 2026-09-08. The owner asked to compare Vercel, AWS and Terraform, then identified Vercel team `cadre-ai` and reported a Pro plan. The supplied new-project URL was inspected in the integrated browser, which showed Login/Sign Up rather than an authenticated team. This does not establish the state of the owner's other browser sessions. N5 remains blocked on verified access and deployment permission; no cloud resources have been created.
 
+Later update: the owner explicitly requested the official CLI. Login through Vercel CLI 59.12.0 succeeded. Team discovery shows `Cadre_AI` / `cadre-ai3`; `project ls --scope cadre-ai` fails with a nonexistent-scope error. A read-only listing of `cadre-ai3` returns no projects. Confirm the mismatch before linking or creating a project. No secret, login code or token is retained in this document.
+
 ## Recommendation
 
 Use Vercel for the first public release of this small Next.js application, subject to account authorization and plan eligibility. Keep application code on ordinary Node.js, HTTP and server environment variables. There is no database, object store, queue or provider-specific SDK to migrate.

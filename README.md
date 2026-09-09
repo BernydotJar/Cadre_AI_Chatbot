@@ -41,7 +41,7 @@ Unknown pricing, private accounts and unsupported topics are handled determinist
 
 `npm run verify -- unique-run-label` retains real mock-test/typecheck/lint/build output under `evidence/runs/`. [N3 evidence](evidence/N3-chat-api-adapter/coordinator-verification.md) separates coordinator verification, live local checks and the blocked independent review. The E2E script is reserved for N4; a completed browser suite is not claimed yet.
 
-Vercel is the proposed first target; the owner identified the `cadre-ai` team and reports a Pro plan. Authenticated access and deployment permission still need confirmation. No cloud resources, pushes, uploads or submissions have been performed. [Hosting tradeoffs](docs/hosting-options.md) explain why Terraform does not automatically make infrastructure provider-neutral. Packaging must retain `.git` and exclude `.env.local`, `.codex`, dependencies, build output and private inputs; no ready-to-submit ZIP exists yet.
+Vercel is the proposed first target; the owner supplied `cadre-ai` and reports a Pro plan. CLI authentication succeeded, but that scope does not exist for this session: the accessible team is `Cadre_AI` / `cadre-ai3`. Confirm the intended target before deployment. No cloud resources, pushes, uploads or submissions have been performed. [Hosting tradeoffs](docs/hosting-options.md) explain why Terraform does not automatically make infrastructure provider-neutral. Packaging must retain `.git` and exclude `.env.local`, `.codex`, dependencies, build output and private inputs; no ready-to-submit ZIP exists yet.
 
 - Product plan and decision log: [plan.md](plan.md)
 - Canonical specification: [specs/001-support-chatbot/](specs/001-support-chatbot/)

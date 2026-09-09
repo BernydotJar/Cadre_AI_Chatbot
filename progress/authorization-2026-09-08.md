@@ -11,6 +11,13 @@ Source: project owner's direct follow-up on 2026-09-08. This is a sanitized deci
 - The delivery archive must include the real `.git` history. No push, public deployment, recruiting communication, upload or submission is inferred from this local-commit authorization.
 - Any coding assistant is permitted by the supplied clarification; process artifacts and actual provenance must stay accurate. Do not attribute work to a tool or subagent that did not perform it.
 
-## Recovery finding
+## Historical recovery finding
 
 Fresh `npm test` on the recovered snapshot: 42 tests pass, one suite fails to import because the second-client fixture lacks two mandatory `label` fields. Earlier 48-pass output is historical, not current verification. N2 stays open until repaired and independently checked. No paid requests have been made in this continuation at this checkpoint.
+
+## Later owner instructions and current boundary
+
+- Owner explicitly requested UI subagents, an up-to-date chatbot assessment, Context7 where available, and review of the Laws of UX and autoskills references. Dispatch was real but later interrupted by workspace-credit errors; coordinator research and implementation must not be attributed to those interrupted agents.
+- Owner supplied a Vercel new-project URL with `teamSlug=cadre-ai`, reported a Pro account, then explicitly requested the official CLI and offered to authenticate. CLI login was initiated and completed through the device flow; no password, OTP or bearer token was requested in conversation or retained in evidence.
+- CLI discovery lists `Cadre_AI` / `cadre-ai3`, while querying the supplied `cadre-ai` scope fails. Confirm the actual target before creating resources or deploying. Authentication is not release approval; no push, submission or paid add-on purchase is inferred.
+- N2 subsequently passed its real independent gate. N3 now passes coordinator/mock/build/live-local checks, but its independent-review gate remains blocked. See the ledger and current checkpoint, not the historical recovery paragraph above.

@@ -1,6 +1,6 @@
 # Plan — Cadre AI Chatbot
 
-**Status: approved, in progress.** The 001-support-chatbot scope was human-approved on 2026-09-08 (recorded in `graph-harness.events.jsonl`). Execution status is owned by the event ledger — this file and `feature_list.json` are projections. U1/U2/U4 are now resolved by the owner's follow-up: OpenRouter, $5 total inference allowance, and small local commits with the configured author. U3 deployment target/account remains open. See `progress/authorization-2026-09-08.md`.
+**Status: approved, partially implemented with documented blockers.** The 001-support-chatbot scope was human-approved on 2026-09-08 (recorded in `graph-harness.events.jsonl`). Execution status is owned by the event ledger — this file and `feature_list.json` are projections. U1/U2/U4 are resolved: OpenRouter, $5 total inference allowance, and small local commits. N3 independent review is blocked by a workspace-credit error. Vercel CLI authentication succeeded, but the supplied `cadre-ai` scope does not exist for this session; the CLI lists `Cadre_AI` / `cadre-ai3`. Confirm that target before deployment. See `progress/authorization-2026-09-08.md`.
 
 ## Objective
 
@@ -21,8 +21,8 @@ Canonical detail: `specs/001-support-chatbot/requirements.md`. This file is an i
 | M0 | Repository foundation and canonical spec | this document set | done (approved 2026-09-08) |
 | M1 | App foundation, local walking skeleton | node `N1-foundation` | done (ledger: done; evidence/N1-foundation/) |
 | M2 | Knowledge base and routing | node `N2-knowledge-routing` | done: critic/fixer/independent verification, 114 tests and production build |
-| M3 | Chat API and provider adapter (mock-first) | node `N3-chat-api-adapter` | running: OpenRouter integration with controlled live evaluation after mock checks |
-| M4 | Conversation UI and UX states | node `N4-ui` | not started |
+| M3 | Chat API and provider adapter (mock-first) | node `N3-chat-api-adapter` | blocked: 200 tests/build and live local smoke pass; separate-agent review unavailable |
+| M4 | Conversation UI and UX states | node `N4-ui` | research brief prepared; implementation waits on N3 gate |
 | M5 | Early deployment — authorization-gated, attempted as soon as U3 resolves; may run in parallel with M2–M4 | node `N5-deploy` | blocked (ledger: blocked awaiting U3) |
 | M6 | Verification, live evaluation, packaging, release readiness | node `N6-verify-release` | not started |
 
@@ -44,8 +44,8 @@ Canonical detail: `specs/001-support-chatbot/requirements.md`. This file is an i
 | ID | Decision needed | Blocks (only) |
 |----|-----------------|---------------|
 | U1 | Resolved: OpenRouter; model selection delegated, inexpensive explicit model preferred | no longer blocks N3; adapter is server-side only |
-| U2 | Resolved: $5 total, seven-day credential validity reported by owner; exact expiry not yet verified | bounded chatbot inference only, retain reserve; never coding assistance |
-| U3 | Deployment platform and account | deployment only (`N5-deploy` and the deployed checks in N6) |
+| U2 | Resolved: $5 total; conservative operational expiry 2026-09-15T00:00:00Z despite later provider metadata | bounded chatbot inference only, retain reserve; never coding assistance |
+| U3 | Vercel selected; CLI authenticated, but `cadre-ai` versus accessible `cadre-ai3` needs owner confirmation before deployment | deployment only (`N5-deploy` and the deployed checks in N6) |
 | U4 | Resolved: owner requests small commits; existing configured Git identity retained | local commits authorized; no push or submission authorization inferred |
 | U5 | Target release date | nothing; informational for scheduling the N6 closure gate |
 | U6 | Whether a public client-portal URL exists | not a release blocker — the agreed honest contact fallback covers S3; resolving U6 only refines that answer's wording |
@@ -88,13 +88,14 @@ Methodology conventions (spec layout, status vocabulary, gate discipline) are ad
 - iCloud-hosted working copy: slow I/O and sync artifacts around `node_modules`/`.git` (accepted, documented; D6).
 - Serverless rate limiting is process-local, not a hard guarantee — it will be labeled honestly in docs and UI.
 - Public site content can change; every knowledge entry carries source and retrieval date.
-- Provider cost/latency unknown until U1/U2 resolve; mocked tests remain clearly labeled as mocks.
+- Small local live smoke passed; observed cumulative usage $0.0006324, remaining $4.9993676. Provider accounting can lag. Mock, live local, browser and public checks remain separate evidence categories.
+- Separate-agent execution stopped with an exhausted-workspace-credit error; coordinator verification cannot substitute for independent review.
 
-## Evidence
+## Historical bootstrap evidence
 
 - Remote adopted non-destructively: `origin/main` @ `179bf51` ("Initial commit": `README.md`, `.gitignore`); local branch `main` tracks it. Pre-existing untracked `test.md` preserved, unstaged.
 - Draft documentation set: `CLAUDE.md`, `plan.md`, `specs/001-support-chatbot/{requirements,design,tasks}.md`, `feature_list.json`, README update — all uncommitted pending approval; corrected after documentation review on 2026-09-08 (packaging criterion, gating separation, graph bootstrap, ID/contract consistency, bounded wording).
 
 ## Next action
 
-Save the recovered working snapshot, fix the failing second-client fixture, complete N2 critic/fixer/independent-verifier gates, then execute N3 and N4. Historical spec headers and bootstrap proposals are retained as the approved baseline; the ledger and this authorization amendment supersede stale approval wording. No runtime baseline regeneration. Deployment recommendation: Vercel first with portable Node runtime; Terraform is deferred pending a concrete infrastructure target, not claimed to provide automatic multi-cloud portability.
+Restore separate-agent execution, review the retained N3 implementation, repair findings and obtain independent verification before closing N3 and executing N4. Use `docs/chatbot-ux-assessment.md` for the UI brief. Confirm the Vercel team mismatch before changing cloud state. The local live server has been stopped; `.env.local` still defaults to mock. Historical spec headers and bootstrap proposals are retained as the approved baseline; the ledger and authorization amendment supersede stale wording. Do not regenerate the baseline. Terraform remains deferred; it is not automatic multi-cloud portability. No product release or final archive is claimed.
