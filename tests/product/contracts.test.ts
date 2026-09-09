@@ -90,6 +90,32 @@ describe("product profile contracts", () => {
     expect(() => validateProductProfile(bad)).toThrow(/hex color/);
   });
 
+  it("keeps ambient media local, bounded, and optional", () => {
+    const valid = fixture();
+    valid.experience.ambientMedia = {
+      posterSrc: "/media/ambient.webp",
+      videoSrc: "/media/ambient.mp4",
+      durationSeconds: 8,
+    };
+    expect(validateProductProfile(valid).experience.ambientMedia?.durationSeconds).toBe(8);
+
+    const remote = fixture();
+    remote.experience.ambientMedia = {
+      posterSrc: "https://cdn.example/poster.webp",
+      videoSrc: "/media/ambient.mp4",
+      durationSeconds: 8,
+    };
+    expect(() => validateProductProfile(remote)).toThrow(/local \/media image asset/);
+
+    const tooLong = fixture();
+    tooLong.experience.ambientMedia = {
+      posterSrc: "/media/ambient.webp",
+      videoSrc: "/media/ambient.mp4",
+      durationSeconds: 12,
+    };
+    expect(() => validateProductProfile(tooLong)).toThrow();
+  });
+
   it("rejects presentation identity that drifts from the persona name", () => {
     const bad = fixture();
     bad.experience.assistantLabel = "Someone Else";

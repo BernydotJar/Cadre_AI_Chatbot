@@ -58,6 +58,37 @@ function PersonaAvatar({ experience, compact = false }: {
   </span>;
 }
 
+function AmbientMedia({ media }: { media: NonNullable<ExperienceProfile["ambientMedia"]> }) {
+  const [motionAllowed, setMotionAllowed] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => setMotionAllowed(!query.matches);
+    sync();
+    query.addEventListener("change", sync);
+    return () => query.removeEventListener("change", sync);
+  }, []);
+
+  return <div
+    className="intro-media"
+    data-motion={motionAllowed ? "video" : "poster"}
+    style={{ backgroundImage: `url(${media.posterSrc})` }}
+    aria-hidden="true"
+  >
+    {motionAllowed ? <video
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      poster={media.posterSrc}
+      tabIndex={-1}
+    >
+      <source src={media.videoSrc} type="video/mp4" />
+    </video> : null}
+  </div>;
+}
+
 function ReplyText({ text, links }: { text: string; links: ApprovedLink[] }) {
   return <div className="message-text">{approvedTextParts(text, links).map((part, index) => part.href
     ? <a key={index} href={part.href} target="_blank" rel="noopener noreferrer">{part.text}<span className="sr-only"> (opens in a new tab)</span></a>
@@ -271,6 +302,7 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
     </header>
     <main className="workspace">
       <aside className="intro" aria-labelledby="page-title">
+        {experience.ambientMedia ? <AmbientMedia media={experience.ambientMedia} /> : null}
         <div className="intro-copy">
           <p className="eyebrow"><span className="eyebrow-rule" /> {experience.copy.eyebrow}</p>
           <h1 id="page-title">{experience.copy.heroLead}<br /><em>{experience.copy.heroEmphasis}</em></h1>

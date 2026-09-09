@@ -55,6 +55,11 @@ const cadreDonnaProfile: ChatbotProductProfile = {
     id: "cadre-donna-web",
     assistantLabel: "Donna",
     avatar: { style: "orbital-monogram", monogram: "D", label: "Donna AI guide avatar" },
+    ambientMedia: {
+      posterSrc: "/media/donna-ambient-poster.webp",
+      videoSrc: "/media/donna-ambient-loop.mp4",
+      durationSeconds: 8,
+    },
     copy: {
       eyebrow: "GUIDED BY VERIFIED CADRE CONTEXT",
       heroLead: "Turn AI curiosity",

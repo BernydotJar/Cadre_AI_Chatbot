@@ -2,6 +2,14 @@ import { z } from "zod";
 import { clientConfigSchema, validateClientConfig, type ClientConfig } from "@/config/types";
 
 const hexColor = z.string().regex(/^#[0-9a-fA-F]{6}$/, "expected a six-digit hex color");
+const localPosterPath = z.string().regex(
+  /^\/media\/[A-Za-z0-9/_-]+\.(?:webp|png|jpe?g)$/,
+  "ambient poster must be a local /media image asset",
+);
+const localVideoPath = z.string().regex(
+  /^\/media\/[A-Za-z0-9/_-]+\.mp4$/,
+  "ambient video must be a local /media MP4 asset",
+);
 
 export const proactiveQuestionSchema = z.object({
   kind: z.literal("question"),
@@ -54,6 +62,11 @@ export const experienceProfileSchema = z.object({
     monogram: z.string().min(1).max(3),
     label: z.string().min(1),
   }),
+  ambientMedia: z.object({
+    posterSrc: localPosterPath,
+    videoSrc: localVideoPath,
+    durationSeconds: z.number().min(6).max(10),
+  }).optional(),
   copy: z.object({
     eyebrow: z.string().min(1),
     heroLead: z.string().min(1),

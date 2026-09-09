@@ -1,0 +1,38 @@
+[
+  {
+    "name": "motion",
+    "motion": "video",
+    "videoCount": 1,
+    "videoMuted": true,
+    "videoLoop": true,
+    "videoAutoplay": true,
+    "videoPaused": false,
+    "poster": "/media/donna-ambient-poster.webp",
+    "source": "/media/donna-ambient-loop.mp4",
+    "backgroundImage": "url(\"http://127.0.0.1:3100/media/donna-ambient-poster.webp\")",
+    "mediaAriaHidden": "true",
+    "mediaPointerEvents": "none",
+    "introWidth": 678.421875,
+    "documentWidth": 1440,
+    "viewportWidth": 1440,
+    "hasHorizontalOverflow": false
+  },
+  {
+    "name": "reduced",
+    "motion": "poster",
+    "videoCount": 0,
+    "videoMuted": null,
+    "videoLoop": null,
+    "videoAutoplay": null,
+    "videoPaused": null,
+    "poster": null,
+    "source": null,
+    "backgroundImage": "url(\"http://127.0.0.1:3100/media/donna-ambient-poster.webp\")",
+    "mediaAriaHidden": "true",
+    "mediaPointerEvents": "none",
+    "introWidth": 678.421875,
+    "documentWidth": 1440,
+    "viewportWidth": 1440,
+    "hasHorizontalOverflow": false
+  }
+]

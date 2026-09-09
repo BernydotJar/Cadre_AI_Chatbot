@@ -27,6 +27,30 @@ test("first impression has a real app icon, Donna avatar, generous composer, and
   await expect(reply.locator("a")).toHaveCount(0);
 });
 
+test("ambient media is local, muted, bounded, and presentation-only", async ({ page }) => {
+  const media = page.locator(".intro-media");
+  await expect(media).toBeVisible();
+  await expect(media).toHaveAttribute("data-motion", "video");
+  const video = media.locator("video");
+  await expect(video).toHaveCount(1);
+  await expect(video).toHaveAttribute("poster", "/media/donna-ambient-poster.webp");
+  await expect(video.locator("source")).toHaveAttribute("src", "/media/donna-ambient-loop.mp4");
+  expect(await video.evaluate((node) => {
+    const element = node as HTMLVideoElement;
+    return element.muted && element.autoplay && element.loop && element.playsInline;
+  })).toBe(true);
+});
+
+test("reduced motion keeps the static poster and never mounts the ambient video", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.reload();
+  const media = page.locator(".intro-media");
+  await expect(media).toBeVisible();
+  await expect(media).toHaveAttribute("data-motion", "poster");
+  await expect(media.locator("video")).toHaveCount(0);
+  await expect(media).toHaveCSS("background-image", /donna-ambient-poster\.webp/);
+});
+
 test("anonymous conversation uses the real server and official links", async ({ page }) => {
   if (!process.env.E2E_BASE_URL || process.env.E2E_EXPECT_MODE === "mock") {
     await expect(page.getByText(/Demo mode/)).toBeVisible();
