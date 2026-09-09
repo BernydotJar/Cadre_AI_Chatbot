@@ -1,6 +1,6 @@
 # Plan — Cadre AI Chatbot
 
-**Status: PRODUCTIZATION_IN_PROGRESS + DOCUMENTED_EXTERNAL_GIT_BLOCKER.** The original Cadre chatbot release is complete and publicly verified (N1–N6 DONE). A new owner-authorized productization graph is now active to turn the implementation into a reusable chatbot product composed from **Knowledge → Persona → Experience**. The first persona is **Donna**: useful, warm, concise, and intentionally only one step more proactive than an informational bot. G10 remote CI/CD activation remains externally blocked because the dedicated audited `git_push` channel still has no injected `GITHUB_TOKEN`; container/shared GitHub authentication is not treated as equivalent to that release credential.
+**Status: PRODUCTIZATION_COMPLETE_LOCALLY — PUBLIC PRODUCTIZED RELEASE REVALIDATION PENDING + DOCUMENTED_EXTERNAL_GIT_BLOCKER.** The original Cadre chatbot release is publicly verified (N1–N6 DONE), and the owner-authorized **Knowledge → Persona → Experience** productization graph is now complete locally: P1, P2 and P3 are DONE with every blocking gate PASS. Cadre composes the English persona **Donna**, whose deterministic initiative is capped to one optional diagnostic question after a grounded answer and can be explicitly declined by the user. The productized source passes 279/279 Vitest tests and 52/52 desktop/mobile Playwright cases. The existing Vercel project must still be promoted/reverified for this productized line before the public URL is called equivalent. G10 remote CI/CD activation also remains externally blocked because the dedicated audited `git_push` channel still has no injected `GITHUB_TOKEN`; container/shared GitHub authentication is not equivalent to that release credential.
 
 ## Objective
 
@@ -35,14 +35,14 @@ Live-review preparation should use this table as an index, not as a script: demo
 | M0 | Repository foundation and canonical spec | this document set | done (approved 2026-09-08) |
 | M1 | App foundation, local walking skeleton | node `N1-foundation` | done (ledger: done; evidence/N1-foundation/) |
 | M2 | Knowledge base and routing | node `N2-knowledge-routing` | done: exact greeting/source refresh repair; 146 focused tests + Granite policy review PASS |
-| M3 | Chat API and provider adapter (mock-first) | node `N3-chat-api-adapter` | done: model allowlist/evaluator repair independently verified; current repository suite 256/256, typecheck, lint and build PASS |
-| M4 | Conversation UI and UX states | node `N4-ui` | done: Cadre Signal polish + authored icon; 256 unit/integration and 50 browser cases PASS; Granite final critic PASS |
+| M3 | Chat API and provider adapter (mock-first) | node `N3-chat-api-adapter` | done: model allowlist/evaluator repair independently verified; current productized repository suite 279/279, typecheck, lint and build PASS |
+| M4 | Conversation UI and UX states | node `N4-ui` | done baseline; the productized Donna shell preserves the authored icon/UX contracts and the current browser matrix is 52/52 PASS |
 | M5 | Early deployment — authorization-gated, attempted as soon as U3 resolves; may run in parallel with M2–M4 | node `N5-deploy` | done: authorized mock scaffold, anonymous checks and separate review PASS |
 | M6 | Verification, live evaluation, packaging, release readiness | node `N6-verify-release` | **DONE**: verification/code review/release-check PASS; existing production alias reverified, public Playwright 50/50 PASS, bounded live smoke PASS, package check PASS |
 | M7 | Optional contextual Chrome adapter | separate node `G9-extension-adapter` | done: 72 extension tests, 23 synthetic-browser checks, 17 installed-site checks, Granite review PASS |
 | M8 | GitHub CI + gated Vercel CD | separate node `G10-vercel-cicd` | **blocked at deploy gate only**: workflow source/local marker contract/Granite review PASS; existing Vercel project is proven manually, but workflows are not active remotely until audited Git publication succeeds |
 | M9 | Optional n8n human-handoff contract | separate node `G11-n8n-handoff-contract` | done: isolated n8n 2.38.1 runtime, consent/routing webhook probes and Granite review PASS; real email delivery intentionally not claimed |
-| M10 | Reusable product profiles + Donna + generic experience shell | productization nodes `P1-profile-contracts` → `P2-donna-persona` → `P3-generic-experience-shell` | **in progress**: plan/authorization/graph created; execute full Producer → Critic → Fixer → Independent Verifier → Release Gate lifecycle per node |
+| M10 | Reusable product profiles + Donna + generic experience shell | productization nodes `P1-profile-contracts` → `P2-donna-persona` → `P3-generic-experience-shell` | **DONE locally**: P1/P2/P3 all gates PASS; 279/279 tests, 52/52 browser cases, second-profile reuse proof and Donna avatar/composer evidence retained; public productized release revalidation pending |
 
 ## Decision register
 
@@ -62,10 +62,10 @@ The table records the **current disposition** of architectural decisions. Histor
 | D10 | Chrome context may use only an allowlisted pathname/hash enum for local presentation; no host-page scraping | implemented and installed-site verified |
 | D11 | GitHub CI is secret-free; production CD deploys an exact SHA to the **existing** Vercel project using `pull -> build --prod -> deploy --prebuilt --prod` and public release-marker checks | implemented; remote activation blocked by source publication, while equivalent manual existing-project delivery is proven |
 | D12 | Treat n8n as a replaceable human-handoff adapter, not domain logic or proof of email delivery | contract implemented; G11 DONE |
-| D13 | Product instances compose `ClientConfig + PersonaProfile + ExperienceProfile`; the core remains shared | authorized; implementation in productization graph |
-| D14 | Donna has an **initiative budget of one**: grounded answers may add at most one configured useful next step/question; she cannot add facts, promises, actions, or bypass boundaries | authorized; implementation in P2 |
+| D13 | Product instances compose `ClientConfig + PersonaProfile + ExperienceProfile`; the core remains shared | implemented and independently verified |
+| D14 | Donna has an **initiative budget of one**: grounded answers may add at most one configured diagnostic question; she cannot add facts, promises, links, actions, or bypass boundaries, and explicit `no follow-up`/`just answer` requests suppress the optional question | implemented; P2 DONE after critic-driven opt-out repair |
 | D15 | Keep current retrieval curated and deterministic. Document a future `KnowledgeRetriever` seam, but do **not** add vector search or GraphRAG until corpus size/relationship-heavy queries require it | accepted scope decision |
-| D16 | The default Cadre experience becomes persona-forward: a compact, friendly Donna avatar and a generous writing surface are configuration-driven UI elements, not Cadre-specific logic embedded in the shell | authorized; implementation in P3 |
+| D16 | The default Cadre experience becomes persona-forward: a compact, friendly Donna avatar and a generous writing surface are configuration-driven UI elements, not Cadre-specific logic embedded in the shell | implemented; P3 DONE with Acme/Scout second-profile proof |
 
 ## Resolved constraints and open questions
 
@@ -142,17 +142,19 @@ Shared conversation/runtime core
 
 ### P2 — Donna persona
 
-Donna is defined in English and optimized for **usefulness over information density**. Her operating rules are: understand the actual question, answer from verified context, then—only when useful—move the conversation one step forward. She may ask one diagnostic question, suggest one approved next move, or offer one relevant handoff. She does not stack follow-ups, invent missing facts, pressure the user, claim actions she cannot perform, or make a decline/redirect sound more authoritative than the underlying policy.
+Donna is defined in English and optimized for **usefulness over information density**. Her operating rules are: understand the actual question, answer from verified context, then—only when useful—move the conversation one step forward with **one configured diagnostic question**. She does not stack follow-ups, invent missing facts, pressure the user, claim actions she cannot perform, or make a decline/redirect sound more authoritative than the underlying policy.
 
-A deterministic `initiativeBudget=1` is enforced by application code. Topic-specific proactive guidance is configured alongside the persona and appended **after** the grounded factual answer, outside model authority. Safety/boundary replies remain dominant.
+A deterministic `maxSteps=1` is enforced by application code. Topic-specific questions are application-owned copy, structurally constrained to one short question with no URLs or bundled instructions, and appended **after** the grounded factual answer, outside model authority. The latest user message can explicitly opt out (`no follow-up`, `just answer`, etc.). Safety/boundary replies remain dominant and receive no persona question.
 
 ### P3 — Persona-forward reusable experience
 
-- Replace Cadre-specific UI strings with `ExperienceProfile` values.
-- Make Donna the visible Cadre persona instead of the generic “Cadre AI Assistant”.
-- Use a small friendly, professional vector/CSS avatar—recognizable as Donna without pretending to be a real human—and make the main affordance a generous writing surface (“What are you trying to figure out?”) with optional profile-driven starter prompts.
-- Theme tokens are profile-driven; no second client should require edits to the shared chat component.
-- Preserve accessibility, no-storage behavior, safe-link rendering, request cancellation, bounded transcript/history, and current wire contract.
+- `ExperienceProfile` now owns visible assistant identity, metadata/copy, theme tokens, avatar configuration, prompt text and starter-topic presentation.
+- Donna is the visible Cadre persona instead of the generic “Cadre AI Assistant”.
+- The shared shell renders an original orbital-monogram AI-guide avatar and a generous initial writing surface (“What are you trying to figure out?”); it contains no Cadre/Donna product-name branches.
+- `chatExperience()` projects only presentation/link/topic metadata to the browser; facts, provenance, routing triggers and persona operating rules remain server-side.
+- The fictional Acme Outdoors + Scout fixture proves a second product can reuse the same composition/view contract without Cadre/Donna presentation leakage; it is not registered in production.
+- Visible `assistantLabel` is composition-validated to match `persona.name`, closing identity drift found by the P3 critic.
+- Existing accessibility, no-storage behavior, safe-link rendering, request cancellation, bounded transcript/history, and current wire contract remain covered by regression tests.
 
 ### Retrieval evolution boundary
 
@@ -160,7 +162,7 @@ Current corpus size and query shapes do not justify GraphRAG. The runtime stays 
 
 ### Acceptance
 
-Productization is complete only when the productization graph is valid and P1–P3 are DONE with independent test/review/integration evidence, the full existing regression suite still passes, a second profile proves shell reuse, Donna's one-step initiative is bounded by tests, and the public Cadre deployment is reverified if product behavior/UI changes are released. GitHub remote publication remains a separate external gate and cannot be simulated with a history-rewriting API workaround.
+Local productization acceptance is satisfied: the productization graph is valid with P1–P3 DONE and all blocking gates PASS; 279/279 Vitest and 52/52 Playwright pass; Acme/Scout proves shell reuse; Donna initiative/opt-out and identity invariants are regression-tested. **Release acceptance remains pending until the existing Cadre Vercel project is promoted and the public alias is reverified against Donna/product markers.** GitHub remote publication remains a separate external gate and cannot be simulated with a history-rewriting API workaround.
 
 ## Current content and integration decisions
 
@@ -178,7 +180,7 @@ Owner-requested quality clarification, 2026-09-08. Durable UX-01–09 rules are 
 
 | IDs | Gate and required proof | Current evidence / next action |
 |---|---|---|
-| UX-01, UX-08 | Identity/scope, six starts, safe links, privacy; screenshots + scenario/injection tests | Current 256-test / 50-browser suite plus final Cadre Signal screenshots; exact hello welcome is covered and safe-link/scope contracts remain passing |
+| UX-01, UX-08 | Identity/scope, six starts, safe links, privacy; screenshots + scenario/injection tests | Current 279-test / 52-browser suite plus Donna desktop/mobile screenshots; exact hello, Donna identity/one-step guidance, safe-link and scope contracts remain passing |
 | UX-02–04 | Cold-load, single flight, retry/Stop/reset, keyboard/IME/focus, scroll/history | Independent 42-case local + four cold probes; 38 repaired-public cases. Preserve regressions when changing layout |
 | UX-05 | Four widths + short text-spaced failed/restored-draft states; positive visible transcript geometry and visual QA | PASS for reproduced 320×568 / 360×640 text-spacing defect; readability regression is included in the final 50-case browser suite |
 | UX-06 | Contrast samples, ≥44px primary targets, ≥12px important copy, mobile composer ≥16px | PASS for the measured typography/mobile boundaries in `e2e/readability.spec.ts`; broader accessibility is not inferred |
@@ -204,6 +206,6 @@ The owner requested a temporary Gemini 3.8 Flash comparison. `docs/model-evaluat
 
 ## Next action
 
-Execute the productization graph to completion in dependency order: P1 reusable profile contracts → P2 Donna persona/one-step guidance → P3 profile-driven experience/avatar and second-profile proof. For each node, preserve the Graph lifecycle and evidence chain before advancing. After P3, rerun the full regression/browser matrix and reverify the existing Vercel production project before claiming the new productized experience released.
+Promote the completed productized line to the **existing** Vercel `cadre-ai-chatbot` project, then reverify the public alias: health, `Donna | Cadre AI`, `data-product=cadre-donna`, `What are you trying to figure out?`, greeting, one grounded Donna question, explicit no-follow-up suppression, boundary behavior, and the external 52-case Playwright matrix. Retain deployment ID/URL and exact source SHA as release evidence.
 
-In parallel, the dedicated audited Git publication channel must be repaired. A fresh `git_push` attempt on 2026-09-09 still returned `GITHUB_TOKEN is required for git_push` even though shared/container GitHub checks report authenticated remote access. Therefore the missing credential is the sandbox publisher's injected token, **not** an ordinary `gh auth login` inside `/workspace`. Do not use shell `git push`, token extraction, force push, or GitHub Contents API commit reconstruction as a bypass because the candidate ZIP must preserve the authentic local history/SHA chain.
+Then retry only the dedicated audited Git publication action from the final closure HEAD. A fresh attempt on 2026-09-09 still returned `GITHUB_TOKEN is required for git_push` even though shared/container GitHub checks report authenticated remote access. Therefore the missing credential is the sandbox publisher's injected token, **not** an ordinary `gh auth login` inside `/workspace`. Do not use shell `git push`, token extraction, force push, or GitHub Contents API commit reconstruction as a bypass because the candidate ZIP must preserve the authentic local history/SHA chain. Finally rebuild and clean-room verify the candidate ZIP from the final closure commit with `.git` included and dependencies/build output/secrets excluded.

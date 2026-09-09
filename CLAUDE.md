@@ -2,7 +2,7 @@
 
 ## Product and operating mode
 
-Build a grounded support assistant for [Cadre AI](https://cadre.ai). The mandatory product is an anonymous, publicly deployed chatbot covering six approved scenarios. It explains and routes; it cannot access accounts, book appointments, or issue maturity scores.
+Build and maintain a grounded, reusable assistant runtime. The active Cadre product is an anonymous chatbot covering six approved scenarios and composed as **Knowledge (`ClientConfig`) → Persona (`Donna`) → Experience (`ExperienceProfile`)**. It explains and routes; it cannot access accounts, book appointments, or issue maturity scores.
 
 Use **Graph Engineering**: spec-first planning from harness-sdlc, then event-sourced execution through the pinned Graph Harness runtime. Execution mode: graph. Engineering decisions require observable evidence. Human evaluation: gated. Finish existing READY work before inventing features.
 
@@ -13,21 +13,21 @@ This is working software, not a greenfield scaffold. This file holds durable ins
 - **Next.js 16 App Router, React 19, TypeScript 6**, one app. Exact versions: package-lock.json. No second backend.
 - **Zod 4**, strict boundary validation; pure routing/policy modules independent of framework and provider.
 - **OpenRouter through server-side fetch**, currently openai/gpt-4.1-mini, behind a deterministic mock. No provider SDK, client credential, tools or chatbot agent loop.
-- **Curated TypeScript knowledge + deterministic topic retrieval**. The model orders fact indices; the server retains every routed fact and required boundary, then adds approved links. Never let model selection drop safety context. This is constrained model-assisted answering, not semantic/vector RAG or unrestricted conversation.
+- **Curated TypeScript knowledge + deterministic topic retrieval**. The model orders fact indices; the server retains every routed fact and required boundary, then adds approved links. Donna may append one schema-validated, app-owned diagnostic question after a grounded answer; that copy is not model authority. Never let model selection drop safety context. This is constrained model-assisted answering, not semantic/vector RAG, GraphRAG or unrestricted conversation.
 - **Plain CSS**, responsive components and system fonts; no UI library or external asset dependency.
 - **Vitest 5, Playwright 1.63, ESLint 9 and strict tsc**. Engines: ^22.12.0 || ^24.0.0 || >=26.0.0. Node 26.5.0 verified locally; Node 24.x configured on Vercel.
 - **Vercel**, one Node.js chat function and web UI. Rate limits are process-local, not distributed enforcement. No database, auth, CRM, analytics, vector store, persistent history or Terraform in the baseline.
 
 ## Current product contract — 2026-09-09
 
-The product has two deliberately separate surfaces:
+The product has two deliberately separate surfaces. The public web surface is now profile-driven; the Chrome preview remains a separate optional adapter:
 
-1. **Public web assistant — mandatory.** A grounded Cadre AI support experience with six approved starts, typed curated knowledge, deterministic safety/routing, a server-only provider boundary, and an original red/ink/cream **Cadre Signal** visual system. Exact ordinary greetings such as `hello`, `hi`, `hey`, daypart greetings and `hola` receive a useful deterministic welcome. Greeting recognition is whole-message only; pricing/account/security boundaries still outrank it, so a greeting prefix can never bypass policy.
+1. **Public web assistant — mandatory.** The active allowlisted product is `cadre-donna`: Cadre typed curated knowledge + deterministic safety/routing + the English **Donna** persona + a profile-driven web experience. Donna answers first and may add at most one configured diagnostic question for a grounded topic; explicit latest-turn requests such as `just answer`/`no follow-up` suppress the optional question. Greetings, clarification, redirect and decline replies never receive persona guidance. The visible assistant label must match `persona.name`. The UI uses an original orbital-monogram AI-guide avatar and a prominent profile-driven composer; exact ordinary greetings remain whole-message deterministic welcomes and cannot bypass boundaries.
 2. **Chrome Manifest V3 Integration Preview — optional stretch.** A local presentation adapter that injects one closed-Shadow-DOM launcher only on `https://cadre.ai/*` and `https://www.cadre.ai/*`, opens an extension-origin panel, and sends messages only to the fixed candidate Vercel API. It does not read Cadre page text/forms, request cookies/history/tabs/storage, or alter Cadre servers. The latest disposable Chromium installed-site check is recorded under `extension/evidence/actual-agents-context-20260909/`. The adapter may derive a fixed `pageContext` enum from the approved Cadre pathname/hash only; it must never scrape host-page content. Context can change local copy and a fixed suggested question, never routing/security/network authority.
 
 Supporting workstreams are **not additional product surfaces**: G10 owns GitHub CI/gated Vercel delivery, and G11 proves a credential-free n8n human-handoff contract. G11 is not wired into the public chatbot and is not evidence that a real email was sent. Keep n8n behind a future `HumanHandoffProvider` adapter if promoted.
 
-Visual work must remain original. The supplied third-party chatbot image, orb references and motion references are interaction inspiration only: never copy a mascot, brand asset, composition, or source code. Preserve Cadre's current public design cues (strong red accent, dark ink, clean light surfaces, editorial hierarchy), 320/360px reflow, important helper copy at >=12px, mobile composer at >=16px, visible focus, and `prefers-reduced-motion`. The authored app icon is `app/icon.svg`; extension icons are generated from `extension/icons/icon-source.svg`.
+Visual work must remain original. The supplied third-party chatbot image, orb references and motion references are interaction inspiration only: never copy a mascot, brand asset, composition, or source code. The shared shell must take visual identity from validated `ExperienceProfile` values rather than branch on a client/persona name. Preserve 320/360px reflow, important helper copy at >=12px, mobile composer at >=16px, visible focus, and `prefers-reduced-motion`. Cadre's current profile uses strong red accent, dark ink, clean light surfaces and editorial hierarchy; the Acme/Scout fixture proves another profile can provide a different theme without editing the shell. The authored app icon is `app/icon.svg`; extension icons are generated from `extension/icons/icon-source.svg`.
 
 The public research inventory is `docs/research/cadre-public-sources-20260909.json`. It is **not** runtime authority. Only reviewed claims promoted into `src/config/cadre.ts` may affect answers; raw webpage text is never inserted into a live user prompt.
 
@@ -71,11 +71,12 @@ Architecture diagrams and takeover guidance: `docs/architecture-overview.md`, `d
 
 | Path | Owns | Must not own |
 |---|---|---|
-| src/config/cadre.ts; src/config/types.ts | Brand, topics, facts, provenance, approved links and boundaries | Credentials or account data |
+| src/config/cadre.ts; src/config/types.ts | Topics, facts, provenance, approved links and boundaries | Persona behavior, presentation, credentials or account data |
+| src/product/ | Validated product/persona/experience contracts, allowlisted registry, Donna profile, bounded proactive-question policy and safe browser projection | New factual authority, provider secrets, arbitrary dynamic imports or autonomous actions |
 | src/core/ | Pure validation, routing, clarification and response policy | Network, React or concrete client config |
 | src/provider/; src/server/ | Provider, budget/deadline, HTTP errors and abuse controls | Browser UI or unrestricted model prose |
 | app/api/ | Thin server endpoints | Duplicated domain behavior |
-| app/page.tsx; src/ui/; app/globals.css | Safe props, text rendering, interaction state and layout | Secrets, runtime scraping or policy overrides |
+| app/page.tsx; src/ui/; app/globals.css | Profile-driven safe props, avatar/copy/theme rendering, interaction state and layout | Facts, secrets, runtime scraping or policy overrides |
 | extension/ | Optional fixed-origin presentation/transport adapter | Host-page authority, cookies, arbitrary destinations or provider secrets |
 | integrations/n8n/ | Optional consent-checked handoff workflow contract | Domain policy or a claim of real delivery without a configured provider |
 | .github/workflows/ | Secret-free CI and exact-SHA gated production delivery | Replacement-project creation or embedded secret values |
@@ -85,6 +86,15 @@ Architecture diagrams and takeover guidance: `docs/architecture-overview.md`, `d
 Read detailed docs on demand. Do not load whole transcripts, raw website dumps or every evidence file into each agent context.
 
 Code conventions: strict TypeScript with small typed modules, two-space indentation, explicit boundary validation and named exports where practical. Product copy is English. Every behavior change needs a regression check; do not solicit credentials or sensitive personal data in chat.
+
+## Product profile editing protocol
+
+The production composition root is `src/product/profiles/cadre-donna.ts`; `src/product/active.ts` registers explicit product modules only. Never turn a request/env string into a dynamic import/path/URL. `src/product/fixtures/acme-scout.ts` is a test/architecture proof and must not silently become a production tenant.
+
+- **Knowledge changes** belong in `ClientConfig` and require source/provenance review.
+- **Persona changes** belong in `PersonaProfile`. For v1, proactive guidance is exactly one configured diagnostic question per existing topic, `maxSteps <= 1`, no URL/newline/bundled statements. Keep opt-out semantics.
+- **Experience changes** belong in `ExperienceProfile`; visible `assistantLabel` must equal `persona.name`, theme values remain strict hex tokens, and browser projection must not expose facts/provenance/persona operating rules.
+- **Retrieval** stays curated/deterministic. Do not add embeddings, vector DB or GraphRAG without a demonstrated retrieval failure and a separately approved scope.
 
 ## Knowledge editing protocol
 
@@ -150,4 +160,4 @@ The Chrome floating assistant is a **stretch integration preview**, described in
 
 ## Current release boundary
 
-As of 2026-09-09, core N1–N6 release verification is complete and the existing public Vercel alias is release-equivalent to the reviewed chatbot. G9 and G11 are DONE at their declared scopes. G10 remains blocked only at remote CI/CD activation because the dedicated audited Git publication mechanism still lacks its platform-managed GitHub credential; do not add product scope or create replacement infrastructure to work around that control. Use `docs/release-runbook.md` and `progress/checkpoint.md` to resume source publication/automation work.
+As of 2026-09-09, core N1–N6 remains complete. The separate productization graph is also locally complete: P1/P2/P3 are DONE with every gate PASS, current source verification is 279/279 Vitest and 52/52 Playwright, and Donna/Acme-Scout profile boundaries are independently reviewed. **The existing public Vercel alias still needs promotion/reverification for this productized line before public equivalence is claimed.** G9 and G11 are DONE at their declared scopes. G10 remains blocked only at remote CI/CD activation because the dedicated audited Git publication mechanism still lacks its platform-managed GitHub credential; shared/container GitHub authentication does not satisfy that publisher. Do not add product scope or create replacement infrastructure to work around it. Use `docs/release-runbook.md` and `progress/checkpoint.md` to resume deployment/publication work.

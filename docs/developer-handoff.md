@@ -34,11 +34,13 @@ When a request arrives, think in this order:
 
 1. **Can we safely accept the request?** HTTP, size, schema, deadline, rate limit.
 2. **Is there a deterministic policy outcome?** greeting, private/account question, unverified claim, ambiguity, unsupported request.
-3. **Which reviewed Cadre topic owns it?** deterministic routing.
-4. **If grounded, which approved facts are eligible?** typed `ClientConfig` only.
-5. **The model may select fact indices.** It does not create new authority.
-6. **The server reassembles the answer and approved URLs.**
-7. **The UI renders text, not model HTML.**
+3. **Which allowlisted product is active?** Production defaults to `cadre-donna`; product IDs never become dynamic module paths.
+4. **Which reviewed Cadre topic owns it?** deterministic routing.
+5. **If grounded, which approved facts are eligible?** typed `ClientConfig` only.
+6. **The model may select fact indices.** It does not create new authority.
+7. **The server reassembles the answer and approved URLs.**
+8. **Donna may add one app-owned diagnostic question.** Grounded only; explicit opt-out suppresses it.
+9. **The UI renders the validated experience profile and inert text.** It does not receive factual authority or model HTML.
 
 If a proposed change skips one of those boundaries, examine it carefully.
 
@@ -46,7 +48,8 @@ If a proposed change skips one of those boundaries, examine it carefully.
 
 ```text
 app/                         Next.js page + API routes + global CSS
-src/config/                  Cadre knowledge, brand, approved links, schemas
+src/config/                  Client knowledge, approved links, boundaries
+src/product/                 Product/persona/experience contracts, Donna, registry, view projection
 src/core/                    Pure validation, routing and response policy
 src/provider/                Mock/OpenRouter FactSelector implementations
 src/server/                  HTTP orchestration, I/O limits, rate limiting
@@ -78,6 +81,14 @@ Never infer pricing, certifications, portal URLs, SLAs, or completed actions fro
 ### Add or adjust routing language
 
 Work in `src/core/route.ts` and client routing vocabulary. Test ambiguity, overlapping aliases, boundary precedence, and the second-client fixture. Do not “solve” missed routing by sending every message to the model.
+
+### Add or change a persona / experience
+
+Keep the three authorities separate. Facts/links/boundaries stay in `ClientConfig`; persona voice and bounded initiative stay in `PersonaProfile`; page copy/theme/avatar stay in `ExperienceProfile`. For v1, proactive guidance is one schema-validated diagnostic question per existing topic and cannot carry URLs or bundled instructions. Preserve explicit user opt-out.
+
+The visible `assistantLabel` must match `persona.name`. Register production products explicitly in `src/product/active.ts`; do not dynamically import a profile from user/env input. Use the fictional `src/product/fixtures/acme-scout.ts` and `tests/product/view.test.ts` as the reuse regression: a second profile must project without Cadre/Donna presentation leakage.
+
+Do not add vector retrieval or GraphRAG merely because profiles are modular. Retrieval evolution is a separate decision triggered by observed corpus/query failure.
 
 ### Change the model/provider
 
@@ -156,7 +167,7 @@ A unit test, a synthetic browser test, a live local inference, a public deployme
 - Do not rewrite historical FAIL/BLOCKED evidence into PASS.
 - Do not rewrite Git history to improve apparent provenance.
 - Do not replace deterministic boundaries with free-form model reasoning.
-- Do not add a database/vector store/CRM/auth layer without a concrete requirement.
+- Do not add a database/vector store/GraphRAG/CRM/auth layer without a concrete requirement.
 - Do not put secrets, real recipients, or provider credentials in tracked files.
 
 ## Escalate before changing

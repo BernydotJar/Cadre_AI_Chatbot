@@ -4,11 +4,12 @@ Purpose: finish the current Cadre AI chatbot release without confusing local rea
 
 ## Current release state
 
-Core software and N6 production release verification are complete. The remaining blocker is remote CI/CD activation:
+Core N6 production verification is complete, and the separate Donna productization graph is locally complete. Before final handoff, the productized line must be promoted/reverified on the **existing** Vercel project; remote GitHub CI/CD activation remains independently blocked:
 
 | Gate | Current state | What clears it |
 |---|---|---|
-| Core N6 release | **DONE** | Existing production alias reverified; release-check PASS and package check PASS |
+| Core N6 release | **DONE** | Existing production alias reverified for the prior core line; release-check PASS and package check PASS |
+| Donna productization P1–P3 | **DONE locally** | 279/279 Vitest + 52/52 Playwright + all productization gates PASS; promote/reverify on existing Vercel project before public equivalence |
 | G10 CI/CD deploy-check | BLOCKED | Publish workflows to GitHub, provision existing-project production secrets, then exercise automated exact-SHA delivery |
 | GitHub remote activation | BLOCKED | Dedicated audited publication channel receives its platform-managed GitHub credential |
 | G9 Chrome preview | DONE | No further action required for core release |
@@ -166,3 +167,8 @@ For provider-specific instability, explicit mock mode may be used for diagnosis,
 - [ ] Graph release gates updated from real evidence.
 - [ ] Final ZIP rebuilt and independently verified from the N6 closure commit.
 - [ ] Submission/upload remains a separate explicit human action.
+
+
+## Donna productized release markers
+
+After promoting the productized line, verify the existing public alias anonymously. Minimum release markers are: page title `Donna | Cadre AI`, root `data-product="cadre-donna"`, visible assistant heading `Donna`, composer placeholder `What are you trying to figure out?`, `/api/health` healthy, exact `hello` remains `kind=greeting`, a grounded overview answer contains exactly one configured Donna diagnostic question, the same request with `Just answer, no follow-up questions please.` contains no Donna question, and a pricing/account boundary contains no persona guidance. Then run the external **52-case** Playwright matrix.

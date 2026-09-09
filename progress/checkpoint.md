@@ -4,11 +4,11 @@ Updated: 2026-09-09 UTC. This is a projection; the append-only Graph Harness led
 
 ## Terminal state for this session
 
-**PARTIAL_WITH_DOCUMENTED_BLOCKERS — remote source publication / CI activation only.** Core N1–N6 release verification is complete and the existing Vercel production alias is release-equivalent to the reviewed chatbot. G9 Chrome and G11 n8n are DONE at their declared optional scopes. G10 remains BLOCKED only at deploy-check because the audited Git publication channel still lacks its platform-managed credential, so the locally versioned workflows are not active on `origin/main`.
+**PRODUCTIZATION_COMPLETE_LOCALLY — PUBLIC DONNA RELEASE REVALIDATION PENDING + EXTERNAL GIT BLOCKER.** Core N1–N6 remains complete. The separate productization graph is also complete locally: P1/P2/P3 are DONE and every verification/code-review/integration gate is PASS. Current productized source passes 279/279 Vitest and 52/52 Playwright. The existing Vercel alias is still the verified prior core release until the Donna line is promoted/rechecked. G9 Chrome and G11 n8n remain DONE. G10 remains BLOCKED at deploy-check because the audited Git publisher still lacks its platform-managed credential.
 
 Public alias: `https://cadre-ai-chatbot-tawny.vercel.app`.
 
-Product, contextual extension, CI/CD, n8n and documentation increments are split into bounded commits. Existing Git author/committer history is retained as recorded and is not used as proof that a particular human or coding tool executed a change. This checkpoint intentionally does not embed a self-referential current HEAD; reproduce it with `git rev-parse HEAD`. Main graph sequence is **157**, last event `afc29093-95c1-4994-bb9f-36e7032be67a`. Extension graph sequence is **34**, last event `9db84544-4f7c-42fa-9605-e3f1983740d6`. CI/CD graph sequence is **14**, last event `ad80d350-31bd-422a-be23-2c644e837d15`. n8n graph sequence is **12**, last event `a35c57ad-30b4-4fd7-aeec-ce11084d239c`.
+Product, contextual extension, CI/CD, n8n and documentation increments are split into bounded commits. Existing Git author/committer history is retained as recorded and is not used as proof that a particular human or coding tool executed a change. This checkpoint intentionally does not embed a self-referential current HEAD; reproduce it with `git rev-parse HEAD`. Main graph sequence is **157**, last event `afc29093-95c1-4994-bb9f-36e7032be67a`. Extension graph sequence is **34**, last event `9db84544-4f7c-42fa-9605-e3f1983740d6`. CI/CD graph sequence is **14**, last event `ad80d350-31bd-422a-be23-2c644e837d15`. n8n graph sequence is **12**, last event `a35c57ad-30b4-4fd7-aeec-ce11084d239c`. Productization graph sequence is **51**, last event `1fe50e49-f77d-4d69-ae72-1f379208ba65`; P1/P2/P3 are DONE.
 
 ## Main graph
 
@@ -50,15 +50,28 @@ Separate graph `progress/extension-graph.*`: **G9 DONE** with `security-review=P
 
 Two failed actual-site test attempts are retained: a whole-page overflow assertion incorrectly blamed the extension for Cadre's own 8px baseline; then Page-scope network instrumentation failed to see service-worker traffic. Both test defects were corrected before the final PASS.
 
+## Productization — Knowledge → Persona → Experience
+
+Separate graph `progress/productization-graph.*`: **P1/P2/P3 DONE**, with `verification=PASS`, `code-review=PASS`, `integration-proof=PASS` on every node.
+
+- `ClientConfig` remains the only factual/link/boundary authority.
+- `PersonaProfile` adds Donna's English behavior without factual authority. P1's critic found free-form “one step” strings could smuggle multiple instructions/URLs; the repair narrowed them to one short validated question object.
+- Donna is `maxSteps=1`: only grounded topics with configured questions can receive one optional follow-up. P2's critic found explicit “no follow-up” requests were ignored; the repair added deterministic opt-out while preserving facts/routing/provider behavior.
+- `ExperienceProfile` owns visible identity, copy, theme, avatar and composer presentation. `chatExperience()` projects only presentation/link/topic metadata to the browser.
+- P3's critic found visible identity could drift from behavior identity; product validation now requires `experience.assistantLabel === persona.name`.
+- Fictional Acme Outdoors + Scout proves second-profile projection with no Cadre/Donna presentation leakage; it is not registered in production.
+- Donna UI uses an original orbital-monogram AI-guide avatar and the initial writing prompt `What are you trying to figure out?`. Deterministic desktop/mobile probes recorded no horizontal overflow and a 78px initial composer. Evidence: `evidence/productization/`.
+- GraphRAG/vector retrieval remain intentionally out of scope: current corpus is small/curated and deterministic routing has no observed relationship-heavy retrieval failure.
+
 ## Final local verification
 
 Core final verification after all code repairs:
 
 - ESLint: PASS.
 - strict TypeScript: PASS.
-- Vitest: **11 files / 256 tests PASS**.
+- Vitest: **14 files / 279 tests PASS** on the productized line.
 - production Next.js build: PASS; `/icon.svg` emitted.
-- Playwright: **50/50 PASS** desktop/mobile, including hydration and 320x568 / 360x640 text-spacing/readability cases.
+- Playwright: **52/52 PASS** desktop/mobile on the productized line, including hydration, Donna/profile assertions and 320x568 / 360x640 text-spacing/readability cases.
 - N2 focused routing/config/API/UI verification: **146/146 PASS**.
 - IBM Granite 3.3 2B bounded N2 policy critic: **VERDICT: PASS**.
 - IBM Granite 3.3 2B bounded final product critic: **VERDICT: PASS**.
@@ -89,13 +102,13 @@ Owner-interactive Vercel CLI authentication restored access to the existing `Cad
 
 The first prebuilt attempt exposed a bounded transport defect: Next file tracing referenced tracked `.env.example` while `.vercelignore` denied all `.env*`. The fix allows only root `.env.example`; real environment files remain excluded. The rebuilt artifact then deployed successfully as `dpl_ExDWE91vPxtEmLaDG6UBCCTamGLM` and Vercel aliased it to `https://cadre-ai-chatbot-tawny.vercel.app`.
 
-Anonymous/public verification after promotion:
+Anonymous/public verification of the **prior core release** after its promotion:
 
 - `/api/health`: PASS;
 - Cadre Signal `Turn AI curiosity` hero present and stale marker absent;
 - `/icon.svg`: PASS;
 - exact `hello`: `kind=greeting` PASS;
-- public Playwright: **50/50 PASS**;
+- public Playwright: **50/50 PASS** for the prior core release; the productized Donna line requires a new 52-case public run after promotion;
 - bounded live `What does Cadre AI do?`: `kind=grounded` with substantive Cadre content and official links, PASS.
 
 Evidence: `evidence/N6-release/public-release-equivalence-20260909.md`. N6 is DONE; historical stale-deployment evidence remains retained rather than overwritten.
@@ -126,8 +139,8 @@ Local `main` remains ahead of `origin/main` with no known remote-only commits fr
 
 ## Exact resume path
 
-1. Commit the N6 closure projection and rebuild the final handoff ZIP from that commit; independently verify the extracted archive and record its external checksum. This is packaging synchronization, not product development.
-2. Retry only the dedicated audited Git publication action. If its platform-managed credential becomes available, fast-forward `main` so `.github/workflows/ci.yml` and `deploy-production.yml` exist on GitHub. If it remains absent, retain G10 BLOCKED and do not bypass it with a shell token.
-3. For eventual G10 closure, provision/verify `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`, and `VERCEL_TOKEN` in the GitHub `production` environment for the **existing** `cadre-ai-chatbot` project and exercise the exact-SHA workflow. N6 does not need to be reopened unless runtime source changes.
-4. If the optional n8n handoff is promoted into the demo, add the `HumanHandoffProvider` application boundary and an approved email provider/recipient; require user consent and successful n8n acknowledgement before claiming a handoff occurred.
-5. Recruiting upload/email and Chrome Web Store publication remain separate actions unless explicitly authorized.
+1. Promote the completed Donna/productized line to the **existing** Vercel `cadre-ai-chatbot` project using the authenticated owner session and prebuilt/exact-source workflow; do not create or relink a replacement project.
+2. Reverify the public alias: health, Donna title/heading, `cadre-donna` product marker, configured composer prompt, greeting, one grounded Donna question, explicit no-follow-up suppression, pricing/account boundary without persona guidance, and external Playwright 52/52. Record deployment ID/URL and exact source SHA.
+3. Retry only the dedicated audited Git publication action from the final closure HEAD. Shared/container GitHub authentication is already healthy but does **not** inject the token required by that publisher. If it still returns `GITHUB_TOKEN is required for git_push`, retain G10 BLOCKED and request reconnection/authorization of the outer sandbox GitHub publisher channel; do not use shell push/token extraction/API history reconstruction.
+4. Rebuild the final candidate ZIP from the final closure commit with `.git` included and dependencies/build output/env secrets excluded; clean-room verify install/tests/build and record checksum.
+5. Recruiting upload/email, Chrome Web Store publication and real n8n email delivery remain separate actions unless explicitly authorized.

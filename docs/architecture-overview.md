@@ -4,7 +4,7 @@ Status: **implemented and locally verified** as of 2026-09-09. This document exp
 
 ## One-sentence mental model
 
-The product is a **deterministic support system with a bounded model-assisted fact selector**: application code decides what topic is allowed, which verified facts are eligible, what safety boundary applies, and which URLs may render; the model can only choose an ordering/subset of already-approved fact indices.
+The product is a **profile-composed deterministic support system with a bounded model-assisted fact selector**: `ClientConfig` decides factual/link/boundary authority, `PersonaProfile` may add one validated app-owned diagnostic question after a grounded answer, and `ExperienceProfile` drives presentation. The model can only choose an ordering/subset of already-approved fact indices.
 
 ## System context
 
@@ -108,11 +108,12 @@ flowchart TB
 
 | Area | Primary paths | Owns | Does not own |
 |---|---|---|---|
-| Client configuration | `src/config/` | Brand, six topics, verified facts, provenance, approved URLs, boundary copy | Secrets, accounts, network calls |
+| Client configuration | `src/config/` | Six topics, verified facts, provenance, approved URLs, boundary copy | Persona behavior, presentation, secrets, accounts, network calls |
+| Product composition | `src/product/` | Product/persona/experience schemas, Donna profile, allowlisted registry, one-question policy, safe browser projection | New factual authority, provider credentials, autonomous actions |
 | Conversation core | `src/core/` | Validation, deterministic routing, clarification, reply policy | React, network, provider credentials |
 | Provider | `src/provider/` | Mock/OpenRouter fact selection, deadlines, retry and spend controls | Final business authority, arbitrary URLs |
 | Server | `src/server/`, `app/api/` | HTTP admission, orchestration, safe error translation, process-local rate limiting | UI state |
-| UI | `src/ui/`, `app/` | Interaction state, accessible controls, text rendering, approved-link presentation | Provider secrets or policy override |
+| UI | `src/ui/`, `app/` | Profile-driven avatar/copy/theme, interaction state, accessible controls, text rendering, approved-link presentation | Facts, provider secrets or policy override |
 | Chrome preview | `extension/` | Local launcher/panel and fixed-endpoint transport on approved Cadre origins | Host-page scraping, cookies, arbitrary proxying |
 | CI/CD | `.github/workflows/` | Repeatable verification and exact-SHA Vercel delivery | Creating a replacement Vercel project |
 | n8n prototype | `integrations/n8n/` | Consent-checked structured human-handoff contract | Real delivery until a provider/recipient is configured |
@@ -122,7 +123,15 @@ flowchart TB
 
 The corpus is small and curated. Retrieval uses deterministic topic/keyword routing into typed entries; there are no embeddings, vector database, similarity scores, chunk retrieval, or runtime document ingestion. Calling it RAG would overstate the implementation. The useful design property is **grounding with inspectable provenance**, not a particular retrieval technology.
 
-If the corpus grows enough that deterministic routing becomes brittle, a semantic retriever could be added **behind the same knowledge-selection boundary**. Its result would still need to resolve to reviewed facts and links before generation.
+If the corpus grows enough that deterministic routing becomes brittle, a semantic/hybrid retriever could be added **behind the same knowledge-selection boundary**. Graph retrieval is justified only when relationship-heavy entity queries become a first-class requirement. Its result would still need to resolve to reviewed facts and links before generation; GraphRAG is intentionally not part of the current product.
+
+## Product composition and Donna
+
+`src/product/active.ts` resolves only explicitly registered profiles and defaults safely to `cadre-donna`; unknown IDs do not become module paths. The active profile composes reviewed Cadre knowledge with the English Donna persona and a validated web experience.
+
+After a grounded reply is assembled, `src/product/conversation.ts` may append one configured Donna diagnostic question for that topic. The schema rejects URL-shaped, multiline, multi-question or bundled-statement guidance. The latest user message can suppress that optional question with narrow opt-out language such as `just answer` or `no follow-up`. No persona guidance is added to greeting/clarify/redirect/decline outcomes.
+
+`chatExperience()` projects only product ID, client/contact/approved links, starter labels and `ExperienceProfile` to the browser. The fictional Acme Outdoors + Scout fixture validates that the same shell can project a different persona/theme/copy without leaking Cadre/Donna presentation; it is not registered for production use.
 
 ## Advanced concepts, briefly
 
