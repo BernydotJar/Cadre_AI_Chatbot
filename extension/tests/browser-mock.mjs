@@ -37,7 +37,7 @@ try {
     if (type === "MINIMIZE" || type === "CLOSE") await page.mainFrame().evaluate((control) => globalThis.__hostMessage?.({ type: control }), type);
   });
   await context.addInitScript(() => {
-    const state = { requests: [], mode: "ok", cancelled: [], disconnected: false, connections: 0 };
+    const state = { requests: [], mode: "ok", cancelled: [], disconnected: false, connections: 0, pageContext: "generic", panelListener: undefined };
     globalThis.__previewTest = state;
     globalThis.chrome = { runtime: {
       id: "abcdefghijklmnopabcdefghijklmnop",
@@ -52,7 +52,8 @@ try {
           onMessage: { addListener: (fn) => { listener = fn; if (name.includes("host")) globalThis.__hostMessage = fn; } },
           onDisconnect: { addListener: (fn) => disconnectListeners.push(fn) },
           postMessage: (message) => {
-            if (message.type === "REGISTER") { setTimeout(() => listener?.({ type: "REGISTERED" }), 0); return; }
+            if (message.type === "REGISTER") { state.pageContext = message.pageContext; setTimeout(() => listener?.({ type: "REGISTERED" }), 0); return; }
+            if (message.type === "CONTEXT") { state.pageContext = message.pageContext; state.panelListener?.({ type: "CONTEXT", pageContext: message.pageContext }); return; }
             if (message.type === "MINIMIZE" || message.type === "CLOSE") { void globalThis.previewMockControl(message.type); return; }
             if (message.type === "CANCEL") { state.cancelled.push(message.requestId); clearTimeout(timers.get(message.requestId)); return; }
             if (message.type !== "CHAT_REQUEST") return;
@@ -66,24 +67,29 @@ try {
           },
           disconnect: () => { state.disconnected = true; for (const timer of timers.values()) clearTimeout(timer); },
         };
-        if (name.includes("panel")) setTimeout(() => listener?.({ type: "READY" }), 0);
+        if (name.includes("panel")) { state.panelListener = (message) => listener?.(message); setTimeout(() => listener?.({ type: "READY", pageContext: "agents-discover" }), 0); }
         else globalThis.__hostDisconnect = () => { port.disconnect(); for (const fn of disconnectListeners) fn(); };
         return port;
       },
     } };
   });
   const page = await context.newPage();
+  async function clickLauncher() {
+    const box = await page.locator("#cadre-integration-preview").boundingBox();
+    assert.ok(box, "launcher host has geometry");
+    await page.mouse.click(box.x + box.width / 2, box.y + box.height - 31);
+  }
   await page.goto("https://not-cadre.test/");
   await page.addScriptTag({ content });
   checked("unsupported origin gets no host", await page.locator("#cadre-integration-preview").count() === 0);
-  await page.goto("https://cadre.ai/mock-fixture");
+  await page.goto("https://cadre.ai/agents#discover-agents");
   await page.addScriptTag({ content });
   await page.addScriptTag({ content });
   checked("one widget across duplicate script evaluation", await page.locator("#cadre-integration-preview").count() === 1);
   checked("launcher uses closed shadow root", await page.locator("#cadre-integration-preview").evaluate((host) => host.shadowRoot === null));
   await page.evaluate(() => globalThis.__hostDisconnect());
   checked("idle worker disconnect preserves launcher for user-driven reconnection", await page.locator("#cadre-integration-preview").count() === 1);
-  await page.mouse.click(1236, 856);
+  await clickLauncher();
   await page.waitForFunction(() => document.querySelector("#cadre-integration-preview")?.getBoundingClientRect().height > 200);
   const panel = page.frames().find((frame) => frame.url().startsWith("https://preview.extension.test/panel.html"));
   assert.ok(panel, "panel frame opened");
@@ -92,6 +98,8 @@ try {
   await input.waitFor({ state: "visible" });
   await panel.waitForFunction(() => !document.getElementById("message").readOnly);
   checked("six core topic labels available", await panel.locator("#topics button").count() === 6);
+  await panel.getByText("You found the agent showroom. I promise not to recommend twelve agents where one workflow would do.", { exact: true }).waitFor();
+  checked("approved URL context reaches the panel without page-text scraping", await panel.locator("#context-label").textContent() === "CADRE · DISCOVER AGENTS");
   checked("host stylesheet cannot override panel controls", await input.evaluate((node) => getComputedStyle(node).fontSize) === "12px");
   await input.fill("services"); await input.press("Enter");
   await panel.getByText("Reply received.", { exact: true }).waitFor();
@@ -103,7 +111,7 @@ try {
   await panel.getByRole("button", { name: "Minimize assistant" }).click();
   await page.waitForFunction(() => document.querySelector("#cadre-integration-preview")?.getBoundingClientRect().height < 100);
   checked("minimize restores launcher focus", await page.evaluate(() => document.activeElement?.id) === "cadre-integration-preview");
-  await page.mouse.click(1236, 856);
+  await clickLauncher();
   await input.waitFor({ state: "visible" });
   checked("minimize preserves in-memory conversation", await panel.locator("#conversation .message").count() === 2);
   await panel.getByRole("button", { name: "New chat", exact: true }).click();
@@ -124,7 +132,7 @@ try {
   await panel.getByRole("button", { name: "Close and clear assistant" }).click();
   await page.waitForFunction(() => document.querySelector("#cadre-integration-preview")?.getBoundingClientRect().height < 100);
   await page.setViewportSize({ width: 360, height: 800 });
-  await page.mouse.click(316, 756);
+  await clickLauncher();
   const mobile = await page.waitForEvent("framenavigated", { predicate: (frame) => frame.url().startsWith("https://preview.extension.test/panel.html"), timeout: 3000 }).catch(() => page.frames().find((frame) => frame.url().startsWith("https://preview.extension.test/panel.html")));
   assert.ok(mobile);
   await mobile.getByRole("textbox", { name: "Message Cadre AI Assistant" }).waitFor();

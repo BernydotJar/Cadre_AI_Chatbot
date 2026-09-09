@@ -24,8 +24,10 @@ describe("generated extension manifest and public output", () => {
     expect(manifest.content_security_policy.extension_pages).not.toMatch(/unsafe-eval|unsafe-inline/);
   });
   it("keeps executable files local and excludes secrets/provider config/storage APIs", () => {
-    expect(files).toHaveLength(11);
-    for (const file of files) {
+    expect(files).toHaveLength(15);
+    expect(manifest.icons).toEqual({ "16": "icons/icon16.png", "32": "icons/icon32.png", "48": "icons/icon48.png", "128": "icons/icon128.png" });
+    const textFiles = files.filter((file) => /\.(?:js|html|css|json)$/u.test(file));
+    for (const file of textFiles) {
       const text = readFileSync(file, "utf8");
       expect(text, path.relative(directory, file)).not.toMatch(/sk-or-v1-[a-f0-9]{32,}|OPENROUTER_API_KEY|process\.env|chrome\.storage|localStorage|sessionStorage|document\.cookie|eval\s*\(|innerHTML\s*=/iu);
       expect(text, path.relative(directory, file)).not.toMatch(/from\s+["'](?:https?:|.*(?:provider|server)\/)/u);

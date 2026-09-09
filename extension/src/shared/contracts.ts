@@ -7,6 +7,19 @@ export const TRANSPORT_TIMEOUT_MS = LIMITS.requestTimeoutMs + 5_000;
 export const MAX_RESPONSE_BYTES = 16_384;
 export const TOKEN_PATTERN = /^[0-9a-f]{32}$/u;
 export const REQUEST_ID_PATTERN = /^[0-9a-f-]{36}$/u;
+export const PAGE_CONTEXT_IDS = [
+  "generic",
+  "home",
+  "agents",
+  "agents-discover",
+  "strategy",
+  "engineering",
+  "leadership",
+  "industries",
+  "case-studies",
+  "contact",
+] as const;
+export type PageContextId = typeof PAGE_CONTEXT_IDS[number];
 export type SafeErrorCode = "INVALID" | "BUSY" | "UNAVAILABLE" | "RATE_LIMIT" | "TIMEOUT" | "CANCELLED";
 export type ChatPayload = { messages: RequestMessage[] };
 export type PanelCommand =
@@ -16,7 +29,8 @@ export type PanelCommand =
   | { type: "MINIMIZE" }
   | { type: "CLOSE" };
 export type WorkerReply =
-  | { type: "READY" }
+  | { type: "READY"; pageContext: PageContextId }
+  | { type: "CONTEXT"; pageContext: PageContextId }
   | { type: "CHAT_RESPONSE"; requestId: string; payload: Reply }
   | { type: "CHAT_ERROR"; requestId: string; errorCode: SafeErrorCode };
 
@@ -25,6 +39,10 @@ export function record(value: unknown): value is Record<string, unknown> {
 }
 export function exactKeys(value: Record<string, unknown>, keys: readonly string[]): boolean {
   return Object.keys(value).length === keys.length && keys.every((key) => Object.hasOwn(value, key));
+}
+export function readPageContext(value: unknown): PageContextId | undefined {
+  return typeof value === "string" && PAGE_CONTEXT_IDS.includes(value as PageContextId)
+    ? value as PageContextId : undefined;
 }
 export function allowedSite(value: unknown, origins: readonly string[]): boolean {
   if (typeof value !== "string") return false;
@@ -71,7 +89,11 @@ export function readStrictReply(value: unknown): Reply | undefined {
 }
 export function readWorkerReply(value: unknown): WorkerReply | undefined {
   if (!record(value)) return;
-  if (value.type === "READY" && exactKeys(value, ["type"])) return { type: "READY" };
+  if ((value.type === "READY" || value.type === "CONTEXT")
+    && exactKeys(value, ["type", "pageContext"])) {
+    const pageContext = readPageContext(value.pageContext);
+    if (pageContext) return { type: value.type, pageContext };
+  }
   if (typeof value.requestId !== "string" || !REQUEST_ID_PATTERN.test(value.requestId)) return;
   if (value.type === "CHAT_RESPONSE" && exactKeys(value, ["type", "requestId", "payload"])) {
     const payload = readStrictReply(value.payload);

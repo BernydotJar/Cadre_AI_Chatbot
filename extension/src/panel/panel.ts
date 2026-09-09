@@ -1,7 +1,7 @@
 import { LIMITS } from "../../../src/core/limits";
 import { approvedTextParts, buildRequestHistory, DISPLAY_MESSAGE_LIMIT, type Message } from "../../../src/ui/conversation";
 import { PRESENTATION } from "../generated-config";
-import { PORT_PANEL, TRANSPORT_TIMEOUT_MS, readWorkerReply, type SafeErrorCode } from "../shared/contracts";
+import { PORT_PANEL, TRANSPORT_TIMEOUT_MS, readWorkerReply, type PageContextId, type SafeErrorCode } from "../shared/contracts";
 
 function element<T extends HTMLElement>(id: string): T {
   const found = document.getElementById(id);
@@ -18,6 +18,35 @@ const history = element<HTMLDivElement>("conversation");
 const welcome = element<HTMLDivElement>("welcome");
 const topics = element<HTMLDivElement>("topics");
 const counter = element<HTMLOutputElement>("counter");
+const contextLabel = element<HTMLParagraphElement>("context-label");
+const contextCopy = element<HTMLParagraphElement>("context-copy");
+const contextPrompt = element<HTMLButtonElement>("context-prompt");
+
+
+type ContextCopy = { label: string; copy: string; prompt?: string };
+const PAGE_CONTEXT_COPY: Record<PageContextId, ContextCopy> = {
+  generic: { label: "YOU'RE EXPLORING CADRE", copy: "Ask about what Cadre does, where AI fits, or the next sensible step. This preview stays local to your browser and does not read the page." },
+  home: { label: "CADRE · FRONT DOOR", copy: "You’re at the starting line. I can help turn the broad ‘where could AI help?’ question into something a little more useful.", prompt: "What does Cadre AI do?" },
+  agents: { label: "CADRE · AI AGENTS", copy: "You’re in Cadre’s agent workshop. Before anyone releases a swarm, we can start with the one job actually worth automating.", prompt: "How does Cadre approach AI agents?" },
+  "agents-discover": { label: "CADRE · DISCOVER AGENTS", copy: "You found the agent showroom. I promise not to recommend twelve agents where one workflow would do.", prompt: "How does Cadre approach AI agents?" },
+  strategy: { label: "CADRE · AI STRATEGY", copy: "You’re looking at strategy — the part where an AI idea should earn its budget before it earns a demo.", prompt: "How does Cadre approach AI strategy?" },
+  engineering: { label: "CADRE · AI ENGINEERING", copy: "You’re in the engineering layer: APIs, data, reliability, and the moment an AI idea has to survive production.", prompt: "What does Cadre AI Engineering cover?" },
+  leadership: { label: "CADRE · LEADERSHIP", copy: "You’re on the people-and-adoption side. The model can be excellent and still fail if the operating model never changes.", prompt: "How does Cadre help teams adopt AI?" },
+  industries: { label: "CADRE · INDUSTRIES", copy: "You’re browsing industry fit. The useful question is usually less ‘does AI work here?’ and more ‘which workflow has enough pain and volume to matter?’", prompt: "Which industries does Cadre work with?" },
+  "case-studies": { label: "CADRE · CASE STUDIES", copy: "You’re in the evidence aisle. A healthy place to be before anyone starts making heroic AI claims.", prompt: "What kinds of Cadre client examples are published?" },
+  contact: { label: "CADRE · CONTACT", copy: "You made it to the human handoff. I can still help sharpen the question so the first conversation starts one step ahead.", prompt: "What should I discuss with a Cadre strategist?" },
+};
+let pageContext: PageContextId = "generic";
+function applyPageContext(next: PageContextId) {
+  pageContext = next;
+  const copy = PAGE_CONTEXT_COPY[next];
+  contextLabel.textContent = copy.label;
+  contextCopy.textContent = copy.copy;
+  contextPrompt.hidden = !copy.prompt;
+  contextPrompt.textContent = copy.prompt ? `Ask: ${copy.prompt}` : "";
+  contextPrompt.dataset.prompt = copy.prompt ?? "";
+}
+
 const errors: Record<SafeErrorCode, string> = {
   INVALID: "That message could not be sent. Please shorten it and try again.",
   BUSY: "A request is already running, or this preview session has reached its limit. Close and reopen the panel if needed.",
@@ -70,6 +99,7 @@ function render() {
   stop.hidden = !pending;
   retry.hidden = !failed || Boolean(pending) || !ready;
   for (const button of topics.querySelectorAll("button")) button.disabled = !ready || Boolean(pending);
+  contextPrompt.disabled = !ready || Boolean(pending);
   counter.textContent = `${input.value.length} / ${LIMITS.maxMessageChars}`;
 }
 function post(message: unknown): boolean {
@@ -150,6 +180,13 @@ for (const topic of PRESENTATION.topics) {
   });
   topics.append(button);
 }
+contextPrompt.addEventListener("click", (event) => {
+  if (!event.isTrusted || !ready || pending) return;
+  const prompt = contextPrompt.dataset.prompt;
+  if (!prompt) return;
+  input.value = prompt;
+  send();
+});
 form.addEventListener("submit", (event) => { event.preventDefault(); if (event.isTrusted) send(); });
 input.addEventListener("input", () => { counter.textContent = `${input.value.length} / ${LIMITS.maxMessageChars}`; submit.disabled = !ready || Boolean(pending) || input.value.trim().length > LIMITS.maxMessageChars; });
 input.addEventListener("compositionstart", () => { composing = true; });
@@ -184,7 +221,8 @@ window.addEventListener("pagehide", end, { once: true });
 port.onMessage.addListener((raw) => {
   const message = readWorkerReply(raw);
   if (!message) { end(); disconnected(); return; }
-  if (message.type === "READY") { ready = true; status.textContent = "Ready. Do not share passwords or sensitive information."; render(); input.focus(); return; }
+  if (message.type === "READY") { pageContext = message.pageContext; applyPageContext(pageContext); ready = true; status.textContent = "Ready. Do not share passwords or sensitive information."; render(); input.focus(); return; }
+  if (message.type === "CONTEXT") { applyPageContext(message.pageContext); render(); return; }
   if (message.requestId !== pending?.requestId) return;
   if (message.type === "CHAT_ERROR") { settled(message.errorCode); return; }
   const reply: Message = { id: nextId++, role: "assistant", content: message.payload.reply, kind: message.payload.kind };
@@ -194,4 +232,5 @@ port.onMessage.addListener((raw) => {
   history.lastElementChild?.scrollIntoView({ block: "nearest", behavior: "instant" });
 });
 port.onDisconnect.addListener(disconnected);
+applyPageContext(pageContext);
 render();

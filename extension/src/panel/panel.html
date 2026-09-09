@@ -9,7 +9,7 @@
   </head>
   <body>
     <header>
-      <div><p class="eyebrow">INTEGRATION PREVIEW</p><h1>Cadre AI Assistant</h1></div>
+      <div class="panel-title"><div class="header-signal" aria-hidden="true"><span>C</span></div><div><p class="eyebrow">CANDIDATE INTEGRATION PREVIEW</p><h1>Cadre AI Assistant</h1></div></div>
       <div class="window-actions">
         <button id="minimize" type="button" aria-label="Minimize assistant" title="Minimize">−</button>
         <button id="close" type="button" aria-label="Close and clear assistant" title="Close and clear">×</button>
@@ -17,9 +17,12 @@
     </header>
     <main id="transcript" aria-label="Assistant conversation">
       <div id="welcome">
-        <div class="sun" aria-hidden="true">✳</div>
-        <h2>A little clarity.<br><em>A way forward.</em></h2>
-        <p>Explore Cadre AI's services and next steps. This is an independent local demonstration, not a Cadre-installed service.</p>
+        <div class="panel-signal" aria-hidden="true"><span class="panel-orbit orbit-one"></span><span class="panel-orbit orbit-two"></span><span class="panel-core">C</span></div>
+        <p class="welcome-kicker">GROUNDED IN CADRE.AI</p>
+        <p id="context-label" class="context-label">YOU'RE EXPLORING CADRE</p>
+        <h2>A useful answer.<br><em>A clearer next step.</em></h2>
+        <p id="context-copy">Explore Cadre AI's services and next steps with a grounded assistant. This preview runs only in your browser and does not modify Cadre's site.</p>
+        <button id="context-prompt" class="context-prompt" type="button" hidden></button>
         <div id="topics" aria-label="Suggested questions"></div>
       </div>
       <div id="conversation" role="log" aria-live="polite" aria-relevant="additions"></div>

@@ -1,0 +1,18 @@
+Cadre Integration Preview — contextual URL awareness verification
+Date: 2026-09-09 UTC
+
+Producer change boundary:
+- Uses only exact cadre.ai pathname/hash mappings; no host page text, form, cookie, storage, or arbitrary URL data is read.
+- Page context is a fixed enum validated at the host → service worker → extension panel boundary.
+- Context changes presentation copy and one fixed suggested question only; the Vercel chat API contract remains unchanged.
+
+Verification executed after repair:
+1. node extension/build.mjs — PASS; 15 generated files.
+2. npm exec -- vitest run --config extension/vitest.config.ts — PASS; 3 files / 72 tests.
+3. npm exec -- tsc --noEmit --incremental false — PASS.
+4. npm exec -- eslint extension — PASS.
+5. node extension/tests/browser-mock.mjs context-pass-20260909 — PASS; 23 checks; 0 actual-site requests; 0 API requests.
+6. EXTENSION_ACTUAL_SITE=1 node extension/tests/installed-site.mjs actual-agents-context-20260909 — PASS; 17 checks on https://cadre.ai/agents#discover-agents; exactly one fixed candidate API request.
+7. IBM Granite 3.3 2B bounded security/product critic — PASS; evidence/extension-context-granite-20260909.md.
+
+Independent verification conclusion: PASS for the scoped local integration preview. The contextual copy is URL-derived presentation metadata, not retrieval or host-page scraping. Chrome Web Store publication and Cadre production installation remain out of scope.

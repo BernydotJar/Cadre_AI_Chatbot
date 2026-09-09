@@ -55,6 +55,7 @@ describe("shared request/response contract", () => {
   it("uses the existing reply/kind API without invented actions", () => {
     const reply = { reply: "Approved answer", kind: "grounded" };
     expect(readStrictReply(reply)).toEqual(reply);
+    expect(readStrictReply({ reply: "Welcome", kind: "greeting" })).toEqual({ reply: "Welcome", kind: "greeting" });
     expect(readStrictReply({ ...reply, actions: [{ type: "fetch" }] })).toBeUndefined();
     expect(readStrictReply({ reply: "x".repeat(2401), kind: "grounded" })).toBeUndefined();
     expect(readWorkerReply({ type: "CHAT_RESPONSE", requestId: id, payload: reply })).toEqual({ type: "CHAT_RESPONSE", requestId: id, payload: reply });

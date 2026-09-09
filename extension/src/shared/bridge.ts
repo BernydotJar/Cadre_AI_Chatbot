@@ -1,10 +1,10 @@
 import {
   PORT_HOST, PORT_PANEL, TOKEN_PATTERN, TRANSPORT_TIMEOUT_MS, exactKeys, isHostSender,
-  panelToken, readPanelCommand, readResponse, record, type SafeErrorCode,
+  panelToken, readPageContext, readPanelCommand, readResponse, record, type PageContextId, type SafeErrorCode,
 } from "./contracts";
 
 type Panel = { port: PreviewPort; dispose: () => void };
-type Host = { port: PreviewPort; documentId: string; token?: string; panel?: Panel };
+type Host = { port: PreviewPort; documentId: string; token?: string; pageContext: PageContextId; panel?: Panel };
 const MAX_OPEN_TABS = 8;
 
 function post(port: PreviewPort, message: unknown) {
@@ -21,7 +21,7 @@ runtime.onConnect.addListener((port) => {
     const tabId = port.sender!.tab!.id!;
     const previous = hosts.get(tabId);
     if (previous || hosts.size >= MAX_OPEN_TABS) { disconnect(port); return; }
-    const host: Host = { port, documentId: port.sender!.documentId! };
+    const host: Host = { port, documentId: port.sender!.documentId!, pageContext: "generic" };
     hosts.set(tabId, host);
     let hostClosed = false;
     function disposeHost() {
@@ -34,12 +34,24 @@ runtime.onConnect.addListener((port) => {
     }
     port.onMessage.addListener((message) => {
       if (hostClosed) return;
-      if (host.token || !record(message) || !exactKeys(message, ["type", "token"])
-        || message.type !== "REGISTER" || typeof message.token !== "string" || !TOKEN_PATTERN.test(message.token)) {
-        disposeHost(); return;
+      if (!record(message)) { disposeHost(); return; }
+      if (!host.token && exactKeys(message, ["type", "token", "pageContext"]) && message.type === "REGISTER"
+        && typeof message.token === "string" && TOKEN_PATTERN.test(message.token)) {
+        const context = readPageContext(message.pageContext);
+        if (!context) { disposeHost(); return; }
+        host.token = message.token;
+        host.pageContext = context;
+        post(port, { type: "REGISTERED" });
+        return;
       }
-      host.token = message.token;
-      post(port, { type: "REGISTERED" });
+      if (host.token && exactKeys(message, ["type", "pageContext"]) && message.type === "CONTEXT") {
+        const context = readPageContext(message.pageContext);
+        if (!context) { disposeHost(); return; }
+        host.pageContext = context;
+        if (host.panel) post(host.panel.port, { type: "CONTEXT", pageContext: context });
+        return;
+      }
+      disposeHost();
     });
     port.onDisconnect.addListener(disposeHost);
     return;
@@ -113,6 +125,6 @@ runtime.onConnect.addListener((port) => {
     })();
   });
   port.onDisconnect.addListener(disposePanel);
-  post(port, { type: "READY" });
+  post(port, { type: "READY", pageContext: host.pageContext });
 });
 }

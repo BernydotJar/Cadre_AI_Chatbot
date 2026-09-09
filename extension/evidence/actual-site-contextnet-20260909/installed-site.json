@@ -1,0 +1,70 @@
+{
+  "generatedAt": "2026-09-09T06:46:32.088Z",
+  "scope": "Disposable installed Manifest V3 profile on https://cadre.ai/. No Cadre server writes, form interaction, cookies, authentication, or persistent extension storage.",
+  "browserVersion": "151.0.7922.71",
+  "extensionPath": "extension/dist",
+  "liveApiRequests": 1,
+  "checks": [
+    {
+      "name": "exactly one launcher host injected",
+      "result": "PASS"
+    },
+    {
+      "name": "launcher host remains inside viewport",
+      "result": "PASS"
+    },
+    {
+      "name": "launcher itself adds no horizontal overflow",
+      "result": "PASS"
+    },
+    {
+      "name": "Cadre page overflow observation (site-owned baseline not used as an extension gate)",
+      "result": "INFO",
+      "pixels": 8
+    },
+    {
+      "name": "installed panel renders six canonical topics",
+      "result": "PASS"
+    },
+    {
+      "name": "panel declares candidate integration preview",
+      "result": "PASS"
+    },
+    {
+      "name": "panel has no horizontal overflow",
+      "result": "PASS"
+    },
+    {
+      "name": "one approved live question produces a bounded assistant reply",
+      "result": "PASS"
+    },
+    {
+      "name": "live reply contains no HTML element injection",
+      "result": "PASS"
+    },
+    {
+      "name": "exactly one live API request observed",
+      "result": "PASS"
+    },
+    {
+      "name": "minimize returns to compact launcher",
+      "result": "PASS"
+    },
+    {
+      "name": "minimize preserves volatile conversation",
+      "result": "PASS"
+    },
+    {
+      "name": "close removes panel but leaves only launcher",
+      "result": "PASS"
+    },
+    {
+      "name": "full navigation produces one fresh launcher without duplicates",
+      "result": "PASS"
+    },
+    {
+      "name": "public page text does not receive preview copy",
+      "result": "PASS"
+    }
+  ]
+}

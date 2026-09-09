@@ -39,6 +39,7 @@ if (links.some((link) => typeof link.label !== "string" || new URL(link.url).ori
 const presentation = { botName: client.botName, topics: client.knowledge.map(({ label, topic }) => ({ label, topic })), links };
 
 await mkdir(path.join(output, "shared"), { recursive: true });
+await mkdir(path.join(output, "icons"), { recursive: true });
 const sources = [
   ["extension/src/shared/contracts.ts", "shared/contracts.js"],
   ["extension/src/shared/bridge.ts", "shared/bridge.js"],
@@ -62,11 +63,13 @@ const content = ts.transpileModule(contentSource, { compilerOptions: { target: t
 await writeFile(path.join(output, "content-script.js"), `(() => {\nconst PREVIEW_SITE_ORIGINS = ${JSON.stringify(config.siteOrigins)};\n${content}\n})();\n`);
 await writeFile(path.join(output, "config.js"), `export const API_ENDPOINT = ${JSON.stringify(config.apiEndpoint)};\nexport const SITE_ORIGINS = ${JSON.stringify(config.siteOrigins)};\nexport const PRESENTATION = ${JSON.stringify(presentation)};\n`);
 for (const [source, destination] of [["panel.html", "panel.html"], ["panel.css", "panel.css"]]) await copyFile(path.join(extension, "src/panel", source), path.join(output, destination));
+for (const size of [16, 32, 48, 128]) await copyFile(path.join(extension, "icons", `icon${size}.png`), path.join(output, "icons", `icon${size}.png`));
 const matches = config.siteOrigins.map((origin) => `${origin}/*`);
 const manifest = {
   manifest_version: 3, name: config.name, version: config.version,
   description: "Independent local integration preview for the grounded Cadre AI assistant.",
   minimum_chrome_version: "114",
+  icons: { 16: "icons/icon16.png", 32: "icons/icon32.png", 48: "icons/icon48.png", 128: "icons/icon128.png" },
   host_permissions: [`${endpoint.origin}/*`],
   background: { service_worker: "service-worker.js", type: "module" },
   content_scripts: [{ matches, js: ["content-script.js"], run_at: "document_idle", world: "ISOLATED", all_frames: false, match_about_blank: false }],
@@ -74,4 +77,4 @@ const manifest = {
   content_security_policy: { extension_pages: `default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src ${endpoint.origin}; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors https://cadre.ai https://www.cadre.ai` },
 };
 await writeFile(path.join(output, "manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`);
-console.log(`Extension generated: ${path.relative(root, output)} (11 files; no provider config or credentials read)`);
+console.log(`Extension generated: ${path.relative(root, output)} (15 files; no provider config or credentials read)`);

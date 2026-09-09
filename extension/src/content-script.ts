@@ -1,6 +1,25 @@
 /** Classic isolated-world entry; build injects only the reviewed origin list. */
 declare const PREVIEW_SITE_ORIGINS: readonly string[];
 
+type PreviewPageContext =
+  | "generic" | "home" | "agents" | "agents-discover" | "strategy"
+  | "engineering" | "leadership" | "industries" | "case-studies" | "contact";
+
+function pageContext(): PreviewPageContext {
+  const path = location.pathname.replace(/\/+$/u, "") || "/";
+  const hash = location.hash.toLowerCase();
+  if (path === "/agents" && hash === "#discover-agents") return "agents-discover";
+  if (path === "/agents") return "agents";
+  if (path === "/strategy") return "strategy";
+  if (path === "/ai-engineering") return "engineering";
+  if (path === "/leadership-facilitation") return "leadership";
+  if (path === "/industries") return "industries";
+  if (path === "/case-studies") return "case-studies";
+  if (path === "/contact") return "contact";
+  if (path === "/") return "home";
+  return "generic";
+}
+
 function mountPreview() {
   if (window !== window.top || !PREVIEW_SITE_ORIGINS.includes(location.origin)
     || location.protocol !== "https:" || document.getElementById("cadre-integration-preview")) return;
@@ -11,13 +30,20 @@ function mountPreview() {
   const shadow = host.attachShadow({ mode: "closed" });
   const style = document.createElement("style");
   style.textContent = `
-    :host{color-scheme:light}*{box-sizing:border-box}button{font:600 14px/1.2 system-ui,sans-serif;cursor:pointer}
-    .launcher{width:56px;height:56px;border:1px solid #3d423a;border-radius:20px;background:#20281f;color:#f6f3e9;box-shadow:0 8px 28px #10170f40;display:grid;place-items:center}
-    .launcher:hover{background:#33422e}.launcher:focus-visible{outline:3px solid #c4db91;outline-offset:4px}
-    .mark{font-size:27px;font-weight:400}.tip{position:absolute;right:0;bottom:66px;width:max-content;max-width:250px;padding:10px 13px;border-radius:9px;background:#20281f;color:#fff;font:500 13px/1.4 system-ui,sans-serif;opacity:0;pointer-events:none}
-    .launcher:hover+.tip,.launcher:focus-visible+.tip{opacity:1}
-    iframe{display:block;width:min(390px,calc(100vw - 32px));height:min(620px,calc(100dvh - 100px));min-height:200px;border:1px solid #cecdbf;border-radius:22px;background:#f7f5ee;box-shadow:0 16px 56px #18221640;margin-bottom:12px}
-    [hidden]{display:none!important}@media(prefers-reduced-motion:no-preference){.launcher{transition:background .15s}}`;
+    :host{color-scheme:light}*{box-sizing:border-box}button{font:700 14px/1.2 Inter,Arial,sans-serif;cursor:pointer}
+    .launcher{position:relative;width:62px;height:62px;border:1px solid #34282b;border-radius:21px;background:linear-gradient(145deg,#242124,#111114);color:#fff;box-shadow:0 14px 38px #2c17233d,0 0 0 1px #ffffff14 inset;display:grid;place-items:center;overflow:visible}
+    .launcher::before{content:"";position:absolute;inset:-5px;border:1px solid #db45454d;border-radius:25px;animation:cadre-pulse 3s ease-in-out infinite}
+    .launcher:hover{transform:translateY(-2px);box-shadow:0 18px 45px #2c17234d,0 0 0 1px #ffffff1c inset}.launcher:focus-visible{outline:3px solid #225d51;outline-offset:5px}
+    .mark{position:relative;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 25%,#ffae95 0 12%,#ef695d 32%,#db4545 58%,#8d2431 100%);font:800 17px/1 Arial,sans-serif;color:#fff;box-shadow:0 6px 18px #db454559}
+    .mark::after{content:"";position:absolute;inset:6px;border:1px solid #ffffff66;border-radius:50%}
+    .tip{position:absolute;right:0;bottom:74px;width:max-content;max-width:260px;padding:11px 14px;border:1px solid #3a3432;border-radius:12px;background:#18181b;color:#fff;font:650 12px/1.4 Inter,Arial,sans-serif;box-shadow:0 10px 30px #18181b33;opacity:0;transform:translateY(5px);pointer-events:none}
+    .tip::after{content:"Candidate Integration Preview";display:block;margin-top:3px;color:#d3cbc2;font-size:9px;font-weight:550;letter-spacing:.03em}
+    .launcher:hover+.tip,.launcher:focus-visible+.tip{opacity:1;transform:translateY(0)}
+    iframe{display:block;width:min(420px,calc(100vw - 32px));height:min(650px,calc(100dvh - 104px));min-height:240px;border:1px solid #d7d0c5;border-radius:24px;background:#f7f3eb;box-shadow:0 24px 70px #261d223d;margin-bottom:14px}
+    [hidden]{display:none!important}@keyframes cadre-pulse{0%,100%{transform:scale(.98);opacity:.55}50%{transform:scale(1.05);opacity:1}}
+    @media(prefers-reduced-motion:no-preference){.launcher,.tip{transition:transform .16s ease,box-shadow .16s ease,opacity .16s ease}}
+    @media(prefers-reduced-motion:reduce){.launcher::before{animation:none}}
+  `
   const launcher = document.createElement("button");
   launcher.type = "button";
   launcher.className = "launcher";
@@ -27,7 +53,7 @@ function mountPreview() {
   const mark = document.createElement("span");
   mark.className = "mark";
   mark.setAttribute("aria-hidden", "true");
-  mark.textContent = "✳";
+  mark.textContent = "C";
   launcher.append(mark);
   const tooltip = document.createElement("span");
   tooltip.id = "cadre-preview-tooltip";
@@ -42,6 +68,7 @@ function mountPreview() {
   const token = [...bytes].map((value) => value.toString(16).padStart(2, "0")).join("");
   let port: PreviewPort | undefined;
   let wantOpen = false;
+  let currentContext = pageContext();
   function minimize() {
     if (iframe) iframe.hidden = true;
     launcher.setAttribute("aria-expanded", "false");
@@ -59,11 +86,20 @@ function mountPreview() {
     iframe?.remove();
     host.remove();
     window.removeEventListener("pagehide", onPageHide);
+    window.removeEventListener("hashchange", onLocationContextChange);
+    window.removeEventListener("popstate", onLocationContextChange);
     observer.disconnect();
     try { port?.disconnect(); } catch { /* Extension may have been disabled. */ }
   }
   const observer = new MutationObserver(() => { if (!host.isConnected) dispose(); });
   function onPageHide() { dispose(); }
+  function onLocationContextChange() {
+    const next = pageContext();
+    if (next === currentContext) return;
+    currentContext = next;
+    try { if (registered) port?.postMessage({ type: "CONTEXT", pageContext: currentContext }); }
+    catch { /* A disconnected worker will be recovered on the next explicit open. */ }
+  }
   function open() {
     if (!registered || disposed) return;
     if (!iframe) {
@@ -101,7 +137,7 @@ function mountPreview() {
         // only after another user click; never keep an unused worker awake.
         try { if (!chrome.runtime.id) dispose(); } catch { dispose(); }
       });
-      current.postMessage({ type: "REGISTER", token });
+      current.postMessage({ type: "REGISTER", token, pageContext: currentContext });
     } catch { dispose(); }
   }
   launcher.addEventListener("click", (event) => {
@@ -112,6 +148,8 @@ function mountPreview() {
   });
   launcher.addEventListener("keydown", (event) => { if (event.key === "Escape") { event.preventDefault(); minimize(); } });
   window.addEventListener("pagehide", onPageHide, { once: true });
+  window.addEventListener("hashchange", onLocationContextChange);
+  window.addEventListener("popstate", onLocationContextChange);
   document.documentElement.append(host);
   observer.observe(document.documentElement, { childList: true });
   connect();

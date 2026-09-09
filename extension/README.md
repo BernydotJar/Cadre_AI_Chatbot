@@ -2,7 +2,7 @@
 
 An optional local Manifest V3 presentation adapter for the existing public chatbot. **The public web app remains the primary deliverable.** This extension is an independent demonstration, not a Cadre-installed or endorsed service.
 
-Status: **PARTIAL_WITH_DOCUMENTED_BLOCKERS**. Source/build/mock work is complete; the original disconnect-cleanup FAIL is retained, the bounded repair passed 71/71 tests, and independent security follow-up passed. The separate `integration-proof` gate is BLOCKED because no installed-extension browser check or authorized Cadre-site demonstration has been performed. No extension was installed in a user browser, no actual Cadre page was modified, no real inference was used by extension tests, and nothing was published to the Chrome Web Store.
+Status: **LOCALLY VERIFIED INTEGRATION PREVIEW**. The optional adapter now has source/build/security coverage, synthetic browser lifecycle proof, and owner-authorized installed Manifest V3 checks on the public Cadre site using disposable Chromium profiles. The latest contextual run targets `https://cadre.ai/agents#discover-agents`, passes 17 scoped checks, and observes exactly one request to the fixed candidate API for one approved question. It did not modify Cadre servers, forms, cookies, authentication, analytics, or persistent browser storage, and nothing was published to the Chrome Web Store. This is still an independent candidate preview, not a Cadre-installed or endorsed production feature.
 
 ## Build and check
 
@@ -15,13 +15,20 @@ rtk proxy npm exec -- vitest run --config extension/vitest.config.ts
 rtk proxy npm exec -- tsc --noEmit --incremental false
 rtk proxy npm exec -- eslint extension
 rtk proxy node extension/tests/browser-mock.mjs unique-run-label
+# owner-gated real-site proof in a disposable Chromium profile:
+EXTENSION_ACTUAL_SITE=1 node extension/tests/installed-site.mjs unique-actual-site-label
 ```
 
 Run from the repository root. `npm ci` is needed only for a clean checkout. The build reads `extension/config.json` and safe literal display fields from `src/config/cadre.ts`. It copies/transpiles the pure core limits and conversation utilities with the existing TypeScript compiler. It does not read environment files, execute client configuration, or include provider/server code. The generated manifest is **`extension/dist/manifest.json`**, not a hand-maintained second manifest.
 
-`extension/dist/` is ignored and excluded from the source ZIP; the reviewer can reproduce it with the build command. The generated output is eleven local files. No runtime package download, remote script, source map, client key or executable model output is included.
+`extension/dist/` is ignored and excluded from the source ZIP; the reviewer can reproduce it with the build command. The generated output is fifteen local files, including four generated extension icon sizes. No runtime package download, remote script, source map, client key or executable model output is included.
 
-The browser script uses synthetic HTTPS fixtures and fake Chrome runtime ports, intercepting every request. Its screenshots are explicitly **mock fixtures, not screenshots of cadre.ai**. It validates panel behavior without installing an extension. Each run writes to a new `extension/evidence/<run-label>/` directory and refuses an existing label; omitting the label generates a timestamp-based one. A sandbox may require permission to launch the temporary headless Chromium process; failure to launch is infrastructure evidence, not a passed browser test.
+The synthetic browser script uses fake HTTPS fixtures and fake Chrome runtime ports, intercepting every request. Its screenshots are explicitly **mock fixtures, not screenshots of cadre.ai**. Each run writes to a new `extension/evidence/<run-label>/` directory and refuses an existing label. Separately, `extension/tests/installed-site.mjs` is an owner-gated installed-extension check: it creates a disposable Chromium profile, loads only `extension/dist`, visits the real public Cadre site, and exercises launcher/panel lifecycle plus one approved live question. It requires `EXTENSION_ACTUAL_SITE=1` so it cannot be mistaken for a routine mock test.
+
+
+### URL-aware presentation context
+
+The preview can tailor its **local presentation** to a small allowlist of Cadre routes. It derives only `location.pathname` and `location.hash` from the already-approved Cadre origin, converts them to a fixed enum, validates that enum across extension ports, and never reads host-page text, forms, cookies, storage, or DOM content. For example, on `/agents#discover-agents` it opens with a restrained line: “You found the agent showroom. I promise not to recommend twelve agents where one workflow would do.” The suggested action remains a fixed grounded question to the same Vercel API. This is presentation context, not runtime retrieval or RAG.
 
 ## Architecture and component ownership
 
@@ -50,19 +57,19 @@ The wire API remains `{ messages: [{ role, content }] }` → `{ reply, kind }`. 
 - Sending a message transmits that message and bounded conversation history to the public chatbot API and its configured model service. It does not transmit Cadre's page content or form values. No conversation is persisted by the extension. Server/provider logging or retention is governed separately; this is not a guarantee of zero retention by third parties.
 - Stop, close, reset or page departure abort pending transport. Cancellation cannot retract a request already accepted by the server. Minimize deliberately preserves the conversation and an in-flight answer. Retry is always an explicit user action, and may repeat a request already processed if its first reply was lost.
 
-## Load unpacked — reviewer-controlled, after approval
+## Load unpacked — reviewer-controlled
 
-These steps are instructions for a later approved manual demonstration, **not a statement that installation or verification has occurred**.
+The automated disposable-profile installed check has been completed. These steps reproduce the same adapter manually in the reviewer's own Chrome profile; they are not a claim that Cadre has installed the extension in production.
 
 1. Build and run the checks above. Keep the public app available and confirm the remaining chatbot budget before a live demonstration.
 2. Open `chrome://extensions`, enable Developer mode, choose **Load unpacked**, and select the repository's **`extension/dist`** directory. A current Chrome version is recommended; the manifest minimum is 114.
 3. Review the permission prompt. It must mention only the configured Vercel host plus content-script access to the two named Cadre sites. Unexpected broader permissions are a stop condition.
 4. Visit or refresh `https://cadre.ai/`. Open the lower-right launcher. Confirm the **Integration Preview** label. Do not enter personal, account or credential information.
-5. Inspect Chrome's extension errors and worker console. Actual CSP/WAR/sender metadata, idle recovery, cross-origin fetch and exact-site behavior must be verified in the installed-extension gate; the mocks do not establish them.
+5. Inspect Chrome's extension errors and worker console. The automated installed-site gate already exercises CSP/resource loading, exact-site injection, fixed-endpoint transport, minimize/close and reload behavior; this manual pass confirms the same behavior in the reviewer's own Chrome environment.
 
 Do not publish to the Web Store, alter Cadre's servers/assets, or enable broader host permissions to bypass a failed check. The extension does not replace Cadre's navigation, analytics, forms, authentication or application code.
 
-## Two-minute demonstration, after approval
+## Two-minute demonstration
 
 1. Show the public chatbot URL first; explain that the extension is only a local adapter.
 2. Show the permission scope and the **Integration Preview** label on the approved Cadre site.
@@ -76,7 +83,7 @@ Do not publish to the Web Store, alter Cadre's servers/assets, or enable broader
 
 Disable or remove the extension in `chrome://extensions`, then **refresh every already-open Cadre tab**. Chrome may leave injected DOM or a disconnected launcher until the document is refreshed; instantaneous removal on extension disable is not promised. The source adds no persistent website data, storage entries or server changes. Page navigation removes its iframe and listeners; a full allowed-site navigation gets one fresh content script. Site code can remove the injected host, which disconnects its port and removes the iframe; the preview does not fight the site by reinjecting through an observer.
 
-Known blocked gate: actual installed MV3 behavior on cadre.ai, browser CSP/resource loading and service-worker lifetime. Source/security review is complete, but do not describe the extension as delivered/production-ready before installed-browser verification and the owner's actual-site authorization.
+Verified boundary: `extension/evidence/actual-agents-context-20260909/installed-site.json` records the latest contextual disposable-profile proof (17 PASS checks, one live fixed-endpoint request). Two earlier actual-site attempts are intentionally retained: the first used an invalid whole-page overflow assertion against Cadre's own 8px site baseline; the second listened for service-worker traffic on a Page rather than the BrowserContext. Both test defects were corrected before the final PASS. Physical reviewer-device behavior and Chrome versions other than the recorded Chromium 151 run remain separate environment coverage; no Web Store or Cadre production-install claim is made.
 
 ## Primary implementation references
 

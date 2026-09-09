@@ -8,6 +8,7 @@ const endpoint = "https://cadre-ai-chatbot-tawny.vercel.app/api/chat";
 const origins = ["https://cadre.ai", "https://www.cadre.ai"];
 const requestId = "12345678-1234-1234-1234-123456789012";
 const request = { type: "CHAT_REQUEST", requestId, payload: { messages: [{ role: "user", content: "services" }] } };
+const ready = { type: "READY", pageContext: "home" };
 
 class FakePort implements PreviewPort {
   messages: unknown[] = [];
@@ -29,7 +30,7 @@ function setup(fetcher = vi.fn<typeof fetch>().mockResolvedValue(Response.json({
   installBridge(runtime, endpoint, origins, fetcher);
   const host = new FakePort(PORT_HOST, { id: extensionId, url: "https://cadre.ai/about", origin: origins[0], frameId: 0, documentId: "host-document", tab: { id: 4 } });
   const panel = new FakePort(PORT_PANEL, { id: extensionId, url: `chrome-extension://${extensionId}/panel.html#${token}`, origin: `chrome-extension://${extensionId}`, frameId: 1, documentId: "panel-document", tab: { id: 4 } });
-  return { fetcher, host, panel, connect: (port: FakePort) => connect!(port), registered() { connect!(host); host.receive({ type: "REGISTER", token }); connect!(panel); } };
+  return { fetcher, host, panel, connect: (port: FakePort) => connect!(port), registered() { connect!(host); host.receive({ type: "REGISTER", token, pageContext: "home" }); connect!(panel); } };
 }
 async function flush() { for (let i = 0; i < 12; i++) await Promise.resolve(); }
 afterEach(() => vi.useRealTimers());
@@ -52,7 +53,7 @@ describe("fixed API bridge", () => {
   it("sends only bounded JSON to the configured API without credentials or redirects", async () => {
     const env = setup(); env.registered(); env.panel.receive(request); await flush();
     expect(env.host.messages).toContainEqual({ type: "REGISTERED" });
-    expect(env.panel.messages).toContainEqual({ type: "READY" });
+    expect(env.panel.messages).toContainEqual(ready);
     expect(env.fetcher).toHaveBeenCalledExactlyOnceWith(endpoint, expect.objectContaining({ method: "POST", body: JSON.stringify(request.payload), credentials: "omit", redirect: "error", cache: "no-store", referrerPolicy: "no-referrer" }));
     expect(env.panel.messages).toContainEqual({ type: "CHAT_RESPONSE", requestId, payload: { reply: "Safe answer", kind: "grounded" } });
   });
@@ -66,6 +67,14 @@ describe("fixed API bridge", () => {
     const duplicate = new FakePort(PORT_PANEL, env.panel.sender);
     env.connect(otherTab); env.connect(duplicate);
     expect(otherTab.disconnected).toBe(true); expect(duplicate.disconnected).toBe(true);
+  });
+  it("forwards only allowlisted page-context ids to an authenticated panel", () => {
+    const env = setup(); env.registered();
+    env.host.receive({ type: "CONTEXT", pageContext: "agents-discover" });
+    expect(env.panel.messages).toContainEqual({ type: "CONTEXT", pageContext: "agents-discover" });
+    env.host.receive({ type: "CONTEXT", pageContext: "https://evil.test" });
+    expect(env.host.disconnected).toBe(true);
+    expect(env.fetcher).not.toHaveBeenCalled();
   });
   it("deduplicates a request id and never automatically retries", async () => {
     const env = setup(); env.registered(); env.panel.receive(request); await flush(); env.panel.receive(request);
@@ -115,7 +124,7 @@ describe("fixed API bridge", () => {
     const reopened = new FakePort(PORT_PANEL, { ...env.panel.sender, documentId: "replacement-panel" });
     env.connect(reopened);
     expect(reopened.disconnected).toBe(false);
-    expect(reopened.messages).toContainEqual({ type: "READY" });
+    expect(reopened.messages).toContainEqual(ready);
   });
   it("aborts and clears timers before locally rejecting a pending invalid command", async () => {
     vi.useFakeTimers();
@@ -132,7 +141,7 @@ describe("fixed API bridge", () => {
     expect(env.panel.disconnected).toBe(true);
     const reopened = new FakePort(PORT_PANEL, { ...env.panel.sender, documentId: "after-invalid" });
     env.connect(reopened);
-    expect(reopened.messages).toContainEqual({ type: "READY" });
+    expect(reopened.messages).toContainEqual(ready);
     await flush();
     expect(env.panel.messages.filter((message) => (message as { type: string }).type.startsWith("CHAT_"))).toHaveLength(0);
     expect(fetcher).toHaveBeenCalledTimes(1);
@@ -147,7 +156,7 @@ describe("fixed API bridge", () => {
     env.registered();
     expect(env.host.disconnected).toBe(false);
     expect(env.host.messages).toContainEqual({ type: "REGISTERED" });
-    expect(env.panel.messages).toContainEqual({ type: "READY" });
+    expect(env.panel.messages).toContainEqual(ready);
   });
   it("host rejection disposes its panel and pending request idempotently", async () => {
     vi.useFakeTimers();
@@ -163,7 +172,7 @@ describe("fixed API bridge", () => {
     expect(env.panel.disconnected).toBe(true);
     env.host.peerDisconnect(); env.panel.peerDisconnect();
     const replacement = new FakePort(PORT_HOST, { ...env.host.sender, documentId: "new-host" });
-    env.connect(replacement); replacement.receive({ type: "REGISTER", token });
+    env.connect(replacement); replacement.receive({ type: "REGISTER", token, pageContext: "home" });
     expect(replacement.messages).toContainEqual({ type: "REGISTERED" });
     await flush();
   });
