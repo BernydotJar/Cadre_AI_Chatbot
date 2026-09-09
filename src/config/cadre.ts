@@ -22,6 +22,44 @@ const cadreConfig: ClientConfig = {
   tagline: "Ask about Cadre AI's services, booking a strategy call, or the AI Maturity Index.",
   officialDomain: "https://cadre.ai",
   contact: { label: "Contact Cadre AI", url: "https://cadre.ai/contact" },
+  publicHighlights: [
+    {
+      id: "high-roi-proof",
+      kind: "proof",
+      title: "100+ high-ROI use cases",
+      body: "Cadre states that it has delivered more than 100 high-ROI use cases across more than 50 companies.",
+      source: { origin: "https://cadre.ai/about", retrievedAt: "2026-09-09" },
+    },
+    {
+      id: "drive-revenue",
+      kind: "outcome",
+      title: "Drive Revenue",
+      body: "Cadre frames AI transformation around unlocking growth with automation and predictive insights.",
+      source: { origin: "https://cadre.ai; https://cadre.ai/about", retrievedAt: "2026-09-09" },
+    },
+    {
+      id: "increase-profitability",
+      kind: "outcome",
+      title: "Increase Profitability",
+      body: "Cadre focuses on reducing inefficiency so AI contributes to stronger margins and enterprise value.",
+      source: { origin: "https://cadre.ai; https://cadre.ai/about", retrievedAt: "2026-09-09" },
+    },
+    {
+      id: "elevate-employees",
+      kind: "outcome",
+      title: "Elevate Employees",
+      body: "Cadre positions AI as a way to remove tedious work and move teams toward higher-impact work.",
+      source: { origin: "https://cadre.ai; https://cadre.ai/about", retrievedAt: "2026-09-09" },
+    },
+    {
+      id: "track-ai-results",
+      kind: "product",
+      title: "Track your AI results",
+      body: "Cadre gives you a centralized portal to track tools, agents, training, and results. Stay aligned, stay accountable, and scale what works.",
+      link: { label: "Get Your AI Results", url: "https://cadre.ai/contact" },
+      source: { origin: "https://cadre.ai; https://cadre.ai/departments", retrievedAt: "2026-09-09" },
+    },
+  ],
   knowledge: [
     {
       id: "company-overview",
@@ -33,7 +71,8 @@ const cadreConfig: ClientConfig = {
         "offer", "offering", "help my business", "what can cadre",
         "agents", "agent", "ai agents", "engineering", "ai engineering",
         "strategy", "ai strategy", "automate", "automation", "workflow",
-        "workflows", "train", "training",
+        "workflows", "train", "training", "revenue", "profitability", "ebitda",
+        "roi", "high roi", "business impact",
       ],
       facts: [
         "Cadre AI is an AI strategy and implementation consultancy that helps businesses move from AI confusion to AI confidence.",
@@ -100,8 +139,9 @@ const cadreConfig: ClientConfig = {
       keywords: [
         "portal", "log in", "log into", "login", "sign in", "sign into",
         "dashboard", "agent dashboard", "agents dashboard", "ai agents dashboard",
-        "track my", "client access", "my tools", "my agent", "my ai agent",
-        "my agents", "my ai agents", "my results",
+        "track my", "track ai results", "track results", "track ai tools", "results portal",
+        "client access", "my tools", "my agent", "my ai agent", "my agents",
+        "my ai agents", "my results",
       ],
       facts: [
         "Cadre describes a central portal for tools, agents, training, and results; its public results action leads to the contact page.",
@@ -165,6 +205,11 @@ const cadreConfig: ClientConfig = {
       "certifications", "soc 2", "soc2", "iso 27001", "iso27001", "hipaa",
       "gdpr", "refund", "discount",
     ],
+    pricingTopics: [
+      "price", "pricing", "prices", "cost", "costs", "fee", "fees", "quote", "quotes",
+      "how much", "budget", "charge", "ballpark", "hourly rate", "your rates", "rate card",
+      "day rate", "discount",
+    ],
     accountTopics: [
       "my account", "my invoice", "my billing", "billing question",
       "my password", "reset my password", "my contract", "my subscription",
@@ -177,7 +222,9 @@ const cadreConfig: ClientConfig = {
     escalationMessage:
       "I can't help with account-specific or private matters in this chat, and I won't ask you for credentials or personal details here. The Cadre AI team can help you directly.",
     declineMessage:
-      "I don't have verified information to answer that — I'd rather connect you with the team than guess.",
+      "I don't have a verified answer for that in this knowledge set, so I won't turn uncertainty into a confident claim.",
+    pricingMessage:
+      "Cadre focuses on AI that drives revenue, profitability, and measurable business impact, but I don't have a verified price list or rate card here, so I won't make one up.",
   },
 };
 

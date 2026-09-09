@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test("cold-load controls wait for hydration before accepting the first message", async ({ page }) => {
+test("cold-load launcher waits for hydration before opening the first conversation", async ({ page }) => {
   let release!: () => void;
   const held = new Promise<void>((resolve) => { release = resolve; });
   let scriptsHeld = 0;
@@ -18,17 +18,15 @@ test("cold-load controls wait for hydration before accepting the first message",
   });
   try {
     await page.goto("/", { waitUntil: "commit" });
-    const input = page.getByRole("textbox", { name: "Message", exact: true });
-    await expect(input).toBeVisible();
     await expect.poll(() => scriptsHeld).toBeGreaterThan(0);
-    await expect(input).toBeDisabled();
-    await expect(page.getByRole("button", { name: "Send message", exact: true })).toBeDisabled();
-    const topics = page.locator(".topic-button");
-    await expect(topics).toHaveCount(6);
-    for (const topic of await topics.all()) await expect(topic).toBeDisabled();
-    await expect(page.locator("#composer-help")).toContainText("Preparing chat");
+    const launcher = page.getByRole("button", { name: /Ask Donna/ }).last();
+    await expect(launcher).toBeVisible();
+    await launcher.click();
+    await expect(page.getByRole("textbox", { name: "Message", exact: true })).toHaveCount(0);
     expect(requests).toHaveLength(0);
     release();
+    await launcher.click();
+    const input = page.getByRole("textbox", { name: "Message", exact: true });
     await expect(input).toBeEditable();
     await input.fill("Do you serve hotels?");
     await expect(page.locator(".character-count")).toContainText("20 / 2,000");
@@ -41,16 +39,15 @@ test("cold-load controls wait for hydration before accepting the first message",
   }
 });
 
-test("without JavaScript the contact route remains usable and chat is not falsely interactive", async ({ browser, baseURL, viewport }) => {
+test("without JavaScript the public Cadre page and contact route remain usable without fake chat", async ({ browser, baseURL, viewport }) => {
   const context = await browser.newContext({ javaScriptEnabled: false, viewport });
   const page = await context.newPage();
   try {
     await page.goto(baseURL!);
-    await expect(page.getByRole("textbox", { name: "Message", exact: true })).toBeDisabled();
-    await expect(page.getByRole("button", { name: "Send message", exact: true })).toBeDisabled();
-    await expect(page.locator(".topic-button")).toHaveCount(6);
-    for (const topic of await page.locator(".topic-button").all()) await expect(topic).toBeDisabled();
-    await expect(page.locator("#composer-help")).toContainText("reload or contact the team");
+    await expect(page.getByRole("heading", { name: /From AI curiosity/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Track your AI results" })).toBeVisible();
+    await expect(page.getByRole("textbox", { name: "Message", exact: true })).toHaveCount(0);
+    await expect(page.locator(".noscript-note")).toContainText("Chat needs JavaScript");
     await expect(page.locator(".contact-link")).toHaveAttribute("href", "https://cadre.ai/contact");
     await expect(page.locator(".contact-link")).toBeVisible();
   } finally {

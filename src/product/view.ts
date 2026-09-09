@@ -1,4 +1,4 @@
-import type { ApprovedLink } from "@/config/types";
+import type { ApprovedLink, PublicHighlight } from "@/config/types";
 import type { ChatbotProductProfile, ExperienceProfile } from "./types";
 
 export type ChatExperienceView = Readonly<{
@@ -6,6 +6,7 @@ export type ChatExperienceView = Readonly<{
   clientName: string;
   contact: ApprovedLink;
   approvedLinks: ApprovedLink[];
+  publicHighlights: PublicHighlight[];
   topics: { id: string; label: string }[];
   experience: ExperienceProfile;
 }>;
@@ -26,6 +27,7 @@ export function chatExperience(profile: ChatbotProductProfile): ChatExperienceVi
     clientName: profile.client.clientName,
     contact: profile.client.contact,
     approvedLinks,
+    publicHighlights: profile.client.publicHighlights ?? [],
     topics: profile.client.knowledge.map((entry) => ({ id: entry.id, label: entry.label })),
     experience: profile.experience,
   });

@@ -94,7 +94,7 @@ jobs:
           const icon=fs.readFileSync('/tmp/icon.svg','utf8');
           if (health.status !== 'ok') throw new Error('health marker missing');
           if (hello.kind !== 'greeting' || !/what would you like to explore/i.test(hello.reply)) throw new Error('new greeting contract missing');
-          if (!html.includes('Turn AI curiosity') || html.includes('YOUR NEXT STEP STARTS HERE')) throw new Error('new Cadre Signal hero not deployed');
+          if (!html.includes('From AI curiosity') || !html.includes('Track your AI results') || !html.includes('Ask Donna') || html.includes('YOUR NEXT STEP STARTS HERE')) throw new Error('PX6 Cadre/Donna release markers not deployed');
           if (!icon.includes('<svg')) throw new Error('app icon not deployed');
           NODE
       - name: Publish deployment receipt
@@ -106,5 +106,5 @@ jobs:
             echo "### Cadre production deployment"
             echo "- Source: \`${{ steps.source.outputs.sha }}\`"
             echo "- URL: $DEPLOYMENT_URL"
-            echo "- Health, Cadre Signal hero, favicon, and deterministic hello: PASS"
+            echo "- Health, PX6 Cadre/Donna markers, favicon, and deterministic hello: PASS"
           } >> "$GITHUB_STEP_SUMMARY"

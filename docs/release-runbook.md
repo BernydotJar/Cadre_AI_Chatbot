@@ -104,7 +104,7 @@ A deployment is not accepted merely because the provider reports READY. Public c
 Required markers:
 
 - `GET /api/health` -> `{"status":"ok"}`.
-- `/` contains the current Cadre Signal hero marker `Turn AI curiosity`.
+- `/` contains the current PX6 hero marker `From AI curiosity`, the verified product marker `Track your AI results`, and the `Ask Donna` entry point.
 - `/` does **not** contain the stale `YOUR NEXT STEP STARTS HERE` marker.
 - `/icon.svg` returns the current SVG asset.
 - Exact `hello` returns `kind: "greeting"` and the current deterministic welcome rather than the historical redirect.

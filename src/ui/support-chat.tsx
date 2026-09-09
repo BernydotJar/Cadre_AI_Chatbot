@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties, type FormEvent, type KeyboardEvent, type MouseEvent } from "react";
 import type { ExperienceProfile } from "@/product/types";
+import type { PublicHighlight } from "@/config/types";
 import { LIMITS } from "@/core/limits";
 import {
   approvedTextParts, buildRequestHistory, CLIENT_TIMEOUT_MS, DISPLAY_MESSAGE_LIMIT,
@@ -14,6 +15,7 @@ type Props = {
   contact: ApprovedLink;
   topics: { id: string; label: string }[];
   approvedLinks: ApprovedLink[];
+  publicHighlights: PublicHighlight[];
   experience: ExperienceProfile;
   modeLabel: "Demo mode" | "Live model configured" | "Chat unavailable";
 };
@@ -41,17 +43,26 @@ function CompanyMark({ name, small = false }: { name: string; small?: boolean })
   </span>;
 }
 
-function PersonaAvatar({ experience, compact = false }: {
+type AvatarState = "idle" | "shaping";
+
+function PersonaAvatar({ experience, compact = false, state = "idle" }: {
   experience: ExperienceProfile;
   compact?: boolean;
+  state?: AvatarState;
 }) {
   return <span
     className={`persona-avatar${compact ? " persona-avatar-compact" : ""}`}
     data-avatar-style={experience.avatar.style}
+    data-avatar-state={state}
     title={experience.avatar.label}
     aria-hidden="true"
   >
-    <span className="persona-monogram">{experience.avatar.monogram}</span>
+    {experience.avatar.style === "signal-orb" ? <span className="donna-orb" data-state={state}>
+      <i className="orb-lobe orb-lobe-a" />
+      <i className="orb-lobe orb-lobe-b" />
+      <i className="orb-lobe orb-lobe-c" />
+      <span className="orb-core">{experience.avatar.monogram}</span>
+    </span> : <span className="persona-monogram">{experience.avatar.monogram}</span>}
   </span>;
 }
 
@@ -126,9 +137,11 @@ function ReplyText({ text, links }: { text: string; links: ApprovedLink[] }) {
     : <span key={index}>{part.text}</span>)}</div>;
 }
 
-export function SupportChat({ productId, clientName, contact, topics, approvedLinks, experience, modeLabel }: Props) {
+export function SupportChat({ productId, clientName, contact, topics, approvedLinks, publicHighlights, experience, modeLabel }: Props) {
   const ready = useSyncExternalStore(subscribeToReadiness, clientReady, serverReady);
   const [messages, setMessages] = useState<Message[]>([]);
+  const [chatOpen, setChatOpen] = useState(false);
+  const [nudgeDismissed, setNudgeDismissed] = useState(false);
   const [draft, setDraft] = useState("");
   const [pending, setPending] = useState(false);
   const [failed, setFailed] = useState<FailedTurn | null>(null);
@@ -148,6 +161,20 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
     const operation = active.current;
     active.current = null;
     operation?.controller.abort();
+  }, []);
+
+  useEffect(() => {
+    if (!chatOpen) return;
+    const frame = window.requestAnimationFrame(() => composer.current?.focus({ preventScroll: true }));
+    return () => window.cancelAnimationFrame(frame);
+  }, [chatOpen]);
+
+  useEffect(() => {
+    function onEscape(event: globalThis.KeyboardEvent) {
+      if (event.key === "Escape") setChatOpen(false);
+    }
+    window.addEventListener("keydown", onEscape);
+    return () => window.removeEventListener("keydown", onEscape);
   }, []);
 
   useEffect(() => {
@@ -228,6 +255,8 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
   }
 
   function send(content: string) {
+    setChatOpen(true);
+    setNudgeDismissed(true);
     if (active.current) return;
     const trimmed = content.trim();
     if (!trimmed) { setValidation("Write a message before sending."); composer.current?.focus(); return; }
@@ -281,6 +310,11 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
   const overLimit = draft.trim().length > LIMITS.maxMessageChars;
   const publicModeLabel = modeLabel === "Live model configured" ? "Available"
     : modeLabel === "Demo mode" ? "Demo" : "Unavailable";
+  const outcomeHighlights = publicHighlights.filter((highlight) => highlight.kind === "outcome");
+  const proofHighlight = publicHighlights.find((highlight) => highlight.kind === "proof");
+  const productHighlight = publicHighlights.find((highlight) => highlight.kind === "product");
+  const primaryPrompt = experience.quickPrompts[0];
+  const resultsPrompt = experience.quickPrompts.find((prompt) => /track|results/i.test(`${prompt.label} ${prompt.message}`));
 
   const themeStyle = {
     "--bg": experience.theme.background,
@@ -326,82 +360,167 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
   }
 
   return <div className="support-shell" style={themeStyle} data-product={productId}>
-    <a className="skip-link" href="#message">Skip to message</a>
+    <a className="skip-link" href="#main-content">Skip to main content</a>
     <header className="site-header">
       <div className="wordmark"><CompanyMark name={clientName} /><span>{clientName}</span></div>
-      <a className="contact-link" href={contact.url} target="_blank" rel="noopener noreferrer">
-        <span>{contact.label}</span><Arrow diagonal /><span className="sr-only"> (opens in a new tab)</span>
-      </a>
+      <nav className="site-nav" aria-label="Primary">
+        <a href="#what-cadre-does">Outcomes</a>
+        <a href="#how-donna-works">How Donna works</a>
+        <a className="contact-link" href={contact.url} target="_blank" rel="noopener noreferrer">
+          <span>Talk to an AI Strategist</span><Arrow diagonal /><span className="sr-only"> (opens in a new tab)</span>
+        </a>
+      </nav>
     </header>
-    <main className="workspace">
-      <aside className="intro" aria-labelledby="page-title">
+
+    <main id="main-content" className="experience-page">
+      <section className="intro" aria-labelledby="page-title">
         {experience.ambientMedia ? <AmbientMedia media={experience.ambientMedia} /> : null}
         <div className="intro-copy">
-          <p className="eyebrow"><span className="eyebrow-rule" /> {experience.copy.eyebrow}</p>
+          <p className="eyebrow">{experience.copy.eyebrow}</p>
           <h1 id="page-title">{experience.copy.heroLead}<br /><em>{experience.copy.heroEmphasis}</em></h1>
           <p className="intro-description">{experience.copy.heroDescription}</p>
-        </div>
-        <div className="intro-bottom">
-          <div className="scope-note">
-            <p className="trust-label">{experience.copy.trustLabel}</p>
-            <p>{experience.copy.trustBody}</p>
-            <p className="scope-boundary">{experience.copy.trustBoundary}</p>
+          <div className="hero-actions">
+            <button type="button" className="hero-chat-action" onClick={() => { setChatOpen(true); setNudgeDismissed(true); }}>
+              <PersonaAvatar experience={experience} compact />
+              <span>Ask {experience.assistantLabel}</span><Arrow />
+            </button>
+            <a className="hero-contact-action" href={contact.url} target="_blank" rel="noopener noreferrer">
+              Talk to an AI Strategist <Arrow diagonal /><span className="sr-only"> (opens in a new tab)</span>
+            </a>
           </div>
         </div>
-      </aside>
-      <section className="chat-card" aria-labelledby="chat-title" data-started={started ? "true" : "false"}>
-        <header className="chat-header">
-          <div className="chat-identity"><PersonaAvatar experience={experience} compact /><div><h2 id="chat-title">{experience.assistantLabel}</h2>
-            <p className={`mode-label${modeLabel === "Demo mode" ? " demo-label" : ""}`}><span className="mode-dot" aria-hidden="true" />{publicModeLabel}</p>
-          </div></div>
+        <div className="intro-bottom">
+          {proofHighlight ? <div className="hero-proof" data-highlight={proofHighlight.id}>
+            <strong>{proofHighlight.title}</strong>
+            <span>{proofHighlight.body}</span>
+          </div> : <div className="scope-note">
+            <p className="trust-label">{experience.copy.trustLabel}</p>
+            <p>{experience.copy.trustBody}</p>
+          </div>}
+        </div>
+      </section>
+
+      {outcomeHighlights.length > 0 && <section id="what-cadre-does" className="outcome-section" aria-labelledby="outcomes-title">
+        <div className="section-heading">
+          <p className="section-eyebrow">AI STRATEGY &amp; IMPLEMENTATION</p>
+          <h2 id="outcomes-title">AI that earns its place in the business.</h2>
+          <p>Cadre's public positioning is outcome-first. Donna keeps the same idea simple: start with the business move, then find the right AI path.</p>
+        </div>
+        <div className="outcome-grid">{outcomeHighlights.map((highlight, index) => <article key={highlight.id} className="outcome-card">
+          <span className="outcome-index">0{index + 1}</span>
+          <h3>{highlight.title}</h3>
+          <p>{highlight.body}</p>
+        </article>)}</div>
+      </section>}
+
+      {productHighlight && <section className="results-section" aria-labelledby="results-title">
+        <div className="results-copy">
+          <p className="section-eyebrow">MEASURE WHAT WORKS</p>
+          <h2 id="results-title">{productHighlight.title}</h2>
+          <p>{productHighlight.body}</p>
+        </div>
+        <div className="results-actions">
+          {productHighlight.link && <a href={productHighlight.link.url} target="_blank" rel="noopener noreferrer">
+            {productHighlight.link.label}<Arrow diagonal /><span className="sr-only"> (opens in a new tab)</span>
+          </a>}
+          {resultsPrompt && <button type="button" onClick={() => send(resultsPrompt.message)}>Ask Donna how it works <Arrow /></button>}
+        </div>
+      </section>}
+
+      <section id="how-donna-works" className="trust-section" aria-labelledby="trust-title">
+        <div className="section-heading compact-heading">
+          <p className="section-eyebrow">HOW {experience.assistantLabel.toUpperCase()} WORKS</p>
+          <h2 id="trust-title">Useful by design. Bounded on purpose.</h2>
+          <p>The experience separates what {clientName} says from how {experience.assistantLabel} says it, then keeps actions and handoffs explicit.</p>
+        </div>
+        <div className="trust-grid">
+          <article><span>01</span><h3>Verified knowledge</h3><p>Public facts and approved links live in typed client configuration with source dates.</p></article>
+          <article><span>02</span><h3>Bounded persona</h3><p>{experience.assistantLabel} can be warm, concise, and proactive without adding pricing, promises, or new facts.</p></article>
+          <article><span>03</span><h3>Deterministic guardrails</h3><p>Pricing, private-account, and unsupported-claim boundaries are decided before model-assisted fact ordering.</p></article>
+          <article><span>04</span><h3>Human handoff</h3><p>When verified context ends, the official {clientName} contact path takes over instead of a guess.</p></article>
+        </div>
+      </section>
+      <noscript><div className="noscript-note">Chat needs JavaScript. You can still use the official contact link above.</div></noscript>
+    </main>
+
+    <footer className="site-footer"><span>{experience.copy.footerLead}</span><span>{clientName} · {experience.copy.footerTail}</span></footer>
+
+    {!chatOpen && <aside className="donna-launcher-stack" aria-label={`${experience.assistantLabel} chat invitation`}>
+      {!nudgeDismissed && <div className="donna-nudge">
+        <button type="button" className="nudge-dismiss" aria-label="Dismiss Donna suggestion" onClick={() => setNudgeDismissed(true)}>×</button>
+        <p className="nudge-kicker">HEY — QUICK THOUGHT</p>
+        <strong>{proofHighlight?.title ?? experience.copy.trustLabel}</strong>
+        <p>{proofHighlight?.body ?? experience.copy.trustBody}</p>
+        {primaryPrompt && <button type="button" className="nudge-action" onClick={() => send(primaryPrompt.message)}>
+          Find my starting point <Arrow />
+        </button>}
+      </div>}
+      <button type="button" className="donna-launcher" aria-expanded="false" aria-controls="donna-chat" onClick={() => { setChatOpen(true); setNudgeDismissed(true); }}>
+        <PersonaAvatar experience={experience} />
+        <span className="launcher-copy"><strong>Ask {experience.assistantLabel}</strong><small>Try a question. I'll keep it grounded.</small></span>
+        <Arrow />
+      </button>
+    </aside>}
+
+    {chatOpen && <section id="donna-chat" className="chat-card" aria-label={`Chat with ${experience.assistantLabel}`} data-started={started ? "true" : "false"}>
+      <header className="chat-header">
+        <div className="chat-identity"><PersonaAvatar experience={experience} compact state={pending ? "shaping" : "idle"} /><div><h2 id="chat-title">{experience.assistantLabel}</h2>
+          <p className={`mode-label${modeLabel === "Demo mode" ? " demo-label" : ""}`}><span className="mode-dot" aria-hidden="true" />{pending ? "Shaping a grounded answer" : publicModeLabel}</p>
+        </div></div>
+        <div className="chat-header-actions">
           {started && <button className="reset-button" type="button" onClick={newConversation} aria-label="New conversation">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 10a8 8 0 1 1 .7 7M4 4v6h6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
-            <span>New conversation</span>
+            <span>New</span>
           </button>}
-        </header>
-        {!started && renderComposerPanel()}
-        <div className="conversation-space">
-          <div className="transcript" ref={transcript} role="region" aria-label="Conversation" tabIndex={0}
-            onScroll={() => {
-              const element = transcript.current;
-              if (!element) return;
-              if (!started) { followingLatest.current = true; setAwayFromLatest(false); return; }
-              const away = element.scrollHeight - element.scrollTop - element.clientHeight > 72;
-              followingLatest.current = !away; setAwayFromLatest(away);
-            }}>
-            {!started ? <div className="welcome">
-              <div className="welcome-persona">
-                <div className="welcome-persona-copy">
-                  <h3>{experience.copy.welcomeLead} <em>{experience.copy.welcomeEmphasis}</em></h3>
-                  <p>{experience.copy.welcomeBody}</p>
-                </div>
-              </div>
-              <div className="topic-grid" aria-label="Suggested topics">{topics.map((topic, index) => <button
+          <button className="chat-close" type="button" onClick={() => setChatOpen(false)} aria-label="Close chat">×</button>
+        </div>
+      </header>
+      {!started && renderComposerPanel()}
+      <div className="conversation-space">
+        <div className="transcript" ref={transcript} role="region" aria-label="Conversation" tabIndex={0}
+          onScroll={() => {
+            const element = transcript.current;
+            if (!element) return;
+            if (!started) { followingLatest.current = true; setAwayFromLatest(false); return; }
+            const away = element.scrollHeight - element.scrollTop - element.clientHeight > 72;
+            followingLatest.current = !away; setAwayFromLatest(away);
+          }}>
+          {!started ? <div className="welcome">
+            <div className="welcome-persona-copy">
+              <h3>{experience.copy.welcomeLead} <em>{experience.copy.welcomeEmphasis}</em></h3>
+              <p>{experience.copy.welcomeBody}</p>
+            </div>
+            <div className="quick-prompt-grid" aria-label={`Suggested questions for ${experience.assistantLabel}`}>{experience.quickPrompts.map((prompt) => <button
+              key={prompt.label} type="button" className="quick-prompt" disabled={!ready} onClick={() => send(prompt.message)}>
+              <span>{prompt.label}</span><Arrow />
+            </button>)}</div>
+            <details className="topic-browser">
+              <summary>Browse verified topics</summary>
+              <div className="topic-grid" aria-label="Verified topics">{topics.map((topic, index) => <button
                 key={topic.id} type="button" className="topic-button" disabled={!ready} onClick={() => send(topic.label)}>
                 <span className="topic-number" aria-hidden="true">0{index + 1}</span>
                 <span className="topic-label">{topic.label}</span><Arrow />
               </button>)}</div>
-              {modeLabel === "Demo mode" && <p className="demo-note">You’re exploring a demo with sample answers. No live model is used.</p>}
-              {modeLabel === "Chat unavailable" && <p className="demo-note">Chat isn’t configured right now. You can still reach the team through the contact link.</p>}
-            </div> : <>
-              {historyTrimmed && <p className="history-note">Showing the most recent messages. Earlier context is limited.</p>}
-              <ol className="message-list" aria-label="Messages" aria-busy={pending}>{messages.map((message) => <li
-                key={message.id} className={`message message-${message.role}`} data-testid="chat-message" data-role={message.role}>
-                <div className="message-author">{message.role === "user" ? "You" : experience.assistantLabel}</div>
-                <div className={`message-bubble${failed?.message.id === message.id ? " message-failed" : ""}`}>
-                  {message.role === "assistant" ? <ReplyText text={message.content} links={approvedLinks} />
-                    : <div className="message-text">{message.content}</div>}
-                </div>
-              </li>)}</ol>
-              {pending && <div className="pending-message" aria-hidden="true"><span className="request-indicator"><i /></span><span><strong>{experience.copy.workingTitle}</strong>{experience.copy.workingBody}</span></div>}
-            </>}
-          </div>
-          {started && awayFromLatest && <button className="jump-button" type="button" onClick={jumpToLatest}>Jump to latest <span aria-hidden="true">↓</span></button>}
+            </details>
+            {modeLabel === "Demo mode" && <p className="demo-note">You're exploring a demo with sample answers. No live model is used.</p>}
+            {modeLabel === "Chat unavailable" && <p className="demo-note">Chat isn't configured right now. You can still reach the team through the contact link.</p>}
+          </div> : <>
+            {historyTrimmed && <p className="history-note">Showing the most recent messages. Earlier context is limited.</p>}
+            <ol className="message-list" aria-label="Messages" aria-busy={pending}>{messages.map((message) => <li
+              key={message.id} className={`message message-${message.role}`} data-testid="chat-message" data-role={message.role}>
+              <div className="message-author">{message.role === "user" ? "You" : experience.assistantLabel}</div>
+              <div className={`message-bubble${failed?.message.id === message.id ? " message-failed" : ""}`}>
+                {message.role === "assistant" ? <ReplyText text={message.content} links={approvedLinks} />
+                  : <div className="message-text">{message.content}</div>}
+              </div>
+            </li>)}</ol>
+            {pending && <div className="pending-message" aria-hidden="true"><PersonaAvatar experience={experience} compact state="shaping" /><span><strong>{experience.copy.workingTitle}</strong>{experience.copy.workingBody}</span></div>}
+          </>}
         </div>
-        {started && renderComposerPanel()}
-      </section>
-    </main>
-    <footer className="site-footer"><span>{experience.copy.footerLead}</span><span>{clientName} · {experience.copy.footerTail}</span></footer>
+        {started && awayFromLatest && <button className="jump-button" type="button" onClick={jumpToLatest}>Jump to latest <span aria-hidden="true">↓</span></button>}
+      </div>
+      {started && renderComposerPanel()}
+    </section>}
     <div className="sr-only" role="status" aria-live="polite" aria-atomic="true">{announcement}</div>
   </div>;
 }

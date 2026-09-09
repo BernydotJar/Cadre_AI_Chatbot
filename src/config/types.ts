@@ -34,6 +34,24 @@ export const knowledgeEntrySchema = z.object({
   }),
 });
 
+/**
+ * Verified public facts that are useful as presentation/proof surfaces but do
+ * not need their own routing topic. These remain client-owned factual
+ * authority; the experience/persona layer may choose how to present them but
+ * cannot invent or extend them.
+ */
+export const publicHighlightSchema = z.object({
+  id: z.string().min(1),
+  kind: z.enum(["outcome", "proof", "product"]),
+  title: z.string().min(1),
+  body: z.string().min(1),
+  link: approvedLinkSchema.optional(),
+  source: z.object({
+    origin: z.string().min(1),
+    retrievedAt: z.string().min(1).optional(),
+  }),
+});
+
 export const clientConfigSchema = z.object({
   clientName: z.string().min(1),
   botName: z.string().min(1),
@@ -43,6 +61,8 @@ export const clientConfigSchema = z.object({
   officialDomain: z.url().startsWith("https://"),
   /** Canonical human-escalation link (contact page). */
   contact: approvedLinkSchema,
+  /** Optional verified public proof/product facts for the surrounding page. */
+  publicHighlights: z.array(publicHighlightSchema).max(8).optional(),
   knowledge: z.array(knowledgeEntrySchema).min(1),
   boundaries: z.object({
     /**
@@ -52,6 +72,8 @@ export const clientConfigSchema = z.object({
      * capability questions will swallow supported scenarios.
      */
     declineTopics: z.array(z.string().min(1)),
+    /** Subset of declineTopics that should receive pricing-specific copy. */
+    pricingTopics: z.array(z.string().min(1)),
     /**
      * Lowercase triggers for account-specific requests that must be
      * REDIRECTED to a human channel without collecting sensitive data.
@@ -63,11 +85,14 @@ export const clientConfigSchema = z.object({
     escalationMessage: z.string().min(1),
     /** Copy used when declining an unverifiable request. */
     declineMessage: z.string().min(1),
+    /** Verified commercial framing used only for pricing/rate questions. */
+    pricingMessage: z.string().min(1),
   }),
 });
 
 export type ApprovedLink = z.infer<typeof approvedLinkSchema>;
 export type KnowledgeEntry = z.infer<typeof knowledgeEntrySchema>;
+export type PublicHighlight = z.infer<typeof publicHighlightSchema>;
 export type ClientConfig = z.infer<typeof clientConfigSchema>;
 
 function deepFreeze<T>(value: T): T {
@@ -97,6 +122,7 @@ export function validateClientConfig(config: ClientConfig): ClientConfig {
   const links = [
     parsed.contact,
     ...parsed.knowledge.flatMap((entry) => entry.approvedLinks),
+    ...(parsed.publicHighlights ?? []).flatMap((highlight) => highlight.link ? [highlight.link] : []),
   ];
   for (const link of links) {
     const host = new URL(link.url).hostname;
@@ -109,6 +135,11 @@ export function validateClientConfig(config: ClientConfig): ClientConfig {
 
   const seenTopics = new Set<string>();
   const seenIds = new Set<string>();
+  const seenHighlightIds = new Set<string>();
+  for (const highlight of parsed.publicHighlights ?? []) {
+    if (seenHighlightIds.has(highlight.id)) throw new Error(`duplicate public highlight id ${highlight.id}`);
+    seenHighlightIds.add(highlight.id);
+  }
   const keywordOwners = new Map<string, string>();
   for (const entry of parsed.knowledge) {
     if (seenIds.has(entry.id)) throw new Error(`duplicate knowledge id ${entry.id}`);
@@ -145,6 +176,14 @@ export function validateClientConfig(config: ClientConfig): ClientConfig {
           `${listName}: trigger ${JSON.stringify(trigger)} shadows a keyword of entry ${owner}; boundaries outrank routing, so this would swallow a supported scenario`,
         );
       }
+    }
+  }
+
+  const declineTopics = new Set(parsed.boundaries.declineTopics.map(normalize));
+  for (const trigger of parsed.boundaries.pricingTopics) {
+    const normalized = normalize(trigger);
+    if (!declineTopics.has(normalized)) {
+      throw new Error(`pricingTopics: trigger ${JSON.stringify(trigger)} must also exist in declineTopics`);
     }
   }
 

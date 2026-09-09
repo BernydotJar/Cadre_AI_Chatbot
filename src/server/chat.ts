@@ -8,7 +8,7 @@ import { MockFactSelector } from "@/provider/mock";
 import { OpenRouterFactSelector } from "@/provider/openrouter";
 import { ProviderError, validateFactIndices, type FactSelector } from "@/provider/types";
 import { activeProduct } from "@/product/active";
-import { appendProactiveQuestion, proactiveQuestionFor } from "@/product/conversation";
+import { appendProactiveQuestion, boundaryVoiceFor, prependBoundaryVoice, proactiveQuestionFor } from "@/product/conversation";
 import type { ChatbotProductProfile } from "@/product/types";
 import { abortable, BodyError, cancelBody, deadline, readBoundedJson, systemClock, throwIfAborted, type Clock } from "./io";
 import { clientKey, RateLimiter } from "./rate-limit";
@@ -102,6 +102,8 @@ export function createChatHandler(options: {
           text,
           proactiveQuestionFor(decision, parsed.request.messages, persona),
         );
+      } else {
+        text = prependBoundaryVoice(text, boundaryVoiceFor(decision, persona));
       }
       // URLs and labels are app-owned. Plain text API remains {reply, kind};
       // the UI must render text and allowlist links rather than arbitrary HTML.

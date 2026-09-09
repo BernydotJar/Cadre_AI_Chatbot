@@ -39,3 +39,5 @@ The documentation distinguishes these evidence classes because they are not inte
 - source archive extraction/build verification.
 
 A PASS in one category never silently establishes another.
+
+- [`cinematic-proactive-experience.md`](cinematic-proactive-experience.md) — PX6 page/persona/motion/proactivity contract.

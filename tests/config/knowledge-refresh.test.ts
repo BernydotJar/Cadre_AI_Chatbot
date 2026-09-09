@@ -16,6 +16,19 @@ describe("official knowledge refresh — six-topic boundary", () => {
     expect(reply.links).toContainEqual({ label: "Industries", url: "https://cadre.ai/industries" });
   });
 
+
+  it.each(["revenue", "profitability", "EBITDA", "high ROI"])("routes business-outcome language to Cadre overview: %s", (message) => {
+    const route = routeMessage(message, cadre);
+    expect(route.kind).toBe("match");
+    if (route.kind === "match") expect(route.entry.topic).toBe("overview");
+  });
+
+  it.each(["track AI results", "track AI tools", "results portal"])("routes result-tracking language to the portal boundary: %s", (message) => {
+    const route = routeMessage(message, cadre);
+    expect(route.kind).toBe("match");
+    if (route.kind === "match") expect(route.entry.topic).toBe("portal");
+  });
+
   it("explains the portal without inventing access", () => {
     const reply = respond([{ role: "user", content: "client portal" }], cadre);
     expect(reply.text).toContain("tools, agents, training, and results");

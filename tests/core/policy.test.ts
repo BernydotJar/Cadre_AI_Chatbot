@@ -106,6 +106,8 @@ describe("response policy — boundaries (S6)", () => {
   it("declines pricing questions instead of inventing numbers", () => {
     const reply = respond([user("How much does an engagement cost?")], cadre);
     expect(reply.kind).toBe("decline");
+    expect(reply.text).toContain("drives revenue, profitability, and measurable business impact");
+    expect(reply.text).toContain("price list or rate card");
     expect(reply.text).not.toMatch(/\$|\d+k/);
     expect(reply.links).toEqual([cadre.contact]);
   });

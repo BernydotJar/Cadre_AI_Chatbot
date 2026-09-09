@@ -15,7 +15,7 @@ export type PolicyDecision =
   | { kind: "grounded"; entry: KnowledgeEntry }
   | { kind: "clarify"; candidates: KnowledgeEntry[] }
   | { kind: "redirect"; reason: "account-specific" | "unknown" | "still-ambiguous" }
-  | { kind: "decline" };
+  | { kind: "decline"; reason: "pricing" | "unsupported-claim" };
 
 /** Marker embedded in clarify replies so a stateless server can detect that a clarification was already asked. */
 export const CLARIFY_MARKER = "Could you tell me a bit more about what you need?";
@@ -104,7 +104,10 @@ export function decide(messages: readonly ChatMessage[], config: ClientConfig): 
     return { kind: "redirect", reason: "account-specific" };
   }
   if (matchesTriggers(text, config.boundaries.declineTopics)) {
-    return { kind: "decline" };
+    return {
+      kind: "decline",
+      reason: matchesTriggers(text, config.boundaries.pricingTopics) ? "pricing" : "unsupported-claim",
+    };
   }
   if (isGreeting(text)) return { kind: "greeting" };
 
@@ -156,7 +159,7 @@ export function composeReply(decision: PolicyDecision, config: ClientConfig): Co
     case "decline": {
       return {
         kind: "decline",
-        text: `${config.boundaries.declineMessage} You can reach the ${config.clientName} team through the link below.`,
+        text: `${decision.reason === "pricing" ? config.boundaries.pricingMessage : config.boundaries.declineMessage} You can reach the ${config.clientName} team through the link below.`,
         links: [config.contact],
       };
     }

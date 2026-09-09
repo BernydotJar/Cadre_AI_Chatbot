@@ -3,31 +3,40 @@ import { test, expect, type Page } from "@playwright/test";
 const messages = (page: Page, role: "user" | "assistant") => page.locator(`[data-testid="chat-message"][data-role="${role}"]`);
 const input = (page: Page) => page.getByRole("textbox", { name: "Message", exact: true });
 
+async function openDonna(page: Page) {
+  const launcher = page.getByRole("button", { name: /Ask Donna/ }).last();
+  if (await launcher.isVisible().catch(() => false)) await launcher.click();
+  await expect(input(page)).toBeVisible();
+}
+
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
-  await expect(input(page)).toBeVisible();
+  await openDonna(page);
 });
 
-test("first impression has a real app icon, one restrained Donna mark, generous composer, and useful greeting", async ({ page }) => {
+test("first impression feels like a Cadre page with an inviting Donna product", async ({ page }) => {
+  await page.reload();
   await expect(page.locator('link[rel~="icon"]')).toHaveAttribute("href", /icon\.svg/);
-  await expect(page.locator(".chat-header .persona-avatar")).toBeVisible();
-  await expect(page.locator(".persona-avatar")).toHaveCount(1);
-  await expect(page.locator(".chat-header .persona-avatar")).toHaveAttribute("data-avatar-style", "editorial-monogram");
-  await expect(page.locator(".persona-avatar svg")).toHaveCount(0);
+  await expect(page.getByText("VERIFIED CADRE CONTEXT", { exact: true })).toBeVisible();
+  await expect(page.locator(".intro .eyebrow-rule")).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: /From AI curiosity.*to a clear next move/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "AI that earns its place in the business." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Track your AI results" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Useful by design. Bounded on purpose." })).toBeVisible();
+  await expect(page.locator(".donna-nudge")).toContainText("100+ high-ROI use cases");
+  const launcher = page.getByRole("button", { name: /Ask Donna/ }).last();
+  await expect(launcher).toBeVisible();
+  await expect(launcher.locator('.persona-avatar[data-avatar-style="signal-orb"]')).toBeVisible();
+  await launcher.click();
   await expect(page.getByRole("heading", { name: "Donna", exact: true })).toBeVisible();
-  await expect(page.locator(".chat-header .mode-label")).toHaveText(/^(Available|Demo|Unavailable)$/);
-  await expect(page.locator(".chat-header .mode-label")).not.toContainText(/configured|mode/i);
-  await expect(page.locator(".support-shell")).toHaveAttribute("data-product", "cadre-donna");
+  await expect(page.locator(".chat-header .persona-avatar")).toHaveAttribute("data-avatar-style", "signal-orb");
+  await expect(page.locator(".quick-prompt")).toHaveCount(4);
   await expect(input(page)).toHaveAttribute("placeholder", "What are you trying to figure out?");
-  const composer = await page.locator('.chat-card[data-started="false"] .composer').boundingBox();
-  expect(composer?.height).toBeGreaterThanOrEqual(70);
-  await expect(page.locator(".topic-button")).toHaveCount(6);
   await input(page).fill("hello");
   await input(page).press("Enter");
   const reply = messages(page, "assistant").first();
   await expect(reply).toContainText("What would you like to explore?");
   await expect(reply).toContainText("AI Maturity Index");
-  await expect(reply).not.toContainText("outside what I can answer");
   await expect(reply.locator("a")).toHaveCount(0);
 });
 
@@ -112,7 +121,7 @@ test("anonymous conversation uses the real server and official links", async ({ 
   await expect(messages(page, "assistant")).toHaveCount(2);
   await expect(messages(page, "assistant").last()).toContainText(/contact/i);
   await expect(messages(page, "assistant").last().locator('a[href="https://cadre.ai/contact"]')).toBeVisible();
-  await expect(page.getByRole("main").getByRole("alert")).toHaveCount(0);
+  await expect(page.getByRole("alert")).toHaveCount(0);
 });
 
 test("Donna presentation handles one configured next step and an opt-out", async ({ page }) => {
@@ -138,6 +147,7 @@ test("Donna presentation handles one configured next step and an opt-out", async
 });
 
 test("all six entry points are present and clarification preserves an ordinal follow-up", async ({ page }) => {
+  await page.locator(".topic-browser").evaluate((node) => { (node as HTMLDetailsElement).open = true; });
   for (const label of ["what Cadre AI does", "industries we serve", "booking a strategist call", "client portal access", "the AI Maturity Index", "models and data security"]) {
     await expect(page.getByRole("button", { name: label, exact: true })).toBeVisible();
   }
@@ -171,6 +181,33 @@ test("loading is announced and rapid Enter cannot duplicate a request", async ({
   await expect(messages(page, "assistant")).toHaveCount(1);
 });
 
+test("Donna visibly shapes while a grounded request is in flight", async ({ page }) => {
+  let release!: () => void;
+  const held = new Promise<void>((resolve) => { release = resolve; });
+  await page.route("**/api/chat", async (route) => {
+    await held;
+    await route.fulfill({ json: { reply: "A grounded answer.", kind: "grounded" } });
+  });
+  await input(page).fill("What does Cadre do?");
+  await input(page).press("Enter");
+  await expect(page.locator('.chat-header .persona-avatar[data-avatar-state="shaping"]')).toBeVisible();
+  await expect(page.locator(".pending-message")).toContainText("Shaping");
+  release();
+  await expect(messages(page, "assistant")).toHaveCount(1);
+  await expect(page.locator('.chat-header .persona-avatar[data-avatar-state="idle"]')).toBeVisible();
+});
+
+test("pricing is empathetic and commercially aware without inventing a rate", async ({ page }) => {
+  await input(page).fill("Is it costly?");
+  await input(page).press("Enter");
+  const reply = messages(page, "assistant").first();
+  await expect(reply).toContainText("Fair question");
+  await expect(reply).toContainText("revenue, profitability, and measurable business impact");
+  await expect(reply).toContainText("price list or rate card");
+  await expect(reply.locator('a[href="https://cadre.ai/contact"]')).toBeVisible();
+  expect(await reply.innerText()).not.toMatch(/\$\s?\d|\b\d{2,}k\b/i);
+});
+
 test("retry preserves the failed turn and does not duplicate history", async ({ page }) => {
   const requests: unknown[] = [];
   await page.route("**/api/chat", async (route) => {
@@ -181,7 +218,7 @@ test("retry preserves the failed turn and does not duplicate history", async ({ 
   });
   await input(page).fill("services");
   await input(page).press("Enter");
-  await expect(page.getByRole("main").getByRole("alert")).toBeVisible();
+  await expect(page.getByRole("alert")).toBeVisible();
   await page.getByRole("button", { name: "Retry response" }).click();
   await expect(messages(page, "assistant")).toHaveCount(1);
   await expect(messages(page, "user")).toHaveCount(1);
@@ -193,7 +230,7 @@ test("network failure has a safe retry path", async ({ page }) => {
   await page.route("**/api/chat", (route) => route.abort("failed"));
   await input(page).fill("services");
   await input(page).press("Enter");
-  await expect(page.getByRole("main").getByRole("alert")).toBeVisible();
+  await expect(page.getByRole("alert")).toBeVisible();
   await expect(page.getByRole("button", { name: "Retry response" })).toBeEnabled();
   await expect(page.locator("body")).not.toContainText("TypeError");
 });
@@ -224,7 +261,7 @@ test("malformed responses produce a recoverable safe error", async ({ page }) =>
   await page.route("**/api/chat", (route) => route.fulfill({ status: 200, contentType: "text/html", body: "<h1>Internal stack trace</h1>" }));
   await input(page).fill("services");
   await input(page).press("Enter");
-  await expect(page.getByRole("main").getByRole("alert")).toBeVisible();
+  await expect(page.getByRole("alert")).toBeVisible();
   await expect(page.getByRole("button", { name: "Retry response" })).toBeEnabled();
   await expect(page.locator("body")).not.toContainText("Internal stack trace");
 });
@@ -247,7 +284,7 @@ test("blank input, multiline entry, and IME composition do not send accidentally
   await page.route("**/api/chat", (route) => { calls += 1; return route.fulfill({ json: { reply: "Okay.", kind: "grounded" } }); });
   await input(page).focus();
   await input(page).press("Enter");
-  await expect(page.getByRole("main").getByRole("alert")).toContainText(/Write a message/);
+  await expect(page.getByRole("alert")).toContainText(/Write a message/);
   expect(calls).toBe(0);
   await input(page).fill("services");
   await input(page).press("Shift+Enter");
@@ -293,7 +330,7 @@ test("long conversations and composer input remain bounded", async ({ page }) =>
   await input(page).fill("x".repeat(2100));
   await expect(input(page)).toHaveValue("x".repeat(2100));
   await expect(page.getByRole("button", { name: "Send message", exact: true })).toBeDisabled();
-  await expect(page.getByRole("main").getByRole("alert")).toContainText(/2,?000/);
+  await expect(page.getByRole("alert")).toContainText(/2,?000/);
   for (let turn = 0; turn < 23; turn += 1) {
     await input(page).fill(`services ${turn}`);
     await input(page).press("Enter");
@@ -379,6 +416,7 @@ test("welcome starts at the top and reset restores that position", async ({ page
 });
 
 test("keyboard topic activation preserves a stable focus target", async ({ page }) => {
+  await page.locator(".topic-browser").evaluate((node) => { (node as HTMLDetailsElement).open = true; });
   await page.route("**/api/chat", (route) => route.fulfill({ json: { reply: "A topic response.", kind: "grounded" } }));
   const topic = page.getByRole("button", { name: "what Cadre AI does", exact: true });
   await topic.focus();
@@ -422,7 +460,7 @@ test("client deadline yields a saved draft and does not accept late output", asy
   await input(page).press("Enter");
   await expect.poll(() => calls).toBe(1);
   await page.clock.fastForward(25_001);
-  await expect(page.getByRole("main").getByRole("alert")).toContainText(/too long|timed out/i);
+  await expect(page.getByRole("alert")).toContainText(/too long|timed out/i);
   await expect(page.getByRole("button", { name: "Retry response" })).toBeVisible();
   await expect(input(page)).toHaveValue("services");
   release();

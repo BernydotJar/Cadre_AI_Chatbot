@@ -86,8 +86,25 @@ describe("Donna one-step initiative", () => {
     expect(body.reply).not.toContain(cadreDonna.persona.proactive.byTopic.overview!.text);
   });
 
+  it("makes pricing warm and commercially aware without inventing a number", async () => {
+    const body = await (await createChatHandler({ product: cadreDonna, env: { CHAT_PROVIDER: "mock" } })(request("Is it costly?"))).json();
+    expect(body.kind).toBe("decline");
+    expect(body.reply).toContain("Fair question — the economics matter.");
+    expect(body.reply).toContain("drives revenue, profitability, and measurable business impact");
+    expect(body.reply).toContain("don't have a verified price list or rate card");
+    expect(body.reply).toContain("https://cadre.ai/contact");
+    expect(body.reply).not.toMatch(/\$\s?\d|\b\d{2,}k\b/i);
+  });
+
+  it("keeps unsupported claims empathetic but separate from pricing copy", async () => {
+    const body = await (await createChatHandler({ product: cadreDonna, env: { CHAT_PROVIDER: "mock" } })(request("Are you SOC 2 certified?"))).json();
+    expect(body.kind).toBe("decline");
+    expect(body.reply).toContain("precision beats a confident guess");
+    expect(body.reply).not.toContain("the economics matter");
+  });
+
   it("pure helper cannot attach persona guidance to a non-grounded decision", () => {
-    expect(proactiveQuestionFor({ kind: "decline" }, [{ role: "user", content: "price" }], cadreDonna.persona)).toBeUndefined();
+    expect(proactiveQuestionFor({ kind: "decline", reason: "pricing" }, [{ role: "user", content: "price" }], cadreDonna.persona)).toBeUndefined();
     expect(appendProactiveQuestion("answer", undefined)).toBe("answer");
   });
 });

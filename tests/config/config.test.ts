@@ -7,7 +7,11 @@ import { respond } from "@/core/policy";
 describe("client config invariants", () => {
   it("Cadre config validates with unique topics and on-domain links", () => {
     expect(() => validateClientConfig(cadre)).not.toThrow();
-    const links = [cadre.contact, ...cadre.knowledge.flatMap((entry) => entry.approvedLinks)];
+    const links = [
+      cadre.contact,
+      ...cadre.knowledge.flatMap((entry) => entry.approvedLinks),
+      ...(cadre.publicHighlights ?? []).flatMap((highlight) => highlight.link ? [highlight.link] : []),
+    ];
     for (const link of links) {
       expect(new URL(link.url).hostname).toBe("cadre.ai");
     }
@@ -36,6 +40,22 @@ describe("client config invariants", () => {
       url: "https://evil.example/steal",
     });
     expect(() => validateClientConfig(bad)).toThrow(/official domain/);
+  });
+
+
+  it("keeps verified public highlights client-owned and on the official domain", () => {
+    expect(cadre.publicHighlights?.map((item) => item.id)).toContain("track-ai-results");
+    expect(cadre.publicHighlights?.find((item) => item.id === "track-ai-results")?.body)
+      .toContain("tools, agents, training, and results");
+    const bad = structuredClone(cadre);
+    bad.publicHighlights![0]!.link = { label: "Foreign", url: "https://evil.example/results" };
+    expect(() => validateClientConfig(bad)).toThrow(/official domain/);
+  });
+
+  it("requires every pricing trigger to remain inside the decline boundary", () => {
+    const bad = structuredClone(cadre);
+    bad.boundaries.pricingTopics.push("not-a-decline-trigger");
+    expect(() => validateClientConfig(bad)).toThrow(/must also exist in declineTopics/);
   });
 
   it("rejects duplicate topics", () => {

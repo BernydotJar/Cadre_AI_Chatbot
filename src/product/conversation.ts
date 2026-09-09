@@ -44,3 +44,26 @@ export function proactiveQuestionFor(
 export function appendProactiveQuestion(answer: string, question: string | undefined): string {
   return question ? `${answer}\n\n${question}` : answer;
 }
+
+/**
+ * Add a short persona-owned empathy lead without letting persona configuration
+ * own facts, links, routing, or safety boundaries.
+ */
+export function boundaryVoiceFor(
+  decision: PolicyDecision,
+  persona: PersonaProfile | undefined,
+): string | undefined {
+  const voice = persona?.boundaryVoice;
+  if (!voice) return undefined;
+  if (decision.kind === "decline") {
+    return decision.reason === "pricing" ? voice.pricingLead : voice.declineLead;
+  }
+  if (decision.kind !== "redirect") return undefined;
+  if (decision.reason === "account-specific") return voice.accountLead;
+  if (decision.reason === "still-ambiguous") return voice.ambiguousLead;
+  return voice.unknownLead;
+}
+
+export function prependBoundaryVoice(answer: string, lead: string | undefined): string {
+  return lead ? `${lead} ${answer}` : answer;
+}

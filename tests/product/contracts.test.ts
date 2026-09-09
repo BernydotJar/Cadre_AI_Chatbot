@@ -25,6 +25,11 @@ const experience: ExperienceProfile = {
   id: "acme-web",
   assistantLabel: "Guide",
   avatar: { style: "editorial-monogram", monogram: "A", label: "Acme Guide monogram" },
+  quickPrompts: [
+    { label: "Ask about services", message: "What services do you offer?" },
+    { label: "Plan a return", message: "How do returns work?" },
+    { label: "Ask about fitting", message: "Do you offer boot fitting?" },
+  ],
   copy: {
     eyebrow: "GUIDED BY VERIFIED ACME CONTEXT",
     heroLead: "Find the right gear",

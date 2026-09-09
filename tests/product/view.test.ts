@@ -8,7 +8,7 @@ describe("profile-driven chat experience projection", () => {
     const view = chatExperience(cadreDonna);
     expect(view.clientName).toBe("Cadre AI");
     expect(view.experience.assistantLabel).toBe("Donna");
-    expect(view.experience.avatar.style).toBe("editorial-monogram");
+    expect(view.experience.avatar.style).toBe("signal-orb");
     expect(view.experience.avatar.monogram).toBe("D");
     expect(view.experience.copy.composerPlaceholder).toBe("What are you trying to figure out?");
     expect(view.experience.ambientMedia).toEqual({
@@ -17,6 +17,8 @@ describe("profile-driven chat experience projection", () => {
       durationSeconds: 8,
     });
     expect(view.topics).toHaveLength(cadreDonna.client.knowledge.length);
+    expect(view.experience.quickPrompts).toHaveLength(4);
+    expect(view.publicHighlights.some((highlight) => highlight.id === "track-ai-results")).toBe(true);
     expect(Object.keys(view)).not.toContain("knowledge");
     expect(Object.keys(view)).not.toContain("persona");
   });

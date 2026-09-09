@@ -35,6 +35,11 @@ export const proactiveQuestionSchema = z.object({
  * credentials, routing, or safety boundaries. `proactive.byTopic` contains
  * app-owned copy that may be appended after a grounded answer.
  */
+const boundaryVoiceLeadSchema = z.string().trim().min(1).max(140).superRefine((value, ctx) => {
+  if (/https?:\/\/|www\./i.test(value)) ctx.addIssue({ code: "custom", message: "boundary voice cannot contain URLs" });
+  if (/[\r\n]/.test(value)) ctx.addIssue({ code: "custom", message: "boundary voice must be a single line" });
+});
+
 export const personaProfileSchema = z.object({
   id: z.string().min(1),
   name: z.string().min(1),
@@ -42,6 +47,14 @@ export const personaProfileSchema = z.object({
   description: z.string().min(1),
   traits: z.array(z.string().min(1)).min(1),
   operatingPrinciples: z.array(z.string().min(1)).min(1),
+  /** Persona-owned tone only. No facts, URLs, promises, or actions. */
+  boundaryVoice: z.object({
+    pricingLead: boundaryVoiceLeadSchema,
+    declineLead: boundaryVoiceLeadSchema,
+    unknownLead: boundaryVoiceLeadSchema,
+    accountLead: boundaryVoiceLeadSchema,
+    ambiguousLead: boundaryVoiceLeadSchema,
+  }).optional(),
   proactive: z.object({
     /** Product invariant: no persona may move more than one step ahead. */
     maxSteps: z.number().int().min(0).max(1),
@@ -58,10 +71,14 @@ export const experienceProfileSchema = z.object({
   id: z.string().min(1),
   assistantLabel: z.string().min(1),
   avatar: z.object({
-    style: z.literal("editorial-monogram"),
+    style: z.enum(["editorial-monogram", "signal-orb"]),
     monogram: z.string().min(1).max(3),
     label: z.string().min(1),
   }),
+  quickPrompts: z.array(z.object({
+    label: z.string().min(1).max(72),
+    message: z.string().min(1).max(220),
+  })).min(3).max(5),
   ambientMedia: z.object({
     posterSrc: localPosterPath,
     videoSrc: localVideoPath,

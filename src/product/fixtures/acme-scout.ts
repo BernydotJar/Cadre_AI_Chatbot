@@ -28,6 +28,11 @@ const acmeScoutProfile: ChatbotProductProfile = {
     id: "acme-scout-web",
     assistantLabel: "Scout",
     avatar: { style: "editorial-monogram", monogram: "S", label: "Scout guide monogram" },
+    quickPrompts: [
+      { label: "Find a store service", message: "What store services does Acme Outdoors offer?" },
+      { label: "Plan a return", message: "How do returns work?" },
+      { label: "Ask about fitting", message: "Can you tell me about boot fitting?" },
+    ],
     copy: {
       eyebrow: "GUIDED BY VERIFIED STORE CONTEXT",
       heroLead: "Find what you need",

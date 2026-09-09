@@ -40,10 +40,12 @@ const acmeConfig: ClientConfig = {
   ],
   boundaries: {
     declineTopics: ["price match", "discount code"],
+    pricingTopics: ["price match", "discount code"],
     accountTopics: ["my order", "order status", "my account"],
     escalationMessage:
       "I can't look up personal orders here, and I won't ask for account details in chat.",
     declineMessage: "I don't have verified information to answer that.",
+    pricingMessage: "I don't have a verified price or discount answer for that.",
   },
 };
 
