@@ -1,6 +1,6 @@
 # Plan — Cadre AI Chatbot
 
-**Status: PARTIAL_WITH_DOCUMENTED_BLOCKERS.** Execution status is owned by the append-only event ledger; this file and `feature_list.json` are projections. N1–N5 are done. N3 and N4 were reopened for the model-evaluation/readability repairs and independently re-closed. N6 has verification and code-review PASS, but its release-check is BLOCKED because the current reviewed product source is newer than deployed runtime `c6f781c` and this sandbox has no authorized Vercel session/token to deploy and verify the current snapshot. See `evidence/N6-release/deployment-drift-20260909.md`.
+**Status: PARTIAL_WITH_DOCUMENTED_BLOCKERS — production deployment only.** N1–N5 are done; N2 and N4 are re-closed with PASS gates after the greeting/Cadre Signal repairs. Optional G9 is DONE with URL-aware local context and a 17-check installed Manifest V3 proof on `cadre.ai/agents#discover-agents`. G10 GitHub CI/CD is implemented and locally verified (`verification=PASS`, `code-review=PASS`) but `deploy-check=BLOCKED`: the connected Vercel team exposes no existing project, direct deploy is unusable in this session, and the sandbox CLI is logged out. N6 remains BLOCKED because the public alias is healthy but still serves the older hero and `hello -> redirect` behavior. The prepared increments are now committed in small commits with the existing human author identity while the actual technical committer remains recorded; earlier history was not rewritten.
 
 ## Objective
 
@@ -34,11 +34,13 @@ Live-review preparation should use this table as an index, not as a script: demo
 |---|-----------|---------|--------|
 | M0 | Repository foundation and canonical spec | this document set | done (approved 2026-09-08) |
 | M1 | App foundation, local walking skeleton | node `N1-foundation` | done (ledger: done; evidence/N1-foundation/) |
-| M2 | Knowledge base and routing | node `N2-knowledge-routing` | done: refreshed official-source content, fresh independent critic/verifier, 233 tests |
+| M2 | Knowledge base and routing | node `N2-knowledge-routing` | done: exact greeting/source refresh repair; 146 focused tests + Granite policy review PASS |
 | M3 | Chat API and provider adapter (mock-first) | node `N3-chat-api-adapter` | done: model allowlist/evaluator repair independently verified; full suite 245/245, typecheck, lint and build PASS |
-| M4 | Conversation UI and UX states | node `N4-ui` | done: hydration + small-screen readability repairs; clean extracted package passes 48/48 browser cases and independent Granite UI review |
+| M4 | Conversation UI and UX states | node `N4-ui` | done: Cadre Signal polish + authored icon; 256 unit/integration and 50 browser cases PASS; Granite final critic PASS |
 | M5 | Early deployment — authorization-gated, attempted as soon as U3 resolves; may run in parallel with M2–M4 | node `N5-deploy` | done: authorized mock scaffold, anonymous checks and separate review PASS |
-| M6 | Verification, live evaluation, packaging, release readiness | node `N6-verify-release` | **blocked**: local verification/code-review/package PASS; release-check BLOCKED until current source is deployed and anonymously reverified on authorized Vercel |
+| M6 | Verification, live evaluation, packaging, release readiness | node `N6-verify-release` | **blocked**: local verification/code review PASS; public alias demonstrably stale and no usable authenticated deployment path exposed |
+| M7 | Optional contextual Chrome adapter | separate node `G9-extension-adapter` | done: 72 extension tests, 23 synthetic-browser checks, 17 installed-site checks, Granite review PASS |
+| M8 | GitHub CI + gated Vercel CD | separate node `G10-vercel-cicd` | **blocked at deploy gate only**: workflow source/local marker contract/Granite review PASS; existing Vercel project binding unavailable |
 
 ## Decision log
 
@@ -60,7 +62,7 @@ Live-review preparation should use this table as an index, not as a script: demo
 | U1 | Resolved: OpenRouter; model selection delegated, inexpensive explicit model preferred | no longer blocks N3; adapter is server-side only |
 | U2 | Resolved: $5 total; conservative operational expiry 2026-09-15T00:00:00Z despite later provider metadata | bounded chatbot inference only, retain reserve; never coding assistance |
 | U3 | Resolved: owner confirmed `Cadre_AI` / `cadre-ai3` for CLI deployment | no longer blocks N5 or deployed checks; no push/submission/paid add-ons inferred |
-| U4 | Resolved: owner requests small commits; existing configured Git identity retained | local commits authorized; no push or submission authorization inferred |
+| U4 | Resolved: owner requests small human-authored commits; automated sandbox identity must not be used to impersonate the owner | prepared work remains uncommitted until owner reviews/commits with their real identity; no push/submission inferred |
 | U5 | Target release date | nothing; informational for scheduling the N6 closure gate |
 | U6 | Whether a public client-portal URL exists | not a release blocker — the agreed honest contact fallback covers S3; resolving U6 only refines that answer's wording |
 
@@ -69,7 +71,7 @@ A node whose gated check is still pending stays open — a pending deploy or liv
 ## Source classification
 
 - **Stakeholder requirements brief** (private): summarized into the spec; not stored in this repository.
-- **Official public website** `https://cadre.ai` — verified 2026-09-08 (`cadreai.com` 301-redirects there). Verified pages and CTAs are recorded as knowledge seeds in `design.md`, each with a retrieval date.
+- **Official public website** `https://cadre.ai` — refreshed 2026-09-09 (`cadreai.com` 301-redirects there). Verified pages and CTAs are recorded as knowledge seeds in `design.md`, each with a retrieval date.
 - Everything else is an engineering proposal, marked as such in the decision log.
 
 ## Graph transition decision (D5)
@@ -101,8 +103,9 @@ Methodology conventions (spec layout, status vocabulary, gate discipline) are ad
 
 - The owner requested a fresh review of the official Cadre site and the v1.1 brief. Research is recorded in `docs/knowledge-source-audit.md`; the shipped store remains `src/config/cadre.ts`. Admit factual updates only after tests and review, preserving all six topic boundaries.
 - `CLAUDE.md` now describes the concrete stack, Graph Engineering lifecycle, real subagent responsibilities, context recovery and verification commands. `docs/delivery-requirements-recheck.md` maps the brief to current evidence and remaining gaps.
-- The Chrome adapter is optional stretch work, not a substitute for the public app. The subsequent explicit owner request authorized parallel source/build/mock work: `progress/extension-authorization-2026-09-08.md`. G9 runs in its own baseline/ledger under `progress/`, preserving N1–N6 unchanged. Generic label: “Integration Preview”; actual installation/site proof requires its own gate.
-- Prioritize N4 repair and N6 live/public/package proof. Do not add a database or bulk scraper merely to store this small, versioned knowledge set. Do not let extension polish consume the core verification window.
+- The Chrome adapter is optional stretch work, not a substitute for the public app. G9 runs in its own baseline/ledger under `progress/`, preserving N1–N6 unchanged. On 2026-09-09 the owner authorized actual-site disposable-profile proof; G9 is now DONE with all three gates PASS. It remains labeled an independent “Integration Preview”, not a Cadre-installed/endorsed production feature.
+- The 2026-09-09 public research inventory lives at `docs/research/cadre-public-sources-20260909.json`; only reviewed typed claims promoted to `src/config/cadre.ts` enter runtime answers.
+- Core development repair is complete. Prioritize only N6 authenticated deployment/public equivalence and final closure packaging; do not add a database, bulk scraper, analytics, auth, CRM or unrelated scope.
 
 ## Delivery risks
 
@@ -112,9 +115,9 @@ Owner-requested quality clarification, 2026-09-08. Durable UX-01–09 rules are 
 
 | IDs | Gate and required proof | Current evidence / next action |
 |---|---|---|
-| UX-01, UX-08 | Identity/scope, six starts, safe links, privacy; screenshots + scenario/injection tests | Existing core/browser evidence; independent standards critic confirms inspected defaults, not all future states |
+| UX-01, UX-08 | Identity/scope, six starts, safe links, privacy; screenshots + scenario/injection tests | Current 256-test / 50-browser suite plus final Cadre Signal screenshots; exact hello welcome is covered and safe-link/scope contracts remain passing |
 | UX-02–04 | Cold-load, single flight, retry/Stop/reset, keyboard/IME/focus, scroll/history | Independent 42-case local + four cold probes; 38 repaired-public cases. Preserve regressions when changing layout |
-| UX-05 | Four widths + short text-spaced failed/restored-draft states; positive visible transcript geometry and visual QA | PASS for reproduced 320×568 / 360×640 text-spacing defect; readability regression is included in the 48-case browser suite |
+| UX-05 | Four widths + short text-spaced failed/restored-draft states; positive visible transcript geometry and visual QA | PASS for reproduced 320×568 / 360×640 text-spacing defect; readability regression is included in the final 50-case browser suite |
 | UX-06 | Contrast samples, ≥44px primary targets, ≥12px important copy, mobile composer ≥16px | PASS for the measured typography/mobile boundaries in `e2e/readability.spec.ts`; broader accessibility is not inferred |
 | UX-07 | Status/error semantics and reduced motion; separately executed assistive-technology checks | DOM/source coverage present; actual VoiceOver/NVDA, forced colors and physical keyboard remain UNVERIFIED |
 | UX-09 | Distinct roles, immutable FAILs, source/hash/command-specific independent acceptance | PASS for the repaired local boundary; original critic failures are retained and Granite final source review is separate from release authorization |
@@ -138,4 +141,4 @@ The owner requested a temporary Gemini 3.8 Flash comparison. `docs/model-evaluat
 
 ## Next action
 
-N6 is intentionally terminal at **PARTIAL_WITH_DOCUMENTED_BLOCKERS** in the current environment. To resume: restore an authorized Vercel session/token for the existing `cadre-ai3/cadre-ai-chatbot` project, deploy the current reviewed snapshot, and repeat anonymous public smoke + repaired browser/readability verification against that exact release. If the owner still wants the Gemini comparison, provide the chatbot-only OpenRouter key to the already verified bounded evaluator and run it without model-specific prompt changes. Then reopen N6 through supported graph transitions, clear `release-check`, prepare a final ZIP from the final closure commit, and request human submission approval. No push, upload, email or fabricated tool provenance is inferred.
+N6 is intentionally terminal at **PARTIAL_WITH_DOCUMENTED_BLOCKERS** until deployment equivalence can be proved. The product/greeting/UI, contextual G9 adapter, and G10 CI/CD source are committed and locally verified. Next: restore access to the existing Vercel project (and `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`, `VERCEL_TOKEN` in the GitHub `production` environment), deploy the exact reviewed SHA through the gated workflow or an equivalent authorized binding, rerun anonymous health/hero/favicon/hello plus the 50-case browser matrix against production, then clear `release-check` and build the final ZIP. A separate isolated n8n workstream has a local n8n 2.38.1 runtime and validated/published `cadre-handoff` webhook contract; email delivery remains a stretch adapter and is not a core-release dependency. No recruiting upload/email, Web Store publication, or provenance rewriting is inferred.

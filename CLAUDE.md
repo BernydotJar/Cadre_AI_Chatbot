@@ -18,6 +18,17 @@ This is working software, not a greenfield scaffold. This file holds durable ins
 - **Vitest 5, Playwright 1.63, ESLint 9 and strict tsc**. Engines: ^22.12.0 || ^24.0.0 || >=26.0.0. Node 26.5.0 verified locally; Node 24.x configured on Vercel.
 - **Vercel**, one Node.js chat function and web UI. Rate limits are process-local, not distributed enforcement. No database, auth, CRM, analytics, vector store, persistent history or Terraform in the baseline.
 
+## Current product contract — 2026-09-09
+
+The product has two deliberately separate surfaces:
+
+1. **Public web assistant — mandatory.** A grounded Cadre AI support experience with six approved starts, typed curated knowledge, deterministic safety/routing, a server-only provider boundary, and an original red/ink/cream **Cadre Signal** visual system. Exact ordinary greetings such as `hello`, `hi`, `hey`, daypart greetings and `hola` receive a useful deterministic welcome. Greeting recognition is whole-message only; pricing/account/security boundaries still outrank it, so a greeting prefix can never bypass policy.
+2. **Chrome Manifest V3 Integration Preview — optional stretch.** A local presentation adapter that injects one closed-Shadow-DOM launcher only on `https://cadre.ai/*` and `https://www.cadre.ai/*`, opens an extension-origin panel, and sends messages only to the fixed candidate Vercel API. It does not read Cadre page text/forms, request cookies/history/tabs/storage, or alter Cadre servers. The latest disposable Chromium installed-site check is recorded under `extension/evidence/actual-agents-context-20260909/`. The adapter may derive a fixed `pageContext` enum from the approved Cadre pathname/hash only; it must never scrape host-page content. Context can change local copy and a fixed suggested question, never routing/security/network authority.
+
+Visual work must remain original. The supplied third-party chatbot image, orb references and motion references are interaction inspiration only: never copy a mascot, brand asset, composition, or source code. Preserve Cadre's current public design cues (strong red accent, dark ink, clean light surfaces, editorial hierarchy), 320/360px reflow, important helper copy at >=12px, mobile composer at >=16px, visible focus, and `prefers-reduced-motion`. The authored app icon is `app/icon.svg`; extension icons are generated from `extension/icons/icon-source.svg`.
+
+The public research inventory is `docs/research/cadre-public-sources-20260909.json`. It is **not** runtime authority. Only reviewed claims promoted into `src/config/cadre.ts` may affect answers; raw webpage text is never inserted into a live user prompt.
+
 ## Start or resume
 
 1. Read plan.md, progress/checkpoint.md and specs/001-support-chatbot/README.md. Original spec headers are historical; the ledger records approval.
@@ -71,7 +82,7 @@ Code conventions: strict TypeScript with small typed modules, two-space indentat
 
 ## Knowledge editing protocol
 
-src/config/cadre.ts is the shipped knowledge store; Git versions it. docs/knowledge-source-audit.md maps claims to official pages and gaps. Website research happens before release, never by browsing during a user's chat.
+src/config/cadre.ts is the shipped knowledge store; Git versions it. `docs/knowledge-source-audit.md` maps claims to official pages and gaps, while `docs/research/cadre-public-sources-20260909.json` is the dated public-source inventory from the latest refresh. Website research happens before release, never by browsing during a user's chat.
 
 Refresh sequence: inspect exact official page → paraphrase relevant facts → record URL, section and retrieval date → distinguish company claims from verified guarantees → update topic and exact link allowlist → test routing, boundaries and answer size → separate review. Research notes are not automatically runtime facts.
 
@@ -106,7 +117,11 @@ Run from the app root. Default to mock inference and synthetic provider values.
 - npm run verify -- unique-run-label — run those checks and retain sanitized outputs in evidence/runs/; refuses existing labels.
 - npm exec -- playwright install chromium --only-shell — install the browser revision required by locked Playwright, if missing.
 - npm run test:e2e — desktop/mobile suite; build first. Default managed server is mock on 3100 and refuses to reuse another server.
+- node extension/build.mjs; npm exec -- vitest run --config extension/vitest.config.ts — regenerate/check the local MV3 adapter; generated `extension/dist` is not source authority.
+- node extension/tests/browser-mock.mjs unique-run-label — synthetic extension lifecycle proof with all HTTP intercepted.
+- EXTENSION_ACTUAL_SITE=1 node extension/tests/installed-site.mjs unique-actual-site-label — owner-gated disposable-profile proof on the real public Cadre site; it performs one approved chatbot request and must never become a routine CI command.
 - E2E_BASE_URL=https://verified-host npm run test:e2e — external-server mode. Real-server cases can spend the allowance on a live host; require deliberate authorization and budget tracking.
+- GitHub CI lives in `.github/workflows/ci.yml`; gated production delivery lives in `.github/workflows/deploy-production.yml`. CD must stop unless the existing Vercel org/project IDs and token are available through GitHub `production` secrets; never create a replacement project to hide a binding failure.
 - npm run graph -- validate; npm run graph -- status --pretty; npm run graph -- ready --pretty — read-only recovery.
 - npm run graph:generate — bootstrap only; intentionally refuses after the ledger exists.
 
@@ -118,11 +133,11 @@ Separate unit/mock, live-local, browser, public-deployment and archive evidence.
 
 - Render model output as text; only exact approved HTTPS URLs become links. No arbitrary model-directed network calls. Validate every boundary; no credentials in public props.
 - Limits live in src/core/limits.ts and provider configuration. Preserve bounded input/history/output, cancellation and safe retry.
-- Owner authorization covers local commits, existing dependencies, bounded chatbot-only inference and CLI deployment to Cadre_AI / cadre-ai3. See progress/authorization-2026-09-08.md.
+- Owner authorization covers the development scope, existing dependencies, bounded chatbot-only inference, the 2026-09-09 product-polish/actual-site preview check, and deployment through an already authenticated Cadre mechanism. See `progress/authorization-2026-09-08.md` and `progress/polish-authorization-2026-09-09.md`.
 - Inference allowance: $5 total, $0.50 reserve, conservative expiry 2026-09-15T00:00:00Z. Never use this key for coding assistance. Check presence without printing values.
 - Env changes need specific authority. .env.local and .codex stay ignored; only .env.example contains placeholders. Never stage private attachments, credentials, deployment metadata, dependencies or generated bundles.
-- Commit small, descriptive, authentic increments with explicit paths and staged secret checks. A snapshot is not a passed gate. Never fabricate history or misattribute tools.
+- Commit small, descriptive, authentic increments with explicit paths and staged secret checks. **Do not impersonate the human owner in Git metadata and do not rewrite earlier author/committer history to conceal an automated actor.** If the correct human authorship cannot be established by the human performing the commit, leave the prepared increment uncommitted for owner review. A snapshot is not a passed gate. Never fabricate history or misattribute tools.
 - Scope/schema changes, dependencies, extra spending and final closure need human approval. No Git push, source publication, paid add-ons/domains, upload or email submission is currently authorized.
 - Before requesting closure, prepare a source ZIP outside this tree with usable .git history. Exclude dependencies, build output, caches, secrets and private inputs. Verify clean extraction, Git, install/build/smoke, size and checksum.
 
-The Chrome floating assistant is a **stretch integration preview**, described in docs/extension-preview-design.md. The owner authorized parallel source/build/mock work in progress/extension-authorization-2026-09-08.md; its separate frozen baseline and append-only ledger are progress/extension-graph.project.json and progress/extension-graph.events.jsonl. It is not in the frozen N1–N6 graph and cannot delay the working public chatbot. Keep producer, security critic and independent verifier evidence distinct. Installation in a browser profile, actual-site proof and store publication are separate gates, never inferred from mock passes. Product language stays generic; do not claim it is installed or endorsed on Cadre's production site.
+The Chrome floating assistant is a **stretch integration preview**, described in `docs/extension-preview-design.md`. It has its own frozen baseline and append-only ledger under `progress/`, outside N1–N6. Source/security/mock verification and the owner-authorized disposable-profile actual-site proof are now distinct retained evidence; the latest `/agents#discover-agents` installed-site run passed 17 scoped checks with URL-only context and without modifying Cadre production. Chrome Web Store publication and any claim that Cadre installed or endorsed it remain out of scope. The extension can be demoed locally but cannot delay or substitute for the mandatory public chatbot release.
