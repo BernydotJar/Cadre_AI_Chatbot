@@ -2,6 +2,9 @@
 
 **Status: `spec_ready` — awaiting human approval. No task below is authorized to start.**
 
+> **Historical status note (2026-09-09):** the header above records the pre-approval baseline and is intentionally retained. The specification was subsequently approved and executed; current status is reconstructed from the Graph Harness ledgers and `progress/checkpoint.md`.
+
+
 Work is grouped into six deliverable-sized nodes. **Canonical node IDs** are the long forms (`N1-foundation` … `N6-verify-release`), used in `feature_list.json` and, after the transition, in the graph project file; `N1`–`N6` are display aliases for prose. These same definitions — IDs, dependencies, boundaries unchanged — become the graph nodes after approval, following the bootstrap step documented in `plan.md` (D5). Nodes are deliverables, not per-edit steps.
 
 Gating principle: human approval of this spec unlocks all local, mock-first work. U-decisions gate only what they name (see `plan.md`): U3 → deployment, U4 → commits, U1/U2 → provider-specific/live/paid operations. A node whose required checks are incomplete or still authorization-gated stays open (or `blocked`); it is never marked done early, and a pending deploy is never treated as passed.

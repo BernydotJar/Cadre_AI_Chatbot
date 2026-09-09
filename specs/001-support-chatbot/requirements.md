@@ -2,6 +2,9 @@
 
 **Status: `spec_ready` — awaiting human approval. Not approved for implementation.**
 
+> **Historical status note (2026-09-09):** the header above records the pre-approval baseline and is intentionally retained. The specification was subsequently approved and executed; current status is reconstructed from the Graph Harness ledgers and `progress/checkpoint.md`.
+
+
 ## Summary
 
 A one-page customer-support chatbot for Cadre AI (https://cadre.ai), an AI strategy and implementation consultancy serving B2B clients (professional services, private equity, financial services, real estate, mortgage and lending, construction, retail and e-commerce, manufacturing and logistics). Inbound volume from prospective and existing clients includes recurring questions the bot should answer directly from verified information, so the human team can focus on high-value conversations. When the bot cannot answer from verified information, it must say so and route the person to an official channel — never guess.

@@ -25,13 +25,15 @@ The product has two deliberately separate surfaces:
 1. **Public web assistant — mandatory.** A grounded Cadre AI support experience with six approved starts, typed curated knowledge, deterministic safety/routing, a server-only provider boundary, and an original red/ink/cream **Cadre Signal** visual system. Exact ordinary greetings such as `hello`, `hi`, `hey`, daypart greetings and `hola` receive a useful deterministic welcome. Greeting recognition is whole-message only; pricing/account/security boundaries still outrank it, so a greeting prefix can never bypass policy.
 2. **Chrome Manifest V3 Integration Preview — optional stretch.** A local presentation adapter that injects one closed-Shadow-DOM launcher only on `https://cadre.ai/*` and `https://www.cadre.ai/*`, opens an extension-origin panel, and sends messages only to the fixed candidate Vercel API. It does not read Cadre page text/forms, request cookies/history/tabs/storage, or alter Cadre servers. The latest disposable Chromium installed-site check is recorded under `extension/evidence/actual-agents-context-20260909/`. The adapter may derive a fixed `pageContext` enum from the approved Cadre pathname/hash only; it must never scrape host-page content. Context can change local copy and a fixed suggested question, never routing/security/network authority.
 
+Supporting workstreams are **not additional product surfaces**: G10 owns GitHub CI/gated Vercel delivery, and G11 proves a credential-free n8n human-handoff contract. G11 is not wired into the public chatbot and is not evidence that a real email was sent. Keep n8n behind a future `HumanHandoffProvider` adapter if promoted.
+
 Visual work must remain original. The supplied third-party chatbot image, orb references and motion references are interaction inspiration only: never copy a mascot, brand asset, composition, or source code. Preserve Cadre's current public design cues (strong red accent, dark ink, clean light surfaces, editorial hierarchy), 320/360px reflow, important helper copy at >=12px, mobile composer at >=16px, visible focus, and `prefers-reduced-motion`. The authored app icon is `app/icon.svg`; extension icons are generated from `extension/icons/icon-source.svg`.
 
 The public research inventory is `docs/research/cadre-public-sources-20260909.json`. It is **not** runtime authority. Only reviewed claims promoted into `src/config/cadre.ts` may affect answers; raw webpage text is never inserted into a live user prompt.
 
 ## Start or resume
 
-1. Read plan.md, progress/checkpoint.md and specs/001-support-chatbot/README.md. Original spec headers are historical; the ledger records approval.
+1. Read `plan.md`, `progress/checkpoint.md`, `docs/README.md` and `specs/001-support-chatbot/README.md`. Original spec headers may describe historical pre-approval state; the ledger records actual approval/execution.
 2. Inspect git status and relevant diffs. Preserve unrelated WIP and the user's working files. Do not reset or relocate this iCloud working copy.
 3. Run the graph validate, status and ready commands below using the pinned runtime.
 4. Reconcile the active node, checkpoint, artifact hashes, repository state and actual public deployment. Local code does not establish deployed behavior.
@@ -63,6 +65,7 @@ Project-scoped Claude Code helpers are versioned under `.claude/`: `agents/criti
 graph-harness.project.json is frozen. graph-harness.events.jsonl is append-only, written only through the runtime CLI. Never hand-edit either or regenerate the baseline after events exist. plan.md and feature_list.json are projections, not approval sources.
 
 Methodology provenance, runtime pins and real role examples: [docs/engineering-workflow.md](docs/engineering-workflow.md). Do not claim an installed skill/native command was executed when it was not.
+Architecture diagrams and takeover guidance: `docs/architecture-overview.md`, `docs/developer-handoff.md`, and `docs/release-runbook.md`. Keep these durable; exact transient status belongs in `progress/checkpoint.md`.
 
 ## Architecture and context ownership
 
@@ -73,6 +76,9 @@ Methodology provenance, runtime pins and real role examples: [docs/engineering-w
 | src/provider/; src/server/ | Provider, budget/deadline, HTTP errors and abuse controls | Browser UI or unrestricted model prose |
 | app/api/ | Thin server endpoints | Duplicated domain behavior |
 | app/page.tsx; src/ui/; app/globals.css | Safe props, text rendering, interaction state and layout | Secrets, runtime scraping or policy overrides |
+| extension/ | Optional fixed-origin presentation/transport adapter | Host-page authority, cookies, arbitrary destinations or provider secrets |
+| integrations/n8n/ | Optional consent-checked handoff workflow contract | Domain policy or a claim of real delivery without a configured provider |
+| .github/workflows/ | Secret-free CI and exact-SHA gated production delivery | Replacement-project creation or embedded secret values |
 | specs/001-support-chatbot/ | S1–S6, AC1–AC10, approved node boundaries | Mutable execution history |
 | evidence/; progress/ | Sanitized observations and resumable state | Secrets, private documents or invented results |
 
@@ -125,7 +131,7 @@ Run from the app root. Default to mock inference and synthetic provider values.
 - npm run graph -- validate; npm run graph -- status --pretty; npm run graph -- ready --pretty — read-only recovery.
 - npm run graph:generate — bootstrap only; intentionally refuses after the ledger exists.
 
-Set GRAPH_HARNESS_RUNTIME and GRAPH_PYTHON as documented in docs/engineering-workflow.md. These npm scripts are actual custom project commands; their presence does not prove a native slash command or an agent run occurred. One build/server owner at a time; port 3000 may belong to unrelated Docker work.
+Set GRAPH_HARNESS_RUNTIME and GRAPH_PYTHON as documented in docs/engineering-workflow.md. These npm scripts are actual custom project commands; their presence does not prove a native slash command or an agent run occurred. One build/server owner at a time; the app/test server uses port 3100 and an existing listener there must be identified before stopping it.
 
 Separate unit/mock, live-local, browser, public-deployment and archive evidence. Missing browser executables are infrastructure failures, not passing checks or app regressions. Scope browser locators to app controls, not unrelated framework accessibility announcers.
 
@@ -133,11 +139,15 @@ Separate unit/mock, live-local, browser, public-deployment and archive evidence.
 
 - Render model output as text; only exact approved HTTPS URLs become links. No arbitrary model-directed network calls. Validate every boundary; no credentials in public props.
 - Limits live in src/core/limits.ts and provider configuration. Preserve bounded input/history/output, cancellation and safe retry.
-- Owner authorization covers the development scope, existing dependencies, bounded chatbot-only inference, the 2026-09-09 product-polish/actual-site preview check, and deployment through an already authenticated Cadre mechanism. See `progress/authorization-2026-09-08.md` and `progress/polish-authorization-2026-09-09.md`.
+- Owner authorization covers the development scope, existing dependencies, bounded chatbot-only inference, the 2026-09-09 product-polish/actual-site preview check, CI/CD workflow implementation, the credential-free isolated n8n contract workstream, and deployment/publication through the project's audited authorized mechanisms. It does not authorize bypassing missing credentials, creating replacement infrastructure, real email delivery, or recruiting/Web Store submission. See the dated authorization records under `progress/`.
 - Inference allowance: $5 total, $0.50 reserve, conservative expiry 2026-09-15T00:00:00Z. Never use this key for coding assistance. Check presence without printing values.
 - Env changes need specific authority. .env.local and .codex stay ignored; only .env.example contains placeholders. Never stage private attachments, credentials, deployment metadata, dependencies or generated bundles.
-- Commit small, descriptive, authentic increments with explicit paths and staged secret checks. **Do not impersonate the human owner in Git metadata and do not rewrite earlier author/committer history to conceal an automated actor.** If the correct human authorship cannot be established by the human performing the commit, leave the prepared increment uncommitted for owner review. A snapshot is not a passed gate. Never fabricate history or misattribute tools.
-- Scope/schema changes, dependencies, extra spending and final closure need human approval. No Git push, source publication, paid add-ons/domains, upload or email submission is currently authorized.
+- Commit small, descriptive, authentic increments with explicit paths and staged secret checks. Preserve the **actual technical committer** and never rewrite earlier author/committer history to conceal an automated actor. Existing commits may show a repository-owner author plus an automated technical committer; that metadata must not be cited as proof that the human or Claude executed the change. Never fabricate history or misattribute tools.
+- Source publication for the current release may use only the dedicated audited Git publication mechanism and must be fast-forward only. Its latest attempt is blocked because the platform-managed GitHub credential was not injected; never bypass that control with a shell token. Scope/schema changes, dependencies, extra spending and final closure still need human approval. Recruiting upload/email, Web Store publication, paid add-ons/domains and real n8n delivery credentials remain separate unauthorized actions.
 - Before requesting closure, prepare a source ZIP outside this tree with usable .git history. Exclude dependencies, build output, caches, secrets and private inputs. Verify clean extraction, Git, install/build/smoke, size and checksum.
 
 The Chrome floating assistant is a **stretch integration preview**, described in `docs/extension-preview-design.md`. It has its own frozen baseline and append-only ledger under `progress/`, outside N1–N6. Source/security/mock verification and the owner-authorized disposable-profile actual-site proof are now distinct retained evidence; the latest `/agents#discover-agents` installed-site run passed 17 scoped checks with URL-only context and without modifying Cadre production. Chrome Web Store publication and any claim that Cadre installed or endorsed it remain out of scope. The extension can be demoed locally but cannot delay or substitute for the mandatory public chatbot release.
+
+## Current release boundary
+
+As of 2026-09-09, local product verification is complete, G9 and G11 are DONE at their declared scopes, and G10 is blocked only at external delivery. The known public Vercel alias is stale relative to reviewed source. Do not add product scope to work around that release-infrastructure mismatch; use `docs/release-runbook.md` and `progress/checkpoint.md` to resume.

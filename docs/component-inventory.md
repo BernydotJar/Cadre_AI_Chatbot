@@ -1,6 +1,6 @@
 # Component inventory
 
-Source inspection date: 2026-09-08. This inventory satisfies the component-documentation portion of [T-N6-3](../specs/001-support-chatbot/tasks.md). It describes the implemented application and its verification surfaces; it does not establish that the current source is deployed, the live evaluation has passed, the source archive is complete, or release closure is approved. Current execution belongs in the checkpoint and graph evidence, not this inventory.
+Core source inspection began 2026-09-08; this inventory was reconciled 2026-09-09 after the product-polish, Chrome, CI/CD and n8n workstreams. This inventory satisfies the component-documentation portion of [T-N6-3](../specs/001-support-chatbot/tasks.md). It describes the implemented application and its verification surfaces; it does not establish that the current source is deployed, the live evaluation has passed, the source archive is complete, or release closure is approved. Current execution belongs in the checkpoint and graph evidence, not this inventory.
 
 The application is one Next.js App Router project with a browser UI and a Node.js chat endpoint. The following boundaries are implemented in source:
 
@@ -12,6 +12,9 @@ The application is one Next.js App Router project with a browser UI and a Node.j
 | Server and HTTP routes | [chat.ts](../src/server/chat.ts), [app/api](../app/api/) | HTTP request → bounded `{ reply, kind }`; owns admission, streamed-body limits, orchestration and safe error translation. |
 | Browser UI and server page | [support-chat.tsx](../src/ui/support-chat.tsx), [page.tsx](../app/page.tsx) | Safe server props and API responses → local conversation state, text/approved links, keyboard/mobile controls and recovery. |
 | Engineering process adapter | [tools/graph-adapter](../tools/graph-adapter/) | Approved node definitions and CLI arguments → pinned external Graph Harness commands and retained check outputs. Outside the chatbot runtime. |
+| Chrome Integration Preview | [extension](../extension/) | Optional fixed-origin launcher/panel/transport adapter using the same chat API; URL-only presentation context. |
+| CI/CD | [.github/workflows](../.github/workflows/) | Secret-free verification and gated exact-SHA delivery to the existing Vercel project. |
+| n8n handoff contract | [integrations/n8n](../integrations/n8n/) | Optional consent-checked structured handoff webhook contract; no real recipient/credential is embedded. |
 
 For a chat request, the server applies admission and JSON/schema validation, then routes using the full validated history. Clarification, refusal and unsupported/account-specific replies are deterministic. Only a grounded decision calls the fact selector. The server renders the selected facts first, appends every remaining fact from that entry, and adds the entry's approved links. The model does not compose unchecked business prose or choose new destinations.
 
@@ -74,6 +77,18 @@ Submission owns a synchronous single-flight lock and operation identity. A serve
 [verify.mjs](../tools/graph-adapter/verify.mjs) runs actual local test/typecheck/lint/build commands in mock mode (`--quick` omits build), writes to a new `evidence/runs/<label>` directory, and refuses reused labels. It redacts project paths, terminal formatting and a known OpenRouter token pattern; this is not a universal secret scanner. Its exit status reflects command results, not independent review or release approval.
 
 **Provenance, tests and maturity.** [Engineering workflow documentation](engineering-workflow.md) owns methodology and runtime provenance. [Baseline tests](../tests/tools/graph-baseline.test.ts) check shape, canonical nodes, dependencies, gates and the freeze guard. They do not fully exercise every CLI wrapper or upstream runtime behavior. This is repository-specific process tooling; actual command receipts, separate role reports and graph validation remain necessary evidence. Its presence does not prove that a native skill command or independent agent was executed.
+
+## 7. Chrome Integration Preview
+
+The optional Manifest V3 adapter lives under `extension/` and is not a second chatbot. It injects a style-isolated launcher only on approved Cadre origins, opens an extension-origin panel and transports validated requests to one fixed candidate API. The latest context feature maps an allowlisted pathname/hash to a small presentation enum; it does not read host-page text/forms/cookies/storage. Current evidence: 72 extension tests, 23 synthetic-browser checks and a 17-check disposable installed-site run on `cadre.ai/agents#discover-agents`, with all G9 gates PASS. See `docs/extension-preview-design.md` and `extension/README.md`.
+
+## 8. GitHub CI and Vercel delivery
+
+`.github/workflows/ci.yml` reproduces locked install, lint, typecheck, tests, build, Playwright and extension checks without deployment secrets. `.github/workflows/deploy-production.yml` requires the GitHub `production` environment plus existing Vercel org/project/token values, checks out the exact triggering SHA, pulls production configuration, builds with Vercel, deploys the prebuilt artifact and verifies health/hero/icon/greeting markers. It intentionally refuses to create a replacement project. G10 source/review gates PASS; the deploy gate remains BLOCKED because the audited Git publication channel and existing Vercel project binding are unavailable in the current environment.
+
+## 9. n8n human-handoff contract
+
+`integrations/n8n/cadre-handoff.workflow.json` is a credential-free optional adapter prototype. An isolated n8n 2.38.1 runtime proved import/publish/health plus local webhook behavior for valid lead/support requests and controlled consent/email failures. Routes are symbolic environment keys rather than real addresses. G11 is DONE at contract/runtime-prototype scope. The public chatbot is not wired to it, so no product copy may claim an email or CRM action was completed. If promoted, application code should depend on a `HumanHandoffProvider` capability rather than n8n-specific workflow details.
 
 ## Product and delivery boundaries
 

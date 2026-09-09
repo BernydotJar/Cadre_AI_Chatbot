@@ -2,7 +2,7 @@
 
 A grounded support assistant for [Cadre AI](https://cadre.ai), covering services and industry fit, strategist contact, portal access guidance, the AI Maturity Index, model/security questions and honest escalation.
 
-**Local product verification is complete; production refresh is the remaining blocker.** The current reviewed worktree fixes the first-turn `hello` experience, adds an authored app icon and an original Cadre Signal visual system, and passes lint, strict typecheck, production build, **256/256 unit/integration tests** and **50/50 Playwright desktop/mobile cases**. The optional Manifest V3 Integration Preview is also locally verified: 71 extension tests, 22 synthetic-browser checks and a 15-check disposable Chromium run installed over the public Cadre site all pass. The known [public chatbot](https://cadre-ai-chatbot-tawny.vercel.app) is healthy but still serves the older interface and `hello -> redirect` behavior, so it is explicitly **not** claimed as release-equivalent. Exact state and resume path: [checkpoint](progress/checkpoint.md).
+**Local product verification is complete; external release delivery is the remaining blocker.** The current reviewed worktree fixes the first-turn `hello` experience, adds an authored app icon and an original Cadre Signal visual system, and passes lint, strict typecheck, production build, **256/256 unit/integration tests** and **50/50 Playwright desktop/mobile cases**. The optional Manifest V3 Integration Preview is also locally verified: **72 extension tests**, **23 synthetic-browser checks** and a **17-check** disposable Chromium run on `cadre.ai/agents#discover-agents` all pass. The known [public chatbot](https://cadre-ai-chatbot-tawny.vercel.app) is healthy but still serves the older interface and `hello -> redirect` behavior, so it is explicitly **not** claimed as release-equivalent. Exact state and resume path: [checkpoint](progress/checkpoint.md).
 
 ## Run locally
 
@@ -70,8 +70,12 @@ The optional [n8n handoff prototype](integrations/n8n/README.md) is also **DONE 
 
 ## Delivery
 
-The final source ZIP will include usable .git history and exclude .env.local, .codex, dependencies, generated build output, caches and private inputs. The earlier verified ZIP is now an intermediate historical artifact because the product-polish worktree is newer; rebuild packaging only after owner commits and production closure. See [delivery instructions](docs/delivery.md) and the verification receipt supplied alongside the actual ZIP for its snapshot, checksum and observed results. That post-packaging receipt necessarily comes after the source snapshot; no circular self-hash is claimed. Preparation is not submission or human release approval.
+The final source ZIP will include usable `.git` history and exclude `.env.local`, `.codex`, dependencies, generated build output, caches and private inputs. The earlier verified ZIP is now an intermediate historical artifact because the reviewed source is newer; rebuild packaging only after production equivalence and release closure. See [delivery instructions](docs/delivery.md) and the verification receipt supplied alongside the actual ZIP for its snapshot, checksum and observed results. That post-packaging receipt necessarily comes after the source snapshot; no circular self-hash is claimed. Preparation is not submission or human release approval.
 
+- [Documentation map](docs/README.md)
+- [Architecture overview + diagrams](docs/architecture-overview.md)
+- [Developer handoff](docs/developer-handoff.md)
+- [Release runbook](docs/release-runbook.md)
 - [Canonical specifications](specs/001-support-chatbot/)
 - [Requirements recheck](docs/delivery-requirements-recheck.md)
 - [UI research](docs/chatbot-ux-assessment.md)

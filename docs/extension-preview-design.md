@@ -1,51 +1,108 @@
-# Chrome integration preview — stretch design
+# Chrome Integration Preview design
 
-Status: source implementation authorized and delegated; not a core release prerequisite. The [parallel-work amendment](../progress/extension-authorization-2026-09-08.md) supersedes the earlier source-work entry sequence below. Actual-site installation, security verification and packaging are not yet complete. It does not authorize altering Cadre's production systems or publishing an extension.
+Status: **G9 DONE at the candidate-preview scope** as of 2026-09-09. `security-review=PASS`, `independent-verification=PASS`, `integration-proof=PASS`. This remains a locally loaded candidate integration, not a Cadre-installed or endorsed production feature and not a Chrome Web Store release.
 
-## Product decision
+The original proposal evolved during implementation. Historical FAIL/BLOCKED evidence is retained under `extension/evidence/`; the current execution state is authoritative in `progress/extension-graph.events.jsonl` and `progress/checkpoint.md`.
 
-Keep the public chatbot URL as the primary deliverable. A locally loaded Manifest V3 extension could add a launcher on https://cadre.ai/* and https://www.cadre.ai/* only. Label it **Integration Preview** and explain that it is an independent local demonstration, not a Cadre-installed service. The generic label preserves the owner's earlier wording requirement over the label suggested in the attachment.
+## Product purpose
 
-Do not build another chatbot. The extension is a presentation/transport adapter for the same application API, knowledge, response policy and approved links.
+The public chatbot URL remains the required product. The Manifest V3 extension demonstrates how the same assistant could appear as a floating launcher on approved Cadre pages without changing Cadre servers or building a second chatbot.
 
-## Original entry proposal — superseded for source work only
+It is a **presentation/transport adapter** for the existing API, knowledge, response policy and approved links.
 
-Do not add G9 by editing the frozen N1–N6 graph. After core readiness, obtain the scope decision and register a supported graph revision or a separately validated stretch graph linked to the original release evidence. If the pinned runtime cannot safely extend the graph, document that limitation; do not fabricate a node event.
+## Boundary
 
-G9 may start only after the deployed UI and real server round-trip work anonymously, S1–S6 and deterministic actions pass, knowledge is grounded, production build/tests pass, secrets are verified server-side, and the core archive is prepared. A failing optional adapter must not invalidate or delay the core deliverable.
+```mermaid
+flowchart LR
+    Page[Approved cadre.ai page]
+    Host[Closed-shadow launcher host]
+    Panel[Extension-origin panel]
+    SW[MV3 service worker / bridge]
+    API[Fixed candidate /api/chat]
+    Core[Existing chatbot core]
 
-Lifecycle: Producer → Extension Security Critic → real-browser QA on cadre.ai → Fixer → Independent Verifier → Persistent Evidence. No Chrome Web Store publication.
+    Page --> Host
+    Host --> Panel
+    Panel -->|validated message + request ID| SW
+    SW -->|fixed HTTPS endpoint; credentials omitted| API
+    API --> Core
 
-## Proposed boundary
+    Page -. pathname/hash only .-> Host
+    Page -. no page text/forms/cookies/storage .-x Panel
+```
 
-Floating launcher / isolated panel → validated extension message → service worker → fixed approved HTTPS application endpoint → existing server orchestration.
+### Host authority
 
-- Manifest V3, top-frame content script, document_idle, ISOLATED world. Exact Cadre match patterns; no all-URLs, wildcard subdomains, tabs/history/cookies/credentials access.
-- The service worker accepts a bounded request ID and validated chat payload, never a destination URL. Validate extension sender identity, document origin and frame, as well as message and response schemas.
-- Generate manifest and fixed API origin from one validated config. Permit only the confirmed Vercel hostname for remote requests; omit credentials and reject redirects. Do not build a generic network proxy.
-- The API hostname is public routing configuration, not a secret. OpenRouter details, tokens and server configuration never belong in the extension. No page-script message bridge or externally_connectable entry.
-- Use a style boundary for the launcher. For a stronger panel data boundary, evaluate an extension-origin iframe rather than treating Shadow DOM as a security sandbox. Expose only the required panel resource to the exact Cadre origins, with a restrictive extension CSP.
-- Reuse safe shared validation/rendering contracts, not src/provider or server-only imports. The existing wire response is reply + kind; it does not currently expose action IDs or structured citations. Do not pretend those contracts already exist or silently change the core API to match the attachment.
-- Omit storage permission by default. Keep conversation state in memory. Add a preference only if there is a demonstrated need and approval; never store sensitive chat content.
-- Bundle scripts locally; no remote executable code, eval, inline event strings or model HTML. Only exact approved links can navigate.
+- Exact approved origins only: `https://cadre.ai/*` and `https://www.cadre.ai/*`.
+- Top-frame, isolated-world content script.
+- No `tabs`, history, cookies, credentials or storage permission.
+- No generic page-script bridge and no arbitrary network proxy.
+- One launcher per document; teardown aborts pending work and releases listeners.
 
-Chrome documents that isolated worlds separate JavaScript environments but share page DOM; Shadow DOM alone therefore does not prove private state isolation. Its cross-origin guidance also warns against arbitrary-URL request proxies. [Content scripts](https://developer.chrome.com/docs/extensions/develop/concepts/content-scripts), [Cross-origin requests](https://developer.chrome.com/docs/extensions/develop/concepts/network-requests).
+### Network authority
 
-## Experience and proof obligations
+The service worker/bridge sends chat traffic only to the fixed configured candidate API. A panel message never supplies a destination URL. Fetch uses bounded JSON, omitted credentials, no-store behavior, no referrer, and rejects redirects.
 
-A compact dark launcher, accessible “Open Cadre Assistant” tooltip, clear focus styles and keyboard open/Escape/close behavior. A bounded floating panel needs safe-area offsets, responsive sizing, reduced-motion support, explicit minimize/close semantics, focus restoration and no interference with navigation or forms. Prefer shared brand tokens, not copied third-party branding or assets.
+OpenRouter configuration and server credentials never enter the extension bundle.
 
-Tests must demonstrate exact-domain activation; rejection on deceptive hosts; one widget per document; navigation/resize behavior; stylesheet isolation; malicious-message and arbitrary-URL rejection; text-only output; no sensitive storage or provider secret in build output; cancellation and retry; and no reading/modifying page forms, cookies, accounts or analytics.
+## URL-aware context
 
-Removing preview UI must abort pending work and dispose listeners/observers. Disable/uninstall must prevent reinjection. Verify behavior in an already-open tab; if injected DOM remains until refresh, document refresh as a required cleanup step rather than promising instantaneous removal. Cadre server assets and data remain untouched.
+The extension may derive a **fixed enum** from the current approved Cadre pathname/hash. This is presentation context, not knowledge retrieval.
 
-## Reviewer materials, only after implementation
+Example:
 
-- extension/README.md with exact build and Load unpacked steps, minimal permission rationale, endpoint configuration, two-minute demo, privacy and cleanup.
-- Source under extension/src/, generated manifest, local icons and tests; reproducible build using approved tooling.
-- Real screenshot evidence of launcher and open panel on cadre.ai, labeled as local integration preview. A localhost screenshot or mock background is not evidence of site integration.
-- Exclude extension/dist from the core source ZIP as required. Prefer a reproducible build command; any separate small ready-to-load artifact needs explicit packaging documentation, not a silent dist exception.
+```text
+/agents#discover-agents
+        |
+        v
+pageContext = "agents-discover"
+        |
+        +--> local label/copy
+        +--> one fixed suggested grounded question
+```
 
-## Current boundary
+For the current agents page the panel can use agent-specific, lightly humorous local copy and suggest “How does Cadre approach AI agents?” The extension does **not** scrape the page to decide what to say.
 
-Extension source/build/mock checks are now delegated under the amendment. Actual-site injection, screenshots, independent security verification and installation are not established by this document. Consult the stretch ledger and dated evidence before claiming any of them. Core UI/release verification continues independently.
+This distinction matters: URL context is a small auditable allowlist; DOM scraping would make arbitrary mutable page content part of the assistant's authority and enlarge the injection/privacy surface.
+
+## Panel isolation and rendering
+
+The launcher uses a closed Shadow DOM for style encapsulation. The conversation panel is extension-origin content. Shadow DOM is not treated as a security sandbox by itself.
+
+Model replies render as text. Only exact application-approved URLs become links. Unknown HTML, scripts, images, iframes or model-supplied destinations are not rendered as executable content.
+
+Conversation state is volatile; no sensitive chat storage permission is requested.
+
+## Transport behavior
+
+- Request IDs are bounded and deduplicated.
+- One pending request is allowed per panel.
+- Duplicate IDs do not trigger another fetch.
+- Cancellation, panel disconnect, host disconnect and timeout abort the in-flight request.
+- Ambiguous failures are not automatically retried.
+- HTTP/provider details are translated into bounded safe error codes; upstream response bodies are not leaked.
+
+## Verification
+
+Current verified boundaries:
+
+- **72/72** extension unit/security/build tests PASS.
+- **23/23** synthetic browser checks PASS with zero real-site/API traffic.
+- Latest owner-authorized disposable Chromium installed-site run on `https://cadre.ai/agents#discover-agents`: **17 scoped checks PASS**, exactly one request to the fixed candidate API for one approved question.
+- Granite bounded security/context review PASS.
+
+Latest evidence: `extension/evidence/actual-agents-context-20260909/`, `extension/evidence/context-pass-20260909/`, and `extension/evidence/granite-context-review-20260909.md`.
+
+Two earlier actual-site test defects are retained rather than erased: one whole-page overflow assertion attributed Cadre's existing site overflow to the extension, and one Page-scoped network observer did not see service-worker traffic. The tests were corrected before the final PASS.
+
+## What is not proven
+
+- Chrome Web Store packaging/review/publication.
+- Cadre production ownership, installation or endorsement.
+- Every Chrome version or physical reviewer device.
+- Any permission beyond the current minimal manifest.
+- That the public chatbot deployment is current; extension integration proof and Vercel release equivalence are separate claims.
+
+## Developer change rule
+
+A new contextual experience must be implemented as an explicit pathname/hash -> enum mapping plus local copy/suggested-question mapping. If the requested feature needs page content, cookies, account state, arbitrary destinations, new permissions, persistent storage or Cadre server changes, stop and treat it as a new security/scope decision rather than extending this contract silently.

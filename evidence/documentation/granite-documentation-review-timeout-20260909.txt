@@ -1,0 +1,8 @@
+Granite documentation critic attempts — 2026-09-09 UTC
+Result: INFRASTRUCTURE/TIMEOUT, not a product/documentation verdict.
+
+Attempt 1 supplied six complete audit-facing documents (~69k characters) to local `ibm/granite3.3:2b`; the HTTP request exceeded its 180-second deadline before a response was returned.
+
+Attempt 2 reduced the material to a bounded current-state/architecture/handoff/release packet and also exceeded its 120-second HTTP deadline before a response was returned.
+
+No PASS, FAIL, or reviewer finding is inferred from either attempt. Deterministic documentation checks inspect all durable Markdown files for local-link/fence integrity and explicit current-state invariants; those results are retained separately in `documentation-audit-20260909.txt`.

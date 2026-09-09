@@ -1,0 +1,22 @@
+markdown_local_links_and_fences: PASS — 23 files; 6 Mermaid blocks; 0 errors
+plan_external_release_boundary: PASS
+plan_decisions_current_not_scaffold_only: PASS
+claude_handoff_and_runtime_boundaries: PASS
+claude_provenance_boundary: PASS
+claude_publication_no_bypass: PASS
+current_core_counts: PASS
+current_extension_counts: PASS
+n8n_no_delivery_overclaim: PASS
+public_stale_is_explicit: PASS
+claude_execution_not_inferred: PASS
+historical_spec_status_requirements.md: PASS
+historical_spec_status_design.md: PASS
+historical_spec_status_tasks.md: PASS
+
+SUMMARY: 14/14 checks PASS
+{"event_count": 149, "project_id": "cadre-ai-chatbot", "ready_nodes": [], "valid": true}
+{"event_count": 34, "project_id": "cadre-ai-integration-preview", "ready_nodes": [], "valid": true}
+{"event_count": 12, "project_id": "cadre-ai-cicd", "ready_nodes": [], "valid": true}
+{"event_count": 12, "project_id": "cadre-ai-n8n-handoff", "ready_nodes": [], "valid": true}
+
+NOTE: two bounded/full Granite documentation-critic attempts timed out before returning a verdict; see granite-documentation-review-timeout-20260909.txt. No Granite PASS is claimed for this documentation increment.

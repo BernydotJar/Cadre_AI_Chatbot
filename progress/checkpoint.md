@@ -4,11 +4,11 @@ Updated: 2026-09-09 UTC. This is a projection; the append-only Graph Harness led
 
 ## Terminal state for this session
 
-**PARTIAL_WITH_DOCUMENTED_BLOCKERS — deployment only.** The current local product increment is verified: the first-turn greeting defect is fixed, the web assistant has the new Cadre Signal visual system and authored icon, and the optional Chrome Manifest V3 Integration Preview has completed its installed-site gate. N6 `release-check` remains BLOCKED because the known public Vercel alias is demonstrably running the older UI/behavior and no authenticated deployment mechanism available in this environment can currently publish this reviewed worktree.
+**PARTIAL_WITH_DOCUMENTED_BLOCKERS — external release delivery only.** The current local product increment is verified, G9 Chrome and G11 n8n are DONE at their declared optional scopes, and the audit/handoff documentation has been reconciled. N6 `release-check` remains BLOCKED because the known public Vercel alias is demonstrably running the older UI/behavior. G10 is also blocked at deploy-check because the audited Git publication channel currently lacks its platform-managed credential and the connected Vercel integration cannot bind the existing project.
 
 Public alias: `https://cadre-ai-chatbot-tawny.vercel.app`.
 
-The product, contextual extension, and CI/CD increments are now split into small commits. Human author metadata uses the repository's existing `Bernydotjar <fearlesed@gmail.com>` identity; the actual technical committer remains `ChatGPT Sandbox Agent`, and earlier history was not rewritten. Current HEAD before this projection update is `e080b06` after closing the n8n contract graph. Main graph sequence remains **149**. Extension graph sequence is **34**, last event `9db84544-4f7c-42fa-9605-e3f1983740d6`. CI/CD graph sequence is **12**, last event `4495e3a7-7302-426f-ad9f-33e67086f306`. n8n graph sequence is **12**, last event `a35c57ad-30b4-4fd7-aeec-ce11084d239c`.
+Product, contextual extension, CI/CD, n8n and documentation increments are split into bounded commits. Existing Git author/committer history is retained as recorded and is not used as proof that a particular human or coding tool executed a change. This checkpoint intentionally does not embed a self-referential current HEAD; reproduce it with `git rev-parse HEAD`. Main graph sequence remains **149**. Extension graph sequence is **34**, last event `9db84544-4f7c-42fa-9605-e3f1983740d6`. CI/CD graph sequence is **12**, last event `4495e3a7-7302-426f-ad9f-33e67086f306`. n8n graph sequence is **12**, last event `a35c57ad-30b4-4fd7-aeec-ce11084d239c`.
 
 ## Main graph
 
@@ -67,6 +67,20 @@ During the first polish Playwright pass, three useful failures were retained and
 
 Final local screenshots: `evidence/N4-ui/final-polish-desktop-20260909.png`, `final-polish-mobile-20260909.png`, and `final-polish-greeting-20260909.png`.
 
+## Documentation / handoff reconciliation
+
+The audit-facing documentation now separates durable design from mutable execution state:
+
+- `plan.md` uses a current decision register and identifies only external release delivery as blocking.
+- `CLAUDE.md` aligns the implemented architecture, G9/G10/G11 boundaries, actual publication controls, port 3100, provenance rules and takeover docs. Project-scoped Claude helpers are still configuration only unless an actual Claude run is observed.
+- `docs/architecture-overview.md` adds system/request/trust-boundary diagrams and brief explanations of bounded inference, fail-closed behavior, adapters, event sourcing, exact-SHA release and process-local controls.
+- `docs/developer-handoff.md` gives a mid-level developer a read order, repository map, change recipes, debugging ladder, advanced-concept notes and Definition of Done.
+- `docs/release-runbook.md` gives the exact GitHub/Vercel/public-verification/Graph/ZIP closure sequence.
+- `docs/README.md` is the documentation navigation/audit reading order.
+- The original spec status headers are retained as historical pre-approval text with explicit current-state notes instead of being silently rewritten.
+
+Deterministic documentation audit: **14/14 PASS**, 26 audit-facing Markdown files checked, six Mermaid blocks, zero missing local links/unbalanced fences, and all four Graph ledgers validate. Two local Granite documentation-critic attempts timed out before returning a verdict; that is retained as an infrastructure limitation and **no Granite PASS is claimed for this documentation increment**. Evidence: `evidence/documentation/`.
+
 ## Deployment blocker — current evidence
 
 Anonymous checks against `https://cadre-ai-chatbot-tawny.vercel.app` on 2026-09-09 show:
@@ -107,11 +121,11 @@ Retained observed cost ledger before this increment: user-reported coding spend 
 
 ## Source publication blocker
 
-The local `main` branch is **22 commits ahead** of `origin/main` and has no remote-only commits. The dedicated audited repository-publication action was attempted and returned `GITHUB_TOKEN is required for git_push`; no shell credential workaround was used. Consequently the new GitHub Actions workflows are versioned and locally verified but are **not active on GitHub yet**. This is an account/tool credential blocker, not additional application development.
+Local `main` remains ahead of `origin/main` with no known remote-only commits from the last fetch. Reproduce the exact distance with `git rev-list --left-right --count origin/main...HEAD`. The dedicated audited repository-publication action was attempted and returned `GITHUB_TOKEN is required for git_push`; no shell credential workaround was used. Consequently the new GitHub Actions workflows are versioned and locally verified but are **not active on GitHub yet**. This is an account/tool credential blocker, not additional application development.
 
 ## Exact resume path
 
-1. Restore the audited GitHub publication credential and publish the current fast-forward `main` history so the CI/CD workflows actually exist on GitHub.
+1. Use the dedicated audited Git publication action again; if its platform-managed credential is available, fast-forward `main` so the CI/CD workflows exist on GitHub. If the credential is still absent, retain the blocker and do not bypass it.
 2. Restore visibility/access to the existing Vercel `cadre-ai-chatbot` project and provision `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`, and `VERCEL_TOKEN` in the GitHub `production` environment; do not create a replacement project merely to make the gate green.
 3. Reopen G10/N6 only through supported graph transitions and deploy the exact reviewed SHA through the gated workflow or an equivalent authorized project binding.
 4. Repeat anonymous `/`, `/api/health`, exact `hello`, favicon/hero markers, and the 50-case browser/readability matrix against that deployment; run one bounded live-provider round trip only if the chatbot allowance is available.

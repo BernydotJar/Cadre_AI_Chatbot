@@ -1,6 +1,6 @@
 # Engineering workflow
 
-`CLAUDE.md` contains durable project constraints, not a growing transcript. `plan.md` indexes decisions. The three original spec files define approved requirements; the frozen graph definition and append-only event log carry execution state. `progress/checkpoint.md` is a resumable summary, never independent authority to mark a node done.
+`CLAUDE.md` contains durable project constraints, not a growing transcript. `plan.md` indexes decisions. The three original spec files define approved requirements; the frozen graph definition and append-only event log carry execution state. `progress/checkpoint.md` is a resumable summary, never independent authority to mark a node done. `docs/architecture-overview.md`, `docs/developer-handoff.md`, and `docs/release-runbook.md` are the maintained architecture/takeover/operations layer for another engineer; they must not become a second mutable status ledger.
 
 ## Real roles, bounded context
 
@@ -37,7 +37,7 @@ The thin adapter checks the pinned revision and tracked cleanliness, supplies an
 
 ## Commits and review gates
 
-The first recovery commit honestly captures already-existing foundation and routing WIP. Later commits separate tooling, decisions, fixes, provider integration and UI. Do not backdate or fabricate a task-per-commit history after the fact. Code can be committed while its node awaits independent review; that is not release approval.
+The first recovery commit honestly captures already-existing foundation and routing WIP. Later commits separate tooling, decisions, fixes, provider integration, UI, optional adapters, CI/CD and documentation. Do not backdate, rewrite or fabricate a task-per-commit history after the fact. Author metadata is not proof of who technically executed a change; preserve the actual committer/provenance. Code can be committed while its node awaits independent review; that is not release approval.
 
 Record failed evidence as failed, repair only the implicated files, rerun checks and then evaluate the gate. New evidence never silently overwrites old evidence. Preserve historical runtime events even when wording, prior assumptions or actor names differ from current conventions. Do not rewrite the past to make it look cleaner.
 

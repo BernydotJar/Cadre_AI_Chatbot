@@ -2,6 +2,8 @@
 
 **Status: `spec_ready` — awaiting human approval. Dependencies listed here are proposals, not installed.**
 
+> **Historical status note (2026-09-09):** this header records the pre-approval design state and is retained for audit history. The specification was subsequently approved and executed; current implementation/release status belongs in the Graph Harness ledgers and `progress/checkpoint.md`. Some dependencies/choices below are therefore historical proposals rather than current-state documentation.
+
 ## Approach
 
 One Next.js (App Router) + TypeScript application. A single server route handles chat: validate input → route intent → assemble grounded context from the curated knowledge set → call the provider through a narrow adapter → apply the response policy → return a bounded reply. The chat core is client-agnostic; everything Cadre-specific (brand, topics, knowledge, approved links) lives in one configuration module. The reuse hypothesis — a second client should mean a new configuration, not new logic — is exercised at unit level by a second config fixture (T-N2-3); that fixture demonstrates separation of core and config, it does not prove production multi-client reuse.

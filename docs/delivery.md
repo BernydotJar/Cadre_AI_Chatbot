@@ -1,6 +1,6 @@
 # Source delivery and review
 
-The delivery is the public web app plus a lightweight source ZIP with usable Git history. The optional extension is being implemented under a separate graph and is not a prerequisite for core acceptance. Tracked extension source and its documentation may be included, with its unverified installation gate clearly stated; generated extension/dist is excluded. Preparation does not authorize email, upload, Git push or human release closure.
+The delivery is the public web app plus a lightweight source ZIP with usable Git history. The optional Chrome Integration Preview is DONE in its separate graph and is not a prerequisite for core acceptance; tracked source/documentation may be included while generated `extension/dist` remains excluded. The optional n8n handoff contract is also tracked source but is not evidence of real email delivery. The current known public app is stale relative to reviewed source, so the final ZIP must be rebuilt only after production equivalence and graph closure. Preparation does not authorize recruiting email/upload, Web Store publication or human release closure.
 
 ## Package contents and exclusions
 

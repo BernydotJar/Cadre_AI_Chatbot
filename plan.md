@@ -1,6 +1,6 @@
 # Plan — Cadre AI Chatbot
 
-**Status: PARTIAL_WITH_DOCUMENTED_BLOCKERS — production deployment only.** N1–N5 are done; N2 and N4 are re-closed with PASS gates after the greeting/Cadre Signal repairs. Optional G9 is DONE with URL-aware local context and a 17-check installed Manifest V3 proof on `cadre.ai/agents#discover-agents`. G10 GitHub CI/CD is implemented and locally verified (`verification=PASS`, `code-review=PASS`) but `deploy-check=BLOCKED`: the connected Vercel team exposes no existing project, direct deploy is unusable in this session, and the sandbox CLI is logged out. N6 remains BLOCKED because the public alias is healthy but still serves the older hero and `hello -> redirect` behavior. The prepared increments are now committed in small commits with the existing human author identity while the actual technical committer remains recorded; earlier history was not rewritten.
+**Status: PARTIAL_WITH_DOCUMENTED_BLOCKERS — external release delivery only.** Product implementation, local verification, the optional G9 Chrome preview, and the G11 n8n handoff contract are complete at their declared scopes. G10 CI/CD source is implemented and locally verified (`verification=PASS`, `code-review=PASS`) but `deploy-check=BLOCKED`. N6 remains BLOCKED because the reviewed source has not reached the existing production project: the audited Git publication channel currently lacks its platform-managed token, the connected Vercel team exposes no usable project binding, and the public alias still serves the older hero plus `hello -> redirect`. No application feature work is required to explain those blockers.
 
 ## Objective
 
@@ -35,7 +35,7 @@ Live-review preparation should use this table as an index, not as a script: demo
 | M0 | Repository foundation and canonical spec | this document set | done (approved 2026-09-08) |
 | M1 | App foundation, local walking skeleton | node `N1-foundation` | done (ledger: done; evidence/N1-foundation/) |
 | M2 | Knowledge base and routing | node `N2-knowledge-routing` | done: exact greeting/source refresh repair; 146 focused tests + Granite policy review PASS |
-| M3 | Chat API and provider adapter (mock-first) | node `N3-chat-api-adapter` | done: model allowlist/evaluator repair independently verified; full suite 245/245, typecheck, lint and build PASS |
+| M3 | Chat API and provider adapter (mock-first) | node `N3-chat-api-adapter` | done: model allowlist/evaluator repair independently verified; current repository suite 256/256, typecheck, lint and build PASS |
 | M4 | Conversation UI and UX states | node `N4-ui` | done: Cadre Signal polish + authored icon; 256 unit/integration and 50 browser cases PASS; Granite final critic PASS |
 | M5 | Early deployment — authorization-gated, attempted as soon as U3 resolves; may run in parallel with M2–M4 | node `N5-deploy` | done: authorized mock scaffold, anonymous checks and separate review PASS |
 | M6 | Verification, live evaluation, packaging, release readiness | node `N6-verify-release` | **blocked**: local verification/code review PASS; public alias demonstrably stale and no usable authenticated deployment path exposed |
@@ -43,37 +43,47 @@ Live-review preparation should use this table as an index, not as a script: demo
 | M8 | GitHub CI + gated Vercel CD | separate node `G10-vercel-cicd` | **blocked at deploy gate only**: workflow source/local marker contract/Granite review PASS; existing Vercel project binding unavailable |
 | M9 | Optional n8n human-handoff contract | separate node `G11-n8n-handoff-contract` | done: isolated n8n 2.38.1 runtime, consent/routing webhook probes and Granite review PASS; real email delivery intentionally not claimed |
 
-## Decision log
+## Decision register
 
-| ID | Decision | Status |
-|----|----------|--------|
-| D1 | Next.js + TypeScript, single app, server-side chat endpoint | proposed |
-| D2 | Curated structured knowledge + deterministic routing; no vector DB; not labeled "RAG" | proposed |
-| D3 | Narrow provider adapter, server-side, mockable; concrete provider is decision U1 | proposed |
-| D4 | No persistence layer in the baseline | proposed |
-| D5 | Graph execution transition after approval, with a bounded bootstrap step (see below) | proposed |
-| D6 | Keep working copy in its current iCloud-synced location; caveat documented in `CLAUDE.md` | accepted |
-| D7 | Replace the inherited Jekyll-oriented `.gitignore` with a Node/Next template as part of N1 (it came from the remote's initial commit and is not a stack decision) | proposed |
-| D8 | Deployment is its own authorization-gated node (`N5-deploy`) so local scaffold/test/mock work never waits on deployment credentials; verified live deployment remains mandatory for final release | proposed |
+The table records the **current disposition** of architectural decisions. Historical proposal/approval timing remains in Git and the append-only ledgers; this projection does not rewrite that history.
 
-## Unresolved decisions (each blocks ONLY what is named; none blocks documentation or local mocked work)
+| ID | Decision | Current disposition |
+|----|----------|---------------------|
+| D1 | Next.js + TypeScript, single application, server-side chat endpoint | implemented |
+| D2 | Curated typed knowledge + deterministic routing; no vector database; do not label the system vector RAG | implemented |
+| D3 | Narrow server-side `FactSelector` adapter with deterministic mock and OpenRouter implementation | implemented |
+| D4 | No persistence layer, auth, CRM, analytics or account integration in the baseline | accepted scope boundary |
+| D5 | Spec-first Graph Engineering with frozen baseline + append-only execution ledger | implemented |
+| D6 | Keep the existing working-copy location and document environment caveats rather than relocating it mid-challenge | accepted |
+| D7 | Replace inherited Jekyll-oriented ignore rules with the actual Node/Next exclusions | implemented |
+| D8 | Keep deployment as an authorization-gated release concern; local development never treats deploy as implicitly passed | implemented |
+| D9 | Keep the Chrome Integration Preview in a separate optional graph so it cannot delay the required public chatbot | implemented; G9 DONE |
+| D10 | Chrome context may use only an allowlisted pathname/hash enum for local presentation; no host-page scraping | implemented and installed-site verified |
+| D11 | GitHub CI is secret-free; production CD deploys an exact SHA to the **existing** Vercel project using `pull -> build --prod -> deploy --prebuilt --prod` and public release-marker checks | implemented; external deploy gate blocked |
+| D12 | Treat n8n as a replaceable human-handoff adapter, not domain logic or proof of email delivery | contract implemented; G11 DONE |
 
-| ID | Decision needed | Blocks (only) |
-|----|-----------------|---------------|
-| U1 | Resolved: OpenRouter; model selection delegated, inexpensive explicit model preferred | no longer blocks N3; adapter is server-side only |
-| U2 | Resolved: $5 total; conservative operational expiry 2026-09-15T00:00:00Z despite later provider metadata | bounded chatbot inference only, retain reserve; never coding assistance |
-| U3 | Resolved: owner confirmed `Cadre_AI` / `cadre-ai3` for CLI deployment | no longer blocks N5 or deployed checks; no push/submission/paid add-ons inferred |
-| U4 | Resolved: owner requests small human-authored commits; automated sandbox identity must not be used to impersonate the owner | prepared work remains uncommitted until owner reviews/commits with their real identity; no push/submission inferred |
-| U5 | Target release date | nothing; informational for scheduling the N6 closure gate |
-| U6 | Whether a public client-portal URL exists | not a release blocker — the agreed honest contact fallback covers S3; resolving U6 only refines that answer's wording |
+## Resolved constraints and open questions
 
-A node whose gated check is still pending stays open — a pending deploy or live check is never treated as passed.
+| ID | State | Decision / question | Effect now |
+|----|-------|---------------------|------------|
+| U1 | resolved | OpenRouter selected; production default remains `openai/gpt-4.1-mini` | no development blocker |
+| U2 | resolved | $5 chatbot-only inference ceiling, $0.50 reserve, conservative expiry 2026-09-15T00:00:00Z | live checks remain budget-aware |
+| U3 | resolved | Intended production target is `Cadre_AI / cadre-ai3`, existing project `cadre-ai-chatbot` | current connector cannot see/bind the project |
+| U4 | resolved | Preserve authentic Git provenance; do not rewrite history or use author metadata as proof of who executed a change | current commits retain their actual technical committer |
+| U5 | open, informational | Target submission/release date | scheduling only; does not change acceptance criteria |
+| U6 | open, non-blocking | Whether Cadre exposes a verified public client-portal URL | keep the honest official-contact fallback until verified |
+| U7 | externally blocked | Audited Git publication action requires its platform-managed credential | CI/CD workflows remain local until the channel is restored |
+| U8 | externally blocked | Existing Vercel project must become visible/bound to an authorized delivery mechanism | prevents production equivalence and N6/G10 closure |
+
+A node whose gated check is pending or externally blocked stays open. A local build, connector team lookup, or provider READY state is never substituted for deployed release evidence.
 
 ## Source classification
 
-- **Stakeholder requirements brief** (private): summarized into the spec; not stored in this repository.
-- **Official public website** `https://cadre.ai` — refreshed 2026-09-09 (`cadreai.com` 301-redirects there). Verified pages and CTAs are recorded as knowledge seeds in `design.md`, each with a retrieval date.
-- Everything else is an engineering proposal, marked as such in the decision log.
+- **Stakeholder requirements brief** (private): translated into the approved spec; the original private document is not copied into this repository.
+- **Approved product baseline**: `specs/001-support-chatbot/` plus recorded approval/graph events. Spec headers that describe pre-approval state are historical text, not current execution state.
+- **Official public Cadre sources**: refreshed 2026-09-09 and inventoried under `docs/research/`; only reviewed claims promoted into `src/config/cadre.ts` become runtime authority.
+- **Implemented engineering decisions**: source code, tests, workflows and the decision register above. Their existence does not by itself prove deployment.
+- **Execution/release evidence**: append-only graph events, `progress/checkpoint.md`, and claim-specific artifacts under `evidence/`. Historical FAIL/BLOCKED evidence is intentionally retained.
 
 ## Graph transition decision (D5)
 
@@ -142,4 +152,4 @@ The owner requested a temporary Gemini 3.8 Flash comparison. `docs/model-evaluat
 
 ## Next action
 
-N6 is intentionally terminal at **PARTIAL_WITH_DOCUMENTED_BLOCKERS** until deployment equivalence can be proved. The product/greeting/UI, contextual G9 adapter, and G10 CI/CD source are committed and locally verified. Next: restore the audited GitHub publication credential so the current local branch can reach `origin/main`, restore access to the existing Vercel project (and `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`, `VERCEL_TOKEN` in the GitHub `production` environment), deploy the exact reviewed SHA through the gated workflow or an equivalent authorized binding, rerun anonymous health/hero/favicon/hello plus the 50-case browser matrix against production, then clear `release-check` and build the final ZIP. Separate G11 is DONE: the isolated n8n 2.38.1 runtime and validated/published `cadre-handoff` webhook contract passed its graph gates; email delivery remains a later stretch adapter and is not a core-release dependency. No recruiting upload/email, Web Store publication, or provenance rewriting is inferred.
+N6 is intentionally terminal at **PARTIAL_WITH_DOCUMENTED_BLOCKERS** until deployment equivalence can be proved. Product, G9, G11, documentation/handoff, and G10 CI/CD source are committed or prepared as locally verified release inputs; only external delivery remains. Next: restore the audited GitHub publication credential so the current local branch can reach `origin/main`, restore access to the existing Vercel project (and `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`, `VERCEL_TOKEN` in the GitHub `production` environment), deploy the exact reviewed SHA through the gated workflow or an equivalent authorized binding, rerun anonymous health/hero/favicon/hello plus the 50-case browser matrix against production, then clear `release-check` and build the final ZIP. Separate G11 is DONE: the isolated n8n 2.38.1 runtime and validated/published `cadre-handoff` webhook contract passed its graph gates; email delivery remains a later stretch adapter and is not a core-release dependency. No recruiting upload/email, Web Store publication, or provenance rewriting is inferred.

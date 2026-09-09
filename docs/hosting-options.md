@@ -1,10 +1,12 @@
 # Hosting decision — Vercel authorized
 
+> **Historical chronology:** the first two paragraphs below record the 2026-09-08 access/authorization sequence. They are not current release status. The reconciled current-state paragraph follows them, and `docs/deploy.md` / `progress/checkpoint.md` are authoritative for operations.
+
 Reviewed 2026-09-08. The owner asked to compare Vercel, AWS and Terraform, then identified Vercel team `cadre-ai` and reported a Pro plan. The supplied new-project URL was inspected in the integrated browser, which showed Login/Sign Up rather than an authenticated team. This does not establish the state of the owner's other browser sessions. N5 remains blocked on verified access and deployment permission; no cloud resources have been created.
 
 Later update: the owner explicitly requested the official CLI. Login through Vercel CLI 59.12.0 succeeded. Team discovery shows `Cadre_AI` / `cadre-ai3`; `project ls --scope cadre-ai` fails with a nonexistent-scope error. A read-only listing of `cadre-ai3` returns no projects. Confirm the mismatch before linking or creating a project. No secret, login code or token is retained in this document.
 
-Latest owner confirmation resolves the scope: use `cadre-ai3`. Project `cadre-ai-chatbot` now exists and its first mock deployment passes anonymous checks at https://cadre-ai-chatbot-tawny.vercel.app. Deployment metadata reports `pro`, `nodeVersion: 24.x` and `framework: nextjs`. Earlier paragraphs preserve the authorization chronology; [deployment notes](deploy.md) own current operational details. No Git push, source publication or final submission occurred.
+Historical deployment scope is `cadre-ai3`; project `cadre-ai-chatbot` produced the known public alias and earlier mock/live verification. The current connected Vercel integration cannot see/bind that existing project, and the alias is stale relative to reviewed source. Earlier paragraphs preserve authorization chronology; [deployment notes](deploy.md), the [release runbook](release-runbook.md), and `progress/checkpoint.md` own current operational details. The newer GitHub CI/CD source is not active remotely until audited source publication succeeds.
 
 ## Recommendation
 
