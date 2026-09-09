@@ -1,0 +1,29 @@
+{
+  "schema_version": "graph-harness.project.v1",
+  "project_id": "cadre-ai-integration-preview",
+  "mode": "MVP",
+  "gate_definitions": [
+    { "id": "security-review", "required_evidence_kinds": ["review_report"], "blocking": true },
+    { "id": "independent-verification", "required_evidence_kinds": ["test_output"], "blocking": true },
+    { "id": "integration-proof", "required_evidence_kinds": ["browser_check", "package_check"], "blocking": true }
+  ],
+  "nodes": [
+    {
+      "id": "G9-extension-adapter",
+      "kind": "feature-increment",
+      "title": "Chrome Integration Preview adapter",
+      "status": "spec_ready",
+      "depends_on": [],
+      "capability": "engineering",
+      "gates": { "done": ["security-review", "independent-verification", "integration-proof"] },
+      "allowed_paths": ["extension/**", "evidence/extension/**", "docs/extension-preview-design.md", "progress/extension-authorization-2026-09-08.md", "eslint.config.mjs"],
+      "metadata": {
+        "spec": "docs/extension-preview-design.md",
+        "authorization": "progress/extension-authorization-2026-09-08.md",
+        "core_graph": "graph-harness.project.json",
+        "core_live_evidence": "evidence/N6-release/public-live.json",
+        "boundary": "Source/build/mock work authorized in parallel. Real-site installation and external publication remain separately gated. This stretch graph cannot mark the core release complete."
+      }
+    }
+  ]
+}

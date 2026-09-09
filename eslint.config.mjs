@@ -10,6 +10,7 @@ const config = [
       "coverage/**",
       "test-results/**",
       "playwright-report/**",
+      "extension/dist/**",
       "next-env.d.ts",
     ],
   },

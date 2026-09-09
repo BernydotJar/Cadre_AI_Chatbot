@@ -1,6 +1,6 @@
 # Chrome integration preview — stretch design
 
-Status: proposed, not implemented, not a release prerequisite. The owner suggested a floating assistant on the public Cadre site and supplied an adapter brief. This design translates that idea into a bounded optional increment; it does not authorize altering Cadre's production systems or publishing an extension.
+Status: source implementation authorized and delegated; not a core release prerequisite. The [parallel-work amendment](../progress/extension-authorization-2026-09-08.md) supersedes the earlier source-work entry sequence below. Actual-site installation, security verification and packaging are not yet complete. It does not authorize altering Cadre's production systems or publishing an extension.
 
 ## Product decision
 
@@ -8,7 +8,7 @@ Keep the public chatbot URL as the primary deliverable. A locally loaded Manifes
 
 Do not build another chatbot. The extension is a presentation/transport adapter for the same application API, knowledge, response policy and approved links.
 
-## Entry gate — proposed G9
+## Original entry proposal — superseded for source work only
 
 Do not add G9 by editing the frozen N1–N6 graph. After core readiness, obtain the scope decision and register a supported graph revision or a separately validated stretch graph linked to the original release evidence. If the pinned runtime cannot safely extend the graph, document that limitation; do not fabricate a node event.
 
@@ -46,6 +46,6 @@ Removing preview UI must abort pending work and dispose listeners/observers. Dis
 - Real screenshot evidence of launcher and open panel on cadre.ai, labeled as local integration preview. A localhost screenshot or mock background is not evidence of site integration.
 - Exclude extension/dist from the core source ZIP as required. Prefer a reproducible build command; any separate small ready-to-load artifact needs explicit packaging documentation, not a silent dist exception.
 
-## Not done
+## Current boundary
 
-No extension source, build, installation, actual-site injection, screenshot or security test exists yet. Core UI/browser verification is still active. This document is the scope and sequencing proposal, not completion evidence.
+Extension source/build/mock checks are now delegated under the amendment. Actual-site injection, screenshots, independent security verification and installation are not established by this document. Consult the stretch ledger and dated evidence before claiming any of them. Core UI/release verification continues independently.
