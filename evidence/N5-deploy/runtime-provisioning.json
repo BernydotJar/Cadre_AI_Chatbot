@@ -1,0 +1,17 @@
+{
+  "recordedAt": "2026-09-09 02:48:31 UTC",
+  "scope": "cadre-ai3",
+  "project": "cadre-ai-chatbot",
+  "target": "production",
+  "authority": "Owner confirmed this project deployment; bounded chatbot-only OpenRouter usage previously approved",
+  "method": "Vercel CLI env add via piped stdin; child output suppressed; no value in command arguments",
+  "variables": [
+    { "name": "OPENROUTER_API_KEY", "type": "Secret", "exitCode": 0 },
+    { "name": "OPENROUTER_MODEL", "type": "Config", "exitCode": 0 },
+    { "name": "OPENROUTER_KEY_EXPIRES_AT", "type": "Config", "exitCode": 0 },
+    { "name": "CHAT_PROVIDER", "type": "Config", "exitCode": 0 },
+    { "name": "CHAT_TRUSTED_PROXY_IP_HEADER", "type": "Config", "exitCode": 0 }
+  ],
+  "followup": "CLI env ls confirmed all five names; key value Hidden",
+  "effect": "Available to a future production deployment. Does not alter the already deployed mock scaffold or prove live inference."
+}
