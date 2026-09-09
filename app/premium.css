@@ -188,7 +188,7 @@ h1 em{font-family:inherit;font-style:normal;font-weight:620;color:#f7f5ef;letter
   .support-shell{padding:0 20px}
   .site-header{min-height:72px}
   .workspace{display:flex;flex-direction:column;padding:8px 0 16px;gap:16px}
-  .intro{min-height:auto;padding:28px 28px;border-radius:22px}
+  .intro{min-height:auto;padding:28px 28px 84px;border-radius:22px}
   .intro-copy>.eyebrow{display:flex;margin-bottom:13px}
   .intro-description,.intro-bottom{display:none}
   h1{max-width:700px;font-size:clamp(40px,8vw,58px);line-height:.95;letter-spacing:-.052em;margin:0}
@@ -209,7 +209,7 @@ h1 em{font-family:inherit;font-style:normal;font-weight:620;color:#f7f5ef;letter
   .site-header{min-height:64px}
   .wordmark{font-size:20px}
   .workspace{gap:11px}
-  .intro{padding:21px 20px;border-radius:17px}
+  .intro{padding:21px 20px 76px;border-radius:17px}
   .intro-copy>.eyebrow{font-size:8px;margin-bottom:10px}
   h1{font-size:38px;line-height:1;letter-spacing:-.043em}
   .chat-card{min-height:560px;border-radius:17px}

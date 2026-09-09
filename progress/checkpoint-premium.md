@@ -4,7 +4,7 @@ Updated: 2026-09-09 UTC. The premium Graph ledger is authoritative for this incr
 
 - Graph: `progress/premium-graph.project.json` + `progress/premium-graph.events.jsonl`.
 - Current node: `PX2-donna-premium-identity` — **DONE**. `design-review=PASS`, `verification=PASS`, and `integration-proof=PASS` are backed by separate Claude Code critic/verifier contexts plus live-render geometry and the full regression suite.
-- PX3 ambient media is **RUNNING / fixer complete pending fresh review** after the first independent critic returned CHANGES_REQUESTED; PX4 contextual Donna remains READY; PX5 premium release remains dependency-locked on both.
+- PX3 ambient media is **RUNNING / second fixer complete pending fresh review**. The first critic rejected imperceptible motion; the second critic confirmed the content repair but found mobile Pause overlap + incomplete width evidence. Both are now repaired and regression-green. PX4 remains READY; PX5 remains dependency-locked.
 - Independent critic: authenticated Claude Code 2.1.266, project `critic` agent, high-effort read-only review. Evidence: `evidence/premium-critic/claude-uiux-critique-20260909.md`. It rejected the glowing hex/circuit avatar, duplicate hero hierarchy, demoted composer, repeated mark/kicker treatment, and tiny starter typography.
 - Fixer source: removed glow/hex/animated traces and the hero-size Donna mark; the signal is now one static ring + accent notch + monogram. The composer precedes welcome content, starter topics are one-column 14–15px rows, and empty-state copy is an invitation rather than a pre-answer claim. The follow-up critic PASS is retained at `evidence/premium-critic/claude-uiux-followup-20260909.md`.
 - Verification after the repair: 283/283 Vitest, typecheck PASS, lint PASS, build PASS, final 52/52 Playwright PASS. The first browser rerun exposed reset-focus and sub-pixel 360x640 readability defects; both are retained in `evidence/premium-identity/px2-fixer-20260909.md` and repaired before the final PASS.
@@ -16,4 +16,4 @@ Updated: 2026-09-09 UTC. The premium Graph ledger is authoritative for this incr
 - Audited Git publication is restored and GitHub CI is active. Automated production delivery is protected by `npm run release:gate`, which remains BLOCKED until PX3–PX5 are DONE and all latest premium gates pass.
 
 
-Next safe action: commit the PX3 fixer snapshot, then run a fresh independent design/accessibility critic on the repaired contact sheet, desktop/mobile live screenshots, pause control and reduced-motion behavior. Only a real PASS can clear design-review; a separate verifier is still required before DONE.
+Next safe action: commit the second PX3 fixer snapshot, run a fresh independent critic focused on the mobile Pause layout + 320/360/760 evidence, then require a separate verifier before PX3 DONE.

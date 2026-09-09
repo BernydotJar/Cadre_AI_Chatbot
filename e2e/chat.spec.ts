@@ -59,6 +59,37 @@ test("reduced motion keeps the static poster and never mounts the ambient video"
   await expect(media).toHaveCSS("background-image", /donna-ambient-poster\.webp/);
 });
 
+test("ambient motion control never obscures the hero across responsive widths", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  for (const size of [
+    { width: 320, height: 568 },
+    { width: 360, height: 640 },
+    { width: 760, height: 900 },
+  ]) {
+    await page.setViewportSize(size);
+    await page.reload();
+    const heading = page.locator(".intro h1");
+    const control = page.getByRole("button", { name: "Pause ambient motion" });
+    await expect(control).toBeVisible();
+    const [headingBox, controlBox] = await Promise.all([heading.boundingBox(), control.boundingBox()]);
+    expect(headingBox).not.toBeNull();
+    expect(controlBox).not.toBeNull();
+    const overlaps = headingBox && controlBox
+      ? headingBox.x < controlBox.x + controlBox.width && headingBox.x + headingBox.width > controlBox.x
+        && headingBox.y < controlBox.y + controlBox.height && headingBox.y + headingBox.height > controlBox.y
+      : true;
+    expect(overlaps, `${size.width}px motion control overlaps hero`).toBe(false);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  }
+
+  await page.setViewportSize({ width: 320, height: 568 });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.reload();
+  await expect(page.locator(".intro-media")).toHaveAttribute("data-motion", "poster");
+  await expect(page.locator(".intro-media video")).toHaveCount(0);
+  await expect(page.getByRole("button", { name: /ambient motion/ })).toHaveCount(0);
+});
+
 test("anonymous conversation uses the real server and official links", async ({ page }) => {
   if (!process.env.E2E_BASE_URL || process.env.E2E_EXPECT_MODE === "mock") {
     await expect(page.getByText(/Demo mode/)).toBeVisible();

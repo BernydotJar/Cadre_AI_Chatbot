@@ -1,0 +1,138 @@
+[
+  {
+    "name": "motion-1280",
+    "motion": "video",
+    "videoCount": 1,
+    "heading": {
+      "x": 110.078125,
+      "y": 198,
+      "width": 475.03125,
+      "height": 306.1875,
+      "right": 585.109375,
+      "bottom": 504.1875
+    },
+    "button": {
+      "x": 553.484375,
+      "y": 775.59375,
+      "width": 75.625,
+      "height": 44,
+      "right": 629.109375,
+      "bottom": 819.59375
+    },
+    "headingControlOverlap": false,
+    "horizontalOverflow": false,
+    "documentWidth": 1280,
+    "viewportWidth": 1280
+  },
+  {
+    "name": "motion-760",
+    "motion": "video",
+    "videoCount": 1,
+    "heading": {
+      "x": 48,
+      "y": 137,
+      "width": 664,
+      "height": 165.28125,
+      "right": 712,
+      "bottom": 302.28125
+    },
+    "button": {
+      "x": 644.375,
+      "y": 322.28125,
+      "width": 75.625,
+      "height": 44,
+      "right": 720,
+      "bottom": 366.28125
+    },
+    "headingControlOverlap": false,
+    "horizontalOverflow": false,
+    "documentWidth": 760,
+    "viewportWidth": 760
+  },
+  {
+    "name": "motion-360",
+    "motion": "video",
+    "videoCount": 1,
+    "heading": {
+      "x": 32,
+      "y": 115.796875,
+      "width": 296,
+      "height": 152,
+      "right": 328,
+      "bottom": 267.796875
+    },
+    "button": {
+      "x": 252.375,
+      "y": 279.796875,
+      "width": 75.625,
+      "height": 44,
+      "right": 328,
+      "bottom": 323.796875
+    },
+    "headingControlOverlap": false,
+    "horizontalOverflow": false,
+    "documentWidth": 360,
+    "viewportWidth": 360
+  },
+  {
+    "name": "motion-320",
+    "motion": "video",
+    "videoCount": 1,
+    "heading": {
+      "x": 32,
+      "y": 115.796875,
+      "width": 256,
+      "height": 152,
+      "right": 288,
+      "bottom": 267.796875
+    },
+    "button": {
+      "x": 212.375,
+      "y": 279.796875,
+      "width": 75.625,
+      "height": 44,
+      "right": 288,
+      "bottom": 323.796875
+    },
+    "headingControlOverlap": false,
+    "horizontalOverflow": false,
+    "documentWidth": 320,
+    "viewportWidth": 320
+  },
+  {
+    "name": "reduced-360",
+    "motion": "poster",
+    "videoCount": 0,
+    "heading": {
+      "x": 32,
+      "y": 115.796875,
+      "width": 296,
+      "height": 152,
+      "right": 328,
+      "bottom": 267.796875
+    },
+    "button": null,
+    "headingControlOverlap": false,
+    "horizontalOverflow": false,
+    "documentWidth": 360,
+    "viewportWidth": 360
+  },
+  {
+    "name": "reduced-320",
+    "motion": "poster",
+    "videoCount": 0,
+    "heading": {
+      "x": 32,
+      "y": 115.796875,
+      "width": 256,
+      "height": 152,
+      "right": 288,
+      "bottom": 267.796875
+    },
+    "button": null,
+    "headingControlOverlap": false,
+    "horizontalOverflow": false,
+    "documentWidth": 320,
+    "viewportWidth": 320
+  }
+]
