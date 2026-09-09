@@ -1,8 +1,8 @@
-# Cadre AI Assistant — Integration Preview
+# Donna — Cadre AI Local Preview
 
 An optional local Manifest V3 presentation adapter for the existing public chatbot. **The public web app remains the primary deliverable.** This extension is an independent demonstration, not a Cadre-installed or endorsed service.
 
-Status: **LOCALLY VERIFIED INTEGRATION PREVIEW**. The optional adapter now has source/build/security coverage, synthetic browser lifecycle proof, and owner-authorized installed Manifest V3 checks on the public Cadre site using disposable Chromium profiles. The latest contextual run targets `https://cadre.ai/agents#discover-agents`, passes 17 scoped checks, and observes exactly one request to the fixed candidate API for one approved question. It did not modify Cadre servers, forms, cookies, authentication, analytics, or persistent browser storage, and nothing was published to the Chrome Web Store. This is still an independent candidate preview, not a Cadre-installed or endorsed production feature.
+Status: **LOCALLY VERIFIED INTEGRATION PREVIEW**. The optional adapter now has source/build/security coverage, synthetic browser lifecycle proof, and owner-authorized installed Manifest V3 checks on the public Cadre site using disposable Chromium profiles. The latest contextual run targets `https://cadre.ai/agents#discover-agents`, passes 17 scoped checks, and observes exactly one request to the fixed preview API for one approved question. It did not modify Cadre servers, forms, cookies, authentication, analytics, or persistent browser storage, and nothing was published to the Chrome Web Store. This is still an independent local preview, not a Cadre-installed or endorsed production feature.
 
 ## Build and check
 
@@ -28,7 +28,7 @@ The synthetic browser script uses fake HTTPS fixtures and fake Chrome runtime po
 
 ### URL-aware presentation context
 
-The preview can tailor its **local presentation** to a small allowlist of Cadre routes. It derives only `location.pathname` and `location.hash` from the already-approved Cadre origin, converts them to a fixed enum, validates that enum across extension ports, and never reads host-page text, forms, cookies, storage, or DOM content. For example, on `/agents#discover-agents` it opens with a restrained line: “You found the agent showroom. I promise not to recommend twelve agents where one workflow would do.” The suggested action remains a fixed grounded question to the same Vercel API. This is presentation context, not runtime retrieval or RAG.
+The preview can tailor its **local presentation** to a small allowlist of Cadre routes. It derives only `location.pathname` and `location.hash` from the already-approved Cadre origin, converts them to a fixed enum, validates that enum across extension ports, and never reads host-page text, forms, cookies, storage, or DOM content. For example, on `/agents#discover-agents` it opens with a restrained line: “You found the agent catalog. I promise not to recommend twelve agents where one well-chosen workflow would do.” The suggested action remains a fixed grounded question to the same Vercel API. This is presentation context, not runtime retrieval or RAG.
 
 ## Architecture and component ownership
 
@@ -64,7 +64,7 @@ The automated disposable-profile installed check has been completed. These steps
 1. Build and run the checks above. Keep the public app available and confirm the remaining chatbot budget before a live demonstration.
 2. Open `chrome://extensions`, enable Developer mode, choose **Load unpacked**, and select the repository's **`extension/dist`** directory. A current Chrome version is recommended; the manifest minimum is 114.
 3. Review the permission prompt. It must mention only the configured Vercel host plus content-script access to the two named Cadre sites. Unexpected broader permissions are a stop condition.
-4. Visit or refresh `https://cadre.ai/`. Open the lower-right launcher. Confirm the **Integration Preview** label. Do not enter personal, account or credential information.
+4. Visit or refresh `https://cadre.ai/`. Open the lower-right launcher. Confirm the **Local Integration Preview** label. Do not enter personal, account or credential information.
 5. Inspect Chrome's extension errors and worker console. The automated installed-site gate already exercises CSP/resource loading, exact-site injection, fixed-endpoint transport, minimize/close and reload behavior; this manual pass confirms the same behavior in the reviewer's own Chrome environment.
 
 Do not publish to the Web Store, alter Cadre's servers/assets, or enable broader host permissions to bypass a failed check. The extension does not replace Cadre's navigation, analytics, forms, authentication or application code.
@@ -72,7 +72,7 @@ Do not publish to the Web Store, alter Cadre's servers/assets, or enable broader
 ## Two-minute demonstration
 
 1. Show the public chatbot URL first; explain that the extension is only a local adapter.
-2. Show the permission scope and the **Integration Preview** label on the approved Cadre site.
+2. Show the permission scope and the **Local Integration Preview** label on the approved Cadre site.
 3. Open the launcher using the keyboard. Ask one approved question such as “What services does Cadre AI offer?” and inspect the grounded reply plus official links. This consumes live chatbot allowance.
 4. Minimize/reopen to demonstrate volatile continuity; use **New chat** to clear it. Show the mobile-width layout and Escape/minimize focus restoration.
 5. Close the panel, then disable/remove the extension and refresh the site. Verify the host page is unchanged and no widget remains.
@@ -83,7 +83,7 @@ Do not publish to the Web Store, alter Cadre's servers/assets, or enable broader
 
 Disable or remove the extension in `chrome://extensions`, then **refresh every already-open Cadre tab**. Chrome may leave injected DOM or a disconnected launcher until the document is refreshed; instantaneous removal on extension disable is not promised. The source adds no persistent website data, storage entries or server changes. Page navigation removes its iframe and listeners; a full allowed-site navigation gets one fresh content script. Site code can remove the injected host, which disconnects its port and removes the iframe; the preview does not fight the site by reinjecting through an observer.
 
-Verified boundary: `extension/evidence/actual-agents-context-20260909/installed-site.json` records the latest contextual disposable-profile proof (17 PASS checks, one live fixed-endpoint request). Two earlier actual-site attempts are intentionally retained: the first used an invalid whole-page overflow assertion against Cadre's own 8px site baseline; the second listened for service-worker traffic on a Page rather than the BrowserContext. Both test defects were corrected before the final PASS. Physical reviewer-device behavior and Chrome versions other than the recorded Chromium 151 run remain separate environment coverage; no Web Store or Cadre production-install claim is made.
+Verified boundary: `extension/evidence/px4-actual-site-20260909/installed-site.json` records the latest contextual disposable-profile proof (17 PASS checks, one live fixed-endpoint request). Two earlier actual-site attempts are intentionally retained: the first used an invalid whole-page overflow assertion against Cadre's own 8px site baseline; the second listened for service-worker traffic on a Page rather than the BrowserContext. Both test defects were corrected before the final PASS. Physical reviewer-device behavior and Chrome versions other than the recorded Chromium 151 run remain separate environment coverage; no Web Store or Cadre production-install claim is made.
 
 ## Primary implementation references
 

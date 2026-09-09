@@ -31,35 +31,33 @@ function mountPreview() {
   const style = document.createElement("style");
   style.textContent = `
     :host{color-scheme:light}*{box-sizing:border-box}button{font:700 14px/1.2 Inter,Arial,sans-serif;cursor:pointer}
-    .launcher{position:relative;width:62px;height:62px;border:1px solid #34282b;border-radius:21px;background:linear-gradient(145deg,#242124,#111114);color:#fff;box-shadow:0 14px 38px #2c17233d,0 0 0 1px #ffffff14 inset;display:grid;place-items:center;overflow:visible}
-    .launcher::before{content:"";position:absolute;inset:-5px;border:1px solid #db45454d;border-radius:25px;animation:cadre-pulse 3s ease-in-out infinite}
-    .launcher:hover{transform:translateY(-2px);box-shadow:0 18px 45px #2c17234d,0 0 0 1px #ffffff1c inset}.launcher:focus-visible{outline:3px solid #225d51;outline-offset:5px}
-    .mark{position:relative;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 25%,#ffae95 0 12%,#ef695d 32%,#db4545 58%,#8d2431 100%);font:800 17px/1 Arial,sans-serif;color:#fff;box-shadow:0 6px 18px #db454559}
-    .mark::after{content:"";position:absolute;inset:6px;border:1px solid #ffffff66;border-radius:50%}
-    .tip{position:absolute;right:0;bottom:74px;width:max-content;max-width:260px;padding:11px 14px;border:1px solid #3a3432;border-radius:12px;background:#18181b;color:#fff;font:650 12px/1.4 Inter,Arial,sans-serif;box-shadow:0 10px 30px #18181b33;opacity:0;transform:translateY(5px);pointer-events:none}
-    .tip::after{content:"Candidate Integration Preview";display:block;margin-top:3px;color:#d3cbc2;font-size:9px;font-weight:550;letter-spacing:.03em}
+    .launcher{position:relative;width:58px;height:58px;border:1px solid #cfc6bb;border-radius:17px;background:#fbf8f2;color:#8f2e39;box-shadow:0 16px 42px #20191d2e,0 1px 0 #ffffff inset;display:grid;place-items:center;overflow:visible}
+    .launcher::before{content:"";position:absolute;left:-1px;bottom:11px;width:2px;height:15px;border-radius:0 2px 2px 0;background:#db4545}
+    .launcher:hover{transform:translateY(-2px);box-shadow:0 20px 50px #20191d38,0 1px 0 #ffffff inset}.launcher:focus-visible{outline:3px solid #225d51;outline-offset:5px}
+    .mark{width:32px;height:32px;display:grid;place-items:center;font:italic 650 20px/1 Georgia,"Times New Roman",serif;color:#8f2e39;letter-spacing:-.05em}
+    .tip{position:absolute;right:0;bottom:70px;width:max-content;max-width:260px;padding:11px 14px;border:1px solid #3a3432;border-radius:12px;background:#18181b;color:#fff;font:650 12px/1.4 Inter,Arial,sans-serif;box-shadow:0 10px 30px #18181b33;opacity:0;transform:translateY(5px);pointer-events:none}
+    .tip::after{content:"Local integration preview";display:block;margin-top:3px;color:#d3cbc2;font-size:9px;font-weight:550;letter-spacing:.03em}
     .launcher:hover+.tip,.launcher:focus-visible+.tip{opacity:1;transform:translateY(0)}
     iframe{display:block;width:min(420px,calc(100vw - 32px));height:min(650px,calc(100dvh - 104px));min-height:240px;border:1px solid #d7d0c5;border-radius:24px;background:#f7f3eb;box-shadow:0 24px 70px #261d223d;margin-bottom:14px}
-    [hidden]{display:none!important}@keyframes cadre-pulse{0%,100%{transform:scale(.98);opacity:.55}50%{transform:scale(1.05);opacity:1}}
+    [hidden]{display:none!important}
     @media(prefers-reduced-motion:no-preference){.launcher,.tip{transition:transform .16s ease,box-shadow .16s ease,opacity .16s ease}}
-    @media(prefers-reduced-motion:reduce){.launcher::before{animation:none}}
   `
   const launcher = document.createElement("button");
   launcher.type = "button";
   launcher.className = "launcher";
-  launcher.setAttribute("aria-label", "Open Cadre Assistant");
+  launcher.setAttribute("aria-label", "Open Donna");
   launcher.setAttribute("aria-expanded", "false");
   launcher.setAttribute("aria-describedby", "cadre-preview-tooltip");
   const mark = document.createElement("span");
   mark.className = "mark";
   mark.setAttribute("aria-hidden", "true");
-  mark.textContent = "C";
+  mark.textContent = "D";
   launcher.append(mark);
   const tooltip = document.createElement("span");
   tooltip.id = "cadre-preview-tooltip";
   tooltip.className = "tip";
   tooltip.setAttribute("role", "tooltip");
-  tooltip.textContent = "Open Cadre Assistant";
+  tooltip.textContent = "Open Donna";
   shadow.append(style, launcher, tooltip);
   let iframe: HTMLIFrameElement | undefined;
   let disposed = false;
@@ -72,7 +70,7 @@ function mountPreview() {
   function minimize() {
     if (iframe) iframe.hidden = true;
     launcher.setAttribute("aria-expanded", "false");
-    launcher.setAttribute("aria-label", "Open Cadre Assistant");
+    launcher.setAttribute("aria-label", "Open Donna");
     launcher.focus();
   }
   function close() {
@@ -105,14 +103,14 @@ function mountPreview() {
     if (!iframe) {
       iframe = document.createElement("iframe");
       iframe.src = chrome.runtime.getURL(`panel.html#${token}`);
-      iframe.title = "Cadre AI Assistant — Integration Preview";
+      iframe.title = "Donna — Cadre AI Local Preview";
       iframe.setAttribute("referrerpolicy", "no-referrer");
       iframe.setAttribute("allow", "");
       shadow.insertBefore(iframe, launcher);
     }
     iframe.hidden = false;
     launcher.setAttribute("aria-expanded", "true");
-    launcher.setAttribute("aria-label", "Minimize Cadre Assistant");
+    launcher.setAttribute("aria-label", "Minimize Donna");
     iframe.focus();
   }
   function connect() {

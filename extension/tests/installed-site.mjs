@@ -52,15 +52,15 @@ try {
   const panel = await page.waitForEvent("framenavigated", { predicate: (frame) => frame.url().startsWith("chrome-extension://") && frame.url().includes("/panel.html"), timeout: 5_000 })
     .catch(() => page.frames().find((frame) => frame.url().startsWith("chrome-extension://") && frame.url().includes("/panel.html")));
   assert.ok(panel, "installed extension panel frame opened");
-  await panel.getByRole("textbox", { name: "Message Cadre AI Assistant" }).waitFor({ state: "visible", timeout: 10_000 });
+  await panel.getByRole("textbox", { name: "Message Donna" }).waitFor({ state: "visible", timeout: 10_000 });
   pass("installed panel renders six canonical topics", await panel.locator("#topics button").count() === 6);
-  pass("panel declares candidate integration preview", (await panel.locator("header").innerText()).includes("CANDIDATE INTEGRATION PREVIEW"));
+  pass("panel declares local integration preview", (await panel.locator("header").innerText()).includes("LOCAL INTEGRATION PREVIEW"));
   pass("panel has no horizontal overflow", await panel.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
   pass("agents discover URL produces contextual preview label", await panel.locator("#context-label").textContent() === "CADRE · DISCOVER AGENTS");
-  pass("agents discover URL gets restrained contextual humor", (await panel.locator("#context-copy").textContent())?.includes("twelve agents where one workflow would do") === true);
+  pass("agents discover URL gets restrained contextual humor", (await panel.locator("#context-copy").textContent())?.includes("twelve agents where one well-chosen workflow would do") === true);
   await page.screenshot({ path: path.join(output, "panel-open-on-cadre.png"), fullPage: false });
 
-  const input = panel.getByRole("textbox", { name: "Message Cadre AI Assistant" });
+  const input = panel.getByRole("textbox", { name: "Message Donna" });
   await panel.waitForFunction(() => !document.getElementById("message").readOnly, undefined, { timeout: 10_000 });
   await panel.getByRole("button", { name: "Ask: How does Cadre approach AI agents?", exact: true }).click();
   await panel.getByText("Reply received.", { exact: true }).waitFor({ timeout: 30_000 });
@@ -85,7 +85,7 @@ try {
   await page.reload({ waitUntil: "domcontentloaded", timeout: 60_000 });
   await page.locator("#cadre-integration-preview").waitFor({ state: "attached", timeout: 15_000 });
   pass("full navigation produces one fresh launcher without duplicates", await page.locator("#cadre-integration-preview").count() === 1);
-  pass("public page text does not receive preview copy", !(await page.locator("body").innerText()).includes("CANDIDATE INTEGRATION PREVIEW"));
+  pass("public page text does not receive preview copy", !(await page.locator("body").innerText()).includes("LOCAL INTEGRATION PREVIEW"));
 
   await writeFile(path.join(output, "installed-site.json"), `${JSON.stringify({
     generatedAt: new Date().toISOString(),

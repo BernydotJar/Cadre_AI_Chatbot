@@ -8,7 +8,7 @@ const extension = path.join(root, "extension");
 const output = path.join(extension, "dist");
 const config = JSON.parse(await readFile(path.join(extension, "config.json"), "utf8"));
 if (Object.keys(config).sort().join() !== "apiEndpoint,name,siteOrigins,version"
-  || config.name !== "Cadre AI Assistant — Integration Preview" || !/^\d+\.\d+\.\d+$/u.test(config.version)
+  || config.name !== "Donna — Cadre AI Local Preview" || !/^\d+\.\d+\.\d+$/u.test(config.version)
   || JSON.stringify(config.siteOrigins) !== JSON.stringify(["https://cadre.ai", "https://www.cadre.ai"])) throw new Error("Unexpected extension configuration");
 const endpoint = new URL(config.apiEndpoint);
 if (endpoint.protocol !== "https:" || endpoint.username || endpoint.password || endpoint.port
@@ -67,7 +67,7 @@ for (const size of [16, 32, 48, 128]) await copyFile(path.join(extension, "icons
 const matches = config.siteOrigins.map((origin) => `${origin}/*`);
 const manifest = {
   manifest_version: 3, name: config.name, version: config.version,
-  description: "Independent local integration preview for the grounded Cadre AI assistant.",
+  description: "Independent local preview for Donna, the grounded Cadre AI assistant.",
   minimum_chrome_version: "114",
   icons: { 16: "icons/icon16.png", 32: "icons/icon32.png", 48: "icons/icon48.png", 128: "icons/icon128.png" },
   host_permissions: [`${endpoint.origin}/*`],

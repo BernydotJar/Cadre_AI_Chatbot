@@ -11,7 +11,7 @@ const files = readdirSync(directory, { recursive: true, withFileTypes: true }).f
 describe("generated extension manifest and public output", () => {
   it("declares only fixed API host access and the two exact content-script sites", () => {
     expect(manifest.manifest_version).toBe(3);
-    expect(manifest.name).toBe("Cadre AI Assistant — Integration Preview");
+    expect(manifest.name).toBe("Donna — Cadre AI Local Preview");
     expect(manifest.permissions).toBeUndefined();
     expect(manifest.externally_connectable).toBeUndefined();
     expect(manifest.host_permissions).toEqual([`${new URL(config.apiEndpoint).origin}/*`]);

@@ -1,6 +1,6 @@
 # Chrome Integration Preview design
 
-Status: **G9 DONE at the candidate-preview scope** as of 2026-09-09. `security-review=PASS`, `independent-verification=PASS`, `integration-proof=PASS`. This remains a locally loaded candidate integration, not a Cadre-installed or endorsed production feature and not a Chrome Web Store release.
+Status: **G9 DONE at the local-preview scope** as of 2026-09-09. `security-review=PASS`, `independent-verification=PASS`, `integration-proof=PASS`. PX4 now applies a presentation-only Donna refinement on top of that proven adapter boundary. This remains a locally loaded independent integration, not a Cadre-installed or endorsed production feature and not a Chrome Web Store release.
 
 The original proposal evolved during implementation. Historical FAIL/BLOCKED evidence is retained under `extension/evidence/`; the current execution state is authoritative in `progress/extension-graph.events.jsonl` and `progress/checkpoint.md`.
 
@@ -18,7 +18,7 @@ flowchart LR
     Host[Closed-shadow launcher host]
     Panel[Extension-origin panel]
     SW[MV3 service worker / bridge]
-    API[Fixed candidate /api/chat]
+    API[Fixed preview /api/chat]
     Core[Existing chatbot core]
 
     Page --> Host
@@ -41,7 +41,7 @@ flowchart LR
 
 ### Network authority
 
-The service worker/bridge sends chat traffic only to the fixed configured candidate API. A panel message never supplies a destination URL. Fetch uses bounded JSON, omitted credentials, no-store behavior, no referrer, and rejects redirects.
+The service worker/bridge sends chat traffic only to the fixed configured preview API. A panel message never supplies a destination URL. Fetch uses bounded JSON, omitted credentials, no-store behavior, no referrer, and rejects redirects.
 
 OpenRouter configuration and server credentials never enter the extension bundle.
 
@@ -88,10 +88,10 @@ Current verified boundaries:
 
 - **72/72** extension unit/security/build tests PASS.
 - **23/23** synthetic browser checks PASS with zero real-site/API traffic.
-- Latest owner-authorized disposable Chromium installed-site run on `https://cadre.ai/agents#discover-agents`: **17 scoped checks PASS**, exactly one request to the fixed candidate API for one approved question.
+- Latest owner-authorized disposable Chromium installed-site run on `https://cadre.ai/agents#discover-agents`: **17 scoped checks PASS**, exactly one request to the fixed preview API for one approved question.
 - Granite bounded security/context review PASS.
 
-Latest evidence: `extension/evidence/actual-agents-context-20260909/`, `extension/evidence/context-pass-20260909/`, and `extension/evidence/granite-context-review-20260909.md`.
+Latest PX4 producer evidence: `extension/evidence/px4-actual-site-20260909/` and `extension/evidence/px4-contextual-donna-20260909/`. Earlier G9 evidence remains under `extension/evidence/actual-agents-context-20260909/`, `extension/evidence/context-pass-20260909/`, and `extension/evidence/granite-context-review-20260909.md`.
 
 Two earlier actual-site test defects are retained rather than erased: one whole-page overflow assertion attributed Cadre's existing site overflow to the extension, and one Page-scoped network observer did not see service-worker traffic. The tests were corrected before the final PASS.
 

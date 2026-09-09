@@ -94,11 +94,11 @@ try {
   const panel = page.frames().find((frame) => frame.url().startsWith("https://preview.extension.test/panel.html"));
   assert.ok(panel, "panel frame opened");
   checked("user click re-registers host after idle disconnect", await page.evaluate(() => globalThis.__previewTest.connections) === 2);
-  const input = panel.getByRole("textbox", { name: "Message Cadre AI Assistant" });
+  const input = panel.getByRole("textbox", { name: "Message Donna" });
   await input.waitFor({ state: "visible" });
   await panel.waitForFunction(() => !document.getElementById("message").readOnly);
   checked("six core topic labels available", await panel.locator("#topics button").count() === 6);
-  await panel.getByText("You found the agent showroom. I promise not to recommend twelve agents where one workflow would do.", { exact: true }).waitFor();
+  await panel.getByText("You found the agent catalog. I promise not to recommend twelve agents where one well-chosen workflow would do.", { exact: true }).waitFor();
   checked("approved URL context reaches the panel without page-text scraping", await panel.locator("#context-label").textContent() === "CADRE · DISCOVER AGENTS");
   checked("host stylesheet cannot override panel controls", await input.evaluate((node) => getComputedStyle(node).fontSize) === "12px");
   await input.fill("services"); await input.press("Enter");
@@ -135,7 +135,7 @@ try {
   await clickLauncher();
   const mobile = await page.waitForEvent("framenavigated", { predicate: (frame) => frame.url().startsWith("https://preview.extension.test/panel.html"), timeout: 3000 }).catch(() => page.frames().find((frame) => frame.url().startsWith("https://preview.extension.test/panel.html")));
   assert.ok(mobile);
-  await mobile.getByRole("textbox", { name: "Message Cadre AI Assistant" }).waitFor();
+  await mobile.getByRole("textbox", { name: "Message Donna" }).waitFor();
   checked("close/reopen clears all conversation state", await mobile.locator("#conversation .message").count() === 0);
   checked("mobile host width stays inside viewport", await page.locator("#cadre-integration-preview").evaluate((host) => host.getBoundingClientRect().left >= 0 && host.getBoundingClientRect().right <= innerWidth));
   checked("mobile panel has no horizontal overflow", await mobile.evaluate(() => document.documentElement.scrollWidth <= innerWidth));

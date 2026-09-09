@@ -1,6 +1,9 @@
 {
-  "name": "Cadre AI Assistant — Integration Preview",
+  "name": "Donna \u2014 Cadre AI Local Preview",
   "version": "0.1.0",
   "apiEndpoint": "https://cadre-ai-chatbot-tawny.vercel.app/api/chat",
-  "siteOrigins": ["https://cadre.ai", "https://www.cadre.ai"]
+  "siteOrigins": [
+    "https://cadre.ai",
+    "https://www.cadre.ai"
+  ]
 }

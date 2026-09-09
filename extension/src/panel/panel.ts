@@ -25,10 +25,10 @@ const contextPrompt = element<HTMLButtonElement>("context-prompt");
 
 type ContextCopy = { label: string; copy: string; prompt?: string };
 const PAGE_CONTEXT_COPY: Record<PageContextId, ContextCopy> = {
-  generic: { label: "YOU'RE EXPLORING CADRE", copy: "Ask about what Cadre does, where AI fits, or the next sensible step. This preview stays local to your browser and does not read the page." },
-  home: { label: "CADRE · FRONT DOOR", copy: "You’re at the starting line. I can help turn the broad ‘where could AI help?’ question into something a little more useful.", prompt: "What does Cadre AI do?" },
-  agents: { label: "CADRE · AI AGENTS", copy: "You’re in Cadre’s agent workshop. Before anyone releases a swarm, we can start with the one job actually worth automating.", prompt: "How does Cadre approach AI agents?" },
-  "agents-discover": { label: "CADRE · DISCOVER AGENTS", copy: "You found the agent showroom. I promise not to recommend twelve agents where one workflow would do.", prompt: "How does Cadre approach AI agents?" },
+  generic: { label: "EXPLORING CADRE", copy: "Ask me what Cadre does, where AI fits, or what a sensible next step looks like. I only use this approved URL context; I do not read the page." },
+  home: { label: "CADRE · START HERE", copy: "If the question is simply ‘where could AI help?’, I can make it more useful by narrowing to the workflow with the clearest business value.", prompt: "What does Cadre AI do?" },
+  agents: { label: "CADRE · AI AGENTS", copy: "Before anyone releases a swarm, I’d start with the one job that is actually worth automating.", prompt: "How does Cadre approach AI agents?" },
+  "agents-discover": { label: "CADRE · DISCOVER AGENTS", copy: "You found the agent catalog. I promise not to recommend twelve agents where one well-chosen workflow would do.", prompt: "How does Cadre approach AI agents?" },
   strategy: { label: "CADRE · AI STRATEGY", copy: "You’re looking at strategy — the part where an AI idea should earn its budget before it earns a demo.", prompt: "How does Cadre approach AI strategy?" },
   engineering: { label: "CADRE · AI ENGINEERING", copy: "You’re in the engineering layer: APIs, data, reliability, and the moment an AI idea has to survive production.", prompt: "What does Cadre AI Engineering cover?" },
   leadership: { label: "CADRE · LEADERSHIP", copy: "You’re on the people-and-adoption side. The model can be excellent and still fail if the operating model never changes.", prompt: "How does Cadre help teams adopt AI?" },
@@ -136,7 +136,7 @@ function send(isRetry = false) {
       settled("TIMEOUT");
     }, TRANSPORT_TIMEOUT_MS + 1_000),
   };
-  status.textContent = "Thinking…";
+  status.textContent = "Donna is checking verified context…";
   render();
   input.focus();
   post({ type: "CHAT_REQUEST", requestId, payload: { messages: buildRequestHistory(messages, clarification) } });
@@ -221,7 +221,7 @@ window.addEventListener("pagehide", end, { once: true });
 port.onMessage.addListener((raw) => {
   const message = readWorkerReply(raw);
   if (!message) { end(); disconnected(); return; }
-  if (message.type === "READY") { pageContext = message.pageContext; applyPageContext(pageContext); ready = true; status.textContent = "Ready. Do not share passwords or sensitive information."; render(); input.focus(); return; }
+  if (message.type === "READY") { pageContext = message.pageContext; applyPageContext(pageContext); ready = true; status.textContent = "Ready. Ask Donna about Cadre AI. Do not share passwords or sensitive information."; render(); input.focus(); return; }
   if (message.type === "CONTEXT") { applyPageContext(message.pageContext); render(); return; }
   if (message.requestId !== pending?.requestId) return;
   if (message.type === "CHAT_ERROR") { settled(message.errorCode); return; }
