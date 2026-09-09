@@ -83,6 +83,11 @@ function requestPayload({ entry, messages }: FactSelectionInput) {
   if (boundedHistory.some((message) => message.content.length > LIMITS.maxMessageChars)) {
     throw new ProviderError("invalid_response");
   }
+  const context = {
+    conversation: boundedHistory,
+    topic: entry.label,
+    facts: entry.facts.map((text, index) => ({ index, text })),
+  };
   const payload = {
     model: OPENROUTER_MODEL,
     stream: false,
@@ -100,11 +105,7 @@ function requestPayload({ entry, messages }: FactSelectionInput) {
       },
       {
         role: "user",
-        content: JSON.stringify({
-          conversation: boundedHistory,
-          topic: entry.label,
-          facts: entry.facts.map((text, index) => ({ index, text })),
-        }),
+        content: JSON.stringify(context),
       },
     ],
     response_format: {
@@ -125,8 +126,18 @@ function requestPayload({ entry, messages }: FactSelectionInput) {
       },
     },
   };
-  const body = JSON.stringify(payload);
-  const bytes = new TextEncoder().encode(body).byteLength;
+  const encoder = new TextEncoder();
+  let body = JSON.stringify(payload);
+  let bytes = encoder.encode(body).byteLength;
+  // The API's character bounds do not imply a serialized byte bound: UTF-8
+  // and nested JSON escaping both expand history. Drop oldest messages only,
+  // preserving the final question, complete facts, and system instructions.
+  while (bytes > PROVIDER_LIMITS.maxPromptBytes && boundedHistory.length > 1) {
+    boundedHistory.shift();
+    payload.messages[1]!.content = JSON.stringify(context);
+    body = JSON.stringify(payload);
+    bytes = encoder.encode(body).byteLength;
+  }
   if (bytes > PROVIDER_LIMITS.maxPromptBytes) throw new ProviderError("invalid_response");
   // Byte-tokenizer bound plus ample chat/schema framing headroom. JSON bytes
   // overestimate normal English tokens; prices are enforced in provider routing.
