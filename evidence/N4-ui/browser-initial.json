@@ -1,0 +1,21 @@
+{
+  "kind": "browser_test",
+  "mode": "local-mock-with-synthetic-route-fixtures",
+  "command": "CHAT_PROVIDER=mock OPENROUTER_API_KEY=synthetic-browser NEXT_TELEMETRY_DISABLED=1 npm run test:e2e",
+  "exitCode": 1,
+  "stats": {
+    "startTime": "2026-09-09T03:03:14.453Z",
+    "duration": 44477.737,
+    "expected": 22,
+    "skipped": 0,
+    "unexpected": 8,
+    "flaky": 0
+  },
+  "assessment": {
+    "testLocatorFailures": 6,
+    "stopDuplicateRequestFailures": 2,
+    "firstRunInfrastructure": "Earlier attempt could not launch any case because matching Playwright Chromium shell 1243 was missing. Installed correct 94.3 MiB shell. Installer removed old unused cache revisions; no project data removed."
+  },
+  "independentDetails": "evidence/N4-ui/critic.md",
+  "result": "FAIL"
+}

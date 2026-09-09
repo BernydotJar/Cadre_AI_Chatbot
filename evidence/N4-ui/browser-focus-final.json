@@ -1,0 +1,204 @@
+{
+  "mode": "mock",
+  "scope": "coordinator Chromium desktop/mobile against pre-knowledge-refresh production build on localhost:3100; launch outside sandbox",
+  "stats": {
+    "startTime": "2026-09-09T03:40:19.953Z",
+    "duration": 10001.785,
+    "expected": 38,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "cases": [
+    {
+      "title": "anonymous conversation uses the real server and official links",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "all six entry points are present and clarification preserves an ordinal follow-up",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "loading is announced and rapid Enter cannot duplicate a request",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "retry preserves the failed turn and does not duplicate history",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "network failure has a safe retry path",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "cancelling prevents a late response from appearing and preserves a retry",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "malformed responses produce a recoverable safe error",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "model text is inert and only exact approved URLs become links",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "blank input, multiline entry, and IME composition do not send accidentally",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "new conversation clears local state without persistence",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "viewport has no horizontal overflow and primary controls are reachable",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "long conversations and composer input remain bounded",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "long inert response remains within the mobile viewport with reduced motion",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "a new conversation cannot be overwritten by an older in-flight response",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "reading earlier messages is respected until Jump to latest is used",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "welcome starts at the top and reset restores that position",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "keyboard topic activation preserves a stable focus target",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "keyboard retry preserves focus without duplicating the user turn",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "client deadline yields a saved draft and does not accept late output",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "anonymous conversation uses the real server and official links",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "all six entry points are present and clarification preserves an ordinal follow-up",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "loading is announced and rapid Enter cannot duplicate a request",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "retry preserves the failed turn and does not duplicate history",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "network failure has a safe retry path",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "cancelling prevents a late response from appearing and preserves a retry",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "malformed responses produce a recoverable safe error",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "model text is inert and only exact approved URLs become links",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "blank input, multiline entry, and IME composition do not send accidentally",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "new conversation clears local state without persistence",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "viewport has no horizontal overflow and primary controls are reachable",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "long conversations and composer input remain bounded",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "long inert response remains within the mobile viewport with reduced motion",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "a new conversation cannot be overwritten by an older in-flight response",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "reading earlier messages is respected until Jump to latest is used",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "welcome starts at the top and reset restores that position",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "keyboard topic activation preserves a stable focus target",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "keyboard retry preserves focus without duplicating the user turn",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "client deadline yields a saved draft and does not accept late output",
+      "project": "mobile",
+      "status": "passed"
+    }
+  ]
+}

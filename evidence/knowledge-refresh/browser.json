@@ -1,0 +1,14 @@
+{
+  "mode": "mock",
+  "sourceCommit": "9b5749c",
+  "command": "E2E_BASE_URL=http://127.0.0.1:3100 E2E_EXPECT_MODE=mock npm run test:e2e",
+  "scope": "38 desktop/mobile browser tests against rebuilt refreshed content; coordinator; Chromium launch outside sandbox",
+  "stats": {
+    "startTime": "2026-09-09T03:42:29.279Z",
+    "duration": 10236.849,
+    "expected": 38,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

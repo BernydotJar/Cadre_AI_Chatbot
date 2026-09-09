@@ -1,0 +1,17 @@
+{
+  "kind": "browser_test",
+  "mode": "local-mock-with-synthetic-route-fixtures",
+  "command": "CHAT_PROVIDER=mock OPENROUTER_API_KEY=synthetic-browser NEXT_TELEMETRY_DISABLED=1 npm run test:e2e",
+  "exitCode": 0,
+  "stats": {
+    "startTime": "2026-09-09T03:11:19.157Z",
+    "duration": 10535.547,
+    "expected": 38,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "coverage": "19 cases at desktop/mobile: real-server conversations, six starters, ordinal follow-up, cancellation exact request count, malformed/network errors, retry, inert text/links, IME, bounds, reset, scroll, keyboard focus, client deadline.",
+  "result": "PASS",
+  "limits": "Not live inference or deployed UI evidence. Shared production build from n4-repaired."
+}

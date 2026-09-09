@@ -1,0 +1,22 @@
+{
+  "timestamp": "2026-09-09T03:29:48.693Z",
+  "mode": "mock",
+  "results": [
+    {
+      "check": "test",
+      "exit": 0
+    },
+    {
+      "check": "typecheck",
+      "exit": 0
+    },
+    {
+      "check": "lint",
+      "exit": 0
+    },
+    {
+      "check": "build",
+      "exit": 0
+    }
+  ]
+}

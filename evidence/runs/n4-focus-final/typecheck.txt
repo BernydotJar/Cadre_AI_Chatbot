@@ -1,0 +1,7 @@
+Command: npm run typecheck
+Mode: mock (no inference)
+Exit: 0
+
+
+> cadre-ai-chatbot@0.1.0 typecheck
+> tsc --noEmit
