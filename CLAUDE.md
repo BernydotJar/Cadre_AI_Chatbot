@@ -30,7 +30,7 @@ Human approval is required for: approving a spec, scope changes, new dependencie
 - `npm run lint` — ESLint (flat config, `eslint-config-next` core-web-vitals + typescript).
 - `npm run typecheck` — `tsc --noEmit` (strict, `noUncheckedIndexedAccess`).
 - `npm test` — Vitest unit/integration suites under `tests/`.
-- `npm run test:e2e` — Playwright browser smoke suite under `e2e/`.
+- `npm run test:e2e` — reserved Playwright script; the completed browser smoke suite belongs to N4 and is not yet available.
 - `npm run graph:generate` — regenerates the graph baseline; refuses once the event ledger exists (frozen baseline).
 
 Graph ledger validation runs from the pinned external runtime checkout (never vendored here), Python 3.11+:

@@ -1,0 +1,95 @@
+{
+  "schema": "chatbot.live-local.v1",
+  "date": "2026-09-08",
+  "sourceCommit": "bddb6fe61f4fc5137a5cfe2546eaaac264616e5f",
+  "execution": "coordinator; production Next.js server on loopback; CHAT_PROVIDER=openrouter",
+  "model": "openai/gpt-4.1-mini",
+  "scope": "Chatbot inference only; not coding assistance; local API not browser/public deployment",
+  "firstServices": {
+    "status": 200,
+    "elapsedMs": 1218,
+    "kind": "grounded",
+    "checks": "Approved services and official links returned"
+  },
+  "cases": [
+    {
+      "id": "industries",
+      "status": 200,
+      "elapsedMs": 992,
+      "pass": true,
+      "body": {
+        "reply": "Cadre AI serves B2B companies across professional services, private equity, financial services, real estate, mortgage and lending, construction, retail and e-commerce, and manufacturing and logistics. Cadre AI works across departments including sales, marketing, customer success, executive leadership, finance, operations, technology, and legal. Client examples are published on the case studies page.\n\nCase studies: https://cadre.ai/case-studies\n\nAbout Cadre AI: https://cadre.ai/about",
+        "kind": "grounded"
+      }
+    },
+    {
+      "id": "call",
+      "status": 200,
+      "elapsedMs": 847,
+      "pass": true,
+      "body": {
+        "reply": "You can request a conversation with an AI strategist through the official contact page — the site's 'Talk to an AI Strategist' action goes there. This assistant cannot create bookings itself; the Cadre AI team follows up after you submit the contact form.\n\nTalk to an AI Strategist: https://cadre.ai/contact",
+        "kind": "grounded"
+      }
+    },
+    {
+      "id": "portal",
+      "status": 200,
+      "elapsedMs": 877,
+      "pass": true,
+      "body": {
+        "reply": "Existing clients should use the access instructions from their Cadre AI team, or reach out through the contact page to be connected with the right person. This assistant does not have access to client portals or account systems, and no public portal address is verified in its knowledge set.\n\nContact Cadre AI: https://cadre.ai/contact",
+        "kind": "grounded"
+      }
+    },
+    {
+      "id": "maturity",
+      "status": 200,
+      "elapsedMs": 2006,
+      "pass": true,
+      "body": {
+        "reply": "The AI Maturity Index is Cadre AI's assessment that scores a company across its eight-pillar framework. To get scored, use the official contact page — the site's 'Get Your AI Maturity Index' action goes there. This assistant cannot run the assessment or produce a score in chat.\n\nGet Your AI Maturity Index: https://cadre.ai/contact",
+        "kind": "grounded"
+      }
+    },
+    {
+      "id": "models",
+      "status": 200,
+      "elapsedMs": 1040,
+      "pass": true,
+      "body": {
+        "reply": "Cadre AI works across major AI platforms: its partners include OpenAI, Anthropic (Claude), Google, Microsoft, AWS, Salesforce, and Snowflake, plus OpenRouter for model access. Model selection is matched to each client's use case rather than tied to a single vendor. Specific security practices, certifications, and data-handling policies are not published in this assistant's knowledge set — for those details, ask the team directly.\n\nAI Engineering: https://cadre.ai/ai-engineering\n\nContact Cadre AI: https://cadre.ai/contact",
+        "kind": "grounded"
+      }
+    },
+    {
+      "id": "unknown",
+      "status": 200,
+      "elapsedMs": 6,
+      "pass": true,
+      "body": {
+        "reply": "I don't have verified information to answer that — I'd rather connect you with the team than guess. You can reach the Cadre AI team through the link below.\n\nContact Cadre AI: https://cadre.ai/contact",
+        "kind": "decline"
+      }
+    }
+  ],
+  "requests": {
+    "total": 7,
+    "grounded": 6,
+    "deterministicDecline": 1
+  },
+  "budget": {
+    "limit": 5,
+    "usageBefore": 0,
+    "usageObservedAfter": 0.0006324,
+    "remainingObservedAfter": 4.9993676,
+    "limitReset": null,
+    "note": "Read-only provider metadata can lag; this is observed cumulative usage, not a per-request invoice or guaranteed final settlement."
+  },
+  "gates": {
+    "localLiveSmoke": "PASS",
+    "independentReview": "BLOCKED",
+    "publicDeployment": "NOT_RUN",
+    "browserUX": "NOT_RUN"
+  }
+}

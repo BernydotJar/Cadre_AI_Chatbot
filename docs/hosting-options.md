@@ -1,6 +1,6 @@
 # Hosting decision — proposal, not deployment approval
 
-Reviewed 2026-09-08. The owner asked to compare Vercel, AWS and Terraform. No account, team, region, infrastructure budget or deployment authorization has been selected. N5 remains blocked on that decision; no cloud resources have been created.
+Reviewed 2026-09-08. The owner asked to compare Vercel, AWS and Terraform, then identified Vercel team `cadre-ai` and reported a Pro plan. The supplied new-project URL was inspected in the integrated browser, which showed Login/Sign Up rather than an authenticated team. This does not establish the state of the owner's other browser sessions. N5 remains blocked on verified access and deployment permission; no cloud resources have been created.
 
 ## Recommendation
 

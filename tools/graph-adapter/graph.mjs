@@ -9,6 +9,7 @@ const root = fileURLToPath(new URL('../../', import.meta.url));
 const pin = '6a5f201e2bc640ac46cc0b4b6a3d11b788555664';
 const runtime = process.env.GRAPH_HARNESS_RUNTIME;
 const args = process.argv.slice(2);
+const helpOnly = args.includes('--help') || args.includes('-h');
 if (!runtime || !args.length) {
   console.error('Set GRAPH_HARNESS_RUNTIME to the external pinned checkout; pass a CLI command (status, validate, ready, ...).');
   process.exit(2);
@@ -20,10 +21,10 @@ if (execFileSync('git', ['status', '--porcelain', '--untracked-files=no'], { cwd
 }
 const eventsPath = resolve(root, 'graph-harness.events.jsonl');
 const events = existsSync(eventsPath) ? readFileSync(eventsPath, 'utf8').trim().split('\n').filter(Boolean).map(JSON.parse) : [];
-if (!['validate', 'status', 'ready'].includes(args[0]) && !args.includes('--expected-last-event-id') && events.length) {
+if (!helpOnly && !['validate', 'status', 'ready'].includes(args[0]) && !args.includes('--expected-last-event-id') && events.length) {
   args.push('--expected-last-event-id', events.at(-1).event_id);
 }
-if (args[0] === 'record-evidence') {
+if (!helpOnly && args[0] === 'record-evidence') {
   const index = args.indexOf('--artifact');
   if (index < 0 || !args[index + 1]) throw new Error('An existing evidence artifact is required.');
   const artifact = resolve(root, args[index + 1]);
