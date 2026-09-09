@@ -23,7 +23,7 @@ const persona: PersonaProfile = {
 
 const experience: ExperienceProfile = {
   id: "acme-web",
-  assistantLabel: "Acme Guide",
+  assistantLabel: "Guide",
   avatar: { style: "orbital-monogram", monogram: "A", label: "Acme Guide avatar" },
   copy: {
     eyebrow: "GUIDED BY VERIFIED ACME CONTEXT",
@@ -88,6 +88,12 @@ describe("product profile contracts", () => {
     const bad = fixture();
     bad.experience.theme.accent = "red; background:url(https://evil.example)";
     expect(() => validateProductProfile(bad)).toThrow(/hex color/);
+  });
+
+  it("rejects presentation identity that drifts from the persona name", () => {
+    const bad = fixture();
+    bad.experience.assistantLabel = "Someone Else";
+    expect(() => validateProductProfile(bad)).toThrow(/must match persona name/);
   });
 
   it("rejects a proactive question that smuggles a URL or extra instruction", () => {

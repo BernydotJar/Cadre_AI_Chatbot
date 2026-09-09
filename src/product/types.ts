@@ -121,6 +121,12 @@ export function validateProductProfile(profile: ChatbotProductProfile): ChatbotP
   const client: ClientConfig = validateClientConfig(parsed.client);
   const topics = new Set(client.knowledge.map((entry) => entry.topic));
 
+  if (parsed.experience.assistantLabel !== parsed.persona.name) {
+    throw new Error(
+      `experience assistantLabel ${JSON.stringify(parsed.experience.assistantLabel)} must match persona name ${JSON.stringify(parsed.persona.name)}`,
+    );
+  }
+
   for (const topic of Object.keys(parsed.persona.proactive.byTopic)) {
     if (!topics.has(topic)) {
       throw new Error(
