@@ -31,6 +31,16 @@ The existing app deliberately routes policy/CTAs deterministically and asks a mo
 
 Separate the owner's reported $7 Claude Code spend from measured OpenRouter chatbot spend. Token counts for the $7 are unknown unless actual billing/token records are supplied. Hosting and other coding-tool costs remain unavailable, not zero. A subtotal of known costs is not a complete project bill.
 
+| Cost source | Token evidence | Cost evidence | Project accounting status |
+|---|---:|---:|---|
+| Claude Code development | Unknown; no billing token export supplied | **$7.00** user-reported | Counted as reported coding spend; do not back-calculate tokens from dollars. |
+| OpenRouter chatbot key | Historical aggregate token count unavailable in retained key metadata | **$0.001842** cumulative provider usage observed at 2026-09-09T04:39:44Z | Measured allowance observation for the chatbot-only key; accounting can lag, so treat as observed usage rather than final invoice. |
+| IBM Granite 3.3 2B via local Ollama | Local prompt/output tokens not billed by an external model provider in this run | **$0 external inference charge observed** | Local compute/electricity is not priced here and is therefore unknown, not zero total cost. |
+| Known monetary subtotal | Not convertible to a defensible token total | **$7.001842** | $7 reported + $0.001842 observed provider usage; excludes unknown hosting/local-compute/other tooling charges. |
+| OpenRouter allowance remaining | n/a | **$4.998158** of the $5 key limit observed remaining | Keep the separate $0.50 reserve; do not spend it merely to improve the comparison sample. |
+
+The public matrix observed the chatbot-key usage rise from $0.0006324 to $0.0017316. One later authorized independent live conversation observed $0.0017316 to $0.001842, a $0.0001104 metadata delta. Those deltas are useful budget controls, not exact per-request invoices. Evidence: `evidence/N6-release/public-live.json` and `evidence/N6-release/hydration-budget.json`.
+
 ## Dry-run findings before any spend
 
 The initial draft question “Can you confirm a booking for me?” did not match the keyword router's `book`/`appointment` phrases and safely routed as unknown. The primary booking case was clarified to “Can you book and confirm an appointment for me?” before executing either model. This exposes a shared keyword-coverage limitation, not a Gemini/GPT quality difference; the comparison does not certify arbitrary paraphrases. The original dry run stopped before reading the credential or using network.
