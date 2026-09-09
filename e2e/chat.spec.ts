@@ -39,6 +39,13 @@ test("ambient media is local, muted, bounded, and presentation-only", async ({ p
     const element = node as HTMLVideoElement;
     return element.muted && element.autoplay && element.loop && element.playsInline;
   })).toBe(true);
+  const pause = page.getByRole("button", { name: "Pause ambient motion" });
+  await expect(pause).toBeVisible();
+  await pause.click();
+  await expect(media).toHaveAttribute("data-motion", "paused");
+  expect(await video.evaluate((node) => (node as HTMLVideoElement).paused)).toBe(true);
+  await page.getByRole("button", { name: "Play ambient motion" }).click();
+  await expect(media).toHaveAttribute("data-motion", "video");
 });
 
 test("reduced motion keeps the static poster and never mounts the ambient video", async ({ page }) => {
@@ -48,6 +55,7 @@ test("reduced motion keeps the static poster and never mounts the ambient video"
   await expect(media).toBeVisible();
   await expect(media).toHaveAttribute("data-motion", "poster");
   await expect(media.locator("video")).toHaveCount(0);
+  await expect(page.getByRole("button", { name: /ambient motion/ })).toHaveCount(0);
   await expect(media).toHaveCSS("background-image", /donna-ambient-poster\.webp/);
 });
 

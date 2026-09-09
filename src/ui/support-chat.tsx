@@ -60,33 +60,60 @@ function PersonaAvatar({ experience, compact = false }: {
 
 function AmbientMedia({ media }: { media: NonNullable<ExperienceProfile["ambientMedia"]> }) {
   const [motionAllowed, setMotionAllowed] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const video = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const query = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const sync = () => setMotionAllowed(!query.matches);
+    const sync = () => {
+      setMotionAllowed(!query.matches);
+      setPaused(false);
+    };
     sync();
     query.addEventListener("change", sync);
     return () => query.removeEventListener("change", sync);
   }, []);
 
-  return <div
-    className="intro-media"
-    data-motion={motionAllowed ? "video" : "poster"}
-    style={{ backgroundImage: `url(${media.posterSrc})` }}
-    aria-hidden="true"
-  >
-    {motionAllowed ? <video
-      autoPlay
-      muted
-      loop
-      playsInline
-      preload="metadata"
-      poster={media.posterSrc}
-      tabIndex={-1}
+  function toggleMotion() {
+    const element = video.current;
+    if (!element) return;
+    if (element.paused) {
+      void element.play();
+      setPaused(false);
+    } else {
+      element.pause();
+      setPaused(true);
+    }
+  }
+
+  return <>
+    <div
+      className="intro-media"
+      data-motion={motionAllowed ? (paused ? "paused" : "video") : "poster"}
+      style={{ backgroundImage: `url(${media.posterSrc})` }}
+      aria-hidden="true"
     >
-      <source src={media.videoSrc} type="video/mp4" />
-    </video> : null}
-  </div>;
+      {motionAllowed ? <video
+        ref={video}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        poster={media.posterSrc}
+        tabIndex={-1}
+      >
+        <source src={media.videoSrc} type="video/mp4" />
+      </video> : null}
+    </div>
+    {motionAllowed ? <button
+      type="button"
+      className="motion-toggle"
+      onClick={toggleMotion}
+      aria-pressed={paused}
+      aria-label={paused ? "Play ambient motion" : "Pause ambient motion"}
+    >{paused ? "Play" : "Pause"}</button> : null}
+  </>;
 }
 
 function ReplyText({ text, links }: { text: string; links: ApprovedLink[] }) {

@@ -1,0 +1,5 @@
+# ImageMagick MAE for sampled source frames; normalized value in parentheses.
+0.5 -> 2.5: 775.444 (0.0118325)
+2.5 -> 4.5: 1138.6 (0.0173739)
+4.5 -> 6.5: 715.237 (0.0109138)
+0.5 -> 7.9: 438.911 (0.00669735)

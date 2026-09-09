@@ -1,0 +1,105 @@
+[
+  {
+    "name": "desktop-motion",
+    "motion": "video",
+    "videoCount": 1,
+    "videoPaused": false,
+    "button": {
+      "label": "Pause ambient motion",
+      "width": 75.625,
+      "height": 44,
+      "top": 829.78125,
+      "bottom": 873.78125
+    },
+    "posterBackground": "url(\"http://127.0.0.1:3100/media/donna-ambient-poster.webp\")",
+    "intro": {
+      "top": 94,
+      "bottom": 893.78125,
+      "width": 678.421875,
+      "height": 799.78125
+    },
+    "documentWidth": 1440,
+    "viewportWidth": 1440,
+    "horizontalOverflow": false
+  },
+  {
+    "name": "mobile-360-motion",
+    "motion": "video",
+    "videoCount": 1,
+    "videoPaused": false,
+    "button": {
+      "label": "Pause ambient motion",
+      "width": 75.625,
+      "height": 44,
+      "top": 224.796875,
+      "bottom": 268.796875
+    },
+    "posterBackground": "url(\"http://127.0.0.1:3100/media/donna-ambient-poster.webp\")",
+    "intro": {
+      "top": 72,
+      "bottom": 288.796875,
+      "width": 336,
+      "height": 216.796875
+    },
+    "documentWidth": 360,
+    "viewportWidth": 360,
+    "horizontalOverflow": false
+  },
+  {
+    "name": "mobile-320-motion",
+    "motion": "video",
+    "videoCount": 1,
+    "videoPaused": false,
+    "button": {
+      "label": "Pause ambient motion",
+      "width": 75.625,
+      "height": 44,
+      "top": 224.796875,
+      "bottom": 268.796875
+    },
+    "posterBackground": "url(\"http://127.0.0.1:3100/media/donna-ambient-poster.webp\")",
+    "intro": {
+      "top": 72,
+      "bottom": 288.796875,
+      "width": 296,
+      "height": 216.796875
+    },
+    "documentWidth": 320,
+    "viewportWidth": 320,
+    "horizontalOverflow": false
+  },
+  {
+    "name": "desktop-reduced",
+    "motion": "poster",
+    "videoCount": 0,
+    "videoPaused": null,
+    "button": null,
+    "posterBackground": "url(\"http://127.0.0.1:3100/media/donna-ambient-poster.webp\")",
+    "intro": {
+      "top": 94,
+      "bottom": 893.78125,
+      "width": 678.421875,
+      "height": 799.78125
+    },
+    "documentWidth": 1440,
+    "viewportWidth": 1440,
+    "horizontalOverflow": false
+  },
+  {
+    "name": "mobile-360-reduced",
+    "motion": "poster",
+    "videoCount": 0,
+    "videoPaused": null,
+    "button": null,
+    "posterBackground": "url(\"http://127.0.0.1:3100/media/donna-ambient-poster.webp\")",
+    "intro": {
+      "top": 72,
+      "bottom": 288.796875,
+      "width": 336,
+      "height": 216.796875
+    },
+    "documentWidth": 360,
+    "viewportWidth": 360,
+    "horizontalOverflow": false
+  }
+]
