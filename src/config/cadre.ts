@@ -56,7 +56,7 @@ const cadreConfig: ClientConfig = {
       kind: "product",
       title: "Track your AI results",
       body: "Cadre gives you a centralized portal to track tools, agents, training, and results. Stay aligned, stay accountable, and scale what works.",
-      link: { label: "Get Your AI Results", url: "https://cadre.ai/contact" },
+      link: { label: "Talk to Cadre about AI results", url: "https://cadre.ai/contact" },
       source: { origin: "https://cadre.ai; https://cadre.ai/departments", retrievedAt: "2026-09-09" },
     },
   ],
