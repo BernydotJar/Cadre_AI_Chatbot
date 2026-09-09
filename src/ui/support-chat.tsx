@@ -51,10 +51,15 @@ function PersonaAvatar({ experience, compact = false, hero = false }: {
     title={experience.avatar.label}
     aria-hidden="true"
   >
-    <span className="avatar-aura" />
-    <span className="avatar-orbit avatar-orbit-one"><i /></span>
-    <span className="avatar-orbit avatar-orbit-two"><i /></span>
-    <span className="avatar-core"><strong>{experience.avatar.monogram}</strong><i className="avatar-spark">✦</i></span>
+    <svg className="persona-signal" viewBox="0 0 120 120" fill="none" focusable="false">
+      <circle className="signal-ring signal-ring-outer" cx="60" cy="60" r="45" />
+      <circle className="signal-ring signal-ring-inner" cx="60" cy="60" r="29" />
+      <path className="signal-frame" d="M60 12 101.6 36v48L60 108 18.4 84V36L60 12Z" />
+      <path className="signal-trace signal-trace-primary" d="M82 27.3a39 39 0 0 1 16.8 26.4" />
+      <path className="signal-trace signal-trace-secondary" d="M31.8 83.5A39 39 0 0 1 23 61" />
+      <circle className="signal-node" cx="60" cy="60" r="4.4" />
+    </svg>
+    <span className="signal-monogram">{experience.avatar.monogram}</span>
   </span>;
 }
 
@@ -234,8 +239,8 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
           <p className="eyebrow"><span className="eyebrow-rule" /> {experience.copy.eyebrow}</p>
           <h1 id="page-title">{experience.copy.heroLead}<br /><em>{experience.copy.heroEmphasis}</em></h1>
           <p className="intro-description">{experience.copy.heroDescription}</p>
-          <div className="hero-signal">
-            <PersonaAvatar experience={experience} hero />
+          <div className="hero-signal" aria-label="Donna signal">
+            <div className="hero-signal-stage"><PersonaAvatar experience={experience} hero /></div>
             <div className="signal-caption">
               <span className="signal-caption-label"><i /> {experience.copy.signalLabel}</span>
               <strong>{experience.copy.signalTitle}</strong>

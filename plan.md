@@ -1,6 +1,6 @@
 # Plan — Cadre AI Chatbot
 
-**Status: PRODUCTIZATION_COMPLETE_AND_PUBLICLY_VERIFIED + DOCUMENTED_EXTERNAL_GIT_BLOCKER.** The owner-authorized **Knowledge → Persona → Experience** productization graph is complete: P1, P2 and P3 are DONE with every blocking gate PASS. Cadre composes the English persona **Donna**, whose deterministic initiative is capped to one optional diagnostic question after a grounded answer and can be explicitly declined by the user. The productized source passes 279/279 Vitest tests and 52/52 local Playwright cases, and the clean external 52/52 matrix passes on the existing public Vercel project after promotion of reviewed source `7b6004c1fa5b715b1c2775d07981ebac1eee8622`. G10 remote CI/CD activation remains externally blocked because the dedicated audited `git_push` channel still has no injected `GITHUB_TOKEN`; container/shared GitHub authentication is not equivalent to that release credential.
+**Status: PREMIUM_EXPERIENCE_IN_PROGRESS + PRODUCTIZATION_COMPLETE_AND_PUBLICLY_VERIFIED + DOCUMENTED_EXTERNAL_GIT_BLOCKER.** The owner-authorized **Knowledge → Persona → Experience** productization graph is complete: P1, P2 and P3 are DONE with every blocking gate PASS. Cadre composes the English persona **Donna**, whose deterministic initiative is capped to one optional diagnostic question after a grounded answer and can be explicitly declined by the user. The productized source passes 279/279 Vitest tests and 52/52 local Playwright cases, and the clean external 52/52 matrix passes on the existing public Vercel project after promotion of reviewed source `7b6004c1fa5b715b1c2775d07981ebac1eee8622`. G10 remote CI/CD activation remains externally blocked because the dedicated audited `git_push` channel still has no injected `GITHUB_TOKEN`; container/shared GitHub authentication is not equivalent to that release credential.
 
 ## Objective
 
@@ -43,6 +43,7 @@ Live-review preparation should use this table as an index, not as a script: demo
 | M8 | GitHub CI + gated Vercel CD | separate node `G10-vercel-cicd` | **blocked at deploy gate only**: workflow source/local marker contract/Granite review PASS; existing Vercel project is proven manually, but workflows are not active remotely until audited Git publication succeeds |
 | M9 | Optional n8n human-handoff contract | separate node `G11-n8n-handoff-contract` | done: isolated n8n 2.38.1 runtime, consent/routing webhook probes and Granite review PASS; real email delivery intentionally not claimed |
 | M10 | Reusable product profiles + Donna + generic experience shell | productization nodes `P1-profile-contracts` → `P2-donna-persona` → `P3-generic-experience-shell` | **DONE + publicly verified**: all gates PASS; 279/279 tests; 52/52 local and clean external browser matrix; second-profile reuse proof; Donna avatar/composer + bounded behavior evidence retained |
+| M11 | Premium Donna experience | premium graph `PX2-donna-premium-identity` → `PX3-ambient-media` + `PX4-contextual-donna` → `PX5-premium-release` | **IN PROGRESS**: PX2 producer has a strict Cadre/Donna audit, original signal-mark + editorial UI repair, 279/279 app tests and 52/52 browser regression PASS after a retained overflow repair; independent design-review gate is not yet satisfied because the local critic runtime did not return a usable review |
 
 ## Decision register
 
@@ -66,6 +67,9 @@ The table records the **current disposition** of architectural decisions. Histor
 | D14 | Donna has an **initiative budget of one**: grounded answers may add at most one configured diagnostic question; she cannot add facts, promises, links, actions, or bypass boundaries, and explicit `no follow-up`/`just answer` requests suppress the optional question | implemented; P2 DONE after critic-driven opt-out repair |
 | D15 | Keep current retrieval curated and deterministic. Document a future `KnowledgeRetriever` seam, but do **not** add vector search or GraphRAG until corpus size/relationship-heavy queries require it | accepted scope decision |
 | D16 | The default Cadre experience becomes persona-forward: a compact, friendly Donna avatar and a generous writing surface are configuration-driven UI elements, not Cadre-specific logic embedded in the shell | implemented; P3 DONE with Acme/Scout second-profile proof |
+| D17 | Premium visual quality comes from hierarchy, reduction, spacing, typography and controlled motion—not dashboard chrome or generic neon AI styling. Uploaded geometric references are motion/composition inspiration only | owner-authorized; PX2 running |
+| D18 | Ambient media, if released, is a 6–10 second muted atmospheric layer with no embedded text, a deliberate poster fallback, low aggression/payload, and `prefers-reduced-motion` behavior | owner-authorized; implement only after PX2 design gate |
+| D19 | Premium release requires a real independent design review or explicit gated human evaluation. Coordinator self-review and failed/empty model-critic attempts cannot satisfy `design-review` | enforced by premium graph |
 
 ## Resolved constraints and open questions
 
@@ -204,8 +208,20 @@ The owner requested a temporary Gemini 3.8 Flash comparison. `docs/model-evaluat
 - Remote adopted non-destructively: `origin/main` @ `179bf51` ("Initial commit": `README.md`, `.gitignore`); local branch `main` tracks it. Pre-existing untracked `test.md` preserved, unstaged.
 - Draft documentation set: `CLAUDE.md`, `plan.md`, `specs/001-support-chatbot/{requirements,design,tasks}.md`, `feature_list.json`, README update — all uncommitted pending approval; corrected after documentation review on 2026-09-08 (packaging criterion, gating separation, graph bootstrap, ID/contract consistency, bounded wording).
 
+## Premium experience increment — 2026-09-09
+
+The owner requested a stricter post-productization visual pass with a premium B2B / Silicon Valley standard: large editorial typography, sober composition, generous negative space, minimal navigation, cinematic presence, and Donna appearing as a refined tool rather than a generic chatbot. The current Cadre site was re-reviewed before implementation; its richness comes from editorial rhythm, business-outcome framing, imagery/proof and restrained brand cues rather than neon AI decoration.
+
+`PX2-donna-premium-identity` is the current running node. Producer work replaces the glossy orbital mascot with one original geometric Donna signal (thin frame/rings, restrained red/white traces, central D), increases desktop display type toward a ~96px measured first-view scale, moves the hero into an ink cinematic field, quiets starter cards into ruled rows, and keeps the writing surface visually dominant. The supplied red/cyan geometry screenshots are treated as motion grammar only; literal cyan/red cyberpunk styling is rejected.
+
+The first full browser regression found a real horizontal-overflow defect caused by an absolutely positioned decorative pseudo-element without a positioned parent. The fixer bound it to `.intro`; the focused regression then passed and the complete 52/52 browser suite is green again. Current desktop/mobile screenshot evidence and deterministic geometry metrics live under `evidence/premium-identity/`.
+
+The strict independent design-review gate remains unresolved. Three bounded local Granite critic attempts produced two timeouts and then an empty response after model reset; `claude` and `gemini` CLIs are not present in the workstation. No independent PASS is claimed. The premium graph therefore must not advance PX2 to DONE until a real critic or gated human evaluation reviews the snapshot.
+
+Ambient media belongs to PX3, not PX2: 6–10 seconds, muted, no embedded text, intentional poster, reduced-motion fallback, bounded payload and no aggressive loop. PX4 keeps extension context limited to the existing allowlisted pathname/hash enum, with at most one brief contextual aside and no scraping/factual-authority change.
+
 ## Next action
 
-Retry only the dedicated audited Git publication action from the current closure HEAD. Shared/container GitHub authentication is healthy, but the latest recorded audited publisher attempt from `8972fad6d8434605699bfc31a5f2f3eeaa630d43` returned `GITHUB_TOKEN is required for git_push`; if that persists, retain G10 BLOCKED and request reconnection/authorization of the **outer sandbox GitHub publisher channel**, not another `gh auth login` inside `/workspace`. Do not use shell `git push`, token extraction, force push, or GitHub Contents API commit reconstruction as a bypass because the candidate ZIP must preserve the authentic local history/SHA chain.
+Complete the **PX2 design gate first**: expose the premium snapshot for a strict independent or gated owner review, repair any findings, then record design-review/integration evidence. Only after PX2 is DONE may PX3 ambient media and PX4 contextual Donna become READY. Do not promote this premium WIP to the production alias before that gate.
 
 Then rebuild and clean-room verify the candidate ZIP from the final closure commit with `.git` included and dependencies/build output/secrets excluded. Recruiting submission/upload remains a separate explicit action.

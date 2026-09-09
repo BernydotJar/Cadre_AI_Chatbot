@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { activeProduct } from "@/product/active";
 import "./globals.css";
+import "./premium.css";
 
 export function generateMetadata(): Metadata {
   const product = activeProduct();
