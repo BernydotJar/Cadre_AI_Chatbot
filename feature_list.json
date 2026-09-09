@@ -1,0 +1,30 @@
+{
+  "repository": "Cadre_AI_Chatbot",
+  "tagline": "Grounded customer-support chatbot for Cadre AI.",
+  "allowed_statuses": [
+    "pending",
+    "spec_ready",
+    "approved",
+    "in_progress",
+    "review",
+    "done",
+    "blocked"
+  ],
+  "features": [
+    {
+      "id": "001-support-chatbot",
+      "title": "Grounded support chatbot",
+      "mode": "MVP",
+      "status": "in_progress",
+      "summary": "One-page grounded support chatbot: curated versioned knowledge with approved links, deterministic routing, narrow mockable provider adapter, bounded conversations, honest fallback, verified public deployment, reproducible verified source archive.",
+      "nodes": [
+        { "id": "N1-foundation", "alias": "N1", "title": "Application foundation (local)" },
+        { "id": "N2-knowledge-routing", "alias": "N2", "title": "Knowledge base and routing" },
+        { "id": "N3-chat-api-adapter", "alias": "N3", "title": "Chat API and provider adapter" },
+        { "id": "N4-ui", "alias": "N4", "title": "Conversation UI and UX states" },
+        { "id": "N5-deploy", "alias": "N5", "title": "Early deployment (authorization-gated)" },
+        { "id": "N6-verify-release", "alias": "N6", "title": "Verification, packaging, release readiness" }
+      ]
+    }
+  ]
+}

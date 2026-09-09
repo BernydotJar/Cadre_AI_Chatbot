@@ -1,0 +1,15 @@
+# Authorized continuation
+
+Source: project owner's direct follow-up on 2026-09-08. This is a sanitized decision record, not a transcript or a signed approval.
+
+- Continue the existing approved product scope and finish all safe, unlocked work.
+- Make small local commits using the already configured Git identity. Do not split recovered work into invented historical commits.
+- OpenRouter is authorized only for the chatbot's user responses. Total allowance: $5, with seven-day validity reported by the owner; issuance/expiry and remaining allowance must be verified separately.
+- Model selection is delegated. Use an explicit inexpensive model, small output bounds, mock-first tests and a tightly limited live check. Do not use the credential for coding assistance.
+- Keep all credentials, `.codex`, private source documents, personal transcripts, dependency trees and build outputs out of Git and delivery archives. Preserve the pre-existing untracked `test.md` without staging it.
+- The delivery archive must include the real `.git` history. No push, public deployment, recruiting communication, upload or submission is inferred from this local-commit authorization.
+- Any coding assistant is permitted by the supplied clarification; process artifacts and actual provenance must stay accurate. Do not attribute work to a tool or subagent that did not perform it.
+
+## Recovery finding
+
+Fresh `npm test` on the recovered snapshot: 42 tests pass, one suite fails to import because the second-client fixture lacks two mandatory `label` fields. Earlier 48-pass output is historical, not current verification. N2 stays open until repaired and independently checked. No paid requests have been made in this continuation at this checkpoint.

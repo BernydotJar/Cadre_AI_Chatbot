@@ -1,0 +1,21 @@
+== GET /api/health ==
+curl: (7) Failed to connect to 127.0.0.1 port 3100 after 0 ms: Couldn't connect to server
+{"status":"ok"}
+HTTP 200
+== POST /api/chat valid ==
+{"reply":"Walking skeleton: received \"Hello\". The grounded chat pipeline arrives in the next increment.","kind":"clarify"}
+HTTP 200
+== POST /api/chat invalid JSON ==
+{"error":"request body must be valid JSON"}
+HTTP 400
+== POST /api/chat empty messages ==
+{"error":"at least one message is required"}
+HTTP 400
+== POST /api/chat oversized field ==
+{"error":"message content is too long"}
+HTTP 400
+== POST /api/chat 300KB body (size guard) ==
+{"error":"request body is too large"}
+HTTP 413
+== GET / (page) ==
+HTTP 200
