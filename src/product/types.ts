@@ -77,7 +77,10 @@ export const experienceProfileSchema = z.object({
   }),
   quickPrompts: z.array(z.object({
     label: z.string().min(1).max(72),
-    message: z.string().min(1).max(220),
+    message: z.string().trim().min(1).max(220).superRefine((value, ctx) => {
+      if (/https?:\/\/|www\./i.test(value)) ctx.addIssue({ code: "custom", message: "quick prompts cannot contain URLs" });
+      if (/[\r\n]/.test(value)) ctx.addIssue({ code: "custom", message: "quick prompts must be a single line" });
+    }),
   })).min(3).max(5),
   ambientMedia: z.object({
     posterSrc: localPosterPath,

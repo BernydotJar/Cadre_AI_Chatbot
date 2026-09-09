@@ -154,6 +154,7 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
   const clarification = useRef<Message[]>([]);
   const transcript = useRef<HTMLDivElement>(null);
   const composer = useRef<HTMLTextAreaElement>(null);
+  const launcher = useRef<HTMLButtonElement>(null);
   const followingLatest = useRef(true);
   const composing = useRef(false);
 
@@ -163,6 +164,11 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
     operation?.controller.abort();
   }, []);
 
+  function closeChat() {
+    setChatOpen(false);
+    window.requestAnimationFrame(() => launcher.current?.focus({ preventScroll: true }));
+  }
+
   useEffect(() => {
     if (!chatOpen) return;
     const frame = window.requestAnimationFrame(() => composer.current?.focus({ preventScroll: true }));
@@ -171,7 +177,10 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
 
   useEffect(() => {
     function onEscape(event: globalThis.KeyboardEvent) {
-      if (event.key === "Escape") setChatOpen(false);
+      if (event.key === "Escape") {
+        setChatOpen(false);
+        window.requestAnimationFrame(() => launcher.current?.focus({ preventScroll: true }));
+      }
     }
     window.addEventListener("keydown", onEscape);
     return () => window.removeEventListener("keydown", onEscape);
@@ -380,7 +389,7 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
           <h1 id="page-title">{experience.copy.heroLead}<br /><em>{experience.copy.heroEmphasis}</em></h1>
           <p className="intro-description">{experience.copy.heroDescription}</p>
           <div className="hero-actions">
-            <button type="button" className="hero-chat-action" onClick={() => { setChatOpen(true); setNudgeDismissed(true); }}>
+            <button type="button" className="hero-chat-action" disabled={!ready} onClick={() => { setChatOpen(true); setNudgeDismissed(true); }}>
               <PersonaAvatar experience={experience} compact />
               <span>Ask {experience.assistantLabel}</span><Arrow />
             </button>
@@ -423,7 +432,7 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
           {productHighlight.link && <a href={productHighlight.link.url} target="_blank" rel="noopener noreferrer">
             {productHighlight.link.label}<Arrow diagonal /><span className="sr-only"> (opens in a new tab)</span>
           </a>}
-          {resultsPrompt && <button type="button" onClick={() => send(resultsPrompt.message)}>Ask Donna how it works <Arrow /></button>}
+          {resultsPrompt && <button type="button" disabled={!ready} onClick={() => send(resultsPrompt.message)}>Ask Donna how it works <Arrow /></button>}
         </div>
       </section>}
 
@@ -451,11 +460,11 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
         <p className="nudge-kicker">HEY — QUICK THOUGHT</p>
         <strong>{proofHighlight?.title ?? experience.copy.trustLabel}</strong>
         <p>{proofHighlight?.body ?? experience.copy.trustBody}</p>
-        {primaryPrompt && <button type="button" className="nudge-action" onClick={() => send(primaryPrompt.message)}>
+        {primaryPrompt && <button type="button" className="nudge-action" disabled={!ready} onClick={() => send(primaryPrompt.message)}>
           Find my starting point <Arrow />
         </button>}
       </div>}
-      <button type="button" className="donna-launcher" aria-expanded="false" aria-controls="donna-chat" onClick={() => { setChatOpen(true); setNudgeDismissed(true); }}>
+      <button ref={launcher} type="button" className="donna-launcher" disabled={!ready} aria-expanded="false" aria-controls="donna-chat" onClick={() => { setChatOpen(true); setNudgeDismissed(true); }}>
         <PersonaAvatar experience={experience} />
         <span className="launcher-copy"><strong>Ask {experience.assistantLabel}</strong><small>Try a question. I'll keep it grounded.</small></span>
         <Arrow />
@@ -472,7 +481,7 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 10a8 8 0 1 1 .7 7M4 4v6h6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
             <span>New</span>
           </button>}
-          <button className="chat-close" type="button" onClick={() => setChatOpen(false)} aria-label="Close chat">×</button>
+          <button className="chat-close" type="button" onClick={closeChat} aria-label="Close chat">×</button>
         </div>
       </header>
       {!started && renderComposerPanel()}

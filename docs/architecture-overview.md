@@ -1,10 +1,10 @@
 # Architecture overview
 
-Status: **implemented and locally verified** as of 2026-09-09. This document explains the current design; release status and blockers live in `progress/checkpoint.md` and the Graph Harness ledgers.
+Status: **PX5 released/verified baseline + PX6 producer implementation in progress** as of 2026-09-09. This document explains the current design; only the Graph ledgers and `progress/checkpoint.md` determine whether the active increment is verified or released.
 
 ## One-sentence mental model
 
-The product is a **profile-composed deterministic support system with a bounded model-assisted fact selector**: `ClientConfig` decides factual/link/boundary authority, `PersonaProfile` may add one validated app-owned diagnostic question after a grounded answer, and `ExperienceProfile` drives presentation. The model can only choose an ordering/subset of already-approved fact indices.
+The product is a **profile-composed deterministic support system with a bounded model-assisted fact selector**: `ClientConfig` decides factual/link/boundary authority and reviewed public presentation facts, `PersonaProfile` may add one validated grounded diagnostic question plus short tone-only boundary empathy, and `ExperienceProfile` drives presentation and first-turn prompts. The model can only choose an ordering/subset of already-approved fact indices.
 
 ## System context
 
@@ -15,7 +15,7 @@ flowchart LR
     UI[Next.js / React UI]
     API[POST /api/chat]
     Core[Validation + routing + policy]
-    KB[Typed Cadre knowledge + approved links]
+    KB[Typed Cadre knowledge + approved links + public highlights]
     Provider[FactSelector adapter]
     OR[OpenRouter model]
     N8N[Optional n8n handoff contract]
@@ -54,7 +54,8 @@ sequenceDiagram
     C->>K: Route against approved topics and boundaries
 
     alt greeting, boundary, clarification, or unsupported request
-        C-->>API: Deterministic reply kind
+        C-->>API: Deterministic reply kind + client-owned boundary copy
+        API->>API: Optional persona tone lead only
     else grounded topic
         C->>P: Eligible knowledge entry + bounded history
         P->>M: Numbered approved facts; request indices only
@@ -108,12 +109,12 @@ flowchart TB
 
 | Area | Primary paths | Owns | Does not own |
 |---|---|---|---|
-| Client configuration | `src/config/` | Six topics, verified facts, provenance, approved URLs, boundary copy | Persona behavior, presentation, secrets, accounts, network calls |
-| Product composition | `src/product/` | Product/persona/experience schemas, Donna profile, allowlisted registry, one-question policy, safe browser projection | New factual authority, provider credentials, autonomous actions |
+| Client configuration | `src/config/` | Six topics, verified facts/provenance, approved URLs, `publicHighlights`, pricing/unsupported/account boundaries | Persona behavior, experience styling, secrets, accounts, network calls |
+| Product composition | `src/product/` | Product/persona/experience schemas, Donna profile, allowlisted registry, one-question initiative, tone-only `boundaryVoice`, quick prompts, safe browser projection | New factual authority, provider credentials, autonomous actions |
 | Conversation core | `src/core/` | Validation, deterministic routing, clarification, reply policy | React, network, provider credentials |
 | Provider | `src/provider/` | Mock/OpenRouter fact selection, deadlines, retry and spend controls | Final business authority, arbitrary URLs |
 | Server | `src/server/`, `app/api/` | HTTP admission, orchestration, safe error translation, process-local rate limiting | UI state |
-| UI | `src/ui/`, `app/` | Profile-driven avatar/copy/theme, interaction state, accessible controls, text rendering, approved-link presentation | Facts, provider secrets or policy override |
+| UI | `src/ui/`, `app/` | Website shell, profile-driven avatar/copy/theme/quick prompts, public-highlight presentation, interaction state, accessible controls, exact approved links | New facts, provider secrets, routing decisions or policy override |
 | Chrome preview | `extension/` | Local launcher/panel and fixed-endpoint transport on approved Cadre origins | Host-page scraping, cookies, arbitrary proxying |
 | CI/CD | `.github/workflows/` | Repeatable verification and exact-SHA Vercel delivery | Creating a replacement Vercel project |
 | n8n prototype | `integrations/n8n/` | Consent-checked structured human-handoff contract | Real delivery until a provider/recipient is configured |
@@ -129,9 +130,15 @@ If the corpus grows enough that deterministic routing becomes brittle, a semanti
 
 `src/product/active.ts` resolves only explicitly registered profiles and defaults safely to `cadre-donna`; unknown IDs do not become module paths. The active profile composes reviewed Cadre knowledge with the English Donna persona and a validated web experience.
 
-After a grounded reply is assembled, `src/product/conversation.ts` may append one configured Donna diagnostic question for that topic. The schema rejects URL-shaped, multiline, multi-question or bundled-statement guidance. The latest user message can suppress that optional question with narrow opt-out language such as `just answer` or `no follow-up`. No persona guidance is added to greeting/clarify/redirect/decline outcomes.
+After a grounded reply is assembled, `src/product/conversation.ts` may append one configured Donna diagnostic question for that topic. The schema rejects URL-shaped, multiline, multi-question or bundled-statement guidance, and narrow user opt-out language suppresses it. For non-grounded boundaries, `boundaryVoice` may add only a short empathy lead; deterministic policy still owns whether the result is pricing/unsupported/account/unknown and still owns the client-approved handoff text and URL.
 
-`chatExperience()` projects only product ID, client/contact/approved links, starter labels and `ExperienceProfile` to the browser. The fictional Acme Outdoors + Scout fixture validates that the same shell can project a different persona/theme/copy without leaking Cadre/Donna presentation; it is not registered for production use.
+`chatExperience()` projects product ID, client/contact/approved links, starter labels, `ExperienceProfile`, and explicitly reviewed `publicHighlights` to the browser. It does not project the full knowledge corpus, routing trigger lists, persona operating principles, provider configuration, or credentials. The fictional Acme Outdoors + Scout fixture validates that the same shell can project a different persona/theme/copy without leaking Cadre/Donna presentation; it is not registered for production use.
+
+## PX6 website + floating Donna presentation
+
+The active Cadre experience is now **website-first** rather than a permanent split-screen chat. The public page uses the existing local ambient video, client-owned public outcome/proof/result highlights, and a plain-language trust section. Donna enters through a floating launcher and opens a bounded chat panel; the launcher can show one reviewed public fact and one configured suggested question before the chat starts. It does not infer personal intent or inspect account/page data.
+
+The original `signal-orb` has two product states: `idle` and `shaping`. A single launcher glare sweep is the only other new PX6 motion. `prefers-reduced-motion` removes orb/glare animation and preserves the poster-only hero behavior. The UI never imports third-party orb/glare/video code or assets.
 
 ## Advanced concepts, briefly
 

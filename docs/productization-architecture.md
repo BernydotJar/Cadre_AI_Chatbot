@@ -1,6 +1,6 @@
 # Productized conversational assistant architecture
 
-Status: **implemented, released and publicly verified**, 2026-09-09. P1–P3 are DONE with all blocking productization gates PASS; public release evidence is `evidence/productization/public-release-20260909.md`.
+Status: **P1–P3 productization released and publicly verified; PX6 presentation/persona increment currently in Producer**, 2026-09-09. The released productization evidence remains `evidence/productization/public-release-20260909.md`; PX6 does not inherit that PASS and must earn its own gates.
 
 ## Product hypothesis
 
@@ -16,9 +16,9 @@ flowchart LR
   E --> G[Bounded fact selector]
 ```
 
-- `ClientConfig` owns what the system may assert and where it may link.
-- `PersonaProfile` owns how the assistant behaves conversationally without gaining factual authority.
-- `ExperienceProfile` owns how the reusable UI presents the product.
+- `ClientConfig` owns what the system may assert, where it may link, deterministic boundaries, pricing-boundary framing, and reviewed public presentation facts (`publicHighlights`).
+- `PersonaProfile` owns how the assistant behaves conversationally without gaining factual authority. It may add one configured grounded follow-up and short boundary-empathy leads only.
+- `ExperienceProfile` owns how the reusable UI presents the product, including the avatar style and high-value first-turn prompts.
 - `ChatbotProductProfile` is the validated composition root and deployable unit.
 
 ## Donna
@@ -33,7 +33,7 @@ Mindset:
 4. Never invent facts, urgency, commitments, pricing, security claims, or capabilities.
 5. If there is no approved grounded next step, stop.
 
-The first version is intentionally deterministic. `PersonaProfile.proactive.byTopic` may contain **one validated diagnostic question** for an existing client topic. Application code may append that exact question only after a grounded reply and only when `maxSteps=1`; greetings, clarification, redirects and declines never receive persona guidance. URL-shaped text, bundled statements and multi-question strings are rejected by the profile schema. If the latest user message explicitly asks for no follow-up (`just answer`, `no questions`, etc.), the optional question is suppressed. This keeps initiative inspectable and prevents the persona layer from becoming an unbounded agent.
+The initiative contract is intentionally deterministic. `PersonaProfile.proactive.byTopic` may contain **one validated diagnostic question** for an existing client topic. Application code may append that exact question only after a grounded reply and only when `maxSteps=1`; explicit opt-out language (`just answer`, `no questions`, etc.) suppresses it. Separately, `PersonaProfile.boundaryVoice` may prepend one short tone-only empathy lead to pricing, unsupported, unknown, ambiguous, or account-specific boundaries. Those leads are schema-bounded, single-line, URL-free, and cannot change the decision kind, approved facts, links, or handoff destination. This keeps initiative inspectable without turning Donna into an unbounded agent.
 
 ## Trust boundary
 
@@ -47,9 +47,10 @@ flowchart TD
   L[Approved links] --> R
   R --> O[Plain-text response]
   P -->|boundary / clarify / greeting| R
+  T[Optional tone-only boundary lead] --> R
 ```
 
-The live model still returns only fact indexes. Persona behavior never changes client routing, approved links, boundary precedence, or provider credentials. The visible assistant label is validated to match the selected persona name so presentation identity cannot silently drift from behavior identity.
+The live model still returns only fact indexes. Persona behavior never changes client routing, approved links, boundary precedence, provider credentials, or the client-owned pricing/unsupported-claim decision. `boundaryVoice` changes tone only. The visible assistant label is validated to match the selected persona name so presentation identity cannot silently drift from behavior identity.
 
 ## Reuse rule
 
@@ -60,9 +61,9 @@ A second fixture/profile must pass the same core without copying the engine. The
 
 ## Browser projection and experience boundary
 
-`chatExperience()` is the server-side projection consumed by the React shell. It exposes only the product ID, client name, contact/approved links, starter-topic labels and validated `ExperienceProfile`. Verified facts, provenance, routing triggers and Donna's operating principles remain on the server.
+`chatExperience()` is the server-side projection consumed by the React shell. It exposes the product ID, client name, contact/approved links, starter-topic labels, validated `ExperienceProfile`, and the explicitly reviewed `ClientConfig.publicHighlights` used by the website shell. Full knowledge entries, routing triggers, private policy vocabulary, and Donna's operating principles remain server-side. Public-highlight provenance is intentionally public because those highlights are presentation facts, not hidden retrieval state.
 
-The shared UI has no client/persona-name branches. The experience profile controls page metadata, assistant label, copy, strict hex theme tokens, a profile-driven editorial monogram, and the composer prompt. Cadre's active product uses Donna with a `D` avatar and the initial prompt **“What are you trying to figure out?”**.
+The shared UI has no client/persona-name branches. The experience profile controls assistant identity, copy, strict hex theme tokens, first-turn prompts, and avatar style. Cadre's active product uses the original `signal-orb` Donna identity and the composer prompt **“What are you trying to figure out?”**; Acme/Scout continues to use the same shell with an editorial monogram. The surrounding PX6 page renders only reviewed client-owned public highlights, so business proof can evolve without embedding Cadre-specific claims in the reusable React shell.
 
 ## Retrieval evolution: why not GraphRAG
 
