@@ -1,0 +1,31 @@
+{
+  "result": "PASS",
+  "scope": "Validator positive and negative controls, not verification of the final delivery ZIP",
+  "snapshot": "c6f781cf588689deee9ae229261effdd08e5d24b",
+  "command": "rtk proxy node evidence/N6-release/audit-source.mjs <disposable-clean-transport-clone> c6f781cf588689deee9ae229261effdd08e5d24b",
+  "positive": {
+    "at": "2026-09-09T04:20:45.902Z",
+    "exitCode": 0,
+    "commits": 25,
+    "physicalObjects": 375,
+    "reachableObjects": 375,
+    "historicalPaths": 153,
+    "files": 163,
+    "trackedManifestSha256": "1b446fdddbc4f51ccb567485c2cfd9cbedaaa77d0bccfedbf54715ac1c4a46af",
+    "findings": []
+  },
+  "negative": {
+    "at": "2026-09-09T04:29:54.767Z",
+    "expectedExitCode": 1,
+    "observedExitCode": 1,
+    "fixturesOnlyInDisposableClone": ["benign .env.audit-test", "one unreachable synthetic blob", "synthetic-link to an empty sibling directory"],
+    "physicalObjects": 376,
+    "reachableObjects": 375,
+    "findings": ["dirty clone", "unexpected physical object", "forbidden environment file", "symlink"]
+  },
+  "limitations": [
+    "Coordinator-authored validator self-checks are not independent review.",
+    "The deliberately tainted temporary clone is not a delivery candidate and will not be packaged.",
+    "Pattern scanning is bounded detection, not a universal secret-free guarantee."
+  ]
+}
