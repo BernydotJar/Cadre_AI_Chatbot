@@ -1,0 +1,7 @@
+{
+  "model": "ibm/granite3.3:2b",
+  "stream": false,
+  "think": false,
+  "options": {"temperature": 0, "num_predict": 220, "num_ctx": 4096},
+  "prompt": "Role: independent UI/UX critic. Judge the CURRENT repaired snapshot against these mandatory product rules only: at 320x568 and 360x640 with text-spacing overrides, transcript and restored draft remain visible; no horizontal overflow; important helper/privacy copy >=12px; mobile textarea >=16px; loading/error/retry/keyboard behavior remains covered. Fresh evidence: npm lint PASS; tsc PASS; Vitest 245/245 PASS; production build PASS. Playwright initially failed only because the locked Chromium executable was absent; after installing that exact Playwright Chromium shell, the same suite passed 48/48. e2e/readability.spec.ts directly covers both small viewports with 1.5 line height, .12em letter spacing, .16em word spacing and 2em paragraph margins; asserts conversation height >=240px, no horizontal overflow, helper/privacy >=12px, mobile textarea >=16px. Current CSS permits document growth and conversation min-height 240px. Screen readers, physical devices and actual browser zoom are explicitly unverified and are NOT part of this defect-closure decision. Decide whether the previously reproduced small-screen readability defects are cleared. First line VERDICT: PASS or VERDICT: CHANGES_REQUESTED, then at most two concise findings."
+}

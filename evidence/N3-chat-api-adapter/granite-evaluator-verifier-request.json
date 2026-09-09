@@ -1,0 +1,7 @@
+{
+  "model": "ibm/granite3.3:2b",
+  "stream": false,
+  "think": false,
+  "options": {"temperature": 0, "num_predict": 260, "num_ctx": 4096},
+  "prompt": "Role: independent verifier. Judge only whether two earlier evaluator defects are fixed and whether the harness is ready for a bounded live comparison. Exact current code facts: empty case expects status 400 and kind error; for every non-grounded case the evaluator computes exactPolicy by comparing the full reply to the deterministic expected reply and zeroInference from attempts===0; PASS requires status, kind, latency, exactPolicy, and zeroInference. Accounting computes verdict from key delta plus completion telemetry; each per-model decisionEligible requires all 14 contract rows PASS, accounting verdict RECONCILED, and measured cost present; recommendation chooses only decisionEligible models, otherwise model:null; if accounting verdict is not RECONCILED, overall result becomes ACCOUNTING_NOT_RECONCILED. Fresh checks: dry-run PLAN_VALIDATED_NO_NETWORK with 14 cases, 18 max attempts, $0.15 max reserve; focused provider/model tests 60/60 PASS; full Vitest 245/245 PASS; lint, strict typecheck, and production build PASS. No live A/B result is supplied and must not be inferred. Return first line VERDICT: PASS or VERDICT: CHANGES_REQUESTED, then at most three concise findings."
+}

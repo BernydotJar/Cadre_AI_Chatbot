@@ -1,0 +1,7 @@
+{
+  "model": "ibm/granite3.3:2b",
+  "stream": false,
+  "think": false,
+  "options": {"temperature": 0, "num_predict": 260, "num_ctx": 4096},
+  "prompt": "Role: independent engineering-workflow critic. The take-home rubric gives 30% to Claude Code proficiency and asks for opinionated CLAUDE.md, sequential plan.md, subagents, custom commands/context management, debugging with exact errors, accept/modify/reject discipline, small frequent commits, and honest trade-offs. Current CLAUDE.md explicitly defines Producer -> Critic -> Fixer -> Independent Verifier -> Gate -> Evidence; bounded agent briefs with node, role, acceptance criteria, allowed paths, minimal context, exact commands, evidence destination and forbidden actions; exact failure output is passed to fixers; generated changes require diff review, regression, and independent verification; failed/rejected reviews are retained; tool provenance cannot be fabricated. Current plan.md maps all five rubric weights to concrete evidence and claim boundaries, keeps scope cuts explicit, and states that workflow artifacts do not prove a named tool executed. Project commands for lint/typecheck/test/build/e2e/graph are concrete. Decide whether these root documents are sufficiently opinionated and review-ready without adding generic boilerplate. First line VERDICT: PASS or VERDICT: CHANGES_REQUESTED, then at most three concise findings."
+}

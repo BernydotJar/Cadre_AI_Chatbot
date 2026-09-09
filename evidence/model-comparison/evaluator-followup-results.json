@@ -1,0 +1,152 @@
+{
+  "result": "PASS",
+  "testedSourceSha256": "2ce909b6818f601b2a76f6c1a0b1dc1e7c3922570af9cf1a212c0aef14ac8f97",
+  "externalHttpRequests": 0,
+  "realCredentialReads": 0,
+  "modes": [
+    {
+      "mode": "valid",
+      "result": "ALL_CONTRACTS_PASS",
+      "accounting": "RECONCILED",
+      "recommendation": {
+        "model": "openai/gpt-4.1-mini",
+        "reason": "Lowest measured cost among models clearing this contract and accounting sample; no production change."
+      },
+      "decisionEligible": [
+        {
+          "model": "openai/gpt-4.1-mini",
+          "decisionEligible": true
+        },
+        {
+          "model": "google/gemini-3.8-flash",
+          "decisionEligible": true
+        }
+      ],
+      "emptyRows": [
+        {
+          "result": "PASS",
+          "exactPolicy": true,
+          "zeroInference": true
+        },
+        {
+          "result": "PASS",
+          "exactPolicy": true,
+          "zeroInference": true
+        }
+      ],
+      "counts": {
+        "completions": 18,
+        "metadata": 20,
+        "envLoads": 1
+      }
+    },
+    {
+      "mode": "wrong-empty-copy",
+      "result": "COMPARISON_WITH_FAILURES",
+      "accounting": "RECONCILED",
+      "recommendation": {
+        "model": null,
+        "reason": "No decision-eligible model; retain current production configuration pending evidence."
+      },
+      "decisionEligible": [
+        {
+          "model": "openai/gpt-4.1-mini",
+          "decisionEligible": false
+        },
+        {
+          "model": "google/gemini-3.8-flash",
+          "decisionEligible": false
+        }
+      ],
+      "emptyRows": [
+        {
+          "result": "FAIL",
+          "exactPolicy": false,
+          "zeroInference": true
+        },
+        {
+          "result": "FAIL",
+          "exactPolicy": false,
+          "zeroInference": true
+        }
+      ],
+      "counts": {
+        "completions": 18,
+        "metadata": 20,
+        "envLoads": 1
+      }
+    },
+    {
+      "mode": "unexpected-after-budget",
+      "result": "ACCOUNTING_NOT_RECONCILED",
+      "accounting": "UNEXPECTED_KEY_DELTA",
+      "recommendation": {
+        "model": null,
+        "reason": "No decision-eligible model; retain current production configuration pending evidence."
+      },
+      "decisionEligible": [
+        {
+          "model": "openai/gpt-4.1-mini",
+          "decisionEligible": false
+        },
+        {
+          "model": "google/gemini-3.8-flash",
+          "decisionEligible": false
+        }
+      ],
+      "emptyRows": [
+        {
+          "result": "PASS",
+          "exactPolicy": true,
+          "zeroInference": true
+        },
+        {
+          "result": "PASS",
+          "exactPolicy": true,
+          "zeroInference": true
+        }
+      ],
+      "counts": {
+        "completions": 18,
+        "metadata": 20,
+        "envLoads": 1
+      }
+    },
+    {
+      "mode": "after-budget-unavailable",
+      "result": "ACCOUNTING_NOT_RECONCILED",
+      "accounting": "METADATA_UNAVAILABLE",
+      "recommendation": {
+        "model": null,
+        "reason": "No decision-eligible model; retain current production configuration pending evidence."
+      },
+      "decisionEligible": [
+        {
+          "model": "openai/gpt-4.1-mini",
+          "decisionEligible": false
+        },
+        {
+          "model": "google/gemini-3.8-flash",
+          "decisionEligible": false
+        }
+      ],
+      "emptyRows": [
+        {
+          "result": "PASS",
+          "exactPolicy": true,
+          "zeroInference": true
+        },
+        {
+          "result": "PASS",
+          "exactPolicy": true,
+          "zeroInference": true
+        }
+      ],
+      "counts": {
+        "completions": 18,
+        "metadata": 20,
+        "envLoads": 1
+      }
+    }
+  ]
+}
