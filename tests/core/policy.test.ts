@@ -34,6 +34,10 @@ describe("response policy — grounded answers (S1–S5)", () => {
     "How do I access my AI agents dashboard?",
     "Where can I sign into my AI agents dashboard?",
     "Open the AI agents dashboard",
+    "How do I access my AI agent?",
+    "Where can I access my agent?",
+    "How do I login to my AI agent?",
+    "Where do I sign in to my agent?",
   ])("keeps agent-dashboard access grounded in the portal boundary: %s", (message) => {
     const reply = respond([user(message)], cadre);
     expect(reply.kind).toBe("grounded");
@@ -65,6 +69,13 @@ describe("response policy — grounded answers (S1–S5)", () => {
     expect(reply.text).toContain("cannot run the assessment");
   });
 
+  it("keeps singular-agent capability questions grounded in services", () => {
+    const reply = respond([user("Can you build an AI agent?")], cadre);
+    expect(reply.kind).toBe("grounded");
+    expect(reply.text).toContain("Core services are AI Strategy");
+    expect(reply.text).not.toContain("does not have access to client portals");
+  });
+
   it("keeps model/security answers inside verified facts", () => {
     const reply = respond([user("How does Cadre handle data security and model selection?")], cadre);
     expect(reply.kind).toBe("grounded");
@@ -89,6 +100,21 @@ describe("response policy — boundaries (S6)", () => {
     const reply = respond([user("I need help with my invoice from last month")], cadre);
     expect(reply.kind).toBe("redirect");
     expect(reply.text).toContain("won't ask");
+    expect(reply.links).toEqual([cadre.contact]);
+  });
+
+  it.each([
+    "When will my AI agent be ready?",
+    "When will my agent be delivered?",
+    "Is my AI agent ready?",
+    "Is my agent ready?",
+    "Can you check my AI agent status?",
+    "Check my agent status",
+  ])("redirects personal agent-status requests: %s", (message) => {
+    const reply = respond([user(message)], cadre);
+    expect(reply.kind).toBe("redirect");
+    expect(reply.text).toContain("account-specific or private matters");
+    expect(reply.text).toContain("won't ask you for credentials");
     expect(reply.links).toEqual([cadre.contact]);
   });
 

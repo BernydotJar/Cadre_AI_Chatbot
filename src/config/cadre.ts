@@ -97,7 +97,8 @@ const cadreConfig: ClientConfig = {
       keywords: [
         "portal", "log in", "log into", "login", "sign in", "sign into",
         "dashboard", "agent dashboard", "agents dashboard", "ai agents dashboard",
-        "track my", "client access", "my tools", "my agents", "my ai agents", "my results",
+        "track my", "client access", "my tools", "my agent", "my ai agent",
+        "my agents", "my ai agents", "my results",
       ],
       facts: [
         "This assistant does not have access to client portals or account systems, and no public portal address is verified in its knowledge set.",
@@ -162,6 +163,9 @@ const cadreConfig: ClientConfig = {
       "my password", "reset my password", "my contract", "my subscription",
       "cancel my", "delete my", "access my data", "export my data",
       "my project status", "status of my", "my ticket",
+      "when will my agent", "when will my ai agent",
+      "my agent status", "my ai agent status",
+      "is my agent ready", "is my ai agent ready",
     ],
     escalationMessage:
       "I can't help with account-specific or private matters in this chat, and I won't ask you for credentials or personal details here. The Cadre AI team can help you directly.",
