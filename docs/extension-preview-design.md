@@ -87,11 +87,11 @@ Conversation state is volatile; no sensitive chat storage permission is requeste
 Current verified boundaries:
 
 - **72/72** extension unit/security/build tests PASS.
-- **23/23** synthetic browser checks PASS with zero real-site/API traffic.
+- Original G9 proof: **23/23** synthetic browser checks PASS with zero real-site/API traffic; latest repaired PX4 proof: **24/24** PASS with the added computed-style readability regression.
 - Latest owner-authorized disposable Chromium installed-site run on `https://cadre.ai/agents#discover-agents`: **17 scoped checks PASS**, exactly one request to the fixed preview API for one approved question.
 - Granite bounded security/context review PASS.
 
-Latest PX4 producer evidence: `extension/evidence/px4-actual-site-20260909/` and `extension/evidence/px4-contextual-donna-20260909/`. Earlier G9 evidence remains under `extension/evidence/actual-agents-context-20260909/`, `extension/evidence/context-pass-20260909/`, and `extension/evidence/granite-context-review-20260909.md`.
+Current repaired PX4 evidence: `extension/evidence/px4-fix-actual-site-20260909/`, `extension/evidence/px4-fix-contextual-donna-20260909/`, `extension/evidence/px4-verifier-20260909/`, and `evidence/premium-context/`. Earlier G9 evidence remains retained under its original paths.
 
 Two earlier actual-site test defects are retained rather than erased: one whole-page overflow assertion attributed Cadre's existing site overflow to the extension, and one Page-scoped network observer did not see service-worker traffic. The tests were corrected before the final PASS.
 

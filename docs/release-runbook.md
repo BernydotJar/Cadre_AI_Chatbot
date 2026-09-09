@@ -145,7 +145,7 @@ The previously tested ZIP is historical because source has changed since it was 
 
 Follow `docs/delivery.md`: fresh transport clone, no inherited hooks, usable `.git`, no `.env.local`, `.vercel`, `.codex`, dependencies, caches, generated build output, private inputs, or stale archives. Verify the **extracted ZIP**, not merely the working tree, with Git fsck, locked install, tests, lint, typecheck, build, smoke and checksum.
 
-The final archive is preparation for submission; it does not itself authorize recruiting upload/email.
+The final archive is preparation for handoff; it does not itself authorize external upload/submission.
 
 ## Rollback
 

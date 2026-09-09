@@ -13,7 +13,7 @@ Reconciled 2026-09-09 against the supplied v1.1 take-home brief and the current 
 | Claude Code workflow/context management | Root `CLAUDE.md`, `.claude/agents/`, `.claude/commands/`, bounded role briefs and review protocol | Configuration is not proof of invocation. Claim actual Claude usage only from a genuine observed run |
 | Independent critique/verification | Producer/critic/fixer/verifier artifacts, retained FAIL-to-fix evidence, Granite bounded reviews | A model review is one evidence class; it is not human approval or deployment proof |
 | Small authentic commits | Incremental Git history across policy, UI, extension, CI/CD, n8n and docs | Preserve actual technical committer/provenance; no history rewrite |
-| Test and inspect output | Productized app **279/279** Vitest, local **52/52** Playwright, clean public **52/52** Playwright; extension **72/72**, synthetic extension **23/23**, installed-site contextual proof **17/17** | **PASS** at declared scopes |
+| Test and inspect output | Current premium source **286/286** Vitest + local **58/58** Playwright; previously promoted productized line clean public **52/52** Playwright; extension **72/72**, repaired synthetic extension **24/24**, installed-site contextual proof **17 scoped checks** | **PASS** at declared scopes |
 | Explicit scope decisions | No auth/database/CRM/vector DB/real booking/account access; G9 and G11 isolated as optional workstreams | Do not add scope merely to work around release infrastructure |
 | CI/CD maturity | Secret-free GitHub CI + gated exact-SHA Vercel production workflow; local YAML/marker verification + Granite review PASS | Workflows are not active remotely until audited Git publication succeeds; existing Vercel target is now proven through manual authorized recovery |
 | Lightweight complete source archive | Fresh pre-closure transport archive independently passes source/history audit and clean extraction verification | Rebuild once from the final closure commit; no additional product work required |
@@ -44,4 +44,4 @@ Use `docs/README.md` as the navigation map. `CLAUDE.md` is durable operating gui
 
 ## Final-delivery closure
 
-The final source ZIP should now be rebuilt from the N6 closure commit and independently verified after extraction. G10 remote CI/CD activation may remain separately BLOCKED because the delivery requirements are satisfied by the public app plus source package, but that blocker must remain explicit in the audit trail. Preparing the ZIP does not authorize recruiting upload/email.
+The final source ZIP should be rebuilt from the final premium/release closure commit and independently verified after extraction. G10 remote CI/CD activation may remain separately BLOCKED because the delivery requirements are satisfied by the public app plus source package, but that blocker must remain explicit in the audit trail. Preparing the ZIP does not authorize external upload/submission.

@@ -62,7 +62,7 @@ A second fixture/profile must pass the same core without copying the engine. The
 
 `chatExperience()` is the server-side projection consumed by the React shell. It exposes only the product ID, client name, contact/approved links, starter-topic labels and validated `ExperienceProfile`. Verified facts, provenance, routing triggers and Donna's operating principles remain on the server.
 
-The shared UI has no client/persona-name branches. The experience profile controls page metadata, assistant label, copy, strict hex theme tokens, an original orbital-monogram AI-guide avatar, and the composer prompt. Cadre's active product uses Donna with a `D` avatar and the initial prompt **“What are you trying to figure out?”**.
+The shared UI has no client/persona-name branches. The experience profile controls page metadata, assistant label, copy, strict hex theme tokens, a profile-driven editorial monogram, and the composer prompt. Cadre's active product uses Donna with a `D` avatar and the initial prompt **“What are you trying to figure out?”**.
 
 ## Retrieval evolution: why not GraphRAG
 

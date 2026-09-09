@@ -43,7 +43,7 @@ Pinned external Graph Harness runtime: `6a5f201e2bc640ac46cc0b4b6a3d11b788555664
 Separate graph `progress/extension-graph.*`: **G9 DONE** with `security-review=PASS`, `independent-verification=PASS`, `integration-proof=PASS`.
 
 - 72/72 extension unit/security/build tests PASS.
-- 23/23 synthetic browser checks PASS with zero real-site/API traffic.
+- Latest repaired contextual run: 24/24 synthetic browser checks PASS with zero real-site/API traffic; the original G9 23-check evidence remains historical.
 - Latest owner-authorized disposable Chromium installed-site run on `https://cadre.ai/agents#discover-agents`: **17 scoped checks PASS**, exactly **one** fixed preview API request.
 - The adapter recognizes only an allowlisted pathname/hash enum; it does not read page text/forms/cookies/storage. On `#discover-agents` the panel uses restrained contextual copy and one fixed grounded question.
 - Evidence: `extension/evidence/actual-agents-context-20260909/`, `context-pass-20260909/`, and `granite-context-review-20260909.md`.
@@ -60,7 +60,7 @@ Separate graph `progress/productization-graph.*`: **P1/P2/P3 DONE**, with `verif
 - `ExperienceProfile` owns visible identity, copy, theme, avatar and composer presentation. `chatExperience()` projects only presentation/link/topic metadata to the browser.
 - P3's critic found visible identity could drift from behavior identity; product validation now requires `experience.assistantLabel === persona.name`.
 - Fictional Acme Outdoors + Scout proves second-profile projection with no Cadre/Donna presentation leakage; it is not registered in production.
-- Donna UI uses an original orbital-monogram AI-guide avatar and the initial writing prompt `What are you trying to figure out?`. Deterministic desktop/mobile probes recorded no horizontal overflow and a 78px initial composer. Evidence: `evidence/productization/`.
+- Donna UI now uses the restrained profile-driven editorial monogram and the initial writing prompt `What are you trying to figure out?`; PX3B/PX4 evidence supersedes the earlier orbital treatment while preserving the reusable profile boundary. Deterministic desktop/mobile probes report no horizontal overflow.
 - GraphRAG/vector retrieval remain intentionally out of scope: current corpus is small/curated and deterministic routing has no observed relationship-heavy retrieval failure.
 
 ## Final local verification
@@ -144,4 +144,4 @@ The audited Git publisher is restored. A dedicated fast-forward `git_push` moved
 2. Only after premium release readiness, bind the existing Vercel org/project/token as GitHub `production` secrets and rerun the failed deploy workflow; verify exact-SHA public markers and browser behavior.
 3. Append the resulting remote CI/CD evidence to G10 and close its deploy-check only if the automated path succeeds.
 4. Rebuild the final source ZIP from the final closure commit with `.git` included and dependencies/build output/env secrets excluded; clean-room verify install/tests/build/browser checks and record checksum.
-5. Recruiting upload/email, Chrome Web Store publication and real n8n email delivery remain separate actions unless explicitly authorized.
+5. External source submission, Chrome Web Store publication and real n8n email delivery remain separate actions unless explicitly authorized.
