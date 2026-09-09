@@ -4,11 +4,11 @@ Updated: 2026-09-09 UTC. This is a projection; the append-only Graph Harness led
 
 ## Terminal state for this session
 
-**PARTIAL_WITH_DOCUMENTED_BLOCKERS — external release delivery only.** The current local product increment is verified, G9 Chrome and G11 n8n are DONE at their declared optional scopes, and the audit/handoff documentation has been reconciled. N6 `release-check` remains BLOCKED because the known public Vercel alias is demonstrably running the older UI/behavior. G10 is also blocked at deploy-check because the audited Git publication channel currently lacks its platform-managed credential and the connected Vercel integration cannot bind the existing project.
+**PARTIAL_WITH_DOCUMENTED_BLOCKERS — remote source publication / CI activation only.** Core N1–N6 release verification is complete and the existing Vercel production alias is release-equivalent to the reviewed chatbot. G9 Chrome and G11 n8n are DONE at their declared optional scopes. G10 remains BLOCKED only at deploy-check because the audited Git publication channel still lacks its platform-managed credential, so the locally versioned workflows are not active on `origin/main`.
 
 Public alias: `https://cadre-ai-chatbot-tawny.vercel.app`.
 
-Product, contextual extension, CI/CD, n8n and documentation increments are split into bounded commits. Existing Git author/committer history is retained as recorded and is not used as proof that a particular human or coding tool executed a change. This checkpoint intentionally does not embed a self-referential current HEAD; reproduce it with `git rev-parse HEAD`. Main graph sequence remains **149**. Extension graph sequence is **34**, last event `9db84544-4f7c-42fa-9605-e3f1983740d6`. CI/CD graph sequence is **14**, last event `ad80d350-31bd-422a-be23-2c644e837d15`. n8n graph sequence is **12**, last event `a35c57ad-30b4-4fd7-aeec-ce11084d239c`.
+Product, contextual extension, CI/CD, n8n and documentation increments are split into bounded commits. Existing Git author/committer history is retained as recorded and is not used as proof that a particular human or coding tool executed a change. This checkpoint intentionally does not embed a self-referential current HEAD; reproduce it with `git rev-parse HEAD`. Main graph sequence is **157**, last event `afc29093-95c1-4994-bb9f-36e7032be67a`. Extension graph sequence is **34**, last event `9db84544-4f7c-42fa-9605-e3f1983740d6`. CI/CD graph sequence is **14**, last event `ad80d350-31bd-422a-be23-2c644e837d15`. n8n graph sequence is **12**, last event `a35c57ad-30b4-4fd7-aeec-ce11084d239c`.
 
 ## Main graph
 
@@ -17,7 +17,7 @@ Product, contextual extension, CI/CD, n8n and documentation increments are split
 - N3 chat API/provider: **done**; production default remains `openai/gpt-4.1-mini`.
 - N4 UI/UX: **done** after Cadre Signal polish, authored icon and first-impression regressions. `verification=PASS`, `code-review=PASS`.
 - N5 early deployment: **done** for the previously authorized deployed line only.
-- N6 verification/release: **blocked**. `verification=PASS`, `code-review=PASS`, `release-check=BLOCKED` because deployed source is stale.
+- N6 verification/release: **done**. `verification=PASS`, `code-review=PASS`, `release-check=PASS`; production equivalence, public Playwright 50/50, bounded live grounding, and clean-room package verification are retained as evidence.
 
 Pinned external Graph Harness runtime: `6a5f201e2bc640ac46cc0b4b6a3d11b788555664`. Main baseline remains frozen and the event ledger append-only.
 
@@ -83,21 +83,22 @@ Deterministic documentation audit passed before commit: 26 audit-facing Markdown
 
 ## Deployment blocker — current evidence
 
-Anonymous checks against `https://cadre-ai-chatbot-tawny.vercel.app` on 2026-09-09 show:
+## Production release — current evidence
 
-- `/api/health` is healthy;
-- the public HTML still contains **`A little clarity`** and **`YOUR NEXT STEP STARTS HERE`** rather than the Cadre Signal hero;
-- exact `hello` still returns the old `kind:"redirect"` unsupported-information response.
+Owner-interactive Vercel CLI authentication restored access to the existing `Cadre_AI / cadre-ai3` project `cadre-ai-chatbot` (`prj_n1nwQI54mbIplgaExeVkeNC8hrv2`). No replacement project was created.
 
-Therefore the alias is healthy but **not release-equivalent** to the reviewed worktree. See `evidence/N6-release/public-drift-after-polish-20260909.md`.
+The first prebuilt attempt exposed a bounded transport defect: Next file tracing referenced tracked `.env.example` while `.vercelignore` denied all `.env*`. The fix allows only root `.env.example`; real environment files remain excluded. The rebuilt artifact then deployed successfully as `dpl_ExDWE91vPxtEmLaDG6UBCCTamGLM` and Vercel aliased it to `https://cadre-ai-chatbot-tawny.vercel.app`.
 
-Deployment mechanisms checked:
+Anonymous/public verification after promotion:
 
-- Connected Vercel team `Cadre_AI` / `cadre-ai3` is visible, but the integration currently returns **zero projects**.
-- The exposed `deploy_to_vercel` call failed before deployment because the connector runtime required hidden `target`, `name`, and `files` inputs that its callable schema does not expose.
-- Sandbox Vercel CLI 59.12.0 remains `Logged out`; no project binding or connector credential is injected into this workspace.
+- `/api/health`: PASS;
+- Cadre Signal `Turn AI curiosity` hero present and stale marker absent;
+- `/icon.svg`: PASS;
+- exact `hello`: `kind=greeting` PASS;
+- public Playwright: **50/50 PASS**;
+- bounded live `What does Cadre AI do?`: `kind=grounded` with substantive Cadre content and official links, PASS.
 
-No anonymous/temporary deployment was substituted because it would not establish equivalence with the authorized production project or its live environment.
+Evidence: `evidence/N6-release/public-release-equivalence-20260909.md`. N6 is DONE; historical stale-deployment evidence remains retained rather than overwritten.
 
 ## CI/CD workstream
 
@@ -106,7 +107,7 @@ Separate graph `progress/cicd-graph.*`: **G10 BLOCKED only at deploy-check**. `v
 - `.github/workflows/ci.yml`: secret-free PR/main checks for locked install, lint, strict types, tests, build, Playwright, extension build/tests and synthetic browser proof.
 - `.github/workflows/deploy-production.yml`: exact-SHA production delivery after successful main CI or manual dispatch, GitHub `production` environment, required existing Vercel org/project/token, `vercel pull` → `vercel build --prod` → `vercel deploy --prebuilt --prod`, then health/favicon/hero/hello assertions.
 - Local workflow/YAML/release-marker verification PASS; Granite CI/CD critic PASS.
-- Actual deploy remains blocked because the connected Vercel team exposes zero projects, direct project/alias lookup fails, the direct-deploy connector schema is unusable here, and sandbox CLI is logged out.
+- Manual owner-authorized delivery to the existing project is proven and N6 is closed. G10 remains blocked because the workflows are not yet published to GitHub; its automated production path and GitHub `production` secret binding therefore have not executed remotely.
 
 ## Parallel n8n workstream
 
@@ -114,7 +115,7 @@ Separate graph `progress/n8n-graph.*`: **G11 DONE** with `verification=PASS`, `c
 
 ## Model/cost state
 
-Production default remains `openai/gpt-4.1-mini`; the optional Gemini 3.8 Flash comparison remains NOT RUN because the chatbot-only OpenRouter credential is unavailable in this sandbox. This does not block the completed product repair or extension gate.
+Production default remains `openai/gpt-4.1-mini`; a bounded live production smoke passed through the existing Vercel environment. The optional Gemini 3.8 Flash comparison remains NOT RUN because the chatbot credential is not exported into the local sandbox for that experiment. This does not block the completed core release or extension gate.
 
 Retained observed cost ledger before this increment: user-reported coding spend $7.00; OpenRouter cumulative provider usage $0.001842 at the last metadata read; local Granite has no external inference charge observed. Provider accounting may lag.
 
@@ -125,10 +126,8 @@ Local `main` remains ahead of `origin/main` with no known remote-only commits fr
 
 ## Exact resume path
 
-1. Use the dedicated audited Git publication action again; if its platform-managed credential is available, fast-forward `main` so the CI/CD workflows exist on GitHub. If the credential is still absent, retain the blocker and do not bypass it.
-2. Restore visibility/access to the existing Vercel `cadre-ai-chatbot` project and provision `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`, and `VERCEL_TOKEN` in the GitHub `production` environment; do not create a replacement project merely to make the gate green.
-3. Reopen G10/N6 only through supported graph transitions and deploy the exact reviewed SHA through the gated workflow or an equivalent authorized project binding.
-4. Repeat anonymous `/`, `/api/health`, exact `hello`, favicon/hero markers, and the 50-case browser/readability matrix against that deployment; run one bounded live-provider round trip only if the chatbot allowance is available.
-5. Clear G10 `deploy-check` and N6 `release-check`, transition them to done, update projections, then build and verify a **final** source ZIP from the exact closure commit.
-6. If the optional n8n handoff is promoted into the demo, add the `HumanHandoffProvider` application boundary and an approved email provider/recipient; require user consent and successful n8n acknowledgement before claiming a handoff occurred.
-7. Recruiting upload/email and Web Store publication remain separate actions unless explicitly authorized.
+1. Commit the N6 closure projection and rebuild the final handoff ZIP from that commit; independently verify the extracted archive and record its external checksum. This is packaging synchronization, not product development.
+2. Retry only the dedicated audited Git publication action. If its platform-managed credential becomes available, fast-forward `main` so `.github/workflows/ci.yml` and `deploy-production.yml` exist on GitHub. If it remains absent, retain G10 BLOCKED and do not bypass it with a shell token.
+3. For eventual G10 closure, provision/verify `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`, and `VERCEL_TOKEN` in the GitHub `production` environment for the **existing** `cadre-ai-chatbot` project and exercise the exact-SHA workflow. N6 does not need to be reopened unless runtime source changes.
+4. If the optional n8n handoff is promoted into the demo, add the `HumanHandoffProvider` application boundary and an approved email provider/recipient; require user consent and successful n8n acknowledgement before claiming a handoff occurred.
+5. Recruiting upload/email and Chrome Web Store publication remain separate actions unless explicitly authorized.

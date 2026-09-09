@@ -150,4 +150,4 @@ The Chrome floating assistant is a **stretch integration preview**, described in
 
 ## Current release boundary
 
-As of 2026-09-09, local product verification is complete, G9 and G11 are DONE at their declared scopes, and G10 is blocked only at external delivery. The known public Vercel alias is stale relative to reviewed source. Do not add product scope to work around that release-infrastructure mismatch; use `docs/release-runbook.md` and `progress/checkpoint.md` to resume.
+As of 2026-09-09, core N1–N6 release verification is complete and the existing public Vercel alias is release-equivalent to the reviewed chatbot. G9 and G11 are DONE at their declared scopes. G10 remains blocked only at remote CI/CD activation because the dedicated audited Git publication mechanism still lacks its platform-managed GitHub credential; do not add product scope or create replacement infrastructure to work around that control. Use `docs/release-runbook.md` and `progress/checkpoint.md` to resume source publication/automation work.

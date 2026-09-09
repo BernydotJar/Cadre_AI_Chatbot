@@ -4,9 +4,9 @@ Owner-approved target: `Cadre_AI` / `cadre-ai3`. Project: `cadre-ai-chatbot`. Pu
 
 ## Current delivery status — 2026-09-09
 
-The public alias is healthy but **stale** relative to the reviewed source: it still serves the previous “A little clarity” hero and returns the old unsupported redirect for exact `hello`. The current worktree instead has the Cadre Signal hero, `/icon.svg`, and deterministic `hello -> kind:greeting`; local post-deploy marker checks pass. Production equivalence therefore remains a release blocker, not an inferred success.
+The public alias is **release-equivalent** to the reviewed chatbot. Owner-interactive Vercel CLI authentication restored access to the existing `cadre-ai-chatbot` project, the reviewed prebuilt artifact was promoted without creating replacement infrastructure, and anonymous checks now confirm the Cadre Signal hero, `/icon.svg`, deterministic `hello -> kind:greeting`, health, **50/50** public Playwright cases, and a bounded grounded live smoke. See `evidence/N6-release/public-release-equivalence-20260909.md`.
 
-The connected Vercel integration can see team `Cadre_AI` (`cadre-ai3`) but currently returns no projects; direct lookup of `cadre-ai-chatbot` and the known alias returns not-found in that integration. Its exposed deploy action is also unusable in this session because the runtime requires deployment inputs its callable schema does not expose. Sandbox Vercel CLI 59.12.0 is logged out. Do not create a replacement project merely to hide this binding problem.
+The generic connected Vercel integration still does not enumerate this project reliably, but owner-interactive CLI authentication inside the persistent workstation now resolves the exact existing project `Cadre_AI / cadre-ai3 / cadre-ai-chatbot`. That binding was used for the successful production recovery deployment. Do not create a replacement project merely to make connector discovery look green.
 
 ## GitHub CI/CD
 
@@ -14,7 +14,7 @@ The connected Vercel integration can see team `Cadre_AI` (`cadre-ai3`) but curre
 
 `.github/workflows/deploy-production.yml` is the gated production path. It runs only after successful CI on `main` or manual dispatch, binds the GitHub `production` environment, checks out the exact triggering SHA, and requires repository/environment secrets `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`, and `VERCEL_TOKEN`. It writes only an ephemeral `.vercel/project.json`, then runs `vercel pull --environment=production`, `vercel build --prod`, and `vercel deploy --prebuilt --prod`. It never calls `vercel link` or creates a project. Post-deploy checks require health, the new hero, `/icon.svg`, and deterministic greeting behavior before the workflow reports success.
 
-The workflow source is locally validated and its release-marker contract passes against the current production build in mock mode. Actual CD remains blocked until the existing Vercel project is visible to the authorized account and the three GitHub production secrets are provisioned. Remote activation is also blocked until the audited repository-publication channel receives its platform-managed GitHub credential; the local branch is ahead of `origin/main`, so the workflows are not yet present on the remote branch. Use `docs/release-runbook.md` for the exact closure sequence and `progress/checkpoint.md` for the current count/SHA. Vercel documents the `build` → `deploy --prebuilt` flow for CI environments; this keeps build and deployed output tied to one reviewed source revision.
+The workflow source is locally validated and its release-marker contract matches the successfully deployed production build. Manual owner-authorized recovery proved the existing Vercel project binding and prebuilt delivery path. **Automated CD remains blocked only at remote activation**: the audited repository-publication channel still lacks its platform-managed GitHub credential, so the workflows are not yet on `origin/main`; the GitHub `production` environment must also hold the existing Vercel org/project/token before the workflow can run. Use `docs/release-runbook.md` for that automation-only closure path and `progress/checkpoint.md` for current state.
 
 ## Current verified deployment
 
@@ -48,7 +48,7 @@ Review every file in the dry-run manifest before deploying. `.vercelignore` deni
 
 `vercel.json` selects Next.js, locked `npm ci`, the build command and a 30-second chat function ceiling. The provider itself has a shorter deadline. Vercel's first deployment is production even without `--prod`; do not use `--public`, which publishes source rather than merely making the app accessible. See [CLI deployment](https://vercel.com/docs/cli/deploy) and [upload exclusions](https://vercel.com/docs/deployments/vercel-ignore).
 
-Linking with CLI 59.12.0 also downloaded an OIDC token into ignored `.env.local` and appended redundant ignore rules. The existing chatbot keys remained present, mode 0600; values were not displayed. The redundant ignore rules were removed so `.env.example` remains explicitly allowed. Do not run `link` needlessly or use `env pull` to inspect secrets.
+Linking with CLI 59.12.0 downloaded an OIDC token into ignored `.env.local`; values were not displayed. The temporary root `.env.local` was removed before the production rebuild. A prebuilt deploy then exposed a real transport defect: Next file tracing referenced tracked `.env.example` while `.vercelignore` denied all `.env*`. The bounded fix allows only root `.env.example`; real environment files remain excluded. Do not run `link` needlessly or use env inspection to expose secrets.
 
 ## Runtime configuration and limits
 

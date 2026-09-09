@@ -6,7 +6,7 @@ Reviewed 2026-09-08. The owner asked to compare Vercel, AWS and Terraform, then 
 
 Later update: the owner explicitly requested the official CLI. Login through Vercel CLI 59.12.0 succeeded. Team discovery shows `Cadre_AI` / `cadre-ai3`; `project ls --scope cadre-ai` fails with a nonexistent-scope error. A read-only listing of `cadre-ai3` returns no projects. Confirm the mismatch before linking or creating a project. No secret, login code or token is retained in this document.
 
-Historical deployment scope is `cadre-ai3`; project `cadre-ai-chatbot` produced the known public alias and earlier mock/live verification. The current connected Vercel integration cannot see/bind that existing project, and the alias is stale relative to reviewed source. Earlier paragraphs preserve authorization chronology; [deployment notes](deploy.md), the [release runbook](release-runbook.md), and `progress/checkpoint.md` own current operational details. The newer GitHub CI/CD source is not active remotely until audited source publication succeeds.
+Historical deployment scope is `cadre-ai3`; project `cadre-ai-chatbot` produced the known public alias and earlier mock/live verification. On 2026-09-09 owner-interactive CLI authentication restored binding to that same existing project, and the reviewed chatbot was promoted to the public alias with N6 release verification PASS. The generic connector may still fail to enumerate the project, but that is no longer treated as production-equivalence evidence. [Deployment notes](deploy.md), the [release runbook](release-runbook.md), and `progress/checkpoint.md` own current operational details. GitHub CI/CD source is still not active remotely until audited source publication succeeds.
 
 ## Recommendation
 

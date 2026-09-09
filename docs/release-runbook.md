@@ -4,17 +4,17 @@ Purpose: finish the current Cadre AI chatbot release without confusing local rea
 
 ## Current release state
 
-Software development is locally verified. The remaining blockers are external delivery controls:
+Core software and N6 production release verification are complete. The remaining blocker is remote CI/CD activation:
 
 | Gate | Current state | What clears it |
 |---|---|---|
-| Core N6 release | BLOCKED | Current reviewed SHA must be deployed and publicly reverified |
-| G10 CI/CD deploy-check | BLOCKED | Existing Vercel project binding + production secrets + successful exact-SHA deployment |
+| Core N6 release | **DONE** | Existing production alias reverified; release-check PASS and package check PASS |
+| G10 CI/CD deploy-check | BLOCKED | Publish workflows to GitHub, provision existing-project production secrets, then exercise automated exact-SHA delivery |
 | GitHub remote activation | BLOCKED | Dedicated audited publication channel receives its platform-managed GitHub credential |
 | G9 Chrome preview | DONE | No further action required for core release |
 | G11 n8n contract | DONE | Real email delivery is optional and not a core release requirement |
 
-Do not create a new Vercel project or temporary demo URL merely to make the status green.
+Do not create a new Vercel project or temporary demo URL merely to make the status green. Manual recovery already proved the existing project; future G10 closure must use that same target.
 
 ## Release flow
 
@@ -29,7 +29,7 @@ flowchart TD
     G --> H[Public health + hero + icon + hello markers]
     H --> I[External Playwright/browser verification]
     I --> J[Optional one bounded live-provider smoke]
-    J --> K[Clear G10 and N6 release gates]
+    J --> K[Clear G10 deploy gate; N6 is already DONE]
     K --> L[Build and verify final source ZIP from closure commit]
 ```
 
@@ -127,7 +127,7 @@ Only after the exact public deployment and required verification pass:
 
 - append new deployment evidence;
 - re-evaluate G10 `deploy-check`;
-- re-evaluate N6 `release-check`;
+- leave historical N6 PASS evidence unchanged unless a future runtime change explicitly reopens N6;
 - transition through supported states only;
 - update `progress/checkpoint.md` and projections from the authoritative ledgers.
 
@@ -164,5 +164,5 @@ For provider-specific instability, explicit mock mode may be used for diagnosis,
 - [ ] Health, hero, icon and greeting markers pass publicly.
 - [ ] Public browser verification passes.
 - [ ] Graph release gates updated from real evidence.
-- [ ] Final ZIP rebuilt and independently verified from closure commit.
+- [ ] Final ZIP rebuilt and independently verified from the N6 closure commit.
 - [ ] Submission/upload remains a separate explicit human action.

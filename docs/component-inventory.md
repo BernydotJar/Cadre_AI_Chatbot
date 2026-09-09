@@ -84,7 +84,7 @@ The optional Manifest V3 adapter lives under `extension/` and is not a second ch
 
 ## 8. GitHub CI and Vercel delivery
 
-`.github/workflows/ci.yml` reproduces locked install, lint, typecheck, tests, build, Playwright and extension checks without deployment secrets. `.github/workflows/deploy-production.yml` requires the GitHub `production` environment plus existing Vercel org/project/token values, checks out the exact triggering SHA, pulls production configuration, builds with Vercel, deploys the prebuilt artifact and verifies health/hero/icon/greeting markers. It intentionally refuses to create a replacement project. G10 source/review gates PASS; the deploy gate remains BLOCKED because the audited Git publication channel and existing Vercel project binding are unavailable in the current environment.
+`.github/workflows/ci.yml` reproduces locked install, lint, typecheck, tests, build, Playwright and extension checks without deployment secrets. `.github/workflows/deploy-production.yml` requires the GitHub `production` environment plus existing Vercel org/project/token values, checks out the exact triggering SHA, pulls production configuration, builds with Vercel, deploys the prebuilt artifact and verifies health/hero/icon/greeting markers. It intentionally refuses to create a replacement project. G10 source/review gates PASS; the deploy gate remains BLOCKED because audited Git publication has not activated the workflows on `origin/main`. The existing Vercel project itself is now proven through manual authorized recovery.
 
 ## 9. n8n human-handoff contract
 
