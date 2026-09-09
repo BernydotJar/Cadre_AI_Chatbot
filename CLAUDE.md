@@ -39,6 +39,14 @@ This is working software, not a greenfield scaffold. This file holds durable ins
 - Before handoff, save commit, active node, exact next action, unresolved findings and environment caveats in progress/checkpoint.md. No private reasoning transcripts.
 - If delegation is unavailable, report the missing independent check. Never simulate another agent by changing a label or fabricate a passing report.
 
+### Agent brief, context budget, and acceptance protocol
+
+Every delegated role gets a **bounded brief**, not the whole repository. The coordinator supplies: node ID and role, exact acceptance criteria, allowed paths, relevant dependency/decision state, the smallest necessary files or excerpts, exact verification commands, evidence destination, and explicit forbidden actions (Git/ledger writes, secret access, scope expansion, deployment, or spend unless that role is authorized). Prefer `plan.md` + `progress/checkpoint.md` + the active spec + implicated files; load additional evidence only when a finding requires it.
+
+For debugging, pass the **exact failing command, exit status, and minimal failure output** to the fixer. Do not paraphrase a failure into a different problem. A generated change is accepted only after the coordinator reads the diff, checks it against the node boundary, runs the relevant regression, and obtains independent verification when the gate requires it. Reject or modify output that expands scope, weakens an invariant, changes approved links/claims without provenance, or cannot be explained during the review.
+
+Record subagent provenance as observable facts: role, runtime/model or tool actually used, purpose, inputs/constraints, result, and artifact path/hash where practical. A role name is not tool provenance. Never claim Claude Code, a native slash command, Granite, Codex, or any other named tool ran unless that execution was actually observed. Preserve failed or rejected reviews with the reason for rejection.
+
 graph-harness.project.json is frozen. graph-harness.events.jsonl is append-only, written only through the runtime CLI. Never hand-edit either or regenerate the baseline after events exist. plan.md and feature_list.json are projections, not approval sources.
 
 Methodology provenance, runtime pins and real role examples: [docs/engineering-workflow.md](docs/engineering-workflow.md). Do not claim an installed skill/native command was executed when it was not.

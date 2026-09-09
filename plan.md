@@ -14,6 +14,20 @@ Out of scope (baseline): database, auth, CRM, real booking/calendar integration,
 
 Canonical detail: `specs/001-support-chatbot/requirements.md`. This file is an index and must not restate requirements.
 
+## Evaluation rubric -> review evidence
+
+The candidate guide weights the review 30% Claude Code proficiency, 25% system design/architecture, 20% development speed/scope, 15% code quality/verification, and 10% communication/reasoning. This project therefore keeps the following proof surfaces explicit instead of relying on a polished demo alone.
+
+| Review dimension | Concrete evidence to walk through | Claim boundary |
+|---|---|---|
+| Claude Code proficiency (30%) | Root `CLAUDE.md`; this sequential plan; bounded role briefs; producer/critic/fixer/verifier artifacts; small commits; exact failure-to-repair evidence | The workflow contract and artifacts show how AI-assisted work is directed and verified. They do **not** prove a named tool executed; actual tool provenance must be stated from observed runs. |
+| System design & architecture (25%) | `specs/001-support-chatbot/design.md`; config/core/provider/UI ownership; deterministic policy around model selection; server-only credential boundary; reuse fixture | Explain why this is constrained model-assisted answering rather than a vector RAG or unrestricted agent, and what would change at scale. |
+| Development speed & scope (20%) | Explicit baseline/out-of-scope list; N1-N6 graph; early N5 deployment; stretch extension isolated in its own ledger | Working core beats feature count. Extension, analytics, auth, CRM, persistence and vector search cannot delay core release evidence. |
+| Code quality & verification (15%) | Unit/integration/browser/public/archive evidence; retained FAIL-to-fix-to-retest records; typed boundaries; bounded retry/timeouts; secret-safe packaging | Automated checks support only the behavior they exercise; screen readers, physical devices and unexecuted live checks remain unverified. |
+| Communication & reasoning (10%) | Decision log, trade-offs, source audit, model/cost ledger, checkpoint, release-readiness report | Be explicit about incomplete work, rejected agent findings, model choice, cost, and what would be done with more time. |
+
+Live-review preparation should use this table as an index, not as a script: demo the public behavior first, then open the exact artifact that proves each engineering claim.
+
 ## Milestones
 
 | # | Milestone | Maps to | Status |
