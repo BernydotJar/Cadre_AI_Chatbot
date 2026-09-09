@@ -80,6 +80,16 @@ const cadreDonnaProfile: ChatbotProductProfile = {
       heroEmphasis: "to a clear next move.",
       heroDescription:
         "Explore where AI can drive revenue, improve profitability, and remove repetitive work — with a grounded guide that knows when to hand off instead of guessing.",
+      contactCta: "Talk to an AI Strategist",
+      outcomesEyebrow: "AI STRATEGY & IMPLEMENTATION",
+      outcomesTitle: "AI that earns its place in the business.",
+      outcomesBody: "Start with the business move, then find the right AI path — grounded in Cadre's verified public positioning and outcomes.",
+      resultsEyebrow: "MEASURE WHAT WORKS",
+      trustEyebrow: "HOW DONNA WORKS",
+      trustTitle: "Useful by design. Bounded on purpose.",
+      trustBody: "The experience separates what Cadre says from how Donna says it, then keeps actions and handoffs explicit.",
+      nudgeKicker: "HEY — QUICK THOUGHT",
+      launcherHint: "Try a question. I'll keep it grounded.",
       signalLabel: "DONNA · CADRE SIGNAL",
       signalTitle: "Curated, bounded, ready to guide.",
       signalBody:

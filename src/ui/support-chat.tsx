@@ -374,9 +374,9 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
       <div className="wordmark"><CompanyMark name={clientName} /><span>{clientName}</span></div>
       <nav className="site-nav" aria-label="Primary">
         <a href="#what-cadre-does">Outcomes</a>
-        <a href="#how-donna-works">How Donna works</a>
+        <a href="#how-assistant-works">How {experience.assistantLabel} works</a>
         <a className="contact-link" href={contact.url} target="_blank" rel="noopener noreferrer">
-          <span>Talk to an AI Strategist</span><Arrow diagonal /><span className="sr-only"> (opens in a new tab)</span>
+          <span>{experience.copy.contactCta}</span><Arrow diagonal /><span className="sr-only"> (opens in a new tab)</span>
         </a>
       </nav>
     </header>
@@ -394,7 +394,7 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
               <span>Ask {experience.assistantLabel}</span><Arrow />
             </button>
             <a className="hero-contact-action" href={contact.url} target="_blank" rel="noopener noreferrer">
-              Talk to an AI Strategist <Arrow diagonal /><span className="sr-only"> (opens in a new tab)</span>
+              {experience.copy.contactCta} <Arrow diagonal /><span className="sr-only"> (opens in a new tab)</span>
             </a>
           </div>
         </div>
@@ -411,9 +411,9 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
 
       {outcomeHighlights.length > 0 && <section id="what-cadre-does" className="outcome-section" aria-labelledby="outcomes-title">
         <div className="section-heading">
-          <p className="section-eyebrow">AI STRATEGY &amp; IMPLEMENTATION</p>
-          <h2 id="outcomes-title">AI that earns its place in the business.</h2>
-          <p>Cadre's public positioning is outcome-first. Donna keeps the same idea simple: start with the business move, then find the right AI path.</p>
+          <p className="section-eyebrow">{experience.copy.outcomesEyebrow}</p>
+          <h2 id="outcomes-title">{experience.copy.outcomesTitle}</h2>
+          <p>{experience.copy.outcomesBody}</p>
         </div>
         <div className="outcome-grid">{outcomeHighlights.map((highlight, index) => <article key={highlight.id} className="outcome-card">
           <span className="outcome-index">0{index + 1}</span>
@@ -424,7 +424,7 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
 
       {productHighlight && <section className="results-section" aria-labelledby="results-title">
         <div className="results-copy">
-          <p className="section-eyebrow">MEASURE WHAT WORKS</p>
+          <p className="section-eyebrow">{experience.copy.resultsEyebrow}</p>
           <h2 id="results-title">{productHighlight.title}</h2>
           <p>{productHighlight.body}</p>
         </div>
@@ -432,15 +432,15 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
           {productHighlight.link && <a href={productHighlight.link.url} target="_blank" rel="noopener noreferrer">
             {productHighlight.link.label}<Arrow diagonal /><span className="sr-only"> (opens in a new tab)</span>
           </a>}
-          {resultsPrompt && <button type="button" disabled={!ready} onClick={() => send(resultsPrompt.message)}>Ask Donna how it works <Arrow /></button>}
+          {resultsPrompt && <button type="button" disabled={!ready} onClick={() => send(resultsPrompt.message)}>Ask {experience.assistantLabel} how it works <Arrow /></button>}
         </div>
       </section>}
 
-      <section id="how-donna-works" className="trust-section" aria-labelledby="trust-title">
+      <section id="how-assistant-works" className="trust-section" aria-labelledby="trust-title">
         <div className="section-heading compact-heading">
-          <p className="section-eyebrow">HOW {experience.assistantLabel.toUpperCase()} WORKS</p>
-          <h2 id="trust-title">Useful by design. Bounded on purpose.</h2>
-          <p>The experience separates what {clientName} says from how {experience.assistantLabel} says it, then keeps actions and handoffs explicit.</p>
+          <p className="section-eyebrow">{experience.copy.trustEyebrow}</p>
+          <h2 id="trust-title">{experience.copy.trustTitle}</h2>
+          <p>{experience.copy.trustBody}</p>
         </div>
         <div className="trust-grid">
           <article><span>01</span><h3>Verified knowledge</h3><p>Public facts and approved links live in typed client configuration with source dates.</p></article>
@@ -456,17 +456,17 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
 
     {!chatOpen && <aside className="donna-launcher-stack" aria-label={`${experience.assistantLabel} chat invitation`}>
       {!nudgeDismissed && <div className="donna-nudge">
-        <button type="button" className="nudge-dismiss" aria-label="Dismiss Donna suggestion" onClick={() => setNudgeDismissed(true)}>×</button>
-        <p className="nudge-kicker">HEY — QUICK THOUGHT</p>
+        <button type="button" className="nudge-dismiss" aria-label={`Dismiss ${experience.assistantLabel} suggestion`} onClick={() => setNudgeDismissed(true)}>×</button>
+        <p className="nudge-kicker">{experience.copy.nudgeKicker}</p>
         <strong>{proofHighlight?.title ?? experience.copy.trustLabel}</strong>
         <p>{proofHighlight?.body ?? experience.copy.trustBody}</p>
         {primaryPrompt && <button type="button" className="nudge-action" disabled={!ready} onClick={() => send(primaryPrompt.message)}>
-          Find my starting point <Arrow />
+          {primaryPrompt.label} <Arrow />
         </button>}
       </div>}
       <button ref={launcher} type="button" className="donna-launcher" disabled={!ready} aria-expanded="false" aria-controls="donna-chat" onClick={() => { setChatOpen(true); setNudgeDismissed(true); }}>
         <PersonaAvatar experience={experience} />
-        <span className="launcher-copy"><strong>Ask {experience.assistantLabel}</strong><small>Try a question. I'll keep it grounded.</small></span>
+        <span className="launcher-copy"><strong>Ask {experience.assistantLabel}</strong><small>{experience.copy.launcherHint}</small></span>
         <Arrow />
       </button>
     </aside>}
