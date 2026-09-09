@@ -36,7 +36,7 @@ flowchart TD
     L --> M[Build and verify final source ZIP from closure commit]
 ```
 
-## 1. Preflight the candidate SHA
+## 1. Preflight the release SHA
 
 From a clean checkout/worktree:
 

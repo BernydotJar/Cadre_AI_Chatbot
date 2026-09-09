@@ -43,9 +43,9 @@ Reference intent only (no asset/code copying):
 
 ### Chrome adapter
 
-- Launcher is visually aligned with the polished web app and remains discreetly labeled as an independent candidate/integration preview.
+- Launcher is visually aligned with the polished web app and remains discreetly labeled as an independent local integration preview.
 - Isolated test-profile/browser load on `https://cadre.ai/` proves: one launcher only, open/minimize/close lifecycle, panel rendering, no page overflow/interference, and cleanup on navigation/disable or document refresh.
-- API transport remains fixed to the candidate-owned Vercel endpoint; no arbitrary URLs, cookies, browsing history, or OpenRouter key exposure.
+- API transport remains fixed to the configured Vercel endpoint; no arbitrary URLs, cookies, browsing history, or OpenRouter key exposure.
 
 ### Evidence
 

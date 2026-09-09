@@ -80,7 +80,7 @@ Submission owns a synchronous single-flight lock and operation identity. A serve
 
 ## 7. Chrome Integration Preview
 
-The optional Manifest V3 adapter lives under `extension/` and is not a second chatbot. It injects a style-isolated launcher only on approved Cadre origins, opens an extension-origin panel and transports validated requests to one fixed candidate API. The latest context feature maps an allowlisted pathname/hash to a small presentation enum; it does not read host-page text/forms/cookies/storage. Current evidence: 72 extension tests, 23 synthetic-browser checks and a 17-check disposable installed-site run on `cadre.ai/agents#discover-agents`, with all G9 gates PASS. See `docs/extension-preview-design.md` and `extension/README.md`.
+The optional Manifest V3 adapter lives under `extension/` and is not a second chatbot. It injects a style-isolated launcher only on approved Cadre origins, opens an extension-origin panel and transports validated requests to one fixed preview API. The latest context feature maps an allowlisted pathname/hash to a small presentation enum; it does not read host-page text/forms/cookies/storage. Current evidence: 72 extension tests, a 24-check repaired synthetic-browser run and a 17-check disposable installed-site run on `cadre.ai/agents#discover-agents`, with all G9 gates PASS. See `docs/extension-preview-design.md` and `extension/README.md`.
 
 ## 8. GitHub CI and Vercel delivery
 

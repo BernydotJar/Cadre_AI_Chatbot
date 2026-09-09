@@ -44,4 +44,4 @@ Use `docs/README.md` as the navigation map. `CLAUDE.md` is durable operating gui
 
 ## Final-delivery closure
 
-The final source ZIP should now be rebuilt from the N6 closure commit and independently verified after extraction. G10 remote CI/CD activation may remain separately BLOCKED because the candidate requirements are satisfied by the public app plus source package, but that blocker must remain explicit in the audit trail. Preparing the ZIP does not authorize recruiting upload/email.
+The final source ZIP should now be rebuilt from the N6 closure commit and independently verified after extraction. G10 remote CI/CD activation may remain separately BLOCKED because the delivery requirements are satisfied by the public app plus source package, but that blocker must remain explicit in the audit trail. Preparing the ZIP does not authorize recruiting upload/email.
