@@ -1,0 +1,45 @@
+{
+  "schema_version": "graph-harness.project.v1",
+  "project_id": "cadre-chatbot-productization",
+  "mode": "MVP",
+  "gate_definitions": [
+    {"id":"verification","required_evidence_kinds":["test_output"],"blocking":true},
+    {"id":"code-review","required_evidence_kinds":["review_report"],"blocking":true},
+    {"id":"integration-proof","required_evidence_kinds":["integration_check"],"blocking":true}
+  ],
+  "nodes": [
+    {
+      "id":"P1-profile-contracts",
+      "kind":"feature-increment",
+      "title":"Reusable product, persona, and experience contracts",
+      "status":"spec_ready",
+      "depends_on":[],
+      "capability":"engineering",
+      "gates":{"done":["verification","code-review","integration-proof"]},
+      "allowed_paths":["src/product/**","src/config/**","tests/product/**","tests/config/**","docs/productization-architecture.md","evidence/productization/**","progress/productization-*"],
+      "metadata":{"authorization":"progress/productization-authorization-2026-09-09.md","boundary":"Define validated composition surfaces and allowlisted registry without changing factual authority or provider semantics."}
+    },
+    {
+      "id":"P2-donna-persona",
+      "kind":"feature-increment",
+      "title":"Donna persona and one-step proactive guidance",
+      "status":"spec_ready",
+      "depends_on":["P1-profile-contracts"],
+      "capability":"engineering",
+      "gates":{"done":["verification","code-review","integration-proof"]},
+      "allowed_paths":["src/product/**","src/config/**","src/core/**","src/server/**","tests/**","docs/productization-architecture.md","evidence/productization/**","progress/productization-*"],
+      "metadata":{"authorization":"progress/productization-authorization-2026-09-09.md","boundary":"Donna may add at most one deterministic approved next step to grounded answers; no new facts, actions, promises, or boundary bypass."}
+    },
+    {
+      "id":"P3-generic-experience-shell",
+      "kind":"feature-increment",
+      "title":"Profile-driven reusable web experience",
+      "status":"spec_ready",
+      "depends_on":["P2-donna-persona"],
+      "capability":"engineering",
+      "gates":{"done":["verification","code-review","integration-proof"]},
+      "allowed_paths":["app/**","src/ui/**","src/product/**","src/server/**","tests/**","e2e/**","docs/**","README.md","CLAUDE.md","plan.md","progress/**","evidence/productization/**"],
+      "metadata":{"authorization":"progress/productization-authorization-2026-09-09.md","boundary":"Remove Cadre-specific presentation copy from the generic UI shell and prove a second reusable profile without weakening release/safety behavior."}
+    }
+  ]
+}
