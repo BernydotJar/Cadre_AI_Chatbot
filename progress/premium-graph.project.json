@@ -31,6 +31,17 @@
       "metadata":{"authorization":"progress/premium-authorization-2026-09-09.md","boundary":"Ambient media is optional presentation only: muted, poster-backed, reduced-motion safe, low aggression, no embedded text, no factual authority."}
     },
     {
+      "id":"PX3B-premium-shell-refinement",
+      "kind":"feature-increment",
+      "title":"Donna editorial identity and product shell refinement",
+      "status":"spec_ready",
+      "depends_on":["PX3-ambient-media"],
+      "capability":"engineering",
+      "gates":{"done":["verification","design-review","integration-proof"]},
+      "allowed_paths":["app/**","src/ui/**","src/product/**","public/**","tests/**","e2e/**","docs/**","README.md","CLAUDE.md","plan.md","progress/premium-*","evidence/premium-*/**"],
+      "metadata":{"authorization":"progress/premium-shell-refinement-authorization-2026-09-09.md","boundary":"Owner quality correction: remove synthetic AI-badge/gradient-avatar language, make Donna an understated editorial identity, and raise product-shell material/hierarchy quality without changing factual, routing, provider, or safety authority."}
+    },
+    {
       "id":"PX4-contextual-donna",
       "kind":"feature-increment",
       "title":"Bounded page-context awareness for Donna extension",
@@ -46,7 +57,7 @@
       "kind":"feature-increment",
       "title":"Premium integration, public verification, and release evidence",
       "status":"spec_ready",
-      "depends_on":["PX3-ambient-media","PX4-contextual-donna"],
+      "depends_on":["PX3-ambient-media","PX3B-premium-shell-refinement","PX4-contextual-donna"],
       "capability":"engineering",
       "gates":{"done":["verification","design-review","integration-proof"]},
       "allowed_paths":["app/**","src/**","extension/**","public/**","tests/**","e2e/**","docs/**","README.md","CLAUDE.md","plan.md","progress/**","evidence/premium-*/**"],

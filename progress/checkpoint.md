@@ -4,7 +4,7 @@ Updated: 2026-09-09 UTC. This is a projection; the append-only Graph Harness led
 
 ## Terminal state for this session
 
-**PREMIUM_EXPERIENCE_PX2_DONE — PX3/PX4 READY; CORE PRODUCT PUBLIC; GITHUB CI ACTIVE.** Core N1–N6 remains complete. Productization P1/P2/P3 are DONE with every blocking gate PASS. Reviewed source `7b6004c1fa5b715b1c2775d07981ebac1eee8622` remains the verified production line on deployment `dpl_DMA3WxfAfMgwc7kZLueKctx6kfsy`; Donna/product/API markers and the clean external 52/52 Playwright matrix PASS there. Audited Git publication is now restored: `main` was fast-forwarded to `76e2b756acf04762627210457e36e800de682b02` and GitHub CI run `34382168718` completed SUCCESS. The first remote production workflow run `34382393971` correctly stopped before Vercel because the GitHub `production` environment supplied none of `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`, or `VERCEL_TOKEN`. PX2 premium identity is DONE: the first Claude Code critic returned CHANGES_REQUESTED, the repaired snapshot received a fresh critic PASS, and a separate Claude Code verifier independently reran 283 tests, build, 52/52 Playwright and live geometry. `design-review`, `verification`, and `integration-proof` are PASS. PX3/PX4 are READY. See `progress/checkpoint-premium.md` for the exact state.
+**PREMIUM_EXPERIENCE_PX2_PX3_DONE — PX3B RUNNING / PX4 READY; CORE PRODUCT PUBLIC; GITHUB CI ACTIVE.** Core N1–N6 remains complete. Productization P1/P2/P3 are DONE with every blocking gate PASS. Reviewed source `7b6004c1fa5b715b1c2775d07981ebac1eee8622` remains the verified production line on deployment `dpl_DMA3WxfAfMgwc7kZLueKctx6kfsy`; Donna/product/API markers and the clean external 52/52 Playwright matrix PASS there. Audited Git publication is restored. Current verified remote `main` is `b12ce563ccd680b27b4d707bcde5520f4f65dbe5`; the earlier CI run `34382168718` completed SUCCESS on `76e2b756acf04762627210457e36e800de682b02`. Local premium work remains ahead until its gates pass. The first remote production workflow run `34382393971` correctly stopped before Vercel because the GitHub `production` environment supplied none of `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`, or `VERCEL_TOKEN`. PX2 premium identity is DONE: the first Claude Code critic returned CHANGES_REQUESTED, the repaired snapshot received a fresh critic PASS, and a separate Claude Code verifier independently reran 283 tests, build, 52/52 Playwright and live geometry. `design-review`, `verification`, and `integration-proof` are PASS. PX3 is now DONE after two critic/fixer rounds plus independent final verification. PX3B is RUNNING from explicit owner quality feedback; PX4 remains READY. See `progress/checkpoint-premium.md` for exact state.
 
 Public alias: `https://cadre-ai-chatbot-tawny.vercel.app`.
 
@@ -120,7 +120,7 @@ Separate graph `progress/cicd-graph.*`: **G10 remains BLOCKED at deploy-check**,
 
 - `.github/workflows/ci.yml`: now active remotely. Push run `34382168718` on source `76e2b756acf04762627210457e36e800de682b02` completed SUCCESS, including quality and browser jobs.
 - `.github/workflows/deploy-production.yml`: exact-SHA production delivery after successful main CI or manual dispatch. First remote run `34382393971` stopped at `Require an existing Vercel project binding` because all three GitHub Actions values were empty; no pull/build/deploy step ran.
-- Release safety repair adds `npm run release:gate` before dependency install/Vercel credentials. If `progress/premium-graph.*` exists, every declared premium node must be DONE and no latest gate may be FAIL/BLOCKED; current PX2/PX3/PX4/PX5 state therefore fails closed by design.
+- Release safety repair adds `npm run release:gate` before dependency install/Vercel credentials. If `progress/premium-graph.*` exists, every declared premium node must be DONE and no latest gate may be FAIL/BLOCKED; current PX2/PX3/PX3B/PX4/PX5 state therefore fails closed by design.
 - Existing manual Vercel project binding and the productized public deployment remain proven separately. Do not add GitHub Vercel secrets until the premium graph is actually releasable.
 
 ## Parallel n8n workstream
@@ -140,7 +140,7 @@ The audited Git publisher is restored. A dedicated fast-forward `git_push` moved
 
 ## Exact resume path
 
-1. Finish PX2 with a real independent design verdict, then complete dependency-unlocked PX3/PX4 and PX5 through the premium Graph lifecycle. The repository `release:gate` must remain BLOCKED until that graph is fully DONE.
+1. Complete owner-prioritized PX3B through critic/fixer/verifier gates, then complete PX4 and PX5 through the premium Graph lifecycle. The repository `release:gate` must remain BLOCKED until that graph is fully DONE.
 2. Only after premium release readiness, bind the existing Vercel org/project/token as GitHub `production` secrets and rerun the failed deploy workflow; verify exact-SHA public markers and browser behavior.
 3. Append the resulting remote CI/CD evidence to G10 and close its deploy-check only if the automated path succeeds.
 4. Rebuild the final source ZIP from the final closure commit with `.git` included and dependencies/build output/env secrets excluded; clean-room verify install/tests/build/browser checks and record checksum.
