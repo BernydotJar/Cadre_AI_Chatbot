@@ -5,6 +5,7 @@ Source: project owner's direct follow-up on 2026-09-08. This is a sanitized deci
 - Continue the existing approved product scope and finish all safe, unlocked work.
 - Make small local commits using the already configured Git identity. Do not split recovered work into invented historical commits.
 - OpenRouter is authorized only for the chatbot's user responses. Total allowance: $5, with seven-day validity reported by the owner; issuance/expiry and remaining allowance must be verified separately.
+- The supplied credential may be provisioned in ignored, owner-readable `.env.local` for this runtime, overriding the original no-environment-edits restriction only for this purpose. Its value must never appear in source, evidence, logs or delivery artifacts.
 - Model selection is delegated. Use an explicit inexpensive model, small output bounds, mock-first tests and a tightly limited live check. Do not use the credential for coding assistance.
 - Keep all credentials, `.codex`, private source documents, personal transcripts, dependency trees and build outputs out of Git and delivery archives. Preserve the pre-existing untracked `test.md` without staging it.
 - The delivery archive must include the real `.git` history. No push, public deployment, recruiting communication, upload or submission is inferred from this local-commit authorization.
