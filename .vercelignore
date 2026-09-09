@@ -13,6 +13,8 @@
 **/.codex/**
 **/.git/**
 **/.env*
+# The tracked placeholder file is safe and is required by Next/Vercel file tracing.
+!/.env.example
 **/*.pem
 **/*.key
 **/*.zip
