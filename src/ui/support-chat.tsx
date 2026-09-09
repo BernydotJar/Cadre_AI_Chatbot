@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent, type MouseEvent } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore, type FormEvent, type KeyboardEvent, type MouseEvent } from "react";
 import { LIMITS } from "@/core/limits";
 import {
   approvedTextParts, buildRequestHistory, CLIENT_TIMEOUT_MS, DISPLAY_MESSAGE_LIMIT,
@@ -18,6 +18,12 @@ type Props = {
 type FailedTurn = { message: Message; request: RequestMessage[]; reason: string };
 type Operation = { controller: AbortController; stopped: boolean; timedOut: boolean };
 class RequestFailure extends Error {}
+
+// Keep server HTML and the first hydration render non-interactive. React
+// switches to the client snapshot only once handlers can own the draft.
+const subscribeToReadiness = () => () => {};
+const clientReady = () => true;
+const serverReady = () => false;
 
 function Arrow({ diagonal = false }: { diagonal?: boolean }) {
   return <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -39,6 +45,7 @@ function ReplyText({ text, links }: { text: string; links: ApprovedLink[] }) {
 }
 
 export function SupportChat({ clientName, botName, contact, topics, approvedLinks, modeLabel }: Props) {
+  const ready = useSyncExternalStore(subscribeToReadiness, clientReady, serverReady);
   const [messages, setMessages] = useState<Message[]>([]);
   const [draft, setDraft] = useState("");
   const [pending, setPending] = useState(false);
@@ -230,7 +237,7 @@ export function SupportChat({ clientName, botName, contact, topics, approvedLink
               <h3>What brings<br />you here today?</h3>
               <p>Pick a topic below, or ask a question in your own words.</p>
               <div className="topic-grid" aria-label="Suggested topics">{topics.map((topic, index) => <button
-                key={topic.id} type="button" className="topic-button" onClick={() => send(topic.label)}>
+                key={topic.id} type="button" className="topic-button" disabled={!ready} onClick={() => send(topic.label)}>
                 <span className="topic-number" aria-hidden="true">0{index + 1}</span>
                 <span className="topic-label">{topic.label}</span><Arrow />
               </button>)}</div>
@@ -259,16 +266,17 @@ export function SupportChat({ clientName, botName, contact, topics, approvedLink
           <form onSubmit={onSubmit} noValidate>
             <div className={`composer${validation || overLimit ? " composer-invalid" : ""}${pending ? " composer-pending" : ""}`}>
               <label className="sr-only" htmlFor="message">Message</label>
-              <textarea id="message" ref={composer} value={draft} rows={1} readOnly={pending}
-                placeholder={pending ? "Waiting for a response…" : "Ask about Cadre AI…"}
+              <textarea id="message" ref={composer} value={draft} rows={1} disabled={!ready} readOnly={pending}
+                placeholder={!ready ? "Preparing chat…" : pending ? "Waiting for a response…" : "Ask about Cadre AI…"}
                 aria-invalid={Boolean(validation) || overLimit} aria-describedby="composer-help message-validation"
                 onChange={(event) => { setDraft(event.target.value); setValidation(""); }}
                 onKeyDown={onKeyDown} onCompositionStart={() => { composing.current = true; }}
                 onCompositionEnd={() => { composing.current = false; }} />
               {pending ? <button key="stop" type="button" className="send-button stop-button" onClick={stopResponse} aria-label="Stop response"><span className="stop-icon" aria-hidden="true" /></button>
-                : <button key="send" type="submit" className="send-button" aria-label="Send message" disabled={overLimit}><Arrow /></button>}
+                : <button key="send" type="submit" className="send-button" aria-label="Send message" disabled={!ready || overLimit}><Arrow /></button>}
             </div>
-            <div className="composer-meta"><p id="composer-help">Enter to send <span aria-hidden="true">·</span> Shift + Enter for a new line</p>
+            <div className="composer-meta"><p id="composer-help">{ready ? <>Enter to send <span aria-hidden="true">·</span> Shift + Enter for a new line</>
+              : "Preparing chat… If it stays unavailable, reload or contact the team."}</p>
               <span className={overLimit ? "character-count count-error" : "character-count"} aria-label={`${draft.length} of ${LIMITS.maxMessageChars} characters`}>{draft.length.toLocaleString("en-US")} / 2,000</span>
             </div>
             <p id="message-validation" className="validation-message" role="alert">{validation || (overLimit ? "Please shorten your message to 2,000 characters or fewer." : "")}</p>
