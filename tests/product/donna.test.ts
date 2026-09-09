@@ -46,6 +46,18 @@ describe("Donna one-step initiative", () => {
     }
   });
 
+  it.each([
+    "What does Cadre do? Just answer, no follow-up questions please.",
+    "What does Cadre do? Do not ask me anything else.",
+    "What does Cadre do? Answer only.",
+  ])("respects explicit proactivity opt-out: %s", async (message) => {
+    const question = cadreDonna.persona.proactive.byTopic.overview!.text;
+    const body = await (await createChatHandler({ product: cadreDonna, env: { CHAT_PROVIDER: "mock" } })(request(message))).json();
+    expect(body.kind).toBe("grounded");
+    expect(body.reply).not.toContain(question);
+    expect(body.reply).toContain("AI strategy and implementation consultancy");
+  });
+
   it("does not repeat the same Donna question when assistant history already contains it", async () => {
     const question = cadreDonna.persona.proactive.byTopic.overview!.text;
     const history = [
