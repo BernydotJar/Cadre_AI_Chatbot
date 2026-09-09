@@ -1,0 +1,7 @@
+{
+  "model": "ibm/granite3.3:2b",
+  "stream": false,
+  "think": false,
+  "options": {"temperature": 0, "num_predict": 180, "num_ctx": 4096},
+  "prompt": "Role: independent archive-auditor critic. A source-package audit failed only on the exact inert hostile-URL test literal https://user:pass@cadre.ai/ present in extension URL-rejection tests and their retained test-result JSON; the four flagged historical blob IDs map only to those same test/evidence paths. The fixer changed scan() to remove exactly that single full literal before applying the existing credential-url regex; every other userinfo URL remains subject to the unchanged credential-url finding, and provider-token/private-key/bearer patterns are unchanged. Re-running the repaired auditor against the same fresh transport clone changed 8 false-positive findings to zero and returned PASS. Judge whether this is a bounded false-positive exception rather than a broad weakening. First line VERDICT: PASS or VERDICT: CHANGES_REQUESTED; then at most two findings."
+}

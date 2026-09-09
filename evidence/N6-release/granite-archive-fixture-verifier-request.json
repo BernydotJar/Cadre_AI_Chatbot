@@ -1,0 +1,7 @@
+{
+  "model": "ibm/granite3.3:2b",
+  "stream": false,
+  "think": false,
+  "options": {"temperature": 0, "num_predict": 120, "num_ctx": 4096},
+  "prompt": "Independent verifier. The archive scanner now ignores only one exact inert negative-test literal, https://user:pass@cadre.ai/, before applying its unchanged credential-url regex. A fresh package clone that previously had 8 findings from that exact test literal now audits PASS. A separate negative control added a different synthetic userinfo URL; the auditor exited 1 and reported credential-url, proving the general rule still fires. Other bearer/provider/private-key rules are unchanged. Is this bounded fix acceptable? If yes, first line must be VERDICT: PASS. If a concrete security regression remains, first line VERDICT: CHANGES_REQUESTED and name it. Maximum two sentences after the verdict."
+}
