@@ -8,9 +8,15 @@ test.beforeEach(async ({ page }) => {
   await expect(input(page)).toBeVisible();
 });
 
-test("first impression has a real app icon, visual signal, and useful greeting", async ({ page }) => {
+test("first impression has a real app icon, Donna avatar, generous composer, and useful greeting", async ({ page }) => {
   await expect(page.locator('link[rel~="icon"]')).toHaveAttribute("href", /icon\.svg/);
-  await expect(page.locator(".chat-header .agent-signal")).toBeVisible();
+  await expect(page.locator(".chat-header .persona-avatar")).toBeVisible();
+  await expect(page.locator(".welcome .persona-avatar")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Donna", exact: true })).toBeVisible();
+  await expect(page.locator(".support-shell")).toHaveAttribute("data-product", "cadre-donna");
+  await expect(input(page)).toHaveAttribute("placeholder", "What are you trying to figure out?");
+  const composer = await page.locator('.chat-card[data-started="false"] .composer').boundingBox();
+  expect(composer?.height).toBeGreaterThanOrEqual(70);
   await expect(page.locator(".topic-button")).toHaveCount(6);
   await input(page).fill("hello");
   await input(page).press("Enter");
@@ -36,6 +42,28 @@ test("anonymous conversation uses the real server and official links", async ({ 
   await expect(messages(page, "assistant").last()).toContainText(/contact/i);
   await expect(messages(page, "assistant").last().locator('a[href="https://cadre.ai/contact"]')).toBeVisible();
   await expect(page.getByRole("main").getByRole("alert")).toHaveCount(0);
+});
+
+test("Donna presentation handles one configured next step and an opt-out", async ({ page }) => {
+  const nextStep = "Which part of the business is creating the most repetitive work today?";
+  await page.route("**/api/chat", (route) => {
+    const payload = route.request().postDataJSON() as { messages: { content: string }[] };
+    const optedOut = payload.messages.at(-1)?.content.includes("no follow-up") ?? false;
+    const reply = `Cadre AI is an AI strategy and implementation consultancy.${optedOut ? "" : `\n\n${nextStep}`}`;
+    return route.fulfill({ json: { reply, kind: "grounded" } });
+  });
+
+  await input(page).fill("What does Cadre do?");
+  await input(page).press("Enter");
+  const reply = messages(page, "assistant").first();
+  await expect(reply).toContainText("AI strategy and implementation consultancy");
+  await expect(reply).toContainText(nextStep);
+  expect((await reply.innerText()).split(nextStep)).toHaveLength(2);
+
+  await page.getByRole("button", { name: "New conversation" }).click();
+  await input(page).fill("What does Cadre do? Just answer, no follow-up questions please.");
+  await input(page).press("Enter");
+  await expect(messages(page, "assistant").first()).not.toContainText(nextStep);
 });
 
 test("all six entry points are present and clarification preserves an ordinal follow-up", async ({ page }) => {

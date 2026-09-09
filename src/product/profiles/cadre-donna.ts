@@ -83,7 +83,7 @@ const cadreDonnaProfile: ChatbotProductProfile = {
       footerLead: "Clarity starts with a conversation.",
       footerTail: "AI guide",
     },
-    theme: { accent: "#db4545", accentStrong: "#a82f39", focus: "#225d51" },
+    theme: { background: "#f5f1e8", backgroundSoft: "#fbfaf6", surface: "#fffdf9", text: "#1d1d20", muted: "#66645f", accent: "#db4545", accentStrong: "#a82f39", focus: "#225d51" },
   },
 };
 

@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState, useSyncExternalStore, type FormEvent, type KeyboardEvent, type MouseEvent } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties, type FormEvent, type KeyboardEvent, type MouseEvent } from "react";
+import type { ExperienceProfile } from "@/product/types";
 import { LIMITS } from "@/core/limits";
 import {
   approvedTextParts, buildRequestHistory, CLIENT_TIMEOUT_MS, DISPLAY_MESSAGE_LIMIT,
@@ -8,11 +9,12 @@ import {
 } from "./conversation";
 
 type Props = {
+  productId: string;
   clientName: string;
-  botName: string;
   contact: ApprovedLink;
   topics: { id: string; label: string }[];
   approvedLinks: ApprovedLink[];
+  experience: ExperienceProfile;
   modeLabel: "Demo mode" | "Live model configured" | "Chat unavailable";
 };
 type FailedTurn = { message: Message; request: RequestMessage[]; reason: string };
@@ -32,18 +34,27 @@ function Arrow({ diagonal = false }: { diagonal?: boolean }) {
   </svg>;
 }
 
-function BrandMark({ small = false }: { small?: boolean }) {
+function CompanyMark({ name, small = false }: { name: string; small?: boolean }) {
+  const monogram = name.trim().charAt(0).toUpperCase() || "·";
   return <span className={`brand-mark${small ? " brand-mark-small" : ""}`} aria-hidden="true">
-    <svg viewBox="0 0 32 32" fill="none"><path d="M24 7H8v18h16M18 7v18M8 16h16" stroke="currentColor" strokeWidth="2" /></svg>
+    <span className="company-monogram">{monogram}</span>
   </span>;
 }
 
-function AgentSignal({ compact = false }: { compact?: boolean }) {
-  return <span className={`agent-signal${compact ? " agent-signal-compact" : ""}`} aria-hidden="true">
-    <span className="signal-glow" />
-    <span className="signal-orbit signal-orbit-one"><i /></span>
-    <span className="signal-orbit signal-orbit-two"><i /></span>
-    <span className="signal-core"><BrandMark small /></span>
+function PersonaAvatar({ experience, compact = false, hero = false }: {
+  experience: ExperienceProfile;
+  compact?: boolean;
+  hero?: boolean;
+}) {
+  return <span
+    className={`persona-avatar${compact ? " persona-avatar-compact" : ""}${hero ? " persona-avatar-hero" : ""}`}
+    title={experience.avatar.label}
+    aria-hidden="true"
+  >
+    <span className="avatar-aura" />
+    <span className="avatar-orbit avatar-orbit-one"><i /></span>
+    <span className="avatar-orbit avatar-orbit-two"><i /></span>
+    <span className="avatar-core"><strong>{experience.avatar.monogram}</strong><i className="avatar-spark">✦</i></span>
   </span>;
 }
 
@@ -53,7 +64,7 @@ function ReplyText({ text, links }: { text: string; links: ApprovedLink[] }) {
     : <span key={index}>{part.text}</span>)}</div>;
 }
 
-export function SupportChat({ clientName, botName, contact, topics, approvedLinks, modeLabel }: Props) {
+export function SupportChat({ productId, clientName, contact, topics, approvedLinks, experience, modeLabel }: Props) {
   const ready = useSyncExternalStore(subscribeToReadiness, clientReady, serverReady);
   const [messages, setMessages] = useState<Message[]>([]);
   const [draft, setDraft] = useState("");
@@ -138,7 +149,7 @@ export function SupportChat({ clientName, botName, contact, topics, approvedLink
       const answer: Message = { id: nextId.current++, role: "assistant", content: reply.reply, kind: reply.kind };
       if (reply.kind === "clarify" && clarification.current.length === 0) clarification.current = [message, answer];
       setMessages((current) => [...current, answer].slice(-DISPLAY_MESSAGE_LIMIT));
-      setAnnouncement(`${botName} replied. ${reply.reply}`);
+      setAnnouncement(`${experience.assistantLabel} replied. ${reply.reply}`);
     } catch (error) {
       if (active.current !== operation) return;
       const reason = operation.stopped ? "Response stopped."
@@ -198,10 +209,21 @@ export function SupportChat({ clientName, botName, contact, topics, approvedLink
   const started = messages.length > 0;
   const overLimit = draft.trim().length > LIMITS.maxMessageChars;
 
-  return <div className="support-shell">
+  const themeStyle = {
+    "--bg": experience.theme.background,
+    "--bg-soft": experience.theme.backgroundSoft,
+    "--surface": experience.theme.surface,
+    "--text": experience.theme.text,
+    "--muted": experience.theme.muted,
+    "--accent": experience.theme.accent,
+    "--accent-dark": experience.theme.accentStrong,
+    "--focus": experience.theme.focus,
+  } as CSSProperties;
+
+  return <div className="support-shell" style={themeStyle} data-product={productId}>
     <a className="skip-link" href="#message">Skip to message</a>
     <header className="site-header">
-      <div className="wordmark"><BrandMark /><span>{clientName}</span></div>
+      <div className="wordmark"><CompanyMark name={clientName} /><span>{clientName}</span></div>
       <a className="contact-link" href={contact.url} target="_blank" rel="noopener noreferrer">
         <span>{contact.label}</span><Arrow diagonal /><span className="sr-only"> (opens in a new tab)</span>
       </a>
@@ -209,29 +231,29 @@ export function SupportChat({ clientName, botName, contact, topics, approvedLink
     <main className="workspace">
       <aside className="intro" aria-labelledby="page-title">
         <div className="intro-copy">
-          <p className="eyebrow"><span className="eyebrow-rule" /> GUIDED BY VERIFIED CADRE CONTEXT</p>
-          <h1 id="page-title">Turn AI curiosity<br /><em>into a clear next move.</em></h1>
-          <p className="intro-description">Explore {clientName}&apos;s services, industries, AI agents, and transformation approach with a grounded guide built for the first useful conversation.</p>
+          <p className="eyebrow"><span className="eyebrow-rule" /> {experience.copy.eyebrow}</p>
+          <h1 id="page-title">{experience.copy.heroLead}<br /><em>{experience.copy.heroEmphasis}</em></h1>
+          <p className="intro-description">{experience.copy.heroDescription}</p>
           <div className="hero-signal">
-            <AgentSignal />
+            <PersonaAvatar experience={experience} hero />
             <div className="signal-caption">
-              <span className="signal-caption-label"><i /> CADRE SIGNAL</span>
-              <strong>Curated. Bounded. Ready to guide.</strong>
-              <span>Public Cadre knowledge stays separate from the model, so the assistant can be useful without inventing the next step.</span>
+              <span className="signal-caption-label"><i /> {experience.copy.signalLabel}</span>
+              <strong>{experience.copy.signalTitle}</strong>
+              <span>{experience.copy.signalBody}</span>
             </div>
           </div>
         </div>
         <div className="intro-bottom">
           <div className="scope-note">
-            <p className="eyebrow">A TRUSTED STARTING POINT</p>
-            <p>Ask in your own words. When the answer needs private context, pricing, or an account action, the assistant hands off instead of guessing.</p>
-            <p className="scope-boundary">No account access, bookings, or assessments in chat.</p>
+            <p className="eyebrow">{experience.copy.trustLabel}</p>
+            <p>{experience.copy.trustBody}</p>
+            <p className="scope-boundary">{experience.copy.trustBoundary}</p>
           </div>
         </div>
       </aside>
-      <section className="chat-card" aria-labelledby="chat-title">
+      <section className="chat-card" aria-labelledby="chat-title" data-started={started ? "true" : "false"}>
         <header className="chat-header">
-          <div className="chat-identity"><AgentSignal compact /><div><h2 id="chat-title">{botName}</h2>
+          <div className="chat-identity"><PersonaAvatar experience={experience} compact /><div><h2 id="chat-title">{experience.assistantLabel}</h2>
             <p className={`mode-label${modeLabel === "Demo mode" ? " demo-label" : ""}`}><span className="mode-dot" aria-hidden="true" />{modeLabel}</p>
           </div></div>
           {started && <button className="reset-button" type="button" onClick={newConversation} aria-label="New conversation">
@@ -249,9 +271,14 @@ export function SupportChat({ clientName, botName, contact, topics, approvedLink
               followingLatest.current = !away; setAwayFromLatest(away);
             }}>
             {!started ? <div className="welcome">
-              <span className="welcome-kicker">ASK CADRE · GROUNDED PUBLIC KNOWLEDGE</span>
-              <h3>A useful answer.<br /><em>A clearer next step.</em></h3>
-              <p>Start with a question in your own words, or choose one of the six verified paths below.</p>
+              <div className="welcome-persona">
+                <PersonaAvatar experience={experience} />
+                <div className="welcome-persona-copy">
+                  <span className="welcome-kicker">{experience.copy.welcomeKicker}</span>
+                  <h3>{experience.copy.welcomeLead}<br /><em>{experience.copy.welcomeEmphasis}</em></h3>
+                  <p>{experience.copy.welcomeBody}</p>
+                </div>
+              </div>
               <div className="topic-grid" aria-label="Suggested topics">{topics.map((topic, index) => <button
                 key={topic.id} type="button" className="topic-button" disabled={!ready} onClick={() => send(topic.label)}>
                 <span className="topic-number" aria-hidden="true">0{index + 1}</span>
@@ -263,13 +290,13 @@ export function SupportChat({ clientName, botName, contact, topics, approvedLink
               {historyTrimmed && <p className="history-note">Showing the most recent messages. Earlier context is limited.</p>}
               <ol className="message-list" aria-label="Messages" aria-busy={pending}>{messages.map((message) => <li
                 key={message.id} className={`message message-${message.role}`} data-testid="chat-message" data-role={message.role}>
-                <div className="message-author">{message.role === "user" ? "You" : botName}</div>
+                <div className="message-author">{message.role === "user" ? "You" : experience.assistantLabel}</div>
                 <div className={`message-bubble${failed?.message.id === message.id ? " message-failed" : ""}`}>
                   {message.role === "assistant" ? <ReplyText text={message.content} links={approvedLinks} />
                     : <div className="message-text">{message.content}</div>}
                 </div>
               </li>)}</ol>
-              {pending && <div className="pending-message" aria-hidden="true"><span className="request-indicator"><i /></span><span><strong>Cadre Signal is working</strong>Checking verified context…</span></div>}
+              {pending && <div className="pending-message" aria-hidden="true"><span className="request-indicator"><i /></span><span><strong>{experience.copy.workingTitle}</strong>{experience.copy.workingBody}</span></div>}
             </>}
           </div>
           {started && awayFromLatest && <button className="jump-button" type="button" onClick={jumpToLatest}>Jump to latest <span aria-hidden="true">↓</span></button>}
@@ -283,7 +310,7 @@ export function SupportChat({ clientName, botName, contact, topics, approvedLink
             <div className={`composer${validation || overLimit ? " composer-invalid" : ""}${pending ? " composer-pending" : ""}`}>
               <label className="sr-only" htmlFor="message">Message</label>
               <textarea id="message" ref={composer} value={draft} rows={1} disabled={!ready} readOnly={pending}
-                placeholder={!ready ? "Preparing chat…" : pending ? "Waiting for a response…" : "Ask about Cadre AI…"}
+                placeholder={!ready ? "Preparing chat…" : pending ? "Waiting for a response…" : experience.copy.composerPlaceholder}
                 aria-invalid={Boolean(validation) || overLimit} aria-describedby="composer-help message-validation"
                 onChange={(event) => { setDraft(event.target.value); setValidation(""); }}
                 onKeyDown={onKeyDown} onCompositionStart={() => { composing.current = true; }}
@@ -297,12 +324,12 @@ export function SupportChat({ clientName, botName, contact, topics, approvedLink
             </div>
             <p id="message-validation" className="validation-message" role="alert">{validation || (overLimit ? "Please shorten your message to 2,000 characters or fewer." : "")}</p>
           </form>
-          <p className="chat-scope">Public information only. No account access, bookings, or assessments in chat.</p>
-          <p className="privacy-note">Don’t share private details. In live mode, messages go to an external model service. This page keeps no chat history after a refresh.</p>
+          <p className="chat-scope">{experience.copy.chatScope}</p>
+          <p className="privacy-note">{experience.copy.privacyNote}</p>
         </div>
       </section>
     </main>
-    <footer className="site-footer"><span>Clarity starts with a conversation.</span><span>{clientName} · Support assistant</span></footer>
+    <footer className="site-footer"><span>{experience.copy.footerLead}</span><span>{clientName} · {experience.copy.footerTail}</span></footer>
     <div className="sr-only" role="status" aria-live="polite" aria-atomic="true">{announcement}</div>
   </div>;
 }

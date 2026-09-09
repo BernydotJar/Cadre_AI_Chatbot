@@ -78,6 +78,11 @@ export const experienceProfileSchema = z.object({
     footerTail: z.string().min(1),
   }),
   theme: z.object({
+    background: hexColor,
+    backgroundSoft: hexColor,
+    surface: hexColor,
+    text: hexColor,
+    muted: hexColor,
     accent: hexColor,
     accentStrong: hexColor,
     focus: hexColor,

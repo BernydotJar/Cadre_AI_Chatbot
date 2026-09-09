@@ -1,8 +1,10 @@
-import { cadre } from "@/config/cadre";
 import { getProviderMode, liveConfiguration } from "@/provider/config";
+import { activeProduct } from "@/product/active";
+import { chatExperience } from "@/product/view";
 import { SupportChat } from "@/ui/support-chat";
 
-// Derive the safe label for each request, never from a build-time snapshot.
+// Derive the safe provider/product labels for each request, never from a
+// build-time snapshot. Product selection itself is closed by the registry.
 export const dynamic = "force-dynamic";
 
 function currentProviderMode() {
@@ -17,11 +19,6 @@ export default function HomePage() {
   const mode = currentProviderMode();
   const modeLabel = mode === "mock" ? "Demo mode"
     : mode === "openrouter" ? "Live model configured" : "Chat unavailable";
-  const approvedLinks = [...new Map([
-    cadre.contact,
-    ...cadre.knowledge.flatMap((entry) => entry.approvedLinks),
-  ].map((link) => [link.url, link])).values()];
-  return <SupportChat clientName={cadre.clientName} botName={cadre.botName}
-    contact={cadre.contact} approvedLinks={approvedLinks} modeLabel={modeLabel}
-    topics={cadre.knowledge.map((entry) => ({ id: entry.id, label: entry.label }))} />;
+  const view = chatExperience(activeProduct());
+  return <SupportChat {...view} modeLabel={modeLabel} />;
 }
