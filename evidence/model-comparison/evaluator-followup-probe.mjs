@@ -14,7 +14,7 @@ const results = [];
 async function run(mode) {
   let artifact;
   const counts = { completions: 0, metadata: 0, envLoads: 0 };
-  const realFetch = async (url, options) => {
+  const realFetch = async (url) => {
     assert.ok(String(url).startsWith("https://openrouter.ai/api/v1/"));
     if (String(url).endsWith("/key")) {
       counts.metadata++;
@@ -77,8 +77,8 @@ async function run(mode) {
   });
   context.globalThis = context;
 
-  const module = new vm.SourceTextModule(source, { context, identifier: "synthetic-evaluator-followup" });
-  await module.link((specifier) => {
+  const evaluatorModule = new vm.SourceTextModule(source, { context, identifier: "synthetic-evaluator-followup" });
+  await evaluatorModule.link((specifier) => {
     const exports = specifier === "node:fs" ? {
       existsSync: () => false,
       mkdirSync: () => {},
@@ -96,7 +96,7 @@ async function run(mode) {
       for (const [key, value] of Object.entries(exports)) this.setExport(key, value);
     }, { context });
   });
-  await module.evaluate();
+  await evaluatorModule.evaluate();
   assert.ok(artifact);
   assert.equal(counts.envLoads, 1);
   assert.equal(counts.completions, 18);
