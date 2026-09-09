@@ -1,0 +1,20 @@
+Command: npm run test
+Mode: mock (no inference)
+Exit: 0
+
+
+> cadre-ai-chatbot@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.0 <PROJECT>
+
+
+ Test Files  8 passed (8)
+      Tests  196 passed (196)
+   Start at  20:08:31
+   Duration  452ms (import 46%, transform 35%, tests 15%, worker 3%)
+
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `"type": "module"` in the closest package.json
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
