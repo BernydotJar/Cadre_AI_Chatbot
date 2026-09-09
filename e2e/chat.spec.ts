@@ -8,6 +8,19 @@ test.beforeEach(async ({ page }) => {
   await expect(input(page)).toBeVisible();
 });
 
+test("first impression has a real app icon, visual signal, and useful greeting", async ({ page }) => {
+  await expect(page.locator('link[rel~="icon"]')).toHaveAttribute("href", /icon\.svg/);
+  await expect(page.locator(".chat-header .agent-signal")).toBeVisible();
+  await expect(page.locator(".topic-button")).toHaveCount(6);
+  await input(page).fill("hello");
+  await input(page).press("Enter");
+  const reply = messages(page, "assistant").first();
+  await expect(reply).toContainText("What would you like to explore?");
+  await expect(reply).toContainText("AI Maturity Index");
+  await expect(reply).not.toContainText("outside what I can answer");
+  await expect(reply.locator("a")).toHaveCount(0);
+});
+
 test("anonymous conversation uses the real server and official links", async ({ page }) => {
   if (!process.env.E2E_BASE_URL || process.env.E2E_EXPECT_MODE === "mock") {
     await expect(page.getByText(/Demo mode/)).toBeVisible();

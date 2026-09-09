@@ -38,6 +38,15 @@ function BrandMark({ small = false }: { small?: boolean }) {
   </span>;
 }
 
+function AgentSignal({ compact = false }: { compact?: boolean }) {
+  return <span className={`agent-signal${compact ? " agent-signal-compact" : ""}`} aria-hidden="true">
+    <span className="signal-glow" />
+    <span className="signal-orbit signal-orbit-one"><i /></span>
+    <span className="signal-orbit signal-orbit-two"><i /></span>
+    <span className="signal-core"><BrandMark small /></span>
+  </span>;
+}
+
 function ReplyText({ text, links }: { text: string; links: ApprovedLink[] }) {
   return <div className="message-text">{approvedTextParts(text, links).map((part, index) => part.href
     ? <a key={index} href={part.href} target="_blank" rel="noopener noreferrer">{part.text}<span className="sr-only"> (opens in a new tab)</span></a>
@@ -199,24 +208,31 @@ export function SupportChat({ clientName, botName, contact, topics, approvedLink
     </header>
     <main className="workspace">
       <aside className="intro" aria-labelledby="page-title">
-        <div>
-          <p className="eyebrow"><span className="eyebrow-rule" /> YOUR NEXT STEP STARTS HERE</p>
-          <h1 id="page-title">A little clarity.<br /><em>A way forward.</em></h1>
-          <p className="intro-description">Get to know {clientName}. Explore what we do, find the right starting point, and bring your next question.</p>
+        <div className="intro-copy">
+          <p className="eyebrow"><span className="eyebrow-rule" /> GUIDED BY VERIFIED CADRE CONTEXT</p>
+          <h1 id="page-title">Turn AI curiosity<br /><em>into a clear next move.</em></h1>
+          <p className="intro-description">Explore {clientName}&apos;s services, industries, AI agents, and transformation approach with a grounded guide built for the first useful conversation.</p>
+          <div className="hero-signal">
+            <AgentSignal />
+            <div className="signal-caption">
+              <span className="signal-caption-label"><i /> CADRE SIGNAL</span>
+              <strong>Curated. Bounded. Ready to guide.</strong>
+              <span>Public Cadre knowledge stays separate from the model, so the assistant can be useful without inventing the next step.</span>
+            </div>
+          </div>
         </div>
         <div className="intro-bottom">
-          <div className="line-art" aria-hidden="true"><span /><span /><span /><span /></div>
           <div className="scope-note">
-            <p className="eyebrow">A HELPFUL STARTING POINT</p>
-            <p>Answers from a curated set of public and company-provided information. For anything account-specific, the team is your next stop.</p>
+            <p className="eyebrow">A TRUSTED STARTING POINT</p>
+            <p>Ask in your own words. When the answer needs private context, pricing, or an account action, the assistant hands off instead of guessing.</p>
             <p className="scope-boundary">No account access, bookings, or assessments in chat.</p>
           </div>
         </div>
       </aside>
       <section className="chat-card" aria-labelledby="chat-title">
         <header className="chat-header">
-          <div className="chat-identity"><BrandMark small /><div><h2 id="chat-title">{botName}</h2>
-            <p className={`mode-label${modeLabel === "Demo mode" ? " demo-label" : ""}`}>{modeLabel}</p>
+          <div className="chat-identity"><AgentSignal compact /><div><h2 id="chat-title">{botName}</h2>
+            <p className={`mode-label${modeLabel === "Demo mode" ? " demo-label" : ""}`}><span className="mode-dot" aria-hidden="true" />{modeLabel}</p>
           </div></div>
           {started && <button className="reset-button" type="button" onClick={newConversation} aria-label="New conversation">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 10a8 8 0 1 1 .7 7M4 4v6h6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
@@ -233,9 +249,9 @@ export function SupportChat({ clientName, botName, contact, topics, approvedLink
               followingLatest.current = !away; setAwayFromLatest(away);
             }}>
             {!started ? <div className="welcome">
-              <span className="welcome-kicker">LET’S FIND YOUR STARTING POINT</span>
-              <h3>What brings<br />you here today?</h3>
-              <p>Pick a topic below, or ask a question in your own words.</p>
+              <span className="welcome-kicker">ASK CADRE · GROUNDED PUBLIC KNOWLEDGE</span>
+              <h3>A useful answer.<br /><em>A clearer next step.</em></h3>
+              <p>Start with a question in your own words, or choose one of the six verified paths below.</p>
               <div className="topic-grid" aria-label="Suggested topics">{topics.map((topic, index) => <button
                 key={topic.id} type="button" className="topic-button" disabled={!ready} onClick={() => send(topic.label)}>
                 <span className="topic-number" aria-hidden="true">0{index + 1}</span>
@@ -253,7 +269,7 @@ export function SupportChat({ clientName, botName, contact, topics, approvedLink
                     : <div className="message-text">{message.content}</div>}
                 </div>
               </li>)}</ol>
-              {pending && <div className="pending-message" aria-hidden="true"><span className="request-indicator" />Getting a response…</div>}
+              {pending && <div className="pending-message" aria-hidden="true"><span className="request-indicator"><i /></span><span><strong>Cadre Signal is working</strong>Checking verified context…</span></div>}
             </>}
           </div>
           {started && awayFromLatest && <button className="jump-button" type="button" onClick={jumpToLatest}>Jump to latest <span aria-hidden="true">↓</span></button>}
