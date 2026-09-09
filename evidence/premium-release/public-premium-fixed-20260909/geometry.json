@@ -1,0 +1,42 @@
+[
+  {
+    "viewport": {
+      "name": "desktop",
+      "width": 1440,
+      "height": 1000
+    },
+    "product": "cadre-donna",
+    "title": "Donna | Cadre AI",
+    "heading": [
+      "Turn AI curiosityinto a clear next move.",
+      "Donna",
+      "Ask Donna about Cadre AI."
+    ],
+    "placeholder": "What are you trying to figure out?",
+    "overflow": false,
+    "mediaMode": "poster",
+    "videoCount": 0,
+    "donnaMarks": 1,
+    "staleCandidate": false
+  },
+  {
+    "viewport": {
+      "name": "mobile",
+      "width": 390,
+      "height": 844
+    },
+    "product": "cadre-donna",
+    "title": "Donna | Cadre AI",
+    "heading": [
+      "Turn AI curiosityinto a clear next move.",
+      "Donna",
+      "Ask Donna about Cadre AI."
+    ],
+    "placeholder": "What are you trying to figure out?",
+    "overflow": false,
+    "mediaMode": "poster",
+    "videoCount": 0,
+    "donnaMarks": 1,
+    "staleCandidate": false
+  }
+]

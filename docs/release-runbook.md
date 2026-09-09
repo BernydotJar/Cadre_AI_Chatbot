@@ -10,9 +10,9 @@ Core N6 production verification and the separate Donna productization release ar
 |---|---|---|
 | Core N6 release | **DONE** | Existing production alias reverified for the prior core line; release-check PASS and package check PASS |
 | Donna productization P1–P3 | **DONE + public PASS** | all gates PASS; 279/279 Vitest; 52/52 local + clean public Playwright; deployment `dpl_DMA3WxfAfMgwc7kZLueKctx6kfsy` on existing project |
-| G10 CI/CD deploy-check | BLOCKED | Premium release gate is satisfied; provision existing-project production secrets, then exercise automated exact-SHA delivery |
-| GitHub remote activation | **ACTIVE + CI PASS through revision 3** | `main` published through the audited channel; premium CI run `34403021494` passed on `ded0839`; revision 4 publication is next |
-| Premium PX2–PX5 | **DONE at PX5 revision 4 / local release gate PASS** | revision-3 public smoke passed but full browser was 57/58; publish/deploy revision 4 and require anonymous 58/58 |
+| G10 CI/CD deploy-check | **BLOCKED only for automated CD** | product/public delivery PASS; GitHub `production` still lacks the existing-project Vercel org/project/token binding |
+| GitHub remote activation | **ACTIVE + revision-4 CI PASS** | repaired source `8ae8a3a` published through the audited channel; CI run `34405396973` passed |
+| Premium PX2–PX5 | **DONE at PX5 revision 4 / public PASS** | repaired source `8ae8a3a` deployed on existing project; anonymous smoke + **58/58** public Playwright PASS; revision-3 57/58 failure retained |
 | G9 Chrome preview | DONE | No further action required for core release |
 | G11 n8n contract | DONE | Real email delivery is optional and not a core release requirement |
 

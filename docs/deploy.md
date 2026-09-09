@@ -4,9 +4,9 @@ Owner-approved target: `Cadre_AI` / `cadre-ai3`. Project: `cadre-ai-chatbot`. Pu
 
 ## Current delivery status — 2026-09-09
 
-The public alias currently serves premium revision-3 source `ded08392e2dfea76e4050a234165f5e7b8c4152b` from deployment `dpl_A6CvaDHT34auCMFFoNxnmDvCXCBY` on the **existing** `Cadre_AI / cadre-ai3 / cadre-ai-chatbot` project. Anonymous health/page/icon and Donna API behavior smoke passes. The first full anonymous premium browser run, however, returned **57/58**: desktop cold-load could render a Pause control while native video autoplay was still pending, causing the old control branch to issue Play. That failure is retained under `evidence/premium-release/public-premium-20260909/`; the deployment is not claimed as final premium equivalence.
+Repaired premium revision-4 source `8ae8a3a1b0e53100218930aa893eed90a8592562` is deployed on the **existing** `Cadre_AI / cadre-ai3 / cadre-ai-chatbot` project as `dpl_EECF4m6NbwdN73j6Z2JxSfVpWbP7`. Anonymous health/page/icon + Donna behavior smoke passes, and the full public Playwright matrix is **58/58 PASS** on `https://cadre-ai-chatbot-tawny.vercel.app`. Clean desktop/mobile captures show the `cadre-donna` product marker, one editorial Donna monogram, the expected composer, poster-only reduced-motion state, and no horizontal overflow.
 
-PX5 revision 4 repairs the ambient control and the repository release-gate projection exposed by the same incident. Fresh detached verification is green at **288/288 Vitest, 58/58 Playwright, 72/72 extension tests, 24/24 synthetic browser**, and an authenticated production prebuild passes against the exact existing Vercel project. `npm run release:gate` now passes after revision-4 Graph closure. The next delivery step is audited publication, remote CI, exact existing-project redeploy, and a new anonymous 58/58 matrix. No replacement project is allowed.
+The earlier revision-3 deployment `dpl_A6CvaDHT34auCMFFoNxnmDvCXCBY` is retained in evidence because its first full public run was **57/58** and exposed the ambient Pause/autoplay cold-load race. Revision 4 repairs that product defect and the release-gate invalidation projection discovered during the same loop. No replacement Vercel project was created.
 
 ## GitHub CI/CD
 
