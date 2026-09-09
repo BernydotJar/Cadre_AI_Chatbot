@@ -11,6 +11,24 @@ function assistant(content: string): ChatMessage {
 }
 
 describe("response policy — grounded answers (S1–S5)", () => {
+  it.each(["hello", "Hi", "hey there!", "Good morning", "hola", "Buenas tardes"])(
+    "welcomes an ordinary greeting without a handoff: %s",
+    (message) => {
+      const reply = respond([user(message)], cadre);
+      expect(reply.kind).toBe("greeting");
+      expect(reply.text).toContain("What would you like to explore?");
+      expect(reply.text).toContain("AI Maturity Index");
+      expect(reply.links).toEqual([]);
+    },
+  );
+
+  it.each([
+    ["hello, what is your pricing?", "decline"],
+    ["hi, can you check my invoice?", "redirect"],
+    ["hello, what services do you offer?", "grounded"],
+  ] as const)("does not let a greeting prefix bypass normal policy: %s", (message, kind) => {
+    expect(respond([user(message)], cadre).kind).toBe(kind);
+  });
   it("answers the strategist-call scenario with only approved links", () => {
     const reply = respond([user("How do I book a call with an AI strategist?")], cadre);
     expect(reply.kind).toBe("grounded");

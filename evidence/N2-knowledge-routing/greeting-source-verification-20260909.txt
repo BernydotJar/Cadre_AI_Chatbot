@@ -1,0 +1,17 @@
+$ npm exec -- vitest run tests/config/knowledge-refresh.test.ts tests/config/config.test.ts tests/core/policy.test.ts tests/api/chat-route.test.ts tests/ui/conversation.test.ts
+[33m(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `"type": "module"` in the closest package.json
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.[39m
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/core/policy.test.ts [2m([22m[2m59 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+ [32m✓[39m tests/config/knowledge-refresh.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 24[2mms[22m[39m
+ [32m✓[39m tests/api/chat-route.test.ts [2m([22m[2m45 tests[22m[2m)[22m[32m 47[2mms[22m[39m
+ [32m✓[39m tests/ui/conversation.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m tests/config/config.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m5 passed[39m[22m[90m (5)[39m
+[2m      Tests [22m [1m[32m146 passed[39m[22m[90m (146)[39m
+[2m   Start at [22m 06:54:55
+[2m   Duration [22m 510ms[2m (import 43%, transform 40%, tests 14%, worker 3%)[22m

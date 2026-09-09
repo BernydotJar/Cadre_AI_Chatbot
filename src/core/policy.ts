@@ -11,6 +11,7 @@ import { matchesTriggers, normalize, routeMessage } from "./route";
  */
 
 export type PolicyDecision =
+  | { kind: "greeting" }
   | { kind: "grounded"; entry: KnowledgeEntry }
   | { kind: "clarify"; candidates: KnowledgeEntry[] }
   | { kind: "redirect"; reason: "account-specific" | "unknown" | "still-ambiguous" }
@@ -31,6 +32,31 @@ function alreadyClarified(messages: readonly ChatMessage[]): boolean {
   return messages.some(
     (message) => message.role === "assistant" && message.content.includes(CLARIFY_MARKER),
   );
+}
+
+const GREETINGS = new Set([
+  "hello",
+  "hello there",
+  "hey",
+  "hey there",
+  "hi",
+  "hi there",
+  "good morning",
+  "good afternoon",
+  "good evening",
+  "hola",
+  "buenos dias",
+  "buenas tardes",
+  "buenas noches",
+]);
+
+/**
+ * Greetings are intentionally exact whole-message matches. They improve the
+ * first interaction without becoming a prefix that could bypass pricing,
+ * account, or other safety boundaries in a substantive request.
+ */
+function isGreeting(message: string): boolean {
+  return GREETINGS.has(normalize(message));
 }
 
 /**
@@ -80,6 +106,7 @@ export function decide(messages: readonly ChatMessage[], config: ClientConfig): 
   if (matchesTriggers(text, config.boundaries.declineTopics)) {
     return { kind: "decline" };
   }
+  if (isGreeting(text)) return { kind: "greeting" };
 
   const routed = routeMessage(text, config);
   if (routed.kind === "match") return { kind: "grounded", entry: routed.entry };
@@ -97,12 +124,19 @@ export type ComposedReply = {
   text: string;
   /** Links are app-controlled: only approved links ever leave the policy. */
   links: ApprovedLink[];
-  kind: "grounded" | "clarify" | "redirect" | "decline";
+  kind: "greeting" | "grounded" | "clarify" | "redirect" | "decline";
 };
 
 /** Deterministic phrasing of a decision, used by the mock provider verbatim. */
 export function composeReply(decision: PolicyDecision, config: ClientConfig): ComposedReply {
   switch (decision.kind) {
+    case "greeting": {
+      return {
+        kind: "greeting",
+        text: `Hi - I can help you explore ${config.clientName}'s services, industries, AI agents, the AI Maturity Index, client access guidance, or how to talk with an AI strategist. What would you like to explore?`,
+        links: [],
+      };
+    }
     case "grounded": {
       const { entry } = decision;
       return {

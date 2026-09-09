@@ -12,7 +12,7 @@ describe("UI boundary helpers", () => {
     { reply: "okay", kind: ["grounded"] }, { reply: "okay", kind: "error" }, { reply: 12, kind: "grounded" }])("rejects an invalid response contract: %j", (value) => {
     expect(readReply(value)).toBeUndefined();
   });
-  it.each(["grounded", "clarify", "redirect", "decline"])("accepts a bounded %s reply", (kind) => {
+  it.each(["greeting", "grounded", "clarify", "redirect", "decline"])("accepts a bounded %s reply", (kind) => {
     expect(readReply({ reply: "Verified response.", kind })).toEqual({ reply: "Verified response.", kind });
   });
   it("bounds the newest history while retaining the final question", () => {

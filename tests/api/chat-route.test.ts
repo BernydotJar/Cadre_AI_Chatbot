@@ -27,6 +27,7 @@ describe("POST /api/chat bounded grounded pipeline (no live calls)", () => {
       expect(selectFacts).not.toHaveBeenCalled();
     });
   it.each([
+    ["hello", "greeting", "What would you like to explore?"],
     ["What does Cadre do?", "grounded", "Core services"],
     ["How do I book a call?", "grounded", "cannot create bookings"],
     ["I need portal access", "grounded", "no public portal address is verified"],
@@ -72,7 +73,7 @@ describe("POST /api/chat bounded grounded pipeline (no live calls)", () => {
   it("sends no deterministic path to a provider and clarifies at most once", async () => {
     const selectFacts = vi.fn();
     const handle = handler({ selectFacts });
-    for (const content of ["How much?", "my account", "unknown riddle", "services and industries"]) {
+    for (const content of ["hello", "How much?", "my account", "unknown riddle", "services and industries"]) {
       expect((await handle(request(content))).status).toBe(200);
     }
     const messages = [

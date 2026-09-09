@@ -4,7 +4,7 @@ export type Message = {
   id: number;
   role: "user" | "assistant";
   content: string;
-  kind?: "grounded" | "redirect" | "clarify" | "decline";
+  kind?: "greeting" | "grounded" | "redirect" | "clarify" | "decline";
 };
 export type RequestMessage = Pick<Message, "role" | "content">;
 export type ApprovedLink = { label: string; url: string };
@@ -36,7 +36,7 @@ export function readReply(value: unknown): Reply | undefined {
   if (typeof result.reply !== "string" || !result.reply.trim()
     || result.reply.length > LIMITS.maxReplyChars
     || typeof result.kind !== "string"
-    || !["grounded", "redirect", "clarify", "decline"].includes(result.kind)) return undefined;
+    || !["greeting", "grounded", "redirect", "clarify", "decline"].includes(result.kind)) return undefined;
   return { reply: result.reply, kind: result.kind as Reply["kind"] };
 }
 

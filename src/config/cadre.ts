@@ -4,7 +4,7 @@ import { validateClientConfig, type ClientConfig } from "./types";
  * Cadre AI client configuration.
  *
  * Fact provenance (kept per entry in `source`):
- * - "https://cadre.ai (retrieved 2026-09-08)": verified against the official
+ * - "https://cadre.ai (retrieved 2026-09-09)": verified against the official
  *   public website on that date (cadreai.com 301-redirects to cadre.ai).
  * - "Cadre AI company profile (provided 2026-09)": company-supplied profile
  *   facts for this assistant's knowledge set (e.g. the partner list) — stated
@@ -38,6 +38,7 @@ const cadreConfig: ClientConfig = {
       facts: [
         "Cadre AI is an AI strategy and implementation consultancy that helps businesses move from AI confusion to AI confidence.",
         "Cadre AI works department by department to identify high-ROI AI opportunities, build workflows and agents, and train teams so changes stick.",
+        "Cadre states that it has delivered more than 100 high-ROI use cases across more than 50 companies.",
         "Core services are AI Strategy, AI Leadership & Facilitation, AI Engineering, and AI Agents.",
         "Its engineering approach considers existing tools, workflow automation, API connections, and custom agents according to the business problem.",
       ],
@@ -47,7 +48,7 @@ const cadreConfig: ClientConfig = {
         { label: "AI Agents", url: "https://cadre.ai/agents" },
         { label: "AI Leadership & Facilitation", url: "https://cadre.ai/leadership-facilitation" },
       ],
-      source: { origin: "https://cadre.ai; https://cadre.ai/ai-engineering (approach); Cadre AI company profile (provided 2026-09)", retrievedAt: "2026-09-08" },
+      source: { origin: "https://cadre.ai; https://cadre.ai/about (published delivery count); https://cadre.ai/ai-engineering (approach); Cadre AI company profile (provided 2026-09)", retrievedAt: "2026-09-09" },
     },
     {
       id: "industries-served",
@@ -72,7 +73,7 @@ const cadreConfig: ClientConfig = {
         { label: "Case studies", url: "https://cadre.ai/case-studies" },
         { label: "About Cadre AI", url: "https://cadre.ai/about" },
       ],
-      source: { origin: "https://cadre.ai/industries (industry index); https://cadre.ai/contact (fit FAQ); https://cadre.ai/leadership-facilitation (departments)", retrievedAt: "2026-09-08" },
+      source: { origin: "https://cadre.ai/industries (industry index); https://cadre.ai/contact (fit FAQ); https://cadre.ai/leadership-facilitation (departments)", retrievedAt: "2026-09-09" },
     },
     {
       id: "strategist-call",
@@ -90,7 +91,7 @@ const cadreConfig: ClientConfig = {
       approvedLinks: [
         { label: "Talk to an AI Strategist", url: "https://cadre.ai/contact" },
       ],
-      source: { origin: "https://cadre.ai (strategist CTA); https://cadre.ai/contact (request form)", retrievedAt: "2026-09-08" },
+      source: { origin: "https://cadre.ai (strategist CTA); https://cadre.ai/contact (request form)", retrievedAt: "2026-09-09" },
     },
     {
       id: "client-portal",
@@ -110,7 +111,7 @@ const cadreConfig: ClientConfig = {
       approvedLinks: [
         { label: "Contact Cadre AI", url: "https://cadre.ai/contact" },
       ],
-      source: { origin: "https://cadre.ai/industries (Track your AI results); https://cadre.ai/contact (no public login link found in reviewed pages)", retrievedAt: "2026-09-08" },
+      source: { origin: "https://cadre.ai/industries (Track your AI results); https://cadre.ai/contact (no public login link found in reviewed pages)", retrievedAt: "2026-09-09" },
     },
     {
       id: "maturity-index",
@@ -129,7 +130,7 @@ const cadreConfig: ClientConfig = {
       approvedLinks: [
         { label: "Get Your AI Maturity Index", url: "https://cadre.ai/contact" },
       ],
-      source: { origin: "https://cadre.ai (maturity CTA); https://cadre.ai/contact (AI Maturity Index FAQ)", retrievedAt: "2026-09-08" },
+      source: { origin: "https://cadre.ai (maturity CTA); https://cadre.ai/contact (AI Maturity Index FAQ)", retrievedAt: "2026-09-09" },
     },
     {
       id: "models-and-security",
@@ -152,7 +153,7 @@ const cadreConfig: ClientConfig = {
         { label: "Cadre privacy policy", url: "https://cadre.ai/legal/privacy-policy" },
         { label: "Contact Cadre AI", url: "https://cadre.ai/contact" },
       ],
-      source: { origin: "Cadre AI company profile (provided 2026-09); https://cadre.ai/ai-engineering (LLM Selection & Data Security); https://cadre.ai/legal/privacy-policy (scope and security)", retrievedAt: "2026-09-08" },
+      source: { origin: "Cadre AI company profile (provided 2026-09); https://cadre.ai/ai-engineering (LLM Selection & Data Security); https://cadre.ai/legal/privacy-policy (scope and security)", retrievedAt: "2026-09-09" },
     },
   ],
   boundaries: {
