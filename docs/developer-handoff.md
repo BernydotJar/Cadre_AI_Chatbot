@@ -7,7 +7,7 @@ Audience: a mid-level TypeScript/Next.js developer taking over maintenance or fi
 Read in this order:
 
 1. `CLAUDE.md` — durable engineering rules, commands, security and evidence boundaries.
-2. `progress/checkpoint.md` — exact current state and blockers.
+2. `progress/checkpoint.md` (and `progress/checkpoint-premium.md` while the premium graph exists) — exact current state and blockers.
 3. `docs/architecture-overview.md` — mental model and diagrams.
 4. `specs/001-support-chatbot/requirements.md` — approved product scenarios and acceptance criteria.
 5. `docs/component-inventory.md` — detailed contracts and invariants.

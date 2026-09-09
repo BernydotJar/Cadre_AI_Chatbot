@@ -41,23 +41,18 @@ function CompanyMark({ name, small = false }: { name: string; small?: boolean })
   </span>;
 }
 
-function PersonaAvatar({ experience, compact = false, hero = false }: {
+function PersonaAvatar({ experience, compact = false }: {
   experience: ExperienceProfile;
   compact?: boolean;
-  hero?: boolean;
 }) {
   return <span
-    className={`persona-avatar${compact ? " persona-avatar-compact" : ""}${hero ? " persona-avatar-hero" : ""}`}
+    className={`persona-avatar${compact ? " persona-avatar-compact" : ""}`}
     title={experience.avatar.label}
     aria-hidden="true"
   >
     <svg className="persona-signal" viewBox="0 0 120 120" fill="none" focusable="false">
-      <circle className="signal-ring signal-ring-outer" cx="60" cy="60" r="45" />
-      <circle className="signal-ring signal-ring-inner" cx="60" cy="60" r="29" />
-      <path className="signal-frame" d="M60 12 101.6 36v48L60 108 18.4 84V36L60 12Z" />
-      <path className="signal-trace signal-trace-primary" d="M82 27.3a39 39 0 0 1 16.8 26.4" />
-      <path className="signal-trace signal-trace-secondary" d="M31.8 83.5A39 39 0 0 1 23 61" />
-      <circle className="signal-node" cx="60" cy="60" r="4.4" />
+      <circle className="signal-ring" cx="60" cy="60" r="43" />
+      <path className="signal-notch" d="M84.7 24.8A43 43 0 0 1 101.2 49" />
     </svg>
     <span className="signal-monogram">{experience.avatar.monogram}</span>
   </span>;
@@ -212,6 +207,15 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
   }
 
   const started = messages.length > 0;
+
+  const previousStarted = useRef(false);
+  useEffect(() => {
+    // The composer changes position when a conversation starts or resets.
+    // Restore focus only after one of those user-driven relocations, not on first paint.
+    if (started || previousStarted.current) composer.current?.focus({ preventScroll: true });
+    previousStarted.current = started;
+  }, [started]);
+
   const overLimit = draft.trim().length > LIMITS.maxMessageChars;
 
   const themeStyle = {
@@ -225,88 +229,10 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
     "--focus": experience.theme.focus,
   } as CSSProperties;
 
-  return <div className="support-shell" style={themeStyle} data-product={productId}>
-    <a className="skip-link" href="#message">Skip to message</a>
-    <header className="site-header">
-      <div className="wordmark"><CompanyMark name={clientName} /><span>{clientName}</span></div>
-      <a className="contact-link" href={contact.url} target="_blank" rel="noopener noreferrer">
-        <span>{contact.label}</span><Arrow diagonal /><span className="sr-only"> (opens in a new tab)</span>
-      </a>
-    </header>
-    <main className="workspace">
-      <aside className="intro" aria-labelledby="page-title">
-        <div className="intro-copy">
-          <p className="eyebrow"><span className="eyebrow-rule" /> {experience.copy.eyebrow}</p>
-          <h1 id="page-title">{experience.copy.heroLead}<br /><em>{experience.copy.heroEmphasis}</em></h1>
-          <p className="intro-description">{experience.copy.heroDescription}</p>
-          <div className="hero-signal" aria-label="Donna signal">
-            <div className="hero-signal-stage"><PersonaAvatar experience={experience} hero /></div>
-            <div className="signal-caption">
-              <span className="signal-caption-label"><i /> {experience.copy.signalLabel}</span>
-              <strong>{experience.copy.signalTitle}</strong>
-              <span>{experience.copy.signalBody}</span>
-            </div>
-          </div>
-        </div>
-        <div className="intro-bottom">
-          <div className="scope-note">
-            <p className="eyebrow">{experience.copy.trustLabel}</p>
-            <p>{experience.copy.trustBody}</p>
-            <p className="scope-boundary">{experience.copy.trustBoundary}</p>
-          </div>
-        </div>
-      </aside>
-      <section className="chat-card" aria-labelledby="chat-title" data-started={started ? "true" : "false"}>
-        <header className="chat-header">
-          <div className="chat-identity"><PersonaAvatar experience={experience} compact /><div><h2 id="chat-title">{experience.assistantLabel}</h2>
-            <p className={`mode-label${modeLabel === "Demo mode" ? " demo-label" : ""}`}><span className="mode-dot" aria-hidden="true" />{modeLabel}</p>
-          </div></div>
-          {started && <button className="reset-button" type="button" onClick={newConversation} aria-label="New conversation">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 10a8 8 0 1 1 .7 7M4 4v6h6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
-            <span>New conversation</span>
-          </button>}
-        </header>
-        <div className="conversation-space">
-          <div className="transcript" ref={transcript} role="region" aria-label="Conversation" tabIndex={0}
-            onScroll={() => {
-              const element = transcript.current;
-              if (!element) return;
-              if (!started) { followingLatest.current = true; setAwayFromLatest(false); return; }
-              const away = element.scrollHeight - element.scrollTop - element.clientHeight > 72;
-              followingLatest.current = !away; setAwayFromLatest(away);
-            }}>
-            {!started ? <div className="welcome">
-              <div className="welcome-persona">
-                <PersonaAvatar experience={experience} />
-                <div className="welcome-persona-copy">
-                  <span className="welcome-kicker">{experience.copy.welcomeKicker}</span>
-                  <h3>{experience.copy.welcomeLead}<br /><em>{experience.copy.welcomeEmphasis}</em></h3>
-                  <p>{experience.copy.welcomeBody}</p>
-                </div>
-              </div>
-              <div className="topic-grid" aria-label="Suggested topics">{topics.map((topic, index) => <button
-                key={topic.id} type="button" className="topic-button" disabled={!ready} onClick={() => send(topic.label)}>
-                <span className="topic-number" aria-hidden="true">0{index + 1}</span>
-                <span className="topic-label">{topic.label}</span><Arrow />
-              </button>)}</div>
-              {modeLabel === "Demo mode" && <p className="demo-note">You’re exploring a demo with sample answers. No live model is used.</p>}
-              {modeLabel === "Chat unavailable" && <p className="demo-note">Chat isn’t configured right now. You can still reach the team through the contact link.</p>}
-            </div> : <>
-              {historyTrimmed && <p className="history-note">Showing the most recent messages. Earlier context is limited.</p>}
-              <ol className="message-list" aria-label="Messages" aria-busy={pending}>{messages.map((message) => <li
-                key={message.id} className={`message message-${message.role}`} data-testid="chat-message" data-role={message.role}>
-                <div className="message-author">{message.role === "user" ? "You" : experience.assistantLabel}</div>
-                <div className={`message-bubble${failed?.message.id === message.id ? " message-failed" : ""}`}>
-                  {message.role === "assistant" ? <ReplyText text={message.content} links={approvedLinks} />
-                    : <div className="message-text">{message.content}</div>}
-                </div>
-              </li>)}</ol>
-              {pending && <div className="pending-message" aria-hidden="true"><span className="request-indicator"><i /></span><span><strong>{experience.copy.workingTitle}</strong>{experience.copy.workingBody}</span></div>}
-            </>}
-          </div>
-          {started && awayFromLatest && <button className="jump-button" type="button" onClick={jumpToLatest}>Jump to latest <span aria-hidden="true">↓</span></button>}
-        </div>
-        <div className="composer-section">
+
+  function renderComposerPanel() {
+    return <>
+      <div className="composer-section">
           {failed && <div className="error-panel">
             <div role="alert"><p>{failed.reason}</p><span>Your message is saved. Edit it below or retry the same message.</span></div>
             <button type="button" className="retry-button" onClick={() => void requestReply(failed.message, failed.request)}>Retry response <Arrow /></button>
@@ -332,6 +258,83 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
           <p className="chat-scope">{experience.copy.chatScope}</p>
           <p className="privacy-note">{experience.copy.privacyNote}</p>
         </div>
+    </>;
+  }
+
+  return <div className="support-shell" style={themeStyle} data-product={productId}>
+    <a className="skip-link" href="#message">Skip to message</a>
+    <header className="site-header">
+      <div className="wordmark"><CompanyMark name={clientName} /><span>{clientName}</span></div>
+      <a className="contact-link" href={contact.url} target="_blank" rel="noopener noreferrer">
+        <span>{contact.label}</span><Arrow diagonal /><span className="sr-only"> (opens in a new tab)</span>
+      </a>
+    </header>
+    <main className="workspace">
+      <aside className="intro" aria-labelledby="page-title">
+        <div className="intro-copy">
+          <p className="eyebrow"><span className="eyebrow-rule" /> {experience.copy.eyebrow}</p>
+          <h1 id="page-title">{experience.copy.heroLead}<br /><em>{experience.copy.heroEmphasis}</em></h1>
+          <p className="intro-description">{experience.copy.heroDescription}</p>
+        </div>
+        <div className="intro-bottom">
+          <div className="scope-note">
+            <p className="eyebrow">{experience.copy.trustLabel}</p>
+            <p>{experience.copy.trustBody}</p>
+            <p className="scope-boundary">{experience.copy.trustBoundary}</p>
+          </div>
+        </div>
+      </aside>
+      <section className="chat-card" aria-labelledby="chat-title" data-started={started ? "true" : "false"}>
+        <header className="chat-header">
+          <div className="chat-identity"><PersonaAvatar experience={experience} compact /><div><h2 id="chat-title">{experience.assistantLabel}</h2>
+            <p className={`mode-label${modeLabel === "Demo mode" ? " demo-label" : ""}`}><span className="mode-dot" aria-hidden="true" />{modeLabel}</p>
+          </div></div>
+          {started && <button className="reset-button" type="button" onClick={newConversation} aria-label="New conversation">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 10a8 8 0 1 1 .7 7M4 4v6h6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            <span>New conversation</span>
+          </button>}
+        </header>
+        {!started && renderComposerPanel()}
+        <div className="conversation-space">
+          <div className="transcript" ref={transcript} role="region" aria-label="Conversation" tabIndex={0}
+            onScroll={() => {
+              const element = transcript.current;
+              if (!element) return;
+              if (!started) { followingLatest.current = true; setAwayFromLatest(false); return; }
+              const away = element.scrollHeight - element.scrollTop - element.clientHeight > 72;
+              followingLatest.current = !away; setAwayFromLatest(away);
+            }}>
+            {!started ? <div className="welcome">
+              <div className="welcome-persona">
+                <PersonaAvatar experience={experience} />
+                <div className="welcome-persona-copy">
+                  <h3>{experience.copy.welcomeLead} <em>{experience.copy.welcomeEmphasis}</em></h3>
+                  <p>{experience.copy.welcomeBody}</p>
+                </div>
+              </div>
+              <div className="topic-grid" aria-label="Suggested topics">{topics.map((topic, index) => <button
+                key={topic.id} type="button" className="topic-button" disabled={!ready} onClick={() => send(topic.label)}>
+                <span className="topic-number" aria-hidden="true">0{index + 1}</span>
+                <span className="topic-label">{topic.label}</span><Arrow />
+              </button>)}</div>
+              {modeLabel === "Demo mode" && <p className="demo-note">You’re exploring a demo with sample answers. No live model is used.</p>}
+              {modeLabel === "Chat unavailable" && <p className="demo-note">Chat isn’t configured right now. You can still reach the team through the contact link.</p>}
+            </div> : <>
+              {historyTrimmed && <p className="history-note">Showing the most recent messages. Earlier context is limited.</p>}
+              <ol className="message-list" aria-label="Messages" aria-busy={pending}>{messages.map((message) => <li
+                key={message.id} className={`message message-${message.role}`} data-testid="chat-message" data-role={message.role}>
+                <div className="message-author">{message.role === "user" ? "You" : experience.assistantLabel}</div>
+                <div className={`message-bubble${failed?.message.id === message.id ? " message-failed" : ""}`}>
+                  {message.role === "assistant" ? <ReplyText text={message.content} links={approvedLinks} />
+                    : <div className="message-text">{message.content}</div>}
+                </div>
+              </li>)}</ol>
+              {pending && <div className="pending-message" aria-hidden="true"><span className="request-indicator"><i /></span><span><strong>{experience.copy.workingTitle}</strong>{experience.copy.workingBody}</span></div>}
+            </>}
+          </div>
+          {started && awayFromLatest && <button className="jump-button" type="button" onClick={jumpToLatest}>Jump to latest <span aria-hidden="true">↓</span></button>}
+        </div>
+        {started && renderComposerPanel()}
       </section>
     </main>
     <footer className="site-footer"><span>{experience.copy.footerLead}</span><span>{clientName} · {experience.copy.footerTail}</span></footer>

@@ -3,14 +3,15 @@
 Updated: 2026-09-09 UTC. The premium Graph ledger is authoritative for this increment.
 
 - Graph: `progress/premium-graph.project.json` + `progress/premium-graph.events.jsonl`.
-- Current node: `PX2-donna-premium-identity` — **REVIEW**, with `design-review=BLOCKED` because no independent critic returned a usable verdict.
+- Current node: `PX2-donna-premium-identity` — **RUNNING (FIXER)** after a real independent Claude Code visual critic returned `CHANGES_REQUESTED`; the prior `design-review=BLOCKED` gate remains uncleared until a fresh review passes.
 - PX3 ambient media, PX4 contextual Donna, and PX5 premium release are APPROVED but dependency-locked.
-- Producer UI/source work: implemented and regression-green.
-- Final local app checks: 279/279 Vitest, typecheck PASS, lint PASS, build PASS, 52/52 Playwright PASS.
-- Retained repair: premium decorative pseudo-element caused page overflow until `.intro` was restored as its positioned containing block.
-- Current design: dark cinematic editorial panel + warm-white tool; ~96.5px measured desktop display; original Donna signal mark; quiet ruled starters; ~92px initial composer.
-- Independent design review: **BLOCKED / NOT SATISFIED**. Three bounded local Granite attempts produced two timeouts and then an empty response after model reset; no PASS or FAIL is inferred, and coordinator self-review is not substituted.
-- Public production alias remains on the previously verified productized release; premium WIP has **not** been promoted. A protected Vercel review preview is READY at `https://cadre-ai-chatbot-4xso24ztz-cadre-ai3.vercel.app` (`dpl_GSZs6cTAuR6F1j4CVdmeGWfzvpFe`), built from `0aec1244936cb6726d3b872e47bb1de607ae9922` with mock chat mode. Anonymous access redirects to Vercel SSO by team deployment protection; authenticated `vercel curl` confirms Donna/product/composer markers and `/api/health` PASS.
-- GitHub audited source publication remains separately blocked because the Cloud Sandbox controller has not injected `GITHUB_TOKEN` into its host-side `git_push` action. Workstation/connector authentication is healthy but is not that credential path.
+- Independent critic: authenticated Claude Code 2.1.266, project `critic` agent, high-effort read-only review. Evidence: `evidence/premium-critic/claude-uiux-critique-20260909.md`. It rejected the glowing hex/circuit avatar, duplicate hero hierarchy, demoted composer, repeated mark/kicker treatment, and tiny starter typography.
+- Fixer source: removed glow/hex/animated traces and the hero-size Donna mark; the signal is now one static ring + accent notch + monogram. The composer precedes welcome content, starter topics are one-column 14–15px rows, and empty-state copy is an invitation rather than a pre-answer claim.
+- Verification after the repair: 283/283 Vitest, typecheck PASS, lint PASS, build PASS, final 52/52 Playwright PASS. The first browser rerun exposed reset-focus and sub-pixel 360x640 readability defects; both are retained in `evidence/premium-identity/px2-fixer-20260909.md` and repaired before the final PASS.
+- Deterministic screenshot/geometry evidence: `donna-premium-fixer-{desktop,mobile}-20260909.png` and `px2-fixer-geometry-20260909.json`; both viewports have no horizontal overflow, two visible Donna marks, zero animated signal descendants, and the composer precedes welcome guidance.
+- Earlier Granite design-critic attempts remain historical blocked evidence; they are not used now that a real Claude Code critic produced a usable verdict.
+- Public production alias remains on the previously verified productized release; premium WIP has **not** been promoted. The earlier protected preview still represents the pre-fix `0aec124` snapshot and is not current fixer evidence.
+- Audited Git publication is restored and GitHub CI is active. Automated production delivery is now protected by `npm run release:gate`, which must remain BLOCKED until PX2–PX5 are DONE and all latest premium gates pass.
 
-Next safe action: obtain a **gated owner or real independent design-review verdict** on the protected PX2 preview. If approved, record that human/critic evidence, repair any findings if needed, then evaluate PX2 design-review/verification/integration gates and close PX2 before unlocking PX3/PX4. The separate audited Git publisher credential can be repaired in parallel at the controller layer.
+
+Next safe action: commit the fixer snapshot, run a fresh independent Claude Code UI/UX critic against the repaired source/screenshots, and either repair its concrete findings or record a real PASS. PX2 cannot close and PX3/PX4 cannot unlock until `design-review` is PASS.

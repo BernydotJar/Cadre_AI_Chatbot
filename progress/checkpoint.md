@@ -4,11 +4,11 @@ Updated: 2026-09-09 UTC. This is a projection; the append-only Graph Harness led
 
 ## Terminal state for this session
 
-**PRODUCTIZATION_COMPLETE_AND_PUBLICLY_VERIFIED — EXTERNAL GIT PUBLISHER BLOCKER ONLY.** Core N1–N6 remains complete. Productization P1/P2/P3 are DONE with every blocking gate PASS. Current source passes 279/279 Vitest and 52/52 local Playwright. Reviewed source `7b6004c1fa5b715b1c2775d07981ebac1eee8622` is deployed to the existing Vercel project as `dpl_DMA3WxfAfMgwc7kZLueKctx6kfsy`; Donna/product/API markers and a clean external 52/52 Playwright matrix PASS on the production alias. G9 Chrome and G11 n8n remain DONE. G10 remains BLOCKED at deploy-check because the audited Git publisher still lacks its platform-managed credential.
+**PREMIUM_EXPERIENCE_REPAIR_IN_PROGRESS — CORE PRODUCT PUBLIC; GITHUB CI ACTIVE; G10 CD + PREMIUM GATES OPEN.** Core N1–N6 remains complete. Productization P1/P2/P3 are DONE with every blocking gate PASS. Reviewed source `7b6004c1fa5b715b1c2775d07981ebac1eee8622` remains the verified production line on deployment `dpl_DMA3WxfAfMgwc7kZLueKctx6kfsy`; Donna/product/API markers and the clean external 52/52 Playwright matrix PASS there. Audited Git publication is now restored: `main` was fast-forwarded to `76e2b756acf04762627210457e36e800de682b02` and GitHub CI run `34382168718` completed SUCCESS. The first remote production workflow run `34382393971` correctly stopped before Vercel because the GitHub `production` environment supplied none of `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`, or `VERCEL_TOKEN`. PX2 premium identity is in RUNNING/fixer after a real Claude Code design critic returned CHANGES_REQUESTED; `design-review` remains uncleared pending fresh review. See `progress/checkpoint-premium.md` for the exact state.
 
 Public alias: `https://cadre-ai-chatbot-tawny.vercel.app`.
 
-Product, contextual extension, CI/CD, n8n and documentation increments are split into bounded commits. Existing Git author/committer history is retained as recorded and is not used as proof that a particular human or coding tool executed a change. This checkpoint intentionally does not embed a self-referential current HEAD; reproduce it with `git rev-parse HEAD`. Main graph sequence is **157**, last event `afc29093-95c1-4994-bb9f-36e7032be67a`. Extension graph sequence is **34**, last event `9db84544-4f7c-42fa-9605-e3f1983740d6`. CI/CD graph sequence is **16**, last event `baedfa77-81c8-4e2b-b1b0-62c31b810180`. n8n graph sequence is **12**, last event `a35c57ad-30b4-4fd7-aeec-ce11084d239c`. Productization graph sequence is **52**, last event `06a549a2-1108-47c5-b971-2a3faa0e24c6`; P1/P2/P3 are DONE and the public release integration evidence is attached to P3.
+Product, contextual extension, CI/CD, n8n, productization and premium increments remain separated in their own ledgers. Existing Git author/committer history is retained as recorded and is not used as proof that a particular human or coding tool executed a change. Actual Claude Code executions are retained separately under `evidence/claude-code/`. This checkpoint intentionally does not embed a self-referential current HEAD; reproduce it with `git rev-parse HEAD`. Main graph sequence is **157**, last event `afc29093-95c1-4994-bb9f-36e7032be67a`. Extension graph sequence is **34**, last event `9db84544-4f7c-42fa-9605-e3f1983740d6`. CI/CD graph sequence is **16**, last event `baedfa77-81c8-4e2b-b1b0-62c31b810180` before the new remote CI/CD evidence is appended. n8n graph sequence is **12**, last event `a35c57ad-30b4-4fd7-aeec-ce11084d239c`. Productization graph sequence is **52**, last event `06a549a2-1108-47c5-b971-2a3faa0e24c6`; P1/P2/P3 are DONE and the public release integration evidence is attached to P3.
 
 ## Main graph
 
@@ -85,7 +85,7 @@ Final local screenshots: `evidence/N4-ui/final-polish-desktop-20260909.png`, `fi
 The audit-facing documentation now separates durable design from mutable execution state:
 
 - `plan.md` uses a current decision register and identifies only external release delivery as blocking.
-- `CLAUDE.md` aligns the implemented architecture, G9/G10/G11 boundaries, actual publication controls, port 3100, provenance rules and takeover docs. Project-scoped Claude helpers are still configuration only unless an actual Claude run is observed.
+- `CLAUDE.md` aligns the implemented architecture, G9/G10/G11 boundaries, actual publication controls, port 3100, provenance rules and takeover docs. Project-scoped Claude helpers are configuration; observed Claude Code executions are retained separately under `evidence/claude-code/`.
 - `docs/architecture-overview.md` adds system/request/trust-boundary diagrams and brief explanations of bounded inference, fail-closed behavior, adapters, event sourcing, exact-SHA release and process-local controls.
 - `docs/developer-handoff.md` gives a mid-level developer a read order, repository map, change recipes, debugging ladder, advanced-concept notes and Definition of Done.
 - `docs/release-runbook.md` gives the exact GitHub/Vercel/public-verification/Graph/ZIP closure sequence.
@@ -116,12 +116,12 @@ Evidence: `evidence/productization/public-release-20260909.md`. N6 remains DONE;
 
 ## CI/CD workstream
 
-Separate graph `progress/cicd-graph.*`: **G10 BLOCKED only at deploy-check**. `verification=PASS`, `code-review=PASS`, `deploy-check=BLOCKED`.
+Separate graph `progress/cicd-graph.*`: **G10 remains BLOCKED at deploy-check**, but the original Git publication blocker is resolved. `verification=PASS`, `code-review=PASS`, `deploy-check=BLOCKED`.
 
-- `.github/workflows/ci.yml`: secret-free PR/main checks for locked install, lint, strict types, tests, build, Playwright, extension build/tests and synthetic browser proof.
-- `.github/workflows/deploy-production.yml`: exact-SHA production delivery after successful main CI or manual dispatch, GitHub `production` environment, required existing Vercel org/project/token, `vercel pull` → `vercel build --prod` → `vercel deploy --prebuilt --prod`, then health/favicon/hero/hello assertions.
-- Local workflow/YAML/release-marker verification PASS; Granite CI/CD critic PASS.
-- Manual owner-authorized delivery to the existing project is proven and N6 is closed. G10 remains blocked because the workflows are not yet published to GitHub; its automated production path and GitHub `production` secret binding therefore have not executed remotely.
+- `.github/workflows/ci.yml`: now active remotely. Push run `34382168718` on source `76e2b756acf04762627210457e36e800de682b02` completed SUCCESS, including quality and browser jobs.
+- `.github/workflows/deploy-production.yml`: exact-SHA production delivery after successful main CI or manual dispatch. First remote run `34382393971` stopped at `Require an existing Vercel project binding` because all three GitHub Actions values were empty; no pull/build/deploy step ran.
+- Release safety repair adds `npm run release:gate` before dependency install/Vercel credentials. If `progress/premium-graph.*` exists, every declared premium node must be DONE and no latest gate may be FAIL/BLOCKED; current PX2/PX3/PX4/PX5 state therefore fails closed by design.
+- Existing manual Vercel project binding and the productized public deployment remain proven separately. Do not add GitHub Vercel secrets until the premium graph is actually releasable.
 
 ## Parallel n8n workstream
 
@@ -134,12 +134,14 @@ Production default remains `openai/gpt-4.1-mini`; a bounded live production smok
 Retained observed cost ledger before this increment: user-reported coding spend $7.00; OpenRouter cumulative provider usage $0.001842 at the last metadata read; local Granite has no external inference charge observed. Provider accounting may lag.
 
 
-## Source publication blocker
+## Source publication and remote pipeline — current evidence
 
-Local `main` remains ahead of `origin/main` with no known remote-only commits from the last fetch. Reproduce the exact distance with `git rev-list --left-right --count origin/main...HEAD`. The dedicated audited repository-publication action was retried again from productized public-release closure `8972fad6d8434605699bfc31a5f2f3eeaa630d43` and returned `GITHUB_TOKEN is required for git_push`; evidence is `evidence/cicd/productized-release-publication-retry-20260909.md`, G10 sequence 16, and no shell credential workaround was used. Consequently the new GitHub Actions workflows are versioned and locally verified but are **not active on GitHub yet**. This is an account/tool credential blocker, not additional application development.
+The audited Git publisher is restored. A dedicated fast-forward `git_push` moved remote `main` from `f1aa373` to `76e2b756acf04762627210457e36e800de682b02`; no shell-token workaround or history reconstruction was used. GitHub CI then completed successfully in run `34382168718`. The automatically triggered production workflow run `34382393971` failed safely at its existing-project binding preflight because `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`, and `VERCEL_TOKEN` were absent from the GitHub `production` environment. This is now the external G10 deployment blocker, together with the intentionally incomplete premium graph.
 
 ## Exact resume path
 
-1. Retry only the dedicated audited Git publication action from the current closure HEAD. Shared/container GitHub authentication is healthy but does **not** inject the token required by that publisher. If it still returns `GITHUB_TOKEN is required for git_push`, retain G10 BLOCKED and request reconnection/authorization of the outer sandbox GitHub publisher channel; do not use shell push/token extraction/API history reconstruction.
-2. Rebuild the final candidate ZIP from the final closure commit with `.git` included and dependencies/build output/env secrets excluded; clean-room verify install/tests/build and record checksum.
-3. Recruiting upload/email, Chrome Web Store publication and real n8n email delivery remain separate actions unless explicitly authorized.
+1. Finish PX2 with a real independent design verdict, then complete dependency-unlocked PX3/PX4 and PX5 through the premium Graph lifecycle. The repository `release:gate` must remain BLOCKED until that graph is fully DONE.
+2. Only after premium release readiness, bind the existing Vercel org/project/token as GitHub `production` secrets and rerun the failed deploy workflow; verify exact-SHA public markers and browser behavior.
+3. Append the resulting remote CI/CD evidence to G10 and close its deploy-check only if the automated path succeeds.
+4. Rebuild the final source ZIP from the final closure commit with `.git` included and dependencies/build output/env secrets excluded; clean-room verify install/tests/build/browser checks and record checksum.
+5. Recruiting upload/email, Chrome Web Store publication and real n8n email delivery remain separate actions unless explicitly authorized.

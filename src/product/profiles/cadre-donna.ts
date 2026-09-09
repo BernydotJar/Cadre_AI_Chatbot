@@ -70,8 +70,8 @@ const cadreDonnaProfile: ChatbotProductProfile = {
         "Ask in your own words. When the answer needs private context, pricing, or an account action, Donna hands off instead of guessing.",
       trustBoundary: "No account access, bookings, or assessments in chat.",
       welcomeKicker: "DONNA · GROUNDED PUBLIC KNOWLEDGE",
-      welcomeLead: "A useful answer.",
-      welcomeEmphasis: "One clearer next step.",
+      welcomeLead: "Ask Donna about",
+      welcomeEmphasis: "Cadre AI.",
       welcomeBody:
         "Start with what you're trying to solve, or choose one of the verified paths below.",
       composerPlaceholder: "What are you trying to figure out?",

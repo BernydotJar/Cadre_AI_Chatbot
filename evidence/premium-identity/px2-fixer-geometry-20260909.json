@@ -1,0 +1,72 @@
+[
+  {
+    "name": "desktop",
+    "documentWidth": 1440,
+    "viewportWidth": 1440,
+    "documentHeight": 1000,
+    "viewportHeight": 1000,
+    "hero": {
+      "top": 94,
+      "bottom": 889.484375,
+      "width": 678.421875,
+      "height": 795.484375
+    },
+    "card": {
+      "top": 94,
+      "bottom": 912.53125,
+      "width": 626.234375,
+      "height": 818.53125
+    },
+    "composer": {
+      "top": 171,
+      "bottom": 407.96875,
+      "width": 624.234375,
+      "height": 236.96875
+    },
+    "welcome": {
+      "top": 431.96875,
+      "bottom": 883.53125,
+      "width": 572.234375,
+      "height": 451.5625
+    },
+    "avatarCount": 2,
+    "animatedSignalCount": 0,
+    "hasHorizontalOverflow": false,
+    "composerPrecedesWelcome": true
+  },
+  {
+    "name": "mobile",
+    "documentWidth": 390,
+    "viewportWidth": 390,
+    "documentHeight": 1142,
+    "viewportHeight": 844,
+    "hero": {
+      "top": 72,
+      "bottom": 250.796875,
+      "width": 366,
+      "height": 178.796875
+    },
+    "card": {
+      "top": 261.796875,
+      "bottom": 1077.796875,
+      "width": 366,
+      "height": 816
+    },
+    "composer": {
+      "top": 330.796875,
+      "bottom": 579.546875,
+      "width": 364,
+      "height": 248.75
+    },
+    "welcome": {
+      "top": 595.546875,
+      "bottom": 1056.796875,
+      "width": 336,
+      "height": 461.25
+    },
+    "avatarCount": 2,
+    "animatedSignalCount": 0,
+    "hasHorizontalOverflow": false,
+    "composerPrecedesWelcome": true
+  }
+]
