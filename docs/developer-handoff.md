@@ -26,7 +26,7 @@ npm run graph -- validate
 npm run graph -- status --pretty
 ```
 
-Do not start by refactoring. First reproduce the current green local state and understand which release gate is actually blocked.
+Do not start by refactoring. First identify the active Graph node. The released PX5 baseline is green; the current PX6 source is deliberately unverified until its critic/fixer assembly finishes. Resume from that lifecycle state rather than treating older 288/58 results as proof for the changed source.
 
 ## The mental model to keep
 

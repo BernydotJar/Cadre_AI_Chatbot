@@ -4,7 +4,7 @@ Owner-approved target: `Cadre_AI` / `cadre-ai3`. Project: `cadre-ai-chatbot`. Pu
 
 ## Current delivery status — 2026-09-09
 
-Repaired premium revision-4 source `8ae8a3a1b0e53100218930aa893eed90a8592562` is deployed on the **existing** `Cadre_AI / cadre-ai3 / cadre-ai-chatbot` project as `dpl_EECF4m6NbwdN73j6Z2JxSfVpWbP7`. Anonymous health/page/icon + Donna behavior smoke passes, and the full public Playwright matrix is **58/58 PASS** on `https://cadre-ai-chatbot-tawny.vercel.app`. Clean desktop/mobile captures show the `cadre-donna` product marker, one editorial Donna monogram, the expected composer, poster-only reduced-motion state, and no horizontal overflow.
+The **currently deployed production baseline** is premium PX5 revision 4, source `8ae8a3a1b0e53100218930aa893eed90a8592562`, on the existing `Cadre_AI / cadre-ai3 / cadre-ai-chatbot` project as `dpl_EECF4m6NbwdN73j6Z2JxSfVpWbP7`. Anonymous smoke and the PX5 **58/58** public Playwright matrix passed there. A newer owner-authorized **PX6 source line is still local/RUNNING** and changes the website shell, Donna identity, prompts and boundary tone; none of the PX5 browser/deployment PASS evidence is reused for it. PX6 may replace the production alias only after its critic/fixer/final verification and Graph gates pass.
 
 The earlier revision-3 deployment `dpl_A6CvaDHT34auCMFFoNxnmDvCXCBY` is retained in evidence because its first full public run was **57/58** and exposed the ambient Pause/autoplay cold-load race. Revision 4 repairs that product defect and the release-gate invalidation projection discovered during the same loop. No replacement Vercel project was created.
 

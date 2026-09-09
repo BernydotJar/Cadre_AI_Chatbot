@@ -1,6 +1,6 @@
 # Source delivery and review
 
-The delivery is the public web app plus a lightweight source ZIP with usable Git history. The optional Chrome Integration Preview is DONE in its separate graph and is not a prerequisite for core acceptance; tracked source/documentation may be included while generated `extension/dist` remains excluded. The optional n8n handoff contract is also tracked source but is not evidence of real email delivery. The existing public app is now release-equivalent to the reviewed chatbot and N6 is DONE; rebuild the final ZIP from the closure commit so the source package carries the final graph/documentation projection. Preparation does not authorize external upload/submission or Web Store publication.
+The delivery is the public web app plus a lightweight source ZIP with usable Git history. The optional Chrome Integration Preview is DONE in its separate graph and generated `extension/dist` remains excluded; the optional n8n handoff contract is tracked source but is not evidence of real email delivery. The currently deployed PX5 app is a verified rollback baseline, while the active PX6 source remains RUNNING until its own final gates/public equivalence pass. Build the final ZIP only from the eventual PX6 closure commit so the package and public runtime describe the same product line. Preparation does not authorize external upload/submission or Web Store publication.
 
 ## Package contents and exclusions
 

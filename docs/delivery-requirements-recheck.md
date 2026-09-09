@@ -7,13 +7,13 @@ Reconciled 2026-09-09 against the supplied delivery brief and the current reposi
 | Expectation | Current evidence | Remaining / claim boundary |
 |---|---|---|
 | Plan before implementation | Root `CLAUDE.md`, `plan.md`, approved specs, dated decisions and graph approval events | Keep projections current; do not rewrite historical approvals |
-| Public working chatbot URL | Existing Vercel alias serves repaired premium revision 4 | **PASS:** source `8ae8a3a`, deployment `dpl_EECF4m6NbwdN73j6Z2JxSfVpWbP7`, anonymous smoke + **58/58** public Playwright |
+| Public working chatbot URL | Existing Vercel alias serves the verified PX5 rollback baseline while PX6 is local/RUNNING | PX5 PASS: source `8ae8a3a`, deployment `dpl_EECF4m6NbwdN73j6Z2JxSfVpWbP7`, anonymous smoke + **58/58** public Playwright. PX6 public PASS is **not claimed yet** |
 | Six supported scenario families | Typed `src/config/cadre.ts`, deterministic routing/policy, API/UI regressions | Maintain source freshness; do not claim unlimited semantic coverage |
 | Deliberate architecture | Config/core/provider/server/UI separation plus `docs/architecture-overview.md` and component inventory | Keep optional extension/n8n outside core authority |
 | Claude Code workflow/context management | Root `CLAUDE.md`, `.claude/agents/`, `.claude/commands/`, bounded role briefs and review protocol | Configuration is not proof of invocation. Claim actual Claude usage only from a genuine observed run |
 | Independent critique/verification | Producer/critic/fixer/verifier artifacts, retained FAIL-to-fix evidence, Granite bounded reviews | A model review is one evidence class; it is not human approval or deployment proof |
 | Small authentic commits | Incremental Git history across policy, UI, extension, CI/CD, n8n and docs | Preserve actual technical committer/provenance; no history rewrite |
-| Test and inspect output | Current repaired premium source **288/288** Vitest + local/public **58/58** Playwright; extension **72/72**, repaired synthetic extension **24/24**, installed-site contextual proof **17 scoped checks**; revision-3 public **57/58** failure retained | **PASS** at declared product/adapter scopes |
+| Test and inspect output | Released PX5 source **288/288** Vitest + local/public **58/58** Playwright; extension **72/72**, repaired synthetic extension **24/24**, installed-site contextual proof **17 scoped checks** | Historical PX5/adapter scopes PASS. PX6 tests are intentionally deferred until its critic/fixer assembly is complete |
 | Explicit scope decisions | No auth/database/CRM/vector DB/real booking/account access; G9 and G11 isolated as optional workstreams | Do not add scope merely to work around release infrastructure |
 | CI/CD maturity | Secret-free GitHub CI + gated exact-SHA Vercel production workflow; existing-project manual prebuild/deploy path proven | GitHub CI is active; automated production CD still stops at existing-project binding preflight because GitHub `production` lacks the Vercel binding |
 | Lightweight complete source archive | Fresh pre-closure transport archive independently passes source/history audit and clean extraction verification | Rebuild once from the final closure commit; no additional product work required |
@@ -24,15 +24,15 @@ Reconciled 2026-09-09 against the supplied delivery brief and the current reposi
 Two distinctions matter when using this map:
 
 1. **Tool configuration vs observed execution.** Project agents/commands describe the intended workflow; actual model/tool use is claimed only when an observed run and retained artifact support it.
-2. **Local readiness vs public readiness.** Revision 4 is independently green locally **and** deployed on the existing project with a full 58/58 anonymous matrix. The earlier revision-3 57/58 failure remains distinct historical evidence.
+2. **Released baseline vs active increment.** PX5 is independently green and deployed with its 58/58 anonymous matrix. PX6 changes the runtime/presentation contracts and therefore inherits none of those current-source quality claims; its local/public evidence must be generated fresh after the critic/fixer phase.
 
 ## Current acceptance snapshot
 
 - Core lint: PASS.
 - Strict typecheck: PASS.
-- Current premium Vitest: **16 files / 288 tests PASS**.
+- Released PX5 Vitest baseline: **16 files / 288 tests PASS**; PX6 current-source count is pending final verification.
 - Production Next.js build: PASS, including `/icon.svg`.
-- Current repaired premium Playwright desktop/mobile: **58/58 PASS locally and 58/58 PASS anonymously in production**; revision-3 retains its earlier 57/58 failure as repair evidence.
+- Released PX5 Playwright baseline: **58/58 PASS locally and 58/58 PASS anonymously in production**. PX6 browser evidence is pending and must use the entire current matrix.
 - Chrome Integration Preview: G9/PX4 contextual scope DONE; 72 extension tests, latest repaired 24 synthetic browser checks, 17 scoped installed-site checks.
 - n8n human-handoff contract: G11 DONE at contract/runtime-prototype scope; real email delivery intentionally not claimed.
 - GitHub/Vercel CI/CD: GitHub CI is active; G10 deploy-check remains BLOCKED only because GitHub `production` lacks the existing Vercel binding for automated CD.
