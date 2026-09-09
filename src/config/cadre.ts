@@ -199,7 +199,7 @@ const cadreConfig: ClientConfig = {
   boundaries: {
     declineTopics: [
       "price", "pricing", "prices", "cost", "costs", "fee", "fees",
-      "quote", "quotes", "how much", "budget", "charge", "ballpark",
+      "quote", "quotes", "how much", "budget", "charge", "ballpark", "costly", "expensive",
       "hourly rate", "your rates", "rate card", "day rate",
       "guarantee", "guaranteed", "certified", "certification",
       "certifications", "soc 2", "soc2", "iso 27001", "iso27001", "hipaa",
@@ -207,7 +207,7 @@ const cadreConfig: ClientConfig = {
     ],
     pricingTopics: [
       "price", "pricing", "prices", "cost", "costs", "fee", "fees", "quote", "quotes",
-      "how much", "budget", "charge", "ballpark", "hourly rate", "your rates", "rate card",
+      "how much", "budget", "charge", "ballpark", "costly", "expensive", "hourly rate", "your rates", "rate card",
       "day rate", "discount",
     ],
     accountTopics: [
