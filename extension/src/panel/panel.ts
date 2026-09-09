@@ -136,7 +136,7 @@ function send(isRetry = false) {
       settled("TIMEOUT");
     }, TRANSPORT_TIMEOUT_MS + 1_000),
   };
-  status.textContent = "Donna is checking verified context…";
+  status.textContent = "Donna is checking approved Cadre knowledge…";
   render();
   input.focus();
   post({ type: "CHAT_REQUEST", requestId, payload: { messages: buildRequestHistory(messages, clarification) } });

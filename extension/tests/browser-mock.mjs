@@ -100,6 +100,11 @@ try {
   checked("six core topic labels available", await panel.locator("#topics button").count() === 6);
   await panel.getByText("You found the agent catalog. I promise not to recommend twelve agents where one well-chosen workflow would do.", { exact: true }).waitFor();
   checked("approved URL context reaches the panel without page-text scraping", await panel.locator("#context-label").textContent() === "CADRE · DISCOVER AGENTS");
+  const criticalCopySizes = await panel.evaluate(() => {
+    const px = (selector) => Number.parseFloat(getComputedStyle(document.querySelector(selector)).fontSize);
+    return { eyebrow: px(".eyebrow"), kicker: px(".welcome-kicker"), context: px("#context-label"), prompt: px("#context-prompt"), privacy: px("#privacy"), status: px("#status") };
+  });
+  checked("mode privacy and boundary copy stay at least 12px", Object.values(criticalCopySizes).every((size) => size >= 12));
   checked("host stylesheet cannot override panel controls", await input.evaluate((node) => getComputedStyle(node).fontSize) === "12px");
   await input.fill("services"); await input.press("Enter");
   await panel.getByText("Reply received.", { exact: true }).waitFor();

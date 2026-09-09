@@ -36,7 +36,7 @@ function mountPreview() {
     .launcher:hover{transform:translateY(-2px);box-shadow:0 20px 50px #20191d38,0 1px 0 #ffffff inset}.launcher:focus-visible{outline:3px solid #225d51;outline-offset:5px}
     .mark{width:32px;height:32px;display:grid;place-items:center;font:italic 650 20px/1 Georgia,"Times New Roman",serif;color:#8f2e39;letter-spacing:-.05em}
     .tip{position:absolute;right:0;bottom:70px;width:max-content;max-width:260px;padding:11px 14px;border:1px solid #3a3432;border-radius:12px;background:#18181b;color:#fff;font:650 12px/1.4 Inter,Arial,sans-serif;box-shadow:0 10px 30px #18181b33;opacity:0;transform:translateY(5px);pointer-events:none}
-    .tip::after{content:"Local integration preview";display:block;margin-top:3px;color:#d3cbc2;font-size:9px;font-weight:550;letter-spacing:.03em}
+    .tip::after{content:"Local integration preview";display:block;margin-top:3px;color:#d3cbc2;font-size:12px;font-weight:550;letter-spacing:.03em}
     .launcher:hover+.tip,.launcher:focus-visible+.tip{opacity:1;transform:translateY(0)}
     iframe{display:block;width:min(420px,calc(100vw - 32px));height:min(650px,calc(100dvh - 104px));min-height:240px;border:1px solid #d7d0c5;border-radius:24px;background:#f7f3eb;box-shadow:0 24px 70px #261d223d;margin-bottom:14px}
     [hidden]{display:none!important}
