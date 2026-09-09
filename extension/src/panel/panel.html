@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Cadre AI Assistant — Integration Preview</title>
+    <link rel="stylesheet" href="panel.css">
+    <script type="module" src="panel.js"></script>
+  </head>
+  <body>
+    <header>
+      <div><p class="eyebrow">INTEGRATION PREVIEW</p><h1>Cadre AI Assistant</h1></div>
+      <div class="window-actions">
+        <button id="minimize" type="button" aria-label="Minimize assistant" title="Minimize">−</button>
+        <button id="close" type="button" aria-label="Close and clear assistant" title="Close and clear">×</button>
+      </div>
+    </header>
+    <main id="transcript" aria-label="Assistant conversation">
+      <div id="welcome">
+        <div class="sun" aria-hidden="true">✳</div>
+        <h2>A little clarity.<br><em>A way forward.</em></h2>
+        <p>Explore Cadre AI's services and next steps. This is an independent local demonstration, not a Cadre-installed service.</p>
+        <div id="topics" aria-label="Suggested questions"></div>
+      </div>
+      <div id="conversation" role="log" aria-live="polite" aria-relevant="additions"></div>
+    </main>
+    <footer>
+      <div class="status-row"><p id="status" role="status">Connecting preview…</p><button id="reset" type="button">New chat</button></div>
+      <button id="retry" class="retry" type="button" hidden>Retry last message</button>
+      <form id="composer" novalidate>
+        <label class="visually-hidden" for="message">Message Cadre AI Assistant</label>
+        <textarea id="message" rows="2" readonly placeholder="Ask about Cadre AI…" aria-describedby="privacy counter"></textarea>
+        <button id="send" type="submit" disabled>Send</button>
+        <button id="stop" type="button" hidden>Stop</button>
+      </form>
+      <div class="composer-note"><p id="privacy">No passwords or sensitive details. Replies can be wrong.</p><output id="counter" for="message">0 / 2000</output></div>
+    </footer>
+  </body>
+</html>

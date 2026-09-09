@@ -1,0 +1,6 @@
+{
+  "name": "Cadre AI Assistant — Integration Preview",
+  "version": "0.1.0",
+  "apiEndpoint": "https://cadre-ai-chatbot-tawny.vercel.app/api/chat",
+  "siteOrigins": ["https://cadre.ai", "https://www.cadre.ai"]
+}

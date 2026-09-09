@@ -1,0 +1,165 @@
+{
+  "generatedAt": "2026-09-09T04:41:43.637Z",
+  "source": [
+    {
+      "path": "extension/README.md",
+      "bytes": 11051,
+      "sha256": "f8ca2ed6dd6acd0280486925fb22768f19373a4d239ac72af70689e2c4b50e89"
+    },
+    {
+      "path": "extension/build.mjs",
+      "bytes": 6535,
+      "sha256": "6a0929cedca39ec18ba9c084cb4f6a4eb67307783f43540b6cfc376f47c0ba7d"
+    },
+    {
+      "path": "extension/config.json",
+      "bytes": 215,
+      "sha256": "923786a07106202bca22fd09dcb53996e63e09d0dae2fc3dddef2eee0187bae9"
+    },
+    {
+      "path": "extension/src/chrome.d.ts",
+      "bytes": 750,
+      "sha256": "44c0320d093d1fd6f48be33da542cc0d309ab863b2f213d8841812580c8085d2"
+    },
+    {
+      "path": "extension/src/content-script.ts",
+      "bytes": 5945,
+      "sha256": "361b5f05a2d95ea77074df359216920743d22fad102297a34929da35a13f4f80"
+    },
+    {
+      "path": "extension/src/generated-config.d.ts",
+      "bytes": 324,
+      "sha256": "04684be459b16bdbd9d2265bf85392b70e3ce345327cdc096370c545f1662f2d"
+    },
+    {
+      "path": "extension/src/panel/panel.css",
+      "bytes": 3782,
+      "sha256": "ea57a7d19f492682b40a141277f2fc47e5c627ffce7762cd54dd779e698a8d72"
+    },
+    {
+      "path": "extension/src/panel/panel.html",
+      "bytes": 2060,
+      "sha256": "ad93fc2ee07ab1cbe1a7d4df6097212af0d54c0de46e3bc66caa4014f98520ad"
+    },
+    {
+      "path": "extension/src/panel/panel.ts",
+      "bytes": 8945,
+      "sha256": "2e505979c9f0afcada7686e554cda5a7670b0d5f43fc5c00b2ebcebf9403797a"
+    },
+    {
+      "path": "extension/src/service-worker.ts",
+      "bytes": 174,
+      "sha256": "0caf21985ce266c21b1c317c69a07287234edd7ecff66df768561b3d202fdb24"
+    },
+    {
+      "path": "extension/src/shared/bridge.ts",
+      "bytes": 4489,
+      "sha256": "97c759a77a7045b46b2b18f3272f714e60f726828dcde8ef0077f57d920d0dbc"
+    },
+    {
+      "path": "extension/src/shared/contracts.ts",
+      "bytes": 6732,
+      "sha256": "0f7aadfa99be1a6118eab605ba258bc9f0bf71fcb24f7d46e67003deab3b958f"
+    },
+    {
+      "path": "extension/tests/bridge.test.ts",
+      "bytes": 7756,
+      "sha256": "fda003184260eab907128c4751423ff5aa3143236c923b9c83007e539f38167c"
+    },
+    {
+      "path": "extension/tests/browser-mock.mjs",
+      "bytes": 11596,
+      "sha256": "5a22174ecae70f564633f5dbc427a8f5c7f88bb3a0754ae758bc42b0ddc8461e"
+    },
+    {
+      "path": "extension/tests/build.test.ts",
+      "bytes": 3664,
+      "sha256": "a92a2161a486078c282e1bc6e23ede4426817d3c2633fe154ff2294de03103a2"
+    },
+    {
+      "path": "extension/tests/contracts.test.ts",
+      "bytes": 7566,
+      "sha256": "67ab194b69916d10943ee186d7d69afa3f199b2644e5863827f1204d00264534"
+    },
+    {
+      "path": "extension/vitest.config.ts",
+      "bytes": 281,
+      "sha256": "c085f656f4b760880cc8a1657fcd1b8f4b9e912d0b8884f421f5938459a82af3"
+    }
+  ],
+  "generatedBuild": [
+    {
+      "path": "extension/dist/config.js",
+      "bytes": 1167,
+      "sha256": "234e690f18fa1e770063f6fdcaee5d3cb7959ffc8926cc3636595422340ba77c"
+    },
+    {
+      "path": "extension/dist/content-script.js",
+      "bytes": 6750,
+      "sha256": "fd64f46300767371bbb82234a0c50005a8ddd5a76a0b925f42fab49fca51d2e1"
+    },
+    {
+      "path": "extension/dist/manifest.json",
+      "bytes": 1193,
+      "sha256": "47bcf96f7cfec7a3f7868baa4f8fac587b9d045ee06f602bb94cc20760042b7c"
+    },
+    {
+      "path": "extension/dist/panel.css",
+      "bytes": 3782,
+      "sha256": "ea57a7d19f492682b40a141277f2fc47e5c627ffce7762cd54dd779e698a8d72"
+    },
+    {
+      "path": "extension/dist/panel.html",
+      "bytes": 2060,
+      "sha256": "ad93fc2ee07ab1cbe1a7d4df6097212af0d54c0de46e3bc66caa4014f98520ad"
+    },
+    {
+      "path": "extension/dist/panel.js",
+      "bytes": 9097,
+      "sha256": "a3f8a13e2647993f73ae53c7574a7b6ee8b399940a4613a9ef3b948d5e8b04e2"
+    },
+    {
+      "path": "extension/dist/service-worker.js",
+      "bytes": 169,
+      "sha256": "c632b7e7503b501bbca939fa3fbac593d3b9f4ae818585fb04de5578ed545908"
+    },
+    {
+      "path": "extension/dist/shared/bridge.js",
+      "bytes": 5461,
+      "sha256": "66930d6fa63244dfdd682c84e841d6a5de13200153f8320fb953f8a1ea7e2496"
+    },
+    {
+      "path": "extension/dist/shared/contracts.js",
+      "bytes": 6191,
+      "sha256": "0e7c94b7c1edad97792f6d06c199649d2ff8ef59c8cde3315811af590cc9c6b1"
+    },
+    {
+      "path": "extension/dist/shared/conversation.js",
+      "bytes": 2106,
+      "sha256": "86cbc972655913d58a1bf67c72121778393c440907243f25d8fdba2e72ee8591"
+    },
+    {
+      "path": "extension/dist/shared/limits.js",
+      "bytes": 1150,
+      "sha256": "da48518e19548a8df30bab522a430cdc152b99bbdd6727ce111cbb7f66dfa57e"
+    }
+  ],
+  "generatedBuildBytes": 39126,
+  "syntheticBrowserArtifacts": [
+    {
+      "path": "extension/evidence/browser-mock.json",
+      "bytes": 2350,
+      "sha256": "c608374a1fcfbafe56ef16f3b3bf833f96dea6054cb746cd96d7a2a8dbdaa8b3"
+    },
+    {
+      "path": "extension/evidence/mock-desktop.png",
+      "bytes": 64993,
+      "sha256": "71470017bf04a414c41be29be1dc7a10aea6efdb27c3368dc25aaff2e78f1650"
+    },
+    {
+      "path": "extension/evidence/mock-mobile.png",
+      "bytes": 60036,
+      "sha256": "375751044d0d0329d17d8b16a8d536b68afaced9bb342a2f4981f747d3f051ae"
+    }
+  ]
+}
