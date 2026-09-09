@@ -1,0 +1,139 @@
+PX5 independent clean-worktree verifier
+snapshot=76fe74c1933ba7c445725345bf497bf8eb0887c2
+started=2026-09-09T20:37:12Z
+
+
+$ git status --short --branch
+## HEAD (no branch)
+
+$ git fsck --full --strict
+dangling blob 3516378bc22af526a152d04434c558b6190266d3
+dangling blob 1fb8f760110892d71af15f0ba044380e7a1044fa
+dangling blob 6ffa853eabcf6b01da303cd8cb80013cb0ac304c
+dangling blob beceecb4c7dd37a25057e3236da90ccc3207c31a
+
+$ npm ci --no-audit --no-fund
+npm warn deprecated eslint@9.39.5: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+
+added 380 packages in 7s
+
+$ npm run typecheck
+
+> cadre-ai-chatbot@0.1.0 typecheck
+> tsc --noEmit
+
+
+$ npm run lint
+
+> cadre-ai-chatbot@0.1.0 lint
+> eslint .
+
+
+$ npm test
+
+> cadre-ai-chatbot@0.1.0 test
+> vitest run
+
+[33m(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `"type": "module"` in the closest package.json
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.[39m
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90m/tmp/cadre-px5-verify-76fe74c[39m
+
+ [32m✓[39m tests/core/policy.test.ts [2m([22m[2m59 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+ [32m✓[39m tests/api/chat-route.test.ts [2m([22m[2m45 tests[22m[2m)[22m[32m 46[2mms[22m[39m
+ [32m✓[39m tests/provider/openrouter.test.ts [2m([22m[2m48 tests[22m[2m)[22m[32m 46[2mms[22m[39m
+ [32m✓[39m tests/product/contracts.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m tests/core/route.test.ts [2m([22m[2m33 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+ [32m✓[39m tests/product/donna.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 32[2mms[22m[39m
+ [32m✓[39m tests/tools/graph-baseline.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 25[2mms[22m[39m
+ [32m✓[39m tests/config/config.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m tests/config/knowledge-refresh.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 32[2mms[22m[39m
+ [32m✓[39m tests/provider/model-selection.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 23[2mms[22m[39m
+ [32m✓[39m tests/ui/conversation.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m tests/tools/release-gate.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m tests/core/validate.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m tests/server/rate-limit.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 23[2mms[22m[39m
+ [32m✓[39m tests/product/view.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m tests/product/media-assets.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m16 passed[39m[22m[90m (16)[39m
+[2m      Tests [22m [1m[32m286 passed[39m[22m[90m (286)[39m
+[2m   Start at [22m 20:37:23
+[2m   Duration [22m 753ms[2m (import 38%, transform 36%, tests 24%, worker 2%)[22m
+
+
+$ npm run build
+
+> cadre-ai-chatbot@0.1.0 build
+> next build
+
+▲ Next.js 16.3.4 (Turbopack)
+✓ Running next.config.ts took 21ms
+⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 2.5s
+  Running TypeScript ...
+  Finished TypeScript in 1781ms ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/5) ...
+  Generating static pages using 7 workers (1/5)
+  Generating static pages using 7 workers (2/5)
+  Generating static pages using 7 workers (3/5)
+✓ Generating static pages using 7 workers (5/5) in 292ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ○ /_not-found
+├ ƒ /api/chat
+├ ƒ /api/health
+└ ○ /icon.svg
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+$ node extension/build.mjs
+Extension generated: extension/dist (15 files; no provider config or credentials read)
+
+$ npm exec -- vitest run --config extension/vitest.config.ts
+[33m(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - ESM syntax in a file loaded as CommonJS (extension/vitest.config.ts:1:1). Use a `.mjs` extension or set `"type": "module"` in the closest package.json
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.[39m
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90m/tmp/cadre-px5-verify-76fe74c[39m
+
+ [32m✓[39m extension/tests/build.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m extension/tests/bridge.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 25[2mms[22m[39m
+ [32m✓[39m extension/tests/contracts.test.ts [2m([22m[2m50 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m3 passed[39m[22m[90m (3)[39m
+[2m      Tests [22m [1m[32m72 passed[39m[22m[90m (72)[39m
+[2m   Start at [22m 20:37:31
+[2m   Duration [22m 218ms[2m (transform 71%, import 19%, tests 9%, worker 1%)[22m
+
+
+$ node extension/tests/browser-mock.mjs px5-clean-verifier-20260909
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: panel frame opened
+    at file:///tmp/cadre-px5-verify-76fe74c/extension/tests/browser-mock.mjs:95:10 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: undefined,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v22.23.2
