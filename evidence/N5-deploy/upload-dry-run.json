@@ -1,0 +1,281 @@
+{
+  "framework": {
+    "name": "Next.js",
+    "slug": "nextjs"
+  },
+  "fileCount": 24,
+  "totalSize": 307044,
+  "ignoredCount": 25,
+  "ignored": [
+    ".env.example",
+    ".env.local",
+    ".git",
+    ".gitignore",
+    ".next",
+    ".vercel",
+    ".vercelignore",
+    "CLAUDE.md",
+    "README.md",
+    "docs",
+    "eslint.config.mjs",
+    "evidence",
+    "feature_list.json",
+    "graph-harness.events.jsonl",
+    "graph-harness.project.json",
+    "next-env.d.ts",
+    "node_modules",
+    "plan.md",
+    "progress",
+    "specs",
+    "src/config/fixtures",
+    "tests",
+    "tools",
+    "tsconfig.tsbuildinfo",
+    "vitest.config.ts"
+  ],
+  "directories": [
+    {
+      "path": "package-lock.json",
+      "fileCount": 1,
+      "size": 250731
+    },
+    {
+      "path": "src",
+      "fileCount": 14,
+      "size": 52368
+    },
+    {
+      "path": "app",
+      "fileCount": 5,
+      "size": 1730
+    },
+    {
+      "path": "package.json",
+      "fileCount": 1,
+      "size": 1078
+    },
+    {
+      "path": "tsconfig.json",
+      "fileCount": 1,
+      "size": 740
+    },
+    {
+      "path": "vercel.json",
+      "fileCount": 1,
+      "size": 241
+    },
+    {
+      "path": "next.config.ts",
+      "fileCount": 1,
+      "size": 156
+    }
+  ],
+  "largestFiles": [
+    {
+      "path": "package-lock.json",
+      "size": 250731,
+      "mode": 33188,
+      "sha": "8e88d6d0312cf7c76a04eef453cd5351fdeb0b56"
+    },
+    {
+      "path": "src/provider/openrouter.ts",
+      "size": 9720,
+      "mode": 33188,
+      "sha": "2c60969e9c913b7013e4886a4ecbfa749df8263a"
+    },
+    {
+      "path": "src/config/cadre.ts",
+      "size": 9123,
+      "mode": 33188,
+      "sha": "90d3a1accac8bf15046ce30d3d66b49f2bc548a7"
+    },
+    {
+      "path": "src/core/policy.ts",
+      "size": 6357,
+      "mode": 33188,
+      "sha": "69b9599a42189d0b30991b3e028ea8df68331370"
+    },
+    {
+      "path": "src/config/types.ts",
+      "size": 6018,
+      "mode": 33188,
+      "sha": "139526cdfcee15f637530cd49c6f5a0df6583600"
+    },
+    {
+      "path": "src/server/chat.ts",
+      "size": 5751,
+      "mode": 33188,
+      "sha": "9a56a3a63a270a5dd648ee7f29be3696e865719e"
+    },
+    {
+      "path": "src/server/io.ts",
+      "size": 4183,
+      "mode": 33188,
+      "sha": "81b83f54a3282d3a35b7e01b465607a0c81f61d8"
+    },
+    {
+      "path": "src/core/route.ts",
+      "size": 3021,
+      "mode": 33188,
+      "sha": "570af7884ed63cfe18c3569f431a077ad1174e7d"
+    },
+    {
+      "path": "src/server/rate-limit.ts",
+      "size": 1981,
+      "mode": 33188,
+      "sha": "95bed18ba6a59c1b6abfdfa1c345e12478a93c59"
+    },
+    {
+      "path": "src/core/validate.ts",
+      "size": 1280,
+      "mode": 33188,
+      "sha": "c36ac34cefb05bc007261e4b4771347deae2d63c"
+    }
+  ],
+  "files": [
+    {
+      "path": "app/api/chat/route.ts",
+      "size": 126,
+      "mode": 33188,
+      "sha": "cffdea630598e45a1301a862d364298020b19716"
+    },
+    {
+      "path": "app/api/health/route.ts",
+      "size": 127,
+      "mode": 33188,
+      "sha": "74d2671d5a74917325d22ce7166fb0caabead98c"
+    },
+    {
+      "path": "app/globals.css",
+      "size": 863,
+      "mode": 33188,
+      "sha": "b7d453a78b3afa9ae0ce3305dc039251a55e8682"
+    },
+    {
+      "path": "app/layout.tsx",
+      "size": 436,
+      "mode": 33188,
+      "sha": "3de1c7b2fd0999d7feb3e42b7d7000d39b20def4"
+    },
+    {
+      "path": "app/page.tsx",
+      "size": 178,
+      "mode": 33188,
+      "sha": "5b4a88f9de7acbcd7cdf4e1b73a49639ac238260"
+    },
+    {
+      "path": "next.config.ts",
+      "size": 156,
+      "mode": 33188,
+      "sha": "b0e7bbd54e6e057aba362d9f5ef5dc28199ba626"
+    },
+    {
+      "path": "package-lock.json",
+      "size": 250731,
+      "mode": 33188,
+      "sha": "8e88d6d0312cf7c76a04eef453cd5351fdeb0b56"
+    },
+    {
+      "path": "package.json",
+      "size": 1078,
+      "mode": 33188,
+      "sha": "f1a3c597cf5c765b4e59e3bad3d62a0ba7144e0c"
+    },
+    {
+      "path": "src/config/cadre.ts",
+      "size": 9123,
+      "mode": 33188,
+      "sha": "90d3a1accac8bf15046ce30d3d66b49f2bc548a7"
+    },
+    {
+      "path": "src/config/types.ts",
+      "size": 6018,
+      "mode": 33188,
+      "sha": "139526cdfcee15f637530cd49c6f5a0df6583600"
+    },
+    {
+      "path": "src/core/limits.ts",
+      "size": 1119,
+      "mode": 33188,
+      "sha": "33820a2cf6dc504f8dc57cbd6ef752f6218c3ebe"
+    },
+    {
+      "path": "src/core/policy.ts",
+      "size": 6357,
+      "mode": 33188,
+      "sha": "69b9599a42189d0b30991b3e028ea8df68331370"
+    },
+    {
+      "path": "src/core/route.ts",
+      "size": 3021,
+      "mode": 33188,
+      "sha": "570af7884ed63cfe18c3569f431a077ad1174e7d"
+    },
+    {
+      "path": "src/core/text.ts",
+      "size": 982,
+      "mode": 33188,
+      "sha": "d654596e90a0f337dc8b517f045f3e8ae4389d6a"
+    },
+    {
+      "path": "src/core/validate.ts",
+      "size": 1280,
+      "mode": 33188,
+      "sha": "c36ac34cefb05bc007261e4b4771347deae2d63c"
+    },
+    {
+      "path": "src/provider/config.ts",
+      "size": 1248,
+      "mode": 33188,
+      "sha": "93f1638c31a3f64efac543bf0205369e92aa2286"
+    },
+    {
+      "path": "src/provider/mock.ts",
+      "size": 408,
+      "mode": 33188,
+      "sha": "2ce8021f162097dc2a01688805be7b3fcdec31d1"
+    },
+    {
+      "path": "src/provider/openrouter.ts",
+      "size": 9720,
+      "mode": 33188,
+      "sha": "2c60969e9c913b7013e4886a4ecbfa749df8263a"
+    },
+    {
+      "path": "src/provider/types.ts",
+      "size": 1177,
+      "mode": 33188,
+      "sha": "a33d9767892bbd318bbdc407d4bd9961f24b965b"
+    },
+    {
+      "path": "src/server/chat.ts",
+      "size": 5751,
+      "mode": 33188,
+      "sha": "9a56a3a63a270a5dd648ee7f29be3696e865719e"
+    },
+    {
+      "path": "src/server/io.ts",
+      "size": 4183,
+      "mode": 33188,
+      "sha": "81b83f54a3282d3a35b7e01b465607a0c81f61d8"
+    },
+    {
+      "path": "src/server/rate-limit.ts",
+      "size": 1981,
+      "mode": 33188,
+      "sha": "95bed18ba6a59c1b6abfdfa1c345e12478a93c59"
+    },
+    {
+      "path": "tsconfig.json",
+      "size": 740,
+      "mode": 33188,
+      "sha": "1472be08d0d8262a3e95b358cdec025a8757ed1c"
+    },
+    {
+      "path": "vercel.json",
+      "size": 241,
+      "mode": 33188,
+      "sha": "785ae9b3caef72d23684d3275d717772987f34b4"
+    }
+  ]
+}

@@ -4,7 +4,7 @@
 
 A grounded customer-support chatbot for [Cadre AI](https://cadre.ai), an AI strategy and implementation consultancy. The bot answers common inbound questions from prospective and existing clients using a curated, versioned knowledge set, and redirects honestly when a question is outside its supported scope.
 
-**Current status: approved and in progress.** The 001-support-chatbot scope was human-approved (2026-09-08, recorded in the graph ledger). The owner subsequently authorized small local commits using the configured Git identity and OpenRouter exclusively for chatbot inference, within a $5 total allowance. Preserve a reserve; never use that key for coding assistance. Deployment target/account, push and submission remain unapproved. See `plan.md` and `progress/authorization-2026-09-08.md`.
+**Current status: approved and in progress.** The 001-support-chatbot scope was human-approved (2026-09-08, recorded in the graph ledger). The owner subsequently authorized small local commits using the configured Git identity and OpenRouter exclusively for chatbot inference, within a $5 total allowance. Preserve a reserve; never use that key for coding assistance. Deployment through Vercel CLI to `Cadre_AI` / `cadre-ai3` is now confirmed. Push, submission and final release closure remain unapproved. See `plan.md` and `progress/authorization-2026-09-08.md`.
 
 ## Repository map
 

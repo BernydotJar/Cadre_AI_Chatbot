@@ -1,0 +1,19 @@
+# Deny by default. Only application/build inputs go to the hosting service.
+/*
+!/app
+!/src
+!/public
+!/package.json
+!/package-lock.json
+!/next.config.ts
+!/tsconfig.json
+!/vercel.json
+/src/config/fixtures
+# Defense in depth for private files nested in an allowed directory.
+**/.codex/**
+**/.git/**
+**/.env*
+**/*.pem
+**/*.key
+**/*.zip
+**/.DS_Store
