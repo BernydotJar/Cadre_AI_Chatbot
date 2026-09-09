@@ -79,7 +79,7 @@ The audit-facing documentation now separates durable design from mutable executi
 - `docs/README.md` is the documentation navigation/audit reading order.
 - The original spec status headers are retained as historical pre-approval text with explicit current-state notes instead of being silently rewritten.
 
-Deterministic documentation audit: **14/14 PASS**, 26 audit-facing Markdown files checked, six Mermaid blocks, zero missing local links/unbalanced fences, and all four Graph ledgers validate. Two local Granite documentation-critic attempts timed out before returning a verdict; that is retained as an infrastructure limitation and **no Granite PASS is claimed for this documentation increment**. Evidence: `evidence/documentation/`.
+Deterministic documentation audit passed before commit: 26 audit-facing Markdown files, six Mermaid blocks, zero missing local links/unbalanced fences, and all four Graph ledgers validated. The reconciled audit/handoff set was committed as `91ad8cb` (`docs: add architecture and developer handoff`). Two local Granite documentation-critic attempts timed out before returning a verdict; that is retained as an infrastructure limitation and **no Granite PASS is claimed for this documentation increment**. Evidence: `evidence/documentation/`.
 
 ## Deployment blocker — current evidence
 
@@ -121,7 +121,7 @@ Retained observed cost ledger before this increment: user-reported coding spend 
 
 ## Source publication blocker
 
-Local `main` remains ahead of `origin/main` with no known remote-only commits from the last fetch. Reproduce the exact distance with `git rev-list --left-right --count origin/main...HEAD`. The dedicated audited repository-publication action was attempted and returned `GITHUB_TOKEN is required for git_push`; no shell credential workaround was used. Consequently the new GitHub Actions workflows are versioned and locally verified but are **not active on GitHub yet**. This is an account/tool credential blocker, not additional application development.
+Local `main` remains ahead of `origin/main` with no known remote-only commits from the last fetch. Reproduce the exact distance with `git rev-list --left-right --count origin/main...HEAD`. The dedicated audited repository-publication action was retried after documentation commit `91ad8cb` and again returned `GITHUB_TOKEN is required for git_push`; no shell credential workaround was used. Consequently the new GitHub Actions workflows are versioned and locally verified but are **not active on GitHub yet**. This is an account/tool credential blocker, not additional application development.
 
 ## Exact resume path
 
