@@ -3,9 +3,9 @@ import type { ReactNode } from "react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Cadre AI Chatbot",
+  title: "Ask Cadre | Cadre AI",
   description:
-    "Support assistant for Cadre AI: services, strategy calls, and the AI Maturity Index.",
+    "Find answers about Cadre AI services, industries, strategist conversations, and the AI Maturity Index.",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
