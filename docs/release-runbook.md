@@ -13,6 +13,7 @@ Core N6 production verification and the separate Donna productization release ar
 | G10 CI/CD deploy-check | **BLOCKED only for automated CD** | product/public delivery PASS; GitHub `production` still lacks the existing-project Vercel org/project/token binding |
 | GitHub remote activation | **ACTIVE + revision-4 CI PASS** | repaired source `8ae8a3a` published through the audited channel; CI run `34405396973` passed |
 | Premium PX2–PX5 | **DONE at PX5 revision 4 / public PASS** | repaired source `8ae8a3a` deployed on existing project; anonymous smoke + **58/58** public Playwright PASS; revision-3 57/58 failure retained |
+| Premium PX6 | **RUNNING / not yet verified** | finish critic/fixer/final verification, close all three gates, then publish/deploy exact SHA and require full anonymous current Playwright PASS |
 | G9 Chrome preview | DONE | No further action required for core release |
 | G11 n8n contract | DONE | Real email delivery is optional and not a core release requirement |
 
@@ -175,6 +176,6 @@ For provider-specific instability, explicit mock mode may be used for diagnosis,
 - [ ] Submission/upload remains a separate explicit human action.
 
 
-## Donna productized release markers
+## Donna release markers
 
-After promoting the productized line, verify the existing public alias anonymously. Minimum release markers are: page title `Donna | Cadre AI`, root `data-product="cadre-donna"`, visible assistant heading `Donna`, composer placeholder `What are you trying to figure out?`, `/api/health` healthy, exact `hello` remains `kind=greeting`, a grounded overview answer contains exactly one configured Donna diagnostic question, the same request with `Just answer, no follow-up questions please.` contains no Donna question, and a pricing/account boundary contains no persona guidance. Then run the external **52-case** Playwright matrix.
+For the active PX6 line, verify the existing public alias anonymously only after its local gates pass. Minimum markers are: page title `Donna | Cadre AI`, root `data-product="cadre-donna"`, hero `From AI curiosity`, public product section `Track your AI results`, visible `Ask Donna` launcher, simplified `/icon.svg`, healthy `/api/health`, and exact `hello -> kind=greeting`. Behavioral probes must also confirm exactly one configured Donna diagnostic question on a grounded overview answer, no optional follow-up after `Just answer, no follow-up questions please.`, pricing language that contains no fabricated rate, and account/unsupported boundaries that retain only the approved handoff. Then run the **entire current external Playwright matrix**; never reuse an older 52/58-case count as proof for a changed source line.

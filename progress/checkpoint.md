@@ -54,13 +54,13 @@ Two failed actual-site test attempts are retained: a whole-page overflow asserti
 
 Separate graph `progress/productization-graph.*`: **P1/P2/P3 DONE**, with `verification=PASS`, `code-review=PASS`, `integration-proof=PASS` on every node.
 
-- `ClientConfig` remains the only factual/link/boundary authority.
+- `ClientConfig` remains the only factual/link/boundary authority and now also owns reviewed `publicHighlights` used by the PX6 website shell.
 - `PersonaProfile` adds Donna's English behavior without factual authority. P1's critic found free-form “one step” strings could smuggle multiple instructions/URLs; the repair narrowed them to one short validated question object.
 - Donna is `maxSteps=1`: only grounded topics with configured questions can receive one optional follow-up. P2's critic found explicit “no follow-up” requests were ignored; the repair added deterministic opt-out while preserving facts/routing/provider behavior.
-- `ExperienceProfile` owns visible identity, copy, theme, avatar and composer presentation. `chatExperience()` projects only presentation/link/topic metadata to the browser.
+- `ExperienceProfile` owns visible identity, copy, theme, avatar, quick prompts and composer/page presentation. `chatExperience()` projects presentation/link/topic metadata plus explicitly reviewed `publicHighlights`; full knowledge entries, routing triggers and persona operating rules remain server-side.
 - P3's critic found visible identity could drift from behavior identity; product validation now requires `experience.assistantLabel === persona.name`.
 - Fictional Acme Outdoors + Scout proves second-profile projection with no Cadre/Donna presentation leakage; it is not registered in production.
-- Donna UI now uses the restrained profile-driven editorial monogram and the initial writing prompt `What are you trying to figure out?`; PX3B/PX4 evidence supersedes the earlier orbital treatment while preserving the reusable profile boundary. Deterministic desktop/mobile probes report no horizontal overflow.
+- The released PX5 line used the restrained editorial monogram. The current PX6 producer intentionally moves Cadre to a profile-driven `signal-orb` with idle/shaping states and a floating launcher while Acme/Scout keeps the editorial-monogram path; PX6 has not inherited the earlier browser PASS and remains unverified until its own final matrix runs.
 - GraphRAG/vector retrieval remain intentionally out of scope: current corpus is small/curated and deterministic routing has no observed relationship-heavy retrieval failure.
 
 ## Final local verification
