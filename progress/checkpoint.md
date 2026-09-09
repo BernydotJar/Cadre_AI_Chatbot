@@ -1,45 +1,88 @@
 # Resumable checkpoint — Cadre AI Chatbot
 
-Updated: 2026-09-08 Guatemala / 2026-09-09 UTC. This projection does not replace the append-only graph ledger.
+Updated: 2026-09-09 UTC. This is a projection; the append-only Graph Harness ledger is authoritative.
 
-## Current outcome
+## Terminal state for this session
 
-The reviewed interface and refreshed official knowledge are deployed at https://cadre-ai-chatbot-tawny.vercel.app. The application passed the main live/public matrix. Final source-package verification and human release closure remain pending.
+**PARTIAL_WITH_DOCUMENTED_BLOCKERS.** Local product verification is complete and N6 verification/code-review gates are PASS. N6 `release-check` is BLOCKED because the current reviewed product source is newer than the verified public Vercel runtime and this sandbox does not have an authorized Vercel session/token to deploy and reverify the current snapshot.
 
-- N1 foundation: done; original gates retained.
-- N2 knowledge/routing: done. Reopened through supported transitions for the source audit; content commit `9b5749c` adds Hospitality/B2C, portal and assessment detail, non-promissory contact wording and attributed security/privacy facts. Fresh independent critic and verifier passed.
-- N3 API/provider: done; original independent byte-bound repair and gates retained. The model orders approved fact indices; all facts and required links remain. This is extractive answering, not semantic RAG.
-- N4 UI: done locally after real critic/fixer/verifier cycles. Stop double-submit, welcome scrolling, transient-control focus, keyboard Jump and reset ghost control repaired. Original failures remain under evidence/N4-ui/.
-- N5 early deployment: done for the first mock scaffold; history retained.
-- N6 release verification: running. Current live/public and browser evidence passed; clean archive and final review/closure remain.
+Public alias: `https://cadre-ai-chatbot-tawny.vercel.app` (read-only smoke still returns `/` 200 and `/api/health` 200).
 
-Latest complete checks: 233 unit/integration tests, typecheck, lint and build PASS (`evidence/runs/knowledge-refresh-final/`); 38 coordinator browser cases on the rebuilt mock source PASS. Separate public UI verification passed 34 intercepted cases, with mobile/desktop captures and six reachable topic controls.
+Latest product/evidence commit before this projection update: `1add2be`. Graph ledger sequence: 131; last event `52e15fbd-ec1a-4e6e-84e6-a68e20ea8331` transitions N6 to `blocked`.
 
-Main public matrix: 30 checks PASS, including 16 chat requests with 9 grounded provider-backed paths, page/health, client-script pattern scans and private paths. Facts and links matched the exact current config; deterministic boundaries and validation matched the policy. `evidence/N6-release/public-live.json` stores safe checks/hashes rather than remote response bodies. The evaluator itself underwent independent red-team checks before execution; its original defects and repairs are retained.
+## Main graph
 
-## Deployment and allowance
+- N1 foundation: **done**.
+- N2 knowledge/routing: **done**.
+- N3 chat API/provider: **done** after model allowlist/evaluator repair. Independent deterministic follow-up proves exact empty-input policy failures and accounting failures are not false-positive passes.
+- N4 UI/UX: **done** after hydration + small-screen readability repairs. Repaired source passes 48/48 Playwright cases and independent Granite UI review.
+- N5 early deployment: **done** for the authorized deployed line.
+- N6 verification/release: **blocked**. `verification=PASS`, `code-review=PASS`, `release-check=BLOCKED`.
 
-Current deployment: `dpl_HJ3h2BuS6BAVpyHsdTZKtZHcjADu`, CLI source `a5693d8`, runtime content `9b5749c`, Vercel team Cadre_AI / cadre-ai3, Node 24.x. Public alias above was checked anonymously, not through an SSO bypass. The initial `7ac6086` mock deployment is historical.
+Pinned external Graph Harness runtime: `6a5f201e2bc640ac46cc0b4b6a3d11b788555664` from `BernydotJar/Graph-harness-sdlc`; the baseline remains frozen and the event ledger remains append-only.
 
-Existing production variables remain server-only. No environment value was passed in arguments, source or evidence. Local .env.local stays mock and ignored. Never print or package credentials or run env pull merely to inspect them.
+## Verification completed
 
-Chatbot-only allowance: $5 total, $0.50 reserve, conservative expiry 2026-09-15T00:00:00Z. Main matrix metadata at 03:56 UTC observed cumulative usage $0.0017316 / remaining $4.9982684; accounting can lag. A single separately authorized independent live-browser check may follow and needs a final observation. No coding traffic uses this credential.
+A fresh candidate source package was prepared from `c7880db0a117fcb65bd3bcc41d326c356383c775` and verified from a clean extraction:
 
-## Graph and provenance
+- source/history audit: PASS — 37 commits, 552 physical/reachable objects, no findings;
+- ZIP entry safety + `unzip -t`: PASS;
+- `git fsck --full --strict`: PASS;
+- `npm ci`: PASS, npm reported 0 vulnerabilities;
+- lint: PASS;
+- strict typecheck: PASS;
+- unit/integration: **245/245 PASS**;
+- production build: PASS;
+- browser: **48/48 PASS** desktop/mobile, including hydration and 320x568 / 360x640 text-spacing regressions.
 
-Last recovery validation before release evidence: 87 events valid; all 26 then-recorded evidence artifacts matched SHA-256. Replay for the current count. External Graph Harness pin `6a5f201e2bc640ac46cc0b4b6a3d11b788555664`; CLI wrapper is the actual mechanism, not a claimed installed skill. Do not regenerate the frozen baseline or hand-edit events.
+Candidate ZIP observation: 2,124,813 bytes, SHA-256 `db1a48072f9c03fa85a35e638641c51ec19f912240c58c4e9fa5086af8fc60f7`. It is an intermediate verified package, not a submitted artifact and not the final closure snapshot.
 
-Small local commits retain actual chronology: `6628992` context/source audit, `ec70cfb` keyboard/browser regressions, `9b5749c` knowledge refresh, `a5693d8` independent evidence/gates. No Git push or Git integration.
+## Independent reviewers actually used
 
-Some original registered reports have an extra EOF blank line. They remain byte-identical to their recorded hashes rather than being cosmetically rewritten. Four identical generated .next/types duplicates were moved recoverably outside the app; their origin is not proven. The Chromium launcher needed an environment-specific permission adjustment for coordinator runs; independent runs used their available environment.
+- IBM Granite 3.3 2B via local Ollama 0.33.3: UI/readability critic PASS; strengthened `CLAUDE.md`/`plan.md` workflow critic PASS; archive-fixture verifier PASS; final local source/code review PASS; final release critic `PARTIAL_WITH_DOCUMENTED_BLOCKERS`.
+- Deterministic isolated evaluator follow-up: PASS with zero external HTTP/real credential reads. It preserved and rejected a Granite evaluator review whose findings contradicted the supplied/current controls rather than relabeling it.
 
-## Delivery and next action
+Role labels are not tool provenance. This sandbox did **not** have a Claude Code executable or a verified Claude gateway/bridge, so no work performed here is attributed to Claude. Do not simulate or rewrite history to imply otherwise.
 
-1. Finish the independent live-browser check and update the budget observation without exposing the key.
-2. Review N6 evidence and current documentation, then prepare a ZIP from an explicit committed snapshot via a clean Git transport clone. Use docs/delivery.md. Exclude credentials, .codex, dependencies, generated output and private inputs; include real reachable .git history.
-3. Extract the actual ZIP into a fresh directory; verify entries, Git history/fsck, npm ci, tests/types/lint/build and mock production smoke. Keep the post-package checksum/verification receipt alongside the ZIP, since it necessarily follows the source snapshot.
-4. Record actual release evidence/gates and request human closure. Do not upload, email, push, buy services or claim COMPLETED without that approval.
+## Model and cost state
 
-One Git/ledger writer and one build/server owner. Port 3000 belongs to unrelated work; use an available 3100 or a verified alternate for archive testing. The coordinator's temporary mock server was stopped before packaging preparation. Preserve user WIP; this work did not edit/delete the earlier unrelated test.md.
+Production default remains `openai/gpt-4.1-mini`; `google/gemini-3.8-flash` is allowlisted for the bounded comparison only. The 14-case / 18-attempt / $0.15-reservation evaluator is independently ready, but the live A/B is **NOT RUN** in this sandbox because `OPENROUTER_API_KEY` is unavailable here. No model winner is inferred from dry-run evidence.
 
-The optional extension remains a generic **Integration Preview** design, not implemented, installed or represented as part of Cadre's actual website. Terraform, auth/CRM/vector DB and broader scope remain deferred. Core public app and lightweight verified source ZIP take priority.
+Known cost ledger:
+
+- Claude Code development: **$7.00 user-reported**; token count unknown.
+- OpenRouter chatbot key: **$0.001842 cumulative provider usage observed** at the last retained metadata read; accounting can lag.
+- Known monetary subtotal: **$7.001842**; not a complete project bill.
+- OpenRouter remaining allowance observed: **$4.998158** of $5; retain the separate $0.50 reserve.
+- Local Granite: no external inference charge observed; local compute/electricity unpriced.
+
+## Deployment blocker
+
+Retained Vercel receipt identifies deployed runtime `c6f781cf588689deee9ae229261effdd08e5d24b`. Current source has later product changes in:
+
+- `app/globals.css`;
+- `e2e/readability.spec.ts`;
+- `src/provider/config.ts`;
+- `src/provider/openrouter.ts`.
+
+Fresh environment observation:
+
+- Vercel CLI 59.12.0 installed;
+- `vercel whoami` => Logged out;
+- no `.vercel/project.json`;
+- no `VERCEL_TOKEN`;
+- no `OPENROUTER_API_KEY` / `.env.local` in this checkout.
+
+Do not treat the older deployed PASS as proof that these newer source changes are deployed. See `evidence/N6-release/deployment-drift-20260909.md` and `granite-final-release-critic.md`.
+
+## Exact resume path
+
+1. Restore authorized Vercel CLI access for the existing `cadre-ai3/cadre-ai-chatbot` project without exposing credentials in source/evidence.
+2. Reopen N6 only through supported graph transitions.
+3. Deploy the reviewed current snapshot (or later reviewed closure snapshot).
+4. Re-run anonymous public page/health, repaired browser/readability checks, and a bounded real-provider round-trip against that exact deployment.
+5. If still desired, make the chatbot-only OpenRouter credential available to `tools/evaluation/compare-models.mjs` and run the prespecified GPT-4.1-mini vs Gemini 3.8 Flash live comparison. Do not retune questions after seeing results.
+6. Clear `release-check`, transition N6 through review/done, update projections, then prepare and verify a **final** ZIP from the exact final closure commit.
+7. Git push, recruiting upload/email and other publication remain separate actions unless explicitly authorized.
+
+The optional Chrome Integration Preview remains outside core release acceptance and keeps its own graph/evidence; no unverified installation on `cadre.ai` should be claimed.

@@ -1,6 +1,6 @@
 # Plan — Cadre AI Chatbot
 
-**Status: approved, release verification in progress.** Execution status is owned by the event ledger; this file and `feature_list.json` are projections. U1–U4 are resolved: OpenRouter, $5 total inference allowance, small local commits, and confirmed Vercel team `Cadre_AI` / `cadre-ai3`. N1–N5 passed their local/early-deployment gates; N2 was reopened for source refresh and passed fresh independent review. N6 owns current public/live and archive checks. This is not final release approval. See `progress/authorization-2026-09-08.md`.
+**Status: PARTIAL_WITH_DOCUMENTED_BLOCKERS.** Execution status is owned by the append-only event ledger; this file and `feature_list.json` are projections. N1–N5 are done. N3 and N4 were reopened for the model-evaluation/readability repairs and independently re-closed. N6 has verification and code-review PASS, but its release-check is BLOCKED because the current reviewed product source is newer than deployed runtime `c6f781c` and this sandbox has no authorized Vercel session/token to deploy and verify the current snapshot. See `evidence/N6-release/deployment-drift-20260909.md`.
 
 ## Objective
 
@@ -35,10 +35,10 @@ Live-review preparation should use this table as an index, not as a script: demo
 | M0 | Repository foundation and canonical spec | this document set | done (approved 2026-09-08) |
 | M1 | App foundation, local walking skeleton | node `N1-foundation` | done (ledger: done; evidence/N1-foundation/) |
 | M2 | Knowledge base and routing | node `N2-knowledge-routing` | done: refreshed official-source content, fresh independent critic/verifier, 233 tests |
-| M3 | Chat API and provider adapter (mock-first) | node `N3-chat-api-adapter` | done: independent critic/fixer/verifier; 203 tests, typecheck, lint and build PASS |
-| M4 | Conversation UI and UX states | node `N4-ui` | done: cold-load repair c6f781c; independent 42 browser cases plus four cold probes PASS; fresh gates at events 98–100 |
+| M3 | Chat API and provider adapter (mock-first) | node `N3-chat-api-adapter` | done: model allowlist/evaluator repair independently verified; full suite 245/245, typecheck, lint and build PASS |
+| M4 | Conversation UI and UX states | node `N4-ui` | done: hydration + small-screen readability repairs; clean extracted package passes 48/48 browser cases and independent Granite UI review |
 | M5 | Early deployment — authorization-gated, attempted as soon as U3 resolves; may run in parallel with M2–M4 | node `N5-deploy` | done: authorized mock scaffold, anonymous checks and separate review PASS |
-| M6 | Verification, live evaluation, packaging, release readiness | node `N6-verify-release` | running: reviewed UI/content deployed; public live matrix and clean archive verification underway |
+| M6 | Verification, live evaluation, packaging, release readiness | node `N6-verify-release` | **blocked**: local verification/code-review/package PASS; release-check BLOCKED until current source is deployed and anonymously reverified on authorized Vercel |
 
 ## Decision log
 
@@ -114,16 +114,16 @@ Owner-requested quality clarification, 2026-09-08. Durable UX-01–09 rules are 
 |---|---|---|
 | UX-01, UX-08 | Identity/scope, six starts, safe links, privacy; screenshots + scenario/injection tests | Existing core/browser evidence; independent standards critic confirms inspected defaults, not all future states |
 | UX-02–04 | Cold-load, single flight, retry/Stop/reset, keyboard/IME/focus, scroll/history | Independent 42-case local + four cold probes; 38 repaired-public cases. Preserve regressions when changing layout |
-| UX-05 | Four widths + short text-spaced failed/restored-draft states; positive visible transcript geometry and visual QA | FAIL UX-F1: transcript collapses at 320×568 / 360×640; bounded fixer and new regression in progress |
-| UX-06 | Contrast samples, ≥44px primary targets, ≥12px important copy, mobile composer ≥16px | Sample contrast/targets PASS; adopted typography improvement UX-F3 under repair, then remeasure |
+| UX-05 | Four widths + short text-spaced failed/restored-draft states; positive visible transcript geometry and visual QA | PASS for reproduced 320×568 / 360×640 text-spacing defect; readability regression is included in the 48-case browser suite |
+| UX-06 | Contrast samples, ≥44px primary targets, ≥12px important copy, mobile composer ≥16px | PASS for the measured typography/mobile boundaries in `e2e/readability.spec.ts`; broader accessibility is not inferred |
 | UX-07 | Status/error semantics and reduced motion; separately executed assistive-technology checks | DOM/source coverage present; actual VoiceOver/NVDA, forced colors and physical keyboard remain UNVERIFIED |
-| UX-09 | Distinct roles, immutable FAILs, source/hash/command-specific independent acceptance | evidence/N6-release/uiux-standards-critic.md requests changes; no conformance claim or gate closure yet |
+| UX-09 | Distinct roles, immutable FAILs, source/hash/command-specific independent acceptance | PASS for the repaired local boundary; original critic failures are retained and Granite final source review is separate from release authorization |
 
-Actual browser zoom 200%/400%, screen-reader and physical-device checks are not inferred from viewport emulation. Keep these as explicit unverified coverage, not automatic product blockers unless a failing mandatory criterion is observed. Fix the reproduced spacing defect before the next public release/package.
+Actual browser zoom 200%/400%, screen-reader and physical-device checks are not inferred from viewport emulation. Keep these as explicit unverified coverage, not automatic product blockers unless a failing mandatory criterion is observed. The reproduced spacing defect is fixed locally; the remaining requirement is to deploy and reverify that repair on the authorized public release.
 
 ### Model and cost comparison
 
-The owner requested a temporary Gemini 3.8 Flash comparison. docs/model-evaluation-plan.md defines the same 14-case set, model-independent controls, strict output/CTA/grounding thresholds and an 18-inference-attempt / $0.15 conservative reservation ceiling within the existing $5 allowance. N3 is reopened for allowlisted model configuration; N6 retains comparison/release evidence. Production and .env.local remain unchanged until a reviewed decision. Costs must separate reported coding spend from measured chatbot usage and unknown historical tokens.
+The owner requested a temporary Gemini 3.8 Flash comparison. `docs/model-evaluation-plan.md` defines the same 14-case set, model-independent controls, strict output/CTA/grounding thresholds and an 18-inference-attempt / $0.15 conservative reservation ceiling within the existing $5 allowance. The allowlisted model configuration and evaluator controls are independently verified and N3 is done. The live A/B is **NOT RUN** in this sandbox because the chatbot-only OpenRouter credential is unavailable; no winner is inferred from dry-run data. Production remains unchanged until reviewed live evidence exists. Costs separate reported coding spend from measured chatbot usage and unknown historical tokens.
 
 - iCloud-hosted working copy: slow I/O and sync artifacts around `node_modules`/`.git` (accepted, documented; D6).
 - Serverless rate limiting is process-local, not a hard guarantee — it will be labeled honestly in docs and UI.
@@ -138,4 +138,4 @@ The owner requested a temporary Gemini 3.8 Flash comparison. docs/model-evaluati
 
 ## Next action
 
-Complete N6 repaired public-browser checks and verified packaging, then request human release closure. Hydration repair c6f781c has local independent acceptance and a new READY deployment; anonymous repaired-browser evidence is separate and pending. `.env.local` still defaults to mock. Historical spec headers and bootstrap proposals are retained as the approved baseline; the ledger and authorization amendments supersede stale wording. Do not regenerate the baseline. Terraform remains deferred; the optional extension proceeds in parallel under its separate graph. No final release or submission is claimed.
+N6 is intentionally terminal at **PARTIAL_WITH_DOCUMENTED_BLOCKERS** in the current environment. To resume: restore an authorized Vercel session/token for the existing `cadre-ai3/cadre-ai-chatbot` project, deploy the current reviewed snapshot, and repeat anonymous public smoke + repaired browser/readability verification against that exact release. If the owner still wants the Gemini comparison, provide the chatbot-only OpenRouter key to the already verified bounded evaluator and run it without model-specific prompt changes. Then reopen N6 through supported graph transitions, clear `release-check`, prepare a final ZIP from the final closure commit, and request human submission approval. No push, upload, email or fabricated tool provenance is inferred.
