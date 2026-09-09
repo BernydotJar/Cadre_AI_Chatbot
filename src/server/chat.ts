@@ -7,6 +7,9 @@ import { getProviderMode, liveConfiguration, type ProviderEnvironment } from "@/
 import { MockFactSelector } from "@/provider/mock";
 import { OpenRouterFactSelector } from "@/provider/openrouter";
 import { ProviderError, validateFactIndices, type FactSelector } from "@/provider/types";
+import { activeProduct } from "@/product/active";
+import { appendProactiveQuestion, proactiveQuestionFor } from "@/product/conversation";
+import type { ChatbotProductProfile } from "@/product/types";
 import { abortable, BodyError, cancelBody, deadline, readBoundedJson, systemClock, throwIfAborted, type Clock } from "./io";
 import { clientKey, RateLimiter } from "./rate-limit";
 
@@ -32,15 +35,20 @@ function errorResponse(error: unknown) {
 
 /** Injectable seams are for mock tests; live mode never falls back to a mock. */
 export function createChatHandler(options: {
+  /** Explicit config is a legacy/test seam and intentionally disables persona behavior. */
   config?: ClientConfig;
+  /** Product profile composes client authority with bounded persona behavior. */
+  product?: ChatbotProductProfile;
   env?: ProviderEnvironment;
   selector?: FactSelector;
   fetch?: typeof fetch;
   clock?: Clock;
   limiter?: RateLimiter;
 } = {}) {
-  const config = options.config ?? cadre;
   const env = options.env ?? process.env;
+  const product = options.config ? undefined : options.product ?? activeProduct(env);
+  const config = options.config ?? product?.client ?? cadre;
+  const persona = product?.persona;
   const clock = options.clock ?? systemClock;
   const limiter = options.limiter ?? new RateLimiter();
   let selector: FactSelector | undefined = options.selector;
@@ -88,6 +96,12 @@ export function createChatHandler(options: {
         const order = [...selected, ...decision.entry.facts.map((_, index) => index)
           .filter((index) => !selected.includes(index))];
         text = order.map((index) => decision.entry.facts[index]!).join(" ");
+        // Persona guidance is app-owned and structurally limited to one
+        // configured question. The model never generates or selects this copy.
+        text = appendProactiveQuestion(
+          text,
+          proactiveQuestionFor(decision, parsed.request.messages, persona),
+        );
       }
       // URLs and labels are app-owned. Plain text API remains {reply, kind};
       // the UI must render text and allowlist links rather than arbitrary HTML.
