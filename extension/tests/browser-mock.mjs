@@ -91,7 +91,10 @@ try {
   checked("idle worker disconnect preserves launcher for user-driven reconnection", await page.locator("#cadre-integration-preview").count() === 1);
   await clickLauncher();
   await page.waitForFunction(() => document.querySelector("#cadre-integration-preview")?.getBoundingClientRect().height > 200);
-  const panel = page.frames().find((frame) => frame.url().startsWith("https://preview.extension.test/panel.html"));
+  const panel = await page.waitForEvent("framenavigated", {
+    predicate: (frame) => frame.url().startsWith("https://preview.extension.test/panel.html"),
+    timeout: 3_000,
+  }).catch(() => page.frames().find((frame) => frame.url().startsWith("https://preview.extension.test/panel.html")));
   assert.ok(panel, "panel frame opened");
   checked("user click re-registers host after idle disconnect", await page.evaluate(() => globalThis.__previewTest.connections) === 2);
   const input = panel.getByRole("textbox", { name: "Message Donna" });
