@@ -54,7 +54,7 @@ const cadreDonnaProfile: ChatbotProductProfile = {
   experience: {
     id: "cadre-donna-web",
     assistantLabel: "Donna",
-    avatar: { style: "orbital-monogram", monogram: "D", label: "Donna AI guide avatar" },
+    avatar: { style: "editorial-monogram", monogram: "D", label: "Donna guide monogram" },
     ambientMedia: {
       posterSrc: "/media/donna-ambient-poster.webp",
       videoSrc: "/media/donna-ambient-loop.mp4",

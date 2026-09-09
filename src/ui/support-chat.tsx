@@ -47,14 +47,11 @@ function PersonaAvatar({ experience, compact = false }: {
 }) {
   return <span
     className={`persona-avatar${compact ? " persona-avatar-compact" : ""}`}
+    data-avatar-style={experience.avatar.style}
     title={experience.avatar.label}
     aria-hidden="true"
   >
-    <svg className="persona-signal" viewBox="0 0 120 120" fill="none" focusable="false">
-      <circle className="signal-ring" cx="60" cy="60" r="43" />
-      <path className="signal-notch" d="M84.7 24.8A43 43 0 0 1 101.2 49" />
-    </svg>
-    <span className="signal-monogram">{experience.avatar.monogram}</span>
+    <span className="persona-monogram">{experience.avatar.monogram}</span>
   </span>;
 }
 
@@ -275,6 +272,8 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
   }, [started]);
 
   const overLimit = draft.trim().length > LIMITS.maxMessageChars;
+  const publicModeLabel = modeLabel === "Live model configured" ? "Available"
+    : modeLabel === "Demo mode" ? "Demo" : "Unavailable";
 
   const themeStyle = {
     "--bg": experience.theme.background,
@@ -346,7 +345,7 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
       <section className="chat-card" aria-labelledby="chat-title" data-started={started ? "true" : "false"}>
         <header className="chat-header">
           <div className="chat-identity"><PersonaAvatar experience={experience} compact /><div><h2 id="chat-title">{experience.assistantLabel}</h2>
-            <p className={`mode-label${modeLabel === "Demo mode" ? " demo-label" : ""}`}><span className="mode-dot" aria-hidden="true" />{modeLabel}</p>
+            <p className={`mode-label${modeLabel === "Demo mode" ? " demo-label" : ""}`}><span className="mode-dot" aria-hidden="true" />{publicModeLabel}</p>
           </div></div>
           {started && <button className="reset-button" type="button" onClick={newConversation} aria-label="New conversation">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 10a8 8 0 1 1 .7 7M4 4v6h6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
@@ -365,7 +364,6 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
             }}>
             {!started ? <div className="welcome">
               <div className="welcome-persona">
-                <PersonaAvatar experience={experience} />
                 <div className="welcome-persona-copy">
                   <h3>{experience.copy.welcomeLead} <em>{experience.copy.welcomeEmphasis}</em></h3>
                   <p>{experience.copy.welcomeBody}</p>

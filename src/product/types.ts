@@ -58,7 +58,7 @@ export const experienceProfileSchema = z.object({
   id: z.string().min(1),
   assistantLabel: z.string().min(1),
   avatar: z.object({
-    style: z.literal("orbital-monogram"),
+    style: z.literal("editorial-monogram"),
     monogram: z.string().min(1).max(3),
     label: z.string().min(1),
   }),

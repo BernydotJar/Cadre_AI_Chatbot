@@ -1,0 +1,70 @@
+[
+  {
+    "name": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "document": {
+      "width": 1440,
+      "height": 1000
+    },
+    "markCount": 1,
+    "markStyle": "editorial-monogram",
+    "markSvgCount": 0,
+    "modeLabel": "Demo",
+    "composer": {
+      "x": 790.921875,
+      "y": 195.5,
+      "width": 568.234375,
+      "height": 96
+    },
+    "card": {
+      "x": 761.921875,
+      "y": 94,
+      "width": 626.234375,
+      "height": 810.78125
+    },
+    "heading": {
+      "x": 123.828125,
+      "y": 206,
+      "width": 534.421875,
+      "height": 344.375
+    },
+    "horizontalOverflow": false
+  },
+  {
+    "name": "mobile",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "document": {
+      "width": 390,
+      "height": 1198
+    },
+    "markCount": 1,
+    "markStyle": "editorial-monogram",
+    "markSvgCount": 0,
+    "modeLabel": "Demo",
+    "composer": {
+      "x": 27,
+      "y": 400.796875,
+      "width": 336,
+      "height": 86
+    },
+    "card": {
+      "x": 12,
+      "y": 316.796875,
+      "width": 366,
+      "height": 817
+    },
+    "heading": {
+      "x": 32,
+      "y": 115.796875,
+      "width": 326,
+      "height": 114
+    },
+    "horizontalOverflow": false
+  }
+]

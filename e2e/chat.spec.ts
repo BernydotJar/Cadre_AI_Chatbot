@@ -8,11 +8,15 @@ test.beforeEach(async ({ page }) => {
   await expect(input(page)).toBeVisible();
 });
 
-test("first impression has a real app icon, Donna avatar, generous composer, and useful greeting", async ({ page }) => {
+test("first impression has a real app icon, one restrained Donna mark, generous composer, and useful greeting", async ({ page }) => {
   await expect(page.locator('link[rel~="icon"]')).toHaveAttribute("href", /icon\.svg/);
   await expect(page.locator(".chat-header .persona-avatar")).toBeVisible();
-  await expect(page.locator(".welcome .persona-avatar")).toBeVisible();
+  await expect(page.locator(".persona-avatar")).toHaveCount(1);
+  await expect(page.locator(".chat-header .persona-avatar")).toHaveAttribute("data-avatar-style", "editorial-monogram");
+  await expect(page.locator(".persona-avatar svg")).toHaveCount(0);
   await expect(page.getByRole("heading", { name: "Donna", exact: true })).toBeVisible();
+  await expect(page.locator(".chat-header .mode-label")).toHaveText(/^(Available|Demo|Unavailable)$/);
+  await expect(page.locator(".chat-header .mode-label")).not.toContainText(/configured|mode/i);
   await expect(page.locator(".support-shell")).toHaveAttribute("data-product", "cadre-donna");
   await expect(input(page)).toHaveAttribute("placeholder", "What are you trying to figure out?");
   const composer = await page.locator('.chat-card[data-started="false"] .composer').boundingBox();
@@ -92,7 +96,7 @@ test("ambient motion control never obscures the hero across responsive widths", 
 
 test("anonymous conversation uses the real server and official links", async ({ page }) => {
   if (!process.env.E2E_BASE_URL || process.env.E2E_EXPECT_MODE === "mock") {
-    await expect(page.getByText(/Demo mode/)).toBeVisible();
+    await expect(page.getByText(/Demo/)).toBeVisible();
   }
   await input(page).fill("What services does Cadre AI offer?");
   await input(page).press("Enter");

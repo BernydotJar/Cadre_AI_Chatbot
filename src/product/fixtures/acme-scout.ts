@@ -27,7 +27,7 @@ const acmeScoutProfile: ChatbotProductProfile = {
   experience: {
     id: "acme-scout-web",
     assistantLabel: "Scout",
-    avatar: { style: "orbital-monogram", monogram: "S", label: "Scout AI guide avatar" },
+    avatar: { style: "editorial-monogram", monogram: "S", label: "Scout guide monogram" },
     copy: {
       eyebrow: "GUIDED BY VERIFIED STORE CONTEXT",
       heroLead: "Find what you need",

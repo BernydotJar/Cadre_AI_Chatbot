@@ -24,7 +24,7 @@ const persona: PersonaProfile = {
 const experience: ExperienceProfile = {
   id: "acme-web",
   assistantLabel: "Guide",
-  avatar: { style: "orbital-monogram", monogram: "A", label: "Acme Guide avatar" },
+  avatar: { style: "editorial-monogram", monogram: "A", label: "Acme Guide monogram" },
   copy: {
     eyebrow: "GUIDED BY VERIFIED ACME CONTEXT",
     heroLead: "Find the right gear",
