@@ -47,6 +47,8 @@ For debugging, pass the **exact failing command, exit status, and minimal failur
 
 Record subagent provenance as observable facts: role, runtime/model or tool actually used, purpose, inputs/constraints, result, and artifact path/hash where practical. A role name is not tool provenance. Never claim Claude Code, a native slash command, Granite, Codex, or any other named tool ran unless that execution was actually observed. Preserve failed or rejected reviews with the reason for rejection.
 
+Project-scoped Claude Code helpers are versioned under `.claude/`: `agents/critic.md`, `agents/verifier.md`, and `agents/release-auditor.md`; reusable commands are `recover`, `verify`, `release-check`, and `model-compare`. They encode this repository's existing graph/evidence discipline and are intentionally bounded/read-only where the role requires independence. Their presence proves configuration only; record separate evidence when Claude actually invokes one.
+
 graph-harness.project.json is frozen. graph-harness.events.jsonl is append-only, written only through the runtime CLI. Never hand-edit either or regenerate the baseline after events exist. plan.md and feature_list.json are projections, not approval sources.
 
 Methodology provenance, runtime pins and real role examples: [docs/engineering-workflow.md](docs/engineering-workflow.md). Do not claim an installed skill/native command was executed when it was not.

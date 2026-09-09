@@ -2,7 +2,7 @@
 
 An optional local Manifest V3 presentation adapter for the existing public chatbot. **The public web app remains the primary deliverable.** This extension is an independent demonstration, not a Cadre-installed or endorsed service.
 
-Status: source, generated build and producer mock checks exist. Independent security critique found a disconnect-cleanup defect; its original FAIL evidence is retained, and the scoped repair awaits independent rerun. An actual installed-extension browser check and an authorized Cadre-site demonstration remain separate gates. No extension was installed in a user browser, no actual Cadre page was modified, no real inference was used by extension tests, and nothing was published to the Chrome Web Store.
+Status: **PARTIAL_WITH_DOCUMENTED_BLOCKERS**. Source/build/mock work is complete; the original disconnect-cleanup FAIL is retained, the bounded repair passed 71/71 tests, and independent security follow-up passed. The separate `integration-proof` gate is BLOCKED because no installed-extension browser check or authorized Cadre-site demonstration has been performed. No extension was installed in a user browser, no actual Cadre page was modified, no real inference was used by extension tests, and nothing was published to the Chrome Web Store.
 
 ## Build and check
 
@@ -76,7 +76,7 @@ Do not publish to the Web Store, alter Cadre's servers/assets, or enable broader
 
 Disable or remove the extension in `chrome://extensions`, then **refresh every already-open Cadre tab**. Chrome may leave injected DOM or a disconnected launcher until the document is refreshed; instantaneous removal on extension disable is not promised. The source adds no persistent website data, storage entries or server changes. Page navigation removes its iframe and listeners; a full allowed-site navigation gets one fresh content script. Site code can remove the injected host, which disconnects its port and removes the iframe; the preview does not fight the site by reinjecting through an observer.
 
-Known unverified gate: actual installed MV3 behavior on cadre.ai, browser CSP/resource loading and service-worker lifetime. Do not describe the extension as delivered/production-ready before independent security critique, installed-browser verification and the owner's actual-site authorization.
+Known blocked gate: actual installed MV3 behavior on cadre.ai, browser CSP/resource loading and service-worker lifetime. Source/security review is complete, but do not describe the extension as delivered/production-ready before installed-browser verification and the owner's actual-site authorization.
 
 ## Primary implementation references
 
