@@ -1,6 +1,6 @@
 # Plan — Cadre AI Chatbot
 
-**Status: approved, partially implemented with documented blockers.** The 001-support-chatbot scope was human-approved on 2026-09-08 (recorded in `graph-harness.events.jsonl`). Execution status is owned by the event ledger — this file and `feature_list.json` are projections. U1/U2/U4 are resolved: OpenRouter, $5 total inference allowance, and small local commits. N3 independent review is blocked by a workspace-credit error. Vercel CLI authentication succeeded, but the supplied `cadre-ai` scope does not exist for this session; the CLI lists `Cadre_AI` / `cadre-ai3`. Confirm that target before deployment. See `progress/authorization-2026-09-08.md`.
+**Status: approved, implementation resumed.** Execution status is owned by the event ledger; this file and `feature_list.json` are projections. U1–U4 are resolved: OpenRouter, $5 total inference allowance, small local commits, and confirmed Vercel team `Cadre_AI` / `cadre-ai3`. Separate agents are running again. The N3 critic found a serialized-history defect, now repaired and undergoing independent verification. The first N5 mock scaffold is deployed and passes anonymous checks. This is not final release approval. See `progress/authorization-2026-09-08.md`.
 
 ## Objective
 
@@ -21,9 +21,9 @@ Canonical detail: `specs/001-support-chatbot/requirements.md`. This file is an i
 | M0 | Repository foundation and canonical spec | this document set | done (approved 2026-09-08) |
 | M1 | App foundation, local walking skeleton | node `N1-foundation` | done (ledger: done; evidence/N1-foundation/) |
 | M2 | Knowledge base and routing | node `N2-knowledge-routing` | done: critic/fixer/independent verification, 114 tests and production build |
-| M3 | Chat API and provider adapter (mock-first) | node `N3-chat-api-adapter` | blocked: 200 tests/build and live local smoke pass; separate-agent review unavailable |
-| M4 | Conversation UI and UX states | node `N4-ui` | research brief prepared; implementation waits on N3 gate |
-| M5 | Early deployment — authorization-gated, attempted as soon as U3 resolves; may run in parallel with M2–M4 | node `N5-deploy` | blocked (ledger: blocked awaiting U3) |
+| M3 | Chat API and provider adapter (mock-first) | node `N3-chat-api-adapter` | done: independent critic/fixer/verifier; 203 tests, typecheck, lint and build PASS |
+| M4 | Conversation UI and UX states | node `N4-ui` | running: UI producer and browser suite implementation |
+| M5 | Early deployment — authorization-gated, attempted as soon as U3 resolves; may run in parallel with M2–M4 | node `N5-deploy` | done: authorized mock scaffold, anonymous checks and separate review PASS |
 | M6 | Verification, live evaluation, packaging, release readiness | node `N6-verify-release` | not started |
 
 ## Decision log
@@ -45,7 +45,7 @@ Canonical detail: `specs/001-support-chatbot/requirements.md`. This file is an i
 |----|-----------------|---------------|
 | U1 | Resolved: OpenRouter; model selection delegated, inexpensive explicit model preferred | no longer blocks N3; adapter is server-side only |
 | U2 | Resolved: $5 total; conservative operational expiry 2026-09-15T00:00:00Z despite later provider metadata | bounded chatbot inference only, retain reserve; never coding assistance |
-| U3 | Vercel selected; CLI authenticated, but `cadre-ai` versus accessible `cadre-ai3` needs owner confirmation before deployment | deployment only (`N5-deploy` and the deployed checks in N6) |
+| U3 | Resolved: owner confirmed `Cadre_AI` / `cadre-ai3` for CLI deployment | no longer blocks N5 or deployed checks; no push/submission/paid add-ons inferred |
 | U4 | Resolved: owner requests small commits; existing configured Git identity retained | local commits authorized; no push or submission authorization inferred |
 | U5 | Target release date | nothing; informational for scheduling the N6 closure gate |
 | U6 | Whether a public client-portal URL exists | not a release blocker — the agreed honest contact fallback covers S3; resolving U6 only refines that answer's wording |
@@ -89,7 +89,7 @@ Methodology conventions (spec layout, status vocabulary, gate discipline) are ad
 - Serverless rate limiting is process-local, not a hard guarantee — it will be labeled honestly in docs and UI.
 - Public site content can change; every knowledge entry carries source and retrieval date.
 - Small local live smoke passed; observed cumulative usage $0.0006324, remaining $4.9993676. Provider accounting can lag. Mock, live local, browser and public checks remain separate evidence categories.
-- Separate-agent execution stopped with an exhausted-workspace-credit error; coordinator verification cannot substitute for independent review.
+- Separate-agent execution recovered in the current run; N3 now has real independent checks. Earlier credit errors remain documented historical evidence.
 
 ## Historical bootstrap evidence
 
@@ -98,4 +98,4 @@ Methodology conventions (spec layout, status vocabulary, gate discipline) are ad
 
 ## Next action
 
-Restore separate-agent execution, review the retained N3 implementation, repair findings and obtain independent verification before closing N3 and executing N4. Use `docs/chatbot-ux-assessment.md` for the UI brief. Confirm the Vercel team mismatch before changing cloud state. The local live server has been stopped; `.env.local` still defaults to mock. Historical spec headers and bootstrap proposals are retained as the approved baseline; the ledger and authorization amendment supersede stale wording. Do not regenerate the baseline. Terraform remains deferred; it is not automatic multi-cloud portability. No product release or final archive is claimed.
+Complete N4 with separate review, repair and browser verification, then deploy the finished UI and execute N6 live/public checks and verified packaging. Use `docs/chatbot-ux-assessment.md` for the UI brief. `.env.local` still defaults to mock. Historical spec headers and bootstrap proposals are retained as the approved baseline; the ledger and authorization amendment supersede stale wording. Do not regenerate the baseline. Terraform remains deferred; it is not automatic multi-cloud portability. No product release or final archive is claimed.

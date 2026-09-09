@@ -5,7 +5,7 @@ The three original specification files are retained byte-for-byte as the scope t
 - [Requirements](requirements.md): scenarios S1-S6 and acceptance criteria AC1-AC10.
 - [Design](design.md): architecture, bounds and frozen evaluation categories.
 - [Tasks](tasks.md): N1-N6 dependencies and file boundaries.
-- [Current authorization amendment](../../progress/authorization-2026-09-08.md): small local commits and bounded OpenRouter inference, no public-deploy authority yet.
+- [Current authorization amendment](../../progress/authorization-2026-09-08.md): small local commits, bounded OpenRouter inference and confirmed Vercel deployment authority; no final closure or submission yet.
 - [Provider implementation decision](../../progress/provider-decision.md): model, constrained answers and budget controls.
 
 Implementation refinement: the knowledge set groups verified facts into six scenario-oriented topic entries, rather than manufacturing 20-40 near-duplicate entries to meet the design's initial corpus-size estimate. Scenario coverage and provenance are the acceptance targets. This does not claim broad natural-language coverage or production multi-client reuse.
