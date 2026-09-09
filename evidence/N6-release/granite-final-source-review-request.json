@@ -1,0 +1,7 @@
+{
+  "model": "ibm/granite3.3:2b",
+  "stream": false,
+  "think": false,
+  "options": {"temperature": 0, "num_predict": 180, "num_ctx": 4096},
+  "prompt": "Role: independent source/code reviewer. Ignore deployment authorization and judge only whether the CURRENT local source has an unresolved code-quality blocker. Evidence: clean source-package verification passed git audit/fsck, npm ci, lint, strict typecheck, 245/245 unit/integration tests, production build, and 48/48 Playwright tests. N3 provider/model changes have an independent deterministic follow-up proving exact validation-copy failures are detected and accounting failures block recommendations; N3 graph is done. N4 readability repair has 48/48 browser coverage and an independent Granite UI critic PASS; N4 graph is done. Archive scanner fixture exception was verified with a different synthetic userinfo URL still rejected and an independent Granite verifier PASS. No live Gemini/GPT winner is claimed. Decide code-review gate only. First line exactly VERDICT: PASS or VERDICT: CHANGES_REQUESTED, then at most two concise findings."
+}
