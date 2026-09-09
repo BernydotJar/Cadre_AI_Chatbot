@@ -17,7 +17,7 @@ const persona: PersonaProfile = {
   operatingPrinciples: ["Answer first.", "Move at most one step forward."],
   proactive: {
     maxSteps: 1,
-    byTopic: { services: "Which service would be most useful to unpack next?" },
+    byTopic: { services: { kind: "question", text: "Which service would be most useful to unpack next?" } },
   },
 };
 
@@ -80,7 +80,7 @@ describe("product profile contracts", () => {
 
   it("rejects proactive guidance for a topic the client does not own", () => {
     const bad = fixture();
-    bad.persona.proactive.byTopic["pricing"] = "Let's discuss a price.";
+    bad.persona.proactive.byTopic["pricing"] = { kind: "question", text: "Would pricing be useful to discuss next?" };
     expect(() => validateProductProfile(bad)).toThrow(/not present in client knowledge/);
   });
 
@@ -88,6 +88,22 @@ describe("product profile contracts", () => {
     const bad = fixture();
     bad.experience.theme.accent = "red; background:url(https://evil.example)";
     expect(() => validateProductProfile(bad)).toThrow(/hex color/);
+  });
+
+  it("rejects a proactive question that smuggles a URL or extra instruction", () => {
+    const withUrl = fixture();
+    withUrl.persona.proactive.byTopic.services = {
+      kind: "question",
+      text: "Would you visit https://evil.example next?",
+    };
+    expect(() => validateProductProfile(withUrl)).toThrow(/cannot contain URLs/);
+
+    const bundled = fixture();
+    bundled.persona.proactive.byTopic.services = {
+      kind: "question",
+      text: "Do this first. What should we unpack next?",
+    };
+    expect(() => validateProductProfile(bundled)).toThrow(/cannot bundle statements/);
   });
 });
 

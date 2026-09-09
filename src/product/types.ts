@@ -3,6 +3,25 @@ import { clientConfigSchema, validateClientConfig, type ClientConfig } from "@/c
 
 const hexColor = z.string().regex(/^#[0-9a-fA-F]{6}$/, "expected a six-digit hex color");
 
+export const proactiveQuestionSchema = z.object({
+  kind: z.literal("question"),
+  text: z.string().trim().min(1).max(220),
+}).superRefine((step, ctx) => {
+  if (/https?:\/\/|www\./i.test(step.text)) {
+    ctx.addIssue({ code: "custom", message: "proactive questions cannot contain URLs" });
+  }
+  if (/[\r\n]/.test(step.text)) {
+    ctx.addIssue({ code: "custom", message: "proactive questions must be a single line" });
+  }
+  const questionMarks = (step.text.match(/\?/g) ?? []).length;
+  if (questionMarks !== 1 || !step.text.endsWith("?")) {
+    ctx.addIssue({ code: "custom", message: "proactive guidance must be exactly one question" });
+  }
+  if (/[.!;]/.test(step.text.slice(0, -1))) {
+    ctx.addIssue({ code: "custom", message: "proactive guidance cannot bundle statements or extra steps" });
+  }
+});
+
 /**
  * Conversational behavior only. A persona never owns facts, URLs, provider
  * credentials, routing, or safety boundaries. `proactive.byTopic` contains
@@ -18,8 +37,8 @@ export const personaProfileSchema = z.object({
   proactive: z.object({
     /** Product invariant: no persona may move more than one step ahead. */
     maxSteps: z.number().int().min(0).max(1),
-    /** Exact, deterministic next-step copy keyed by ClientConfig topic. */
-    byTopic: z.record(z.string().min(1), z.string().min(1)),
+    /** One exact, deterministic question keyed by ClientConfig topic. */
+    byTopic: z.record(z.string().min(1), proactiveQuestionSchema),
   }),
 });
 
@@ -72,6 +91,7 @@ export const chatbotProductProfileSchema = z.object({
   experience: experienceProfileSchema,
 });
 
+export type ProactiveQuestion = z.infer<typeof proactiveQuestionSchema>;
 export type PersonaProfile = z.infer<typeof personaProfileSchema>;
 export type ExperienceProfile = z.infer<typeof experienceProfileSchema>;
 export type ChatbotProductProfile = z.infer<typeof chatbotProductProfileSchema>;
