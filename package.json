@@ -11,7 +11,9 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:e2e": "playwright test --config=playwright.config.ts",
-    "graph:generate": "node tools/graph-adapter/generate.mjs"
+    "graph:generate": "node tools/graph-adapter/generate.mjs",
+    "graph": "node tools/graph-adapter/graph.mjs",
+    "verify": "node tools/graph-adapter/verify.mjs"
   },
   "engines": {
     "node": ">=20"
