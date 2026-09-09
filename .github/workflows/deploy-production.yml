@@ -40,6 +40,8 @@ jobs:
         with:
           node-version: 24
           cache: npm
+      - name: Require releasable Graph state
+        run: npm run release:gate
       - run: npm ci --no-audit --no-fund
       - name: Require an existing Vercel project binding
         shell: bash

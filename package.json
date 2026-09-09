@@ -11,6 +11,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:e2e": "playwright test --config=playwright.config.ts",
+    "release:gate": "node tools/release/check-premium-gate.mjs",
     "graph:generate": "node tools/graph-adapter/generate.mjs",
     "graph": "node tools/graph-adapter/graph.mjs",
     "verify": "node tools/graph-adapter/verify.mjs"

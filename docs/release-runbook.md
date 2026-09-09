@@ -4,14 +4,15 @@ Purpose: finish the current Cadre AI chatbot release without confusing local rea
 
 ## Current release state
 
-Core N6 production verification and the separate Donna productization release are complete on the **existing** Vercel project. Remote GitHub CI/CD activation remains independently blocked:
+Core N6 production verification and the separate Donna productization release are complete on the **existing** Vercel project. GitHub source publication and CI are active; automated production delivery remains independently gated:
 
 | Gate | Current state | What clears it |
 |---|---|---|
 | Core N6 release | **DONE** | Existing production alias reverified for the prior core line; release-check PASS and package check PASS |
 | Donna productization P1–P3 | **DONE + public PASS** | all gates PASS; 279/279 Vitest; 52/52 local + clean public Playwright; deployment `dpl_DMA3WxfAfMgwc7kZLueKctx6kfsy` on existing project |
-| G10 CI/CD deploy-check | BLOCKED | Publish workflows to GitHub, provision existing-project production secrets, then exercise automated exact-SHA delivery |
-| GitHub remote activation | BLOCKED | Dedicated audited publication channel receives its platform-managed GitHub credential |
+| G10 CI/CD deploy-check | BLOCKED | Finish premium release gates, provision existing-project production secrets, then exercise automated exact-SHA delivery |
+| GitHub remote activation | **ACTIVE + CI PASS** | `main` published through the audited channel; CI run `34382168718` passed |
+| Premium PX2–PX5 | IN PROGRESS | `npm run release:gate` must pass before CD may consume Vercel credentials |
 | G9 Chrome preview | DONE | No further action required for core release |
 | G11 n8n contract | DONE | Real email delivery is optional and not a core release requirement |
 
@@ -23,15 +24,16 @@ Do not create a new Vercel project or temporary demo URL merely to make the stat
 flowchart TD
     A[Clean reviewed local SHA] --> B[Audited fast-forward publication to origin/main]
     B --> C[GitHub CI passes]
-    C --> D[Production environment has existing Vercel org/project/token]
-    D --> E[Vercel pull production config]
-    E --> F[Vercel build --prod]
-    F --> G[Vercel deploy --prebuilt --prod]
-    G --> H[Public health + hero + icon + hello markers]
-    H --> I[External Playwright/browser verification]
-    I --> J[Optional one bounded live-provider smoke]
-    J --> K[Clear G10 deploy gate; N6 is already DONE]
-    K --> L[Build and verify final source ZIP from closure commit]
+    C --> D[Repository release gate passes]
+    D --> E[Production environment has existing Vercel org/project/token]
+    E --> F[Vercel pull production config]
+    F --> G[Vercel build --prod]
+    G --> H[Vercel deploy --prebuilt --prod]
+    H --> I[Public health + hero + icon + hello markers]
+    I --> J[External Playwright/browser verification]
+    J --> K[Optional one bounded live-provider smoke]
+    K --> L[Clear G10 deploy gate; N6 is already DONE]
+    L --> M[Build and verify final source ZIP from closure commit]
 ```
 
 ## 1. Preflight the candidate SHA
@@ -47,6 +49,7 @@ npm run typecheck
 npm test
 npm run build
 npm run test:e2e
+npm run release:gate
 node extension/build.mjs
 npm exec -- vitest run --config extension/vitest.config.ts
 npm run graph -- validate
@@ -54,13 +57,15 @@ npm run graph -- validate
 
 The default Playwright server owns port 3100. Stop an old verifier-owned Next server before running E2E; do not kill unrelated processes blindly.
 
+`release:gate` is expected to fail while a declared premium graph is incomplete or has a latest FAIL/BLOCKED gate. That is release protection, not an application regression. Historical source revisions that predate the premium graph pass this check.
+
 ## 2. Publish source through the audited path
 
 The local branch must fast-forward `origin/main`; no force push and no history rewrite.
 
-Use the platform-managed/audited Git publication action. If it reports a missing injected token, record the blocker and stop. **Do not expose or reuse a shell token as a workaround.**
+Use the platform-managed/audited Git publication action. If it reports a missing injected token, record the blocker and stop. **Do not expose or reuse a shell token as a workaround.** The publisher was restored on 2026-09-09; remote `main` reached `76e2b75` and CI passed.
 
-After publication, verify GitHub sees the expected exact SHA and both workflow files.
+After every publication, verify GitHub sees the expected exact SHA and both workflow files. The production workflow must also pass `npm run release:gate` before it reaches Vercel credentials.
 
 ## 3. Confirm Vercel binding
 
@@ -159,6 +164,7 @@ For provider-specific instability, explicit mock mode may be used for diagnosis,
 - [ ] Local SHA is clean and all mandatory local checks pass.
 - [ ] `origin/main` contains that exact SHA through the audited publication mechanism.
 - [ ] GitHub CI passed for that SHA.
+- [ ] Repository `release:gate` passed for that SHA; no premium node/gate remains open.
 - [ ] Existing Vercel project binding is confirmed; no replacement project created.
 - [ ] Production secrets exist only in the authorized secret store.
 - [ ] Exact prebuilt SHA deployed.

@@ -6,6 +6,7 @@ const config = [
     ignores: [
       "node_modules/**",
       ".next/**",
+      ".vercel/**",
       "out/**",
       "coverage/**",
       "test-results/**",

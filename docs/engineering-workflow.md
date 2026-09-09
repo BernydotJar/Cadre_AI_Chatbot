@@ -2,6 +2,12 @@
 
 `CLAUDE.md` contains durable project constraints, not a growing transcript. `plan.md` indexes decisions. The three original spec files define approved requirements; the frozen graph definition and append-only event log carry execution state. `progress/checkpoint.md` is a resumable summary, never independent authority to mark a node done. `docs/architecture-overview.md`, `docs/developer-handoff.md`, and `docs/release-runbook.md` are the maintained architecture/takeover/operations layer for another engineer; they must not become a second mutable status ledger.
 
+## Observed Claude Code review contexts
+
+Project-scoped Claude helpers under `.claude/` are configuration until they are actually executed. On 2026-09-09 an authenticated Claude Code 2.1.266 session ran two separate read-only contexts against the committed repository: the `critic` agent performed an architecture/scope adversarial review, and the `release-auditor` independently checked source/history/release readiness while receiving explicitly labeled external GitHub/CD observations. Raw outputs are retained under `evidence/claude-code/`; findings are accepted only after the coordinator reproduces them against source or platform evidence. The release audit identified the stale recovery projection, local `.vercel` lint contamination, missing current ZIP, and the risk that automated CD could outrun the premium design gate. It also recommended preserving, not rewriting, Git history.
+
+These executions do not retroactively attribute earlier commits to Claude. The Git ledger remains the source of commit provenance, and agent output is evidence only for the review that actually ran.
+
 ## Real roles, bounded context
 
 One coordinator owns Git and the graph ledger. Implementers receive the active node, permitted files, frozen acceptance criteria and relevant findings. Critics and verifiers receive a fresh bounded context and may write only their own evidence report, not production code. This separates authorship from review; it does not claim a human or organizational audit.
