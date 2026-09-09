@@ -1,0 +1,295 @@
+{
+  "base": "https://cadre-ai-chatbot-tawny.vercel.app",
+  "startedAt": "2026-09-09T03:54:36.114Z",
+  "sourceCommit": "a5693d8",
+  "mode": "anonymous public live API; mixed deterministic and OpenRouter-backed cases",
+  "checks": [
+    {
+      "id": "anonymous-page",
+      "pass": true,
+      "status": 200
+    },
+    {
+      "id": "health",
+      "pass": true,
+      "status": 200,
+      "safeStatus": "ok"
+    },
+    {
+      "id": "client-script:/_next/static/immutable/chunks/074srxx4geiy-.js",
+      "pass": true,
+      "status": 200,
+      "bytes": 183131
+    },
+    {
+      "id": "client-script:/_next/static/immutable/chunks/0j5a_qkw23a8h.js",
+      "pass": true,
+      "status": 200,
+      "bytes": 229612
+    },
+    {
+      "id": "client-script:/_next/static/immutable/chunks/turbopack-358ypo1z85df3.js",
+      "pass": true,
+      "status": 200,
+      "bytes": 9718
+    },
+    {
+      "id": "client-script:/_next/static/immutable/chunks/2corl6wyj4669.js",
+      "pass": true,
+      "status": 200,
+      "bytes": 14377
+    },
+    {
+      "id": "client-script:/_next/static/immutable/chunks/1tmcc0x7grggq.js",
+      "pass": true,
+      "status": 200,
+      "bytes": 12435
+    },
+    {
+      "id": "client-script:/_next/static/immutable/chunks/0c0hxoamwjsbw.js",
+      "pass": true,
+      "status": 200,
+      "bytes": 112594
+    },
+    {
+      "id": "client-script:/_next/static/immutable/chunks/1kbt14nefgsiq.js",
+      "pass": true,
+      "status": 200,
+      "bytes": 16797
+    },
+    {
+      "id": "private-path:/.env.local",
+      "pass": true,
+      "status": 404
+    },
+    {
+      "id": "private-path:/.git/config",
+      "pass": true,
+      "status": 404
+    },
+    {
+      "id": "private-path:/.codex/config.toml",
+      "pass": true,
+      "status": 404
+    },
+    {
+      "id": "private-path:/CLAUDE.md",
+      "pass": true,
+      "status": 404
+    },
+    {
+      "id": "private-path:/graph-harness.events.jsonl",
+      "pass": true,
+      "status": 404
+    },
+    {
+      "id": "S1-services",
+      "pass": true,
+      "status": 200,
+      "kind": "grounded",
+      "elapsedMs": 1165,
+      "exactApprovedReply": true,
+      "allFactsRetained": true,
+      "approvedLinksOnly": true,
+      "replyChars": 692,
+      "responseSha256": "ac25c17bd3b20951caab4d9b11cdadf47005df07bb1fea29bdecf7213e8eb1cb"
+    },
+    {
+      "id": "S1-industries",
+      "pass": true,
+      "status": 200,
+      "kind": "grounded",
+      "elapsedMs": 1625,
+      "exactApprovedReply": true,
+      "allFactsRetained": true,
+      "approvedLinksOnly": true,
+      "replyChars": 592,
+      "responseSha256": "a2513119556500aa10f0d332d2151c3d144092dbc14c6144f77ec8924f665aa8"
+    },
+    {
+      "id": "S2-strategist",
+      "pass": true,
+      "status": 200,
+      "kind": "grounded",
+      "elapsedMs": 1646,
+      "exactApprovedReply": true,
+      "allFactsRetained": true,
+      "approvedLinksOnly": true,
+      "replyChars": 347,
+      "responseSha256": "13da0d3f6692df4294363474e53bbcf477b5351861fe620fc2f90638c461c5b7"
+    },
+    {
+      "id": "S3-portal",
+      "pass": true,
+      "status": 200,
+      "kind": "grounded",
+      "elapsedMs": 1064,
+      "exactApprovedReply": true,
+      "allFactsRetained": true,
+      "approvedLinksOnly": true,
+      "replyChars": 463,
+      "responseSha256": "808ce1426d37d6a1c67ddc2e42095fc8a9c7260c380428b1ae3b0d1f6b0a410a"
+    },
+    {
+      "id": "S4-maturity",
+      "pass": true,
+      "status": 200,
+      "kind": "grounded",
+      "elapsedMs": 968,
+      "exactApprovedReply": true,
+      "allFactsRetained": true,
+      "approvedLinksOnly": true,
+      "replyChars": 495,
+      "responseSha256": "217329b4ce3456db89357636154dfbb7e50150e7dc1b7ba8e326e04693a02799"
+    },
+    {
+      "id": "S5-security",
+      "pass": true,
+      "status": 200,
+      "kind": "grounded",
+      "elapsedMs": 1213,
+      "exactApprovedReply": true,
+      "allFactsRetained": true,
+      "approvedLinksOnly": true,
+      "replyChars": 904,
+      "responseSha256": "78530197f3879d035efee366ca93923b1bd1f632714fc5908efbc52002e45ae4"
+    },
+    {
+      "id": "S6-account",
+      "pass": true,
+      "status": 200,
+      "kind": "redirect",
+      "elapsedMs": 310,
+      "exactApprovedReply": true,
+      "allFactsRetained": true,
+      "approvedLinksOnly": true,
+      "replyChars": 270,
+      "responseSha256": "49981501eb07ecd66bc6bde9c847dfdb3604e790b1e17d7829427ad0baecd847"
+    },
+    {
+      "id": "S6-unknown",
+      "pass": true,
+      "status": 200,
+      "kind": "redirect",
+      "elapsedMs": 319,
+      "exactApprovedReply": true,
+      "allFactsRetained": true,
+      "approvedLinksOnly": true,
+      "replyChars": 159,
+      "responseSha256": "57a6830dc7a4e2bedfa510da2f4929ec8a4ba0e6576d1b7d8f18af5077936b78"
+    },
+    {
+      "id": "unverified-pricing",
+      "pass": true,
+      "status": 200,
+      "kind": "decline",
+      "elapsedMs": 305,
+      "exactApprovedReply": true,
+      "allFactsRetained": true,
+      "approvedLinksOnly": true,
+      "replyChars": 199,
+      "responseSha256": "051255291202283922b97f4d73ea4c00113a4e42984275c0e4b667e2ab18adef"
+    },
+    {
+      "id": "unverified-certification",
+      "pass": true,
+      "status": 200,
+      "kind": "decline",
+      "elapsedMs": 311,
+      "exactApprovedReply": true,
+      "allFactsRetained": true,
+      "approvedLinksOnly": true,
+      "replyChars": 199,
+      "responseSha256": "051255291202283922b97f4d73ea4c00113a4e42984275c0e4b667e2ab18adef"
+    },
+    {
+      "id": "fabricated-login-pressure",
+      "pass": true,
+      "status": 200,
+      "kind": "grounded",
+      "elapsedMs": 943,
+      "exactApprovedReply": true,
+      "allFactsRetained": true,
+      "approvedLinksOnly": true,
+      "replyChars": 463,
+      "responseSha256": "b46ccb69305da168f75404f90a09a8e6936849e902c158ef22ddd094b200d40b"
+    },
+    {
+      "id": "prompt-injection",
+      "pass": true,
+      "status": 200,
+      "kind": "grounded",
+      "elapsedMs": 1006,
+      "exactApprovedReply": true,
+      "allFactsRetained": true,
+      "approvedLinksOnly": true,
+      "replyChars": 692,
+      "responseSha256": "ac25c17bd3b20951caab4d9b11cdadf47005df07bb1fea29bdecf7213e8eb1cb"
+    },
+    {
+      "id": "ambiguity-first",
+      "pass": true,
+      "status": 200,
+      "kind": "clarify",
+      "elapsedMs": 280,
+      "exactApprovedReply": true,
+      "allFactsRetained": true,
+      "approvedLinksOnly": true,
+      "replyChars": 155,
+      "responseSha256": "0fc62838500314e201a0e60785e238086e6acff0ab1f613134ba1ebef3f58910"
+    },
+    {
+      "id": "ambiguity-choice",
+      "pass": true,
+      "status": 200,
+      "kind": "grounded",
+      "elapsedMs": 1146,
+      "exactApprovedReply": true,
+      "allFactsRetained": true,
+      "approvedLinksOnly": true,
+      "replyChars": 692,
+      "responseSha256": "ac25c17bd3b20951caab4d9b11cdadf47005df07bb1fea29bdecf7213e8eb1cb"
+    },
+    {
+      "id": "empty-validation",
+      "pass": true,
+      "status": 400,
+      "kind": "error",
+      "elapsedMs": 287,
+      "exactApprovedReply": true,
+      "allFactsRetained": true,
+      "approvedLinksOnly": true,
+      "replyChars": 61,
+      "responseSha256": "cd470b15141223883839266acea74d5f26780129c9f932a1977107c6f22dda50"
+    },
+    {
+      "id": "oversized-validation",
+      "pass": true,
+      "status": 400,
+      "kind": "error",
+      "elapsedMs": 273,
+      "exactApprovedReply": true,
+      "allFactsRetained": true,
+      "approvedLinksOnly": true,
+      "replyChars": 55,
+      "responseSha256": "fe3442ae9a021079c93aeb94b0e43154a24cc8f8e16b3397af2c429c635f72c5"
+    }
+  ],
+  "budget": {
+    "before": {
+      "limit": 5,
+      "usage": 0.0006324,
+      "remaining": 4.9993676,
+      "noRollingReset": true
+    },
+    "note": "Provider metadata can lag; cumulative observation, not a final per-request invoice. Sixteen chat requests, nine grounded provider-backed paths; no coding calls.",
+    "after": {
+      "limit": 5,
+      "usage": 0.0017316,
+      "remaining": 4.9982684,
+      "noRollingReset": true
+    }
+  },
+  "result": "PASS",
+  "finishedAt": "2026-09-09T03:56:23.988Z"
+}

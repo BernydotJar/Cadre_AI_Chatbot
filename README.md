@@ -2,7 +2,7 @@
 
 A grounded support assistant for [Cadre AI](https://cadre.ai), covering services and industry fit, strategist contact, portal access guidance, the AI Maturity Index, model/security questions and honest escalation.
 
-**Implementation in progress; not finally released.** API and early deployment gates passed. The completed UI passes the main unit/build/browser checks; independent review is resolving the last keyboard-focus finding. The [public URL](https://cadre-ai-chatbot-tawny.vercel.app) currently serves the earlier **mock scaffold**, not the finished local UI. Live public validation and the verified source ZIP remain pending. See [checkpoint](progress/checkpoint.md).
+**Deployed and live-tested; final closure pending.** The [public chatbot](https://cadre-ai-chatbot-tawny.vercel.app) serves the reviewed interface and refreshed knowledge. The cold-first-message repair passed 233 tests, typecheck, lint, build, an independent 42-case local browser suite and four extra cold-load probes. On the repaired public deployment, 38 intercepted browser cases and one separately authorized real conversation passed. The earlier 30-check public/API matrix remains historical evidence for unchanged knowledge/API behavior. Clean source-archive verification and human closure are tracked separately in [the checkpoint](progress/checkpoint.md).
 
 ## Run locally
 
@@ -35,11 +35,13 @@ The versioned knowledge store is [src/config/cadre.ts](src/config/cadre.ts), val
 
 Pipeline: bounded input → deterministic topic/boundary routing → approved context → mock or server-side model adapter → deterministic fact/link assembly → safe text-only UI. The model prioritizes fact indices rather than generating arbitrary business assertions. This is **constrained, extractive model-assisted answering**, not vector RAG or open-ended company expertise.
 
+See the [component inventory](docs/component-inventory.md) for contracts, configuration, invariants, provenance, test coverage and maturity of each module.
+
 Unknown pricing, certifications and private account questions receive a boundary and official contact link. The bot cannot create bookings, access a portal, run an assessment or issue a maturity score. The second client fixture proves configuration separation at unit level, not production multi-tenancy.
 
 ## Interface and verification
 
-Responsive web chat includes six starting topics, multi-turn context, visible loading, cancellation, saved-draft retry, reset, bounded history and exact approved links. No conversation is stored by this app after refresh; live messages are processed by external services, and provider retention is not claimed to be zero.
+Responsive web chat includes six starting topics, multi-turn context, visible loading, cancellation, saved-draft retry, reset, bounded history and exact approved links. Chat controls remain disabled until the client is ready; a no-JavaScript visitor receives guidance and an official contact link. No conversation is stored by this app after refresh; live messages are processed by external services, and provider retention is not claimed to be zero.
 
 ```sh
 npm run verify -- unique-run-label
@@ -61,11 +63,11 @@ No auth, database, CRM, analytics, persistent chat history, vector database, rea
 
 Vercel deployment is authorized in Cadre_AI / cadre-ai3. [Deployment notes](docs/deploy.md) distinguish the currently deployed snapshot from local changes. No Git push, paid add-on, source publication or final submission is implied.
 
-The optional [Chrome integration preview](docs/extension-preview-design.md) is a **design proposal**, not implemented or installed. It must remain a local adapter and cannot delay the mandatory public app.
+The optional [Chrome integration preview](docs/extension-preview-design.md) is being implemented and reviewed under its own graph. Its source/build/mock scope is authorized; installation and actual-site behavior are not established by those tests. It remains a local adapter and cannot delay the mandatory public app.
 
 ## Delivery
 
-The final source ZIP must include usable .git history and exclude .env.local, .codex, dependencies, generated build output, caches and private inputs. It must be extracted and checked in a clean directory before final closure is requested. **No verified delivery ZIP exists yet.**
+The source ZIP includes usable .git history and excludes .env.local, .codex, dependencies, generated build output, caches and private inputs. It is prepared from an explicit committed snapshot and checked after clean extraction. See [delivery instructions](docs/delivery.md) and the verification receipt supplied alongside the actual ZIP for its snapshot, checksum and observed results. That post-packaging receipt necessarily comes after the source snapshot; no circular self-hash is claimed. Preparation is not submission or human release approval.
 
 - [Canonical specifications](specs/001-support-chatbot/)
 - [Requirements recheck](docs/delivery-requirements-recheck.md)

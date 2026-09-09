@@ -7,13 +7,13 @@ Reviewed 2026-09-08 against the supplied v1.1 product brief, including its scena
 | Expectation | Current implementation/evidence | Remaining work |
 |---|---|---|
 | Plan before implementation | Root CLAUDE.md, plan.md, approved specs and original approval events | Keep instructions current; do not rewrite historical approvals |
-| Public working chatbot | Early anonymous mock scaffold under evidence/N5-deploy/ | Deploy verified complete UI and validate live conversations |
-| Six supported scenario families | src/config/cadre.ts, pure routing/policy, independent N2/N3 evidence | Source refresh decisions and final public evaluation |
-| Deliberate architecture | Separated config/core/provider/server/UI; mockable OpenRouter adapter | Final component inventory and limitations |
-| Real independent agent work | N2 and N3 critic/fixer/verifier reports; N4 critic finding actual browser defects | Repair N4 and obtain independent PASS |
+| Public working chatbot | Repaired interface deployed; 38 intercepted public browser cases and one independent real conversation PASS; prior 30-check matrix retained | Clean archive and human closure |
+| Six supported scenario families | Refreshed src/config/cadre.ts; independent N2/N3 evidence; six grounded public scenarios PASS | Maintain source freshness; no broad semantic coverage claim |
+| Deliberate architecture | Separated config/core/provider/server/UI; docs/component-inventory.md | Maintain explicit limitations |
+| Real independent agent work | N2/N3 lifecycle; N4 original FAIL and repaired independent PASS | Retain authentic evidence; do not relabel earlier failures |
 | Small authentic commits | Existing Git history with foundation, policy repairs, API, deployment and process increments | Continue staging bounded changes; retain .git in ZIP |
 | Custom commands/context management | npm graph/verify scripts; startup and role contracts in CLAUDE.md; resumable checkpoint | Demonstrate real commands, not invented slash-command or role history |
-| Test and inspect output | Unit/type/lint/build logs; browser suite with real recorded failures | Passing final browser/live/package evidence |
+| Test and inspect output | 233 tests, 42 independent local browser cases + four cold probes; 38 intercepted repaired-public cases + one real conversation; original 30 public/API checks retained | Clean-extraction package verification |
 | Explicit scope decisions | No auth/CRM/vector DB, real booking or account access; optional extension isolated | Keep stretch work behind core-readiness gate |
 | Lightweight complete archive | Exclusion rules and planned clean-extraction check | Create and independently verify source ZIP before closure |
 

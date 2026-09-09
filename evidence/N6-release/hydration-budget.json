@@ -1,0 +1,11 @@
+{
+  "scope": "Numeric provider allowance observations around exactly one authorized independent chatbot conversation",
+  "result": "PASS",
+  "before": {"at": "2026-09-09T04:36:33.903Z", "limit": 5, "usage": 0.0017316, "remaining": 4.9982684, "noRollingReset": true},
+  "after": {"at": "2026-09-09T04:39:44.260Z", "limit": 5, "usage": 0.001842, "remaining": 4.998158, "noRollingReset": true},
+  "reserve": 0.5,
+  "operationalExpiry": "2026-09-15T00:00:00Z",
+  "observedUsageDelta": 0.0001104,
+  "command": "Read-only GET https://openrouter.ai/api/v1/key with server-side credential loaded in memory; output restricted to numeric limit/usage/remaining and reset-null flag",
+  "limitations": ["Provider accounting can lag; the observed delta is not a final invoice.", "No provider credential, label or response body is retained.", "Only the chatbot conversation used inference; browser regressions were intercepted."]
+}

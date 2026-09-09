@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { LIMITS } from "@/core/limits";
 import { abortable, BodyError, cancelBody, deadline, delay, readBoundedJson, systemClock, throwIfAborted, type Clock } from "@/server/io";
-import { OPENROUTER_MODEL } from "./config";
+import { approvedModel, MODEL_PROFILES, type ApprovedModel } from "./config";
 import { ProviderError, validateFactIndices, type FactSelectionInput, type FactSelector } from "./types";
 
 const API = "https://openrouter.ai/api/v1";
@@ -12,10 +12,6 @@ export const PROVIDER_LIMITS = {
   maxRetryDelayMs: 2_000,
   reserveDollars: 0.50,
   maxKeyLimitDollars: 5,
-  // OpenRouter max_price is USD per million tokens. These are ceilings, not
-  // an assertion that provider prices will remain at the observed .40/1.60.
-  inputPriceCeiling: 0.50,
-  outputPriceCeiling: 2,
 } as const;
 
 const finiteNonnegative = z.number().finite().nonnegative();
@@ -78,7 +74,9 @@ function retryDelay(value: string | null, now: number): number {
     ? Math.min(PROVIDER_LIMITS.maxRetryDelayMs, Math.max(0, milliseconds)) : 250;
 }
 
-function requestPayload({ entry, messages }: FactSelectionInput) {
+function requestPayload({ entry, messages }: FactSelectionInput, model: ApprovedModel) {
+  // The same model-specific ceilings bound both routing and local reservation.
+  const prices = MODEL_PROFILES[model];
   const boundedHistory = messages.slice(-LIMITS.historyWindow);
   if (boundedHistory.some((message) => message.content.length > LIMITS.maxMessageChars)) {
     throw new ProviderError("invalid_response");
@@ -89,14 +87,14 @@ function requestPayload({ entry, messages }: FactSelectionInput) {
     facts: entry.facts.map((text, index) => ({ index, text })),
   };
   const payload = {
-    model: OPENROUTER_MODEL,
+    model,
     stream: false,
     max_tokens: PROVIDER_LIMITS.maxOutputTokens,
     temperature: 0,
     provider: {
       require_parameters: true,
       data_collection: "deny",
-      max_price: { prompt: PROVIDER_LIMITS.inputPriceCeiling, completion: PROVIDER_LIMITS.outputPriceCeiling },
+      max_price: { prompt: prices.inputPriceCeiling, completion: prices.outputPriceCeiling },
     },
     messages: [
       {
@@ -142,8 +140,8 @@ function requestPayload({ entry, messages }: FactSelectionInput) {
   // Byte-tokenizer bound plus ample chat/schema framing headroom. JSON bytes
   // overestimate normal English tokens; prices are enforced in provider routing.
   const inputTokenBound = bytes + 1024;
-  const estimate = Math.ceil((inputTokenBound * PROVIDER_LIMITS.inputPriceCeiling
-    + PROVIDER_LIMITS.maxOutputTokens * PROVIDER_LIMITS.outputPriceCeiling)) / 1_000_000;
+  const estimate = Math.ceil((inputTokenBound * prices.inputPriceCeiling
+    + PROVIDER_LIMITS.maxOutputTokens * prices.outputPriceCeiling)) / 1_000_000;
   return { body, estimate, inputTokenBound };
 }
 
@@ -151,15 +149,18 @@ export class OpenRouterFactSelector implements FactSelector {
   private readonly budget = new Budget();
   private readonly fetcher: typeof fetch;
   private readonly clock: Clock;
+  private readonly model: ApprovedModel;
 
   constructor(private readonly options: {
     apiKey: string;
     expiresAt: number;
+    model?: string;
     fetch?: typeof fetch;
     clock?: Clock;
   }) {
     this.fetcher = options.fetch ?? fetch;
     this.clock = options.clock ?? systemClock;
+    this.model = approvedModel(options.model);
   }
 
   async selectFacts(input: FactSelectionInput): Promise<number[]> {
@@ -171,7 +172,7 @@ export class OpenRouterFactSelector implements FactSelector {
     let estimate = 0;
     try {
       throwIfAborted(operation.signal);
-      const payload = requestPayload(input);
+      const payload = requestPayload(input, this.model);
       estimate = payload.estimate;
       const headers = { Authorization: `Bearer ${this.options.apiKey}`, "Content-Type": "application/json" };
       const metadataResponse = await abortable(this.fetcher(`${API}/key`, {

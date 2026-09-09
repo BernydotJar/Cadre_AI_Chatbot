@@ -1,0 +1,9 @@
+{
+  "sourceCommit": "a5693d8",
+  "actor": "coordinator",
+  "result": "PASS",
+  "reachableBlobsScanned": 197,
+  "findings": [],
+  "checks": ["git rev-list --objects --all", "each reachable named blob read with git cat-file", "credential-shaped strings and private-key headers", "forbidden paths: private env, .codex, dependencies/builds, private PDFs and test.md"],
+  "limits": "Pattern-based audit is not universal secret detection. A fresh transport clone and final archive scan remain required. Original repository history was not rewritten."
+}

@@ -1,0 +1,28 @@
+{
+  "sourceCommit": "a5693d8",
+  "runtimeSourceCommit": "9b5749c",
+  "date": "2026-09-08 local / 2026-09-09 UTC",
+  "actor": "coordinator",
+  "command": "Vercel CLI59.12.0 deploy --yes --prod --scope cadre-ai3",
+  "deploymentId": "dpl_HJ3h2BuS6BAVpyHsdTZKtZHcjADu",
+  "state": "READY",
+  "publicAlias": "https://cadre-ai-chatbot-tawny.vercel.app",
+  "uniqueUrl": "https://cadre-ai-chatbot-6u7bjsr8z-cadre-ai3.vercel.app",
+  "dryRun": {
+    "files": 26,
+    "bytes": 342161,
+    "manifestReviewed": true,
+    "excluded": [".env files", ".git", ".codex", "private inputs", "docs", "evidence", "tests", "node_modules", "generated output"],
+    "allowed": ["app", "src except test fixtures", "package.json", "package-lock.json", "next.config.ts", "tsconfig.json", "vercel.json"]
+  },
+  "build": {
+    "result": "PASS",
+    "region": "cle1",
+    "next": "16.3.4",
+    "install": "npm ci --no-audit --no-fund",
+    "command": "npm run build",
+    "warnings": ["ESLint9 deprecation advisory", "npm allow-scripts advisory for unrs-resolver postinstall"],
+    "dependenciesOrInstallPermissionsChanged": false
+  },
+  "notes": "Uses existing server-only production environment provisioned earlier. No secret values passed in args; no mock override on this deployment. READY alone is not live-provider verification. No Git push, Git integration or public source publication."
+}

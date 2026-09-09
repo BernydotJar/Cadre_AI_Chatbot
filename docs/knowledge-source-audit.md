@@ -2,6 +2,8 @@
 
 Retrieved: **2026-09-08**. Status: research and recommendations; this document does not modify the runtime knowledge set or approve a release.
 
+Implementation follow-up: the bounded recommendations below were incorporated in source commit `9b5749c`, with fresh critic and independent-verifier reports in `evidence/knowledge-refresh/`. The original research status describes the audit itself; release validation remains separate.
+
 The six existing configuration topics remain appropriate. The public site supports several useful additions: Hospitality, a fuller description of the assessment and portal, practical service distinctions, and an attributed security approach. Every currently approved page was reachable. The strongest correction is to separate published company claims from verified operational guarantees.
 
 Scope: bounded reading of Cadre's home, four service pages, industry index, and contact page, with the existing About/Case Studies links checked and the linked privacy policy read for the security boundary. No account access, submissions, recursive crawl, or raw page corpus. Reproduction details and source locators are in [research evidence](../evidence/knowledge-refresh/research.md).

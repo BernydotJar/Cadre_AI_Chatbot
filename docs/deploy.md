@@ -2,6 +2,16 @@
 
 Owner-approved target: `Cadre_AI` / `cadre-ai3`. Project: `cadre-ai-chatbot`. Public production alias: https://cadre-ai-chatbot-tawny.vercel.app.
 
+## Current verified deployment
+
+Deployment `dpl_B1pG38nm6xVYSbg1cjSTasgLyxfj` contains cold-first-message repair `c6f781c`, invoked from CLI snapshot `384f76b`. Node 24.x configuration retained. The reviewed upload contained 26 files / 342,708 bytes and excluded extension, environment, Git, evidence and private inputs. Build and promotion passed without changing environment, dependencies or purchasing resources. Independent verification of this repaired alias passed 38 intercepted browser cases and exactly one real cold-load question, returning HTTP 200/grounded in 1,257 ms from submission. These checks are separate from CLI READY.
+
+Previous deployment `dpl_HJ3h2BuS6BAVpyHsdTZKtZHcjADu` (CLI `a5693d8`, runtime `9b5749c`) introduced the reviewed UI and refreshed knowledge. Its 26-file upload was 342,161 bytes. A later independent browser attempt exposed the initialization gap; its inconclusive/FAIL evidence is retained rather than rewritten as success.
+
+Anonymous verification on 2026-09-09 UTC passed 30 checks: page, health, seven delivered scripts, five private paths, and 16 chat requests. Nine grounded paths used the configured OpenRouter model; the other outcomes were deterministic boundaries, clarification and validation. Every grounded reply exactly matched an ordering of its full approved facts and exact links. Separate public-browser verification passed 34 cases with synthetic responses, not 34 live inferences. See `evidence/N6-release/` for checks, hashes, configuration and independent reports.
+
+After the repaired one-shot conversation, metadata at 2026-09-09T04:39:44.260Z observed cumulative usage $0.001842 and remaining $4.998158; provider accounting can lag. These are dated observations, not a perpetual balance. Operational expiry remains 2026-09-15T00:00:00Z. Do not upload or expose the key to keep the app running afterward.
+
 ## First infrastructure check (2026-09-08 local time)
 
 The CLI deployed source commit `7ac6086edc2a54f5d60452b5bd4db46868c6f8af` in explicit mock mode. Vercel reported READY and promoted deployment `dpl_AYJ4NjLYYJxmbWHFBQ65K8GxsJZn`. Its Node setting is `24.x`; Next 16.3.4 compiled, typechecked and generated the scaffold successfully. This establishes the early N5 walking skeleton, not a finished UI or a live-model release.
