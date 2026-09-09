@@ -66,6 +66,6 @@ The shared UI has no client/persona-name branches. The experience profile contro
 
 ## Retrieval evolution: why not GraphRAG
 
-The current Cadre corpus is small, curated and already routed deterministically. GraphRAG would add entity extraction/resolution, graph storage, graph-query/retrieval behavior and a larger evaluation surface without solving an observed retrieval failure. That would conflict with the challenge's scope discipline.
+The current Cadre corpus is small, curated and already routed deterministically. GraphRAG would add entity extraction/resolution, graph storage, graph-query/retrieval behavior and a larger evaluation surface without solving an observed retrieval failure. That would conflict with the current scope discipline.
 
 Keep the current typed curated retrieval until evidence shows it failing. A future retrieval adapter can be introduced behind the knowledge-selection boundary when needed: curated → semantic/vector or hybrid → graph retrieval only if relationship-heavy queries become a first-class requirement. Any future retriever must still resolve to reviewed facts/links before the response composer can assert them.

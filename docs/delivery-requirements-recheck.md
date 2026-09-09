@@ -1,41 +1,41 @@
 # Delivery requirements recheck
 
-Reconciled 2026-09-09 against the supplied v1.1 take-home brief and the current repository/evidence. The private original is not copied into this repository. This is a review map, not an independent release approval.
+Reconciled 2026-09-09 against the supplied delivery brief and the current repository/evidence. The private original is not copied into this repository. This is a delivery map, not an independent release approval.
 
 ## Requirement-to-evidence map
 
 | Expectation | Current evidence | Remaining / claim boundary |
 |---|---|---|
 | Plan before implementation | Root `CLAUDE.md`, `plan.md`, approved specs, dated decisions and graph approval events | Keep projections current; do not rewrite historical approvals |
-| Public working chatbot URL | Existing Vercel alias serves the productized Donna line | **PASS:** existing project deployment `dpl_DMA3WxfAfMgwc7kZLueKctx6kfsy`; Donna/product/health/API markers PASS; clean external Playwright **52/52 PASS** |
+| Public working chatbot URL | Existing Vercel alias serves premium revision 3 while revision 4 is queued for repaired redeploy | **PARTIAL:** current revision-3 deployment smoke passes but retained full premium browser result is **57/58**; final PASS requires revision-4 deployment + anonymous **58/58** |
 | Six supported scenario families | Typed `src/config/cadre.ts`, deterministic routing/policy, API/UI regressions | Maintain source freshness; do not claim unlimited semantic coverage |
 | Deliberate architecture | Config/core/provider/server/UI separation plus `docs/architecture-overview.md` and component inventory | Keep optional extension/n8n outside core authority |
 | Claude Code workflow/context management | Root `CLAUDE.md`, `.claude/agents/`, `.claude/commands/`, bounded role briefs and review protocol | Configuration is not proof of invocation. Claim actual Claude usage only from a genuine observed run |
 | Independent critique/verification | Producer/critic/fixer/verifier artifacts, retained FAIL-to-fix evidence, Granite bounded reviews | A model review is one evidence class; it is not human approval or deployment proof |
 | Small authentic commits | Incremental Git history across policy, UI, extension, CI/CD, n8n and docs | Preserve actual technical committer/provenance; no history rewrite |
-| Test and inspect output | Current premium source **286/286** Vitest + local **58/58** Playwright; previously promoted productized line clean public **52/52** Playwright; extension **72/72**, repaired synthetic extension **24/24**, installed-site contextual proof **17 scoped checks** | **PASS** at declared scopes |
+| Test and inspect output | Current repaired premium source **288/288** Vitest + local **58/58** Playwright; extension **72/72**, repaired synthetic extension **24/24**, installed-site contextual proof **17 scoped checks**; current public revision 3 is retained at **57/58** | Local/adapter scopes PASS; public premium equivalence pending revision-4 redeploy |
 | Explicit scope decisions | No auth/database/CRM/vector DB/real booking/account access; G9 and G11 isolated as optional workstreams | Do not add scope merely to work around release infrastructure |
-| CI/CD maturity | Secret-free GitHub CI + gated exact-SHA Vercel production workflow; local YAML/marker verification + Granite review PASS | Workflows are not active remotely until audited Git publication succeeds; existing Vercel target is now proven through manual authorized recovery |
+| CI/CD maturity | Secret-free GitHub CI + gated exact-SHA Vercel production workflow; existing-project manual prebuild/deploy path proven | GitHub CI is active; automated production CD still stops at existing-project binding preflight because GitHub `production` lacks the Vercel binding |
 | Lightweight complete source archive | Fresh pre-closure transport archive independently passes source/history audit and clean extraction verification | Rebuild once from the final closure commit; no additional product work required |
 | Communication/reasoning | Decision register, architecture/handoff/runbook docs, cost/model plan, source audit, checkpoint and explicit blockers | Keep claims proportional to evidence; surface unknowns rather than smoothing them over |
 
-## Current review dimensions
+## Evidence interpretation boundaries
 
-The brief weights workflow/context management 30%, architecture 25%, development speed/scope 20%, verification 15%, and communication/reasoning 10%. The repository now has direct proof surfaces for each dimension, but two distinctions matter during review:
+Two distinctions matter when using this map:
 
-1. **Claude configuration vs Claude execution.** Project agents/commands show deliberate context design. They do not prove Claude actually ran them. If a genuine Claude Code review is performed later, record that separately rather than retroactively attributing prior work.
-2. **Local readiness vs public readiness.** Both are evidenced for the productized Donna line: local regression is green and the existing public alias is reverified against the same behavior/presentation markers. Remote GitHub CI/CD activation remains a separate claim.
+1. **Tool configuration vs observed execution.** Project agents/commands describe the intended workflow; actual model/tool use is claimed only when an observed run and retained artifact support it.
+2. **Local readiness vs public readiness.** Revision 4 is independently green locally, but the currently deployed revision 3 has a retained 57/58 public browser result. Public premium equivalence stays open until the repaired exact SHA is deployed and the full anonymous matrix passes.
 
 ## Current acceptance snapshot
 
 - Core lint: PASS.
 - Strict typecheck: PASS.
-- Productized Vitest: **14 files / 279 tests PASS**.
+- Current premium Vitest: **16 files / 288 tests PASS**.
 - Production Next.js build: PASS, including `/icon.svg`.
-- Productized Playwright desktop/mobile: **52/52 PASS** locally and **52/52 PASS** on a clean external production run.
-- Chrome Integration Preview: G9 DONE, all three gates PASS; 72 extension tests, 23 synthetic browser checks, 17 installed-site contextual checks.
+- Current repaired premium Playwright desktop/mobile: **58/58 PASS locally**; current revision-3 production retains **57/58** pending repaired redeploy.
+- Chrome Integration Preview: G9/PX4 contextual scope DONE; 72 extension tests, latest repaired 24 synthetic browser checks, 17 scoped installed-site checks.
 - n8n human-handoff contract: G11 DONE at contract/runtime-prototype scope; real email delivery intentionally not claimed.
-- GitHub/Vercel CI/CD: G10 verification/code-review PASS, deploy-check BLOCKED only because remote workflow activation/source publication is still unavailable.
+- GitHub/Vercel CI/CD: GitHub CI is active; G10 deploy-check remains BLOCKED only because GitHub `production` lacks the existing Vercel binding for automated CD.
 - Main N6 release: **DONE**; verification/code-review/release-check PASS with public production and package evidence.
 
 ## Documentation maturity
