@@ -43,7 +43,7 @@ Live-review preparation should use this table as an index, not as a script: demo
 | M8 | GitHub CI + gated Vercel CD | separate node `G10-vercel-cicd` | **blocked at deploy gate only**: workflow source/local marker contract/Granite review PASS; existing Vercel project is proven manually, but workflows are not active remotely until audited Git publication succeeds |
 | M9 | Optional n8n human-handoff contract | separate node `G11-n8n-handoff-contract` | done: isolated n8n 2.38.1 runtime, consent/routing webhook probes and Granite review PASS; real email delivery intentionally not claimed |
 | M10 | Reusable product profiles + Donna + generic experience shell | productization nodes `P1-profile-contracts` → `P2-donna-persona` → `P3-generic-experience-shell` | **DONE + publicly verified**: all gates PASS; 279/279 tests; 52/52 local and clean external browser matrix; second-profile reuse proof; Donna avatar/composer + bounded behavior evidence retained |
-| M11 | Premium Donna experience | premium graph `PX2-donna-premium-identity` → `PX3-ambient-media` + `PX4-contextual-donna` → `PX5-premium-release` | **IN PROGRESS**: PX2 producer has a strict Cadre/Donna audit, original signal-mark + editorial UI repair, 279/279 app tests and 52/52 browser regression PASS after a retained overflow repair; independent design-review gate is not yet satisfied because the local critic runtime did not return a usable review |
+| M11 | Premium Donna experience | premium graph `PX2-donna-premium-identity` → `PX3-ambient-media` + `PX4-contextual-donna` → `PX5-premium-release` | **REVIEW / BLOCKED AT DESIGN GATE**: PX2 producer has strict Cadre/Donna audit, original signal-mark + editorial UI repair, 279/279 app tests and 52/52 browser regression PASS after a retained overflow repair; protected Vercel preview is READY; `design-review=BLOCKED` because the local independent critic runtime did not return a usable verdict |
 
 ## Decision register
 
@@ -222,6 +222,6 @@ Ambient media belongs to PX3, not PX2: 6–10 seconds, muted, no embedded text, 
 
 ## Next action
 
-Complete the **PX2 design gate first**: expose the premium snapshot for a strict independent or gated owner review, repair any findings, then record design-review/integration evidence. Only after PX2 is DONE may PX3 ambient media and PX4 contextual Donna become READY. Do not promote this premium WIP to the production alias before that gate.
+Complete the **PX2 design gate first**: review the protected Vercel snapshot `https://cadre-ai-chatbot-4xso24ztz-cadre-ai3.vercel.app` while signed into the authorized Vercel team (deployment `dpl_GSZs6cTAuR6F1j4CVdmeGWfzvpFe`), record a strict independent or gated owner verdict, repair any findings, then record design-review/integration evidence. Only after PX2 is DONE may PX3 ambient media and PX4 contextual Donna become READY. Do not promote this premium WIP to the production alias before that gate.
 
 Then rebuild and clean-room verify the candidate ZIP from the final closure commit with `.git` included and dependencies/build output/secrets excluded. Recruiting submission/upload remains a separate explicit action.
