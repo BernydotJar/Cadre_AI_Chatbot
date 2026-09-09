@@ -4,11 +4,11 @@ Updated: 2026-09-09 UTC. This is a projection; the append-only Graph Harness led
 
 ## Terminal state for this session
 
-**PRODUCTIZATION_COMPLETE_LOCALLY — PUBLIC DONNA RELEASE REVALIDATION PENDING + EXTERNAL GIT BLOCKER.** Core N1–N6 remains complete. The separate productization graph is also complete locally: P1/P2/P3 are DONE and every verification/code-review/integration gate is PASS. Current productized source passes 279/279 Vitest and 52/52 Playwright. The existing Vercel alias is still the verified prior core release until the Donna line is promoted/rechecked. G9 Chrome and G11 n8n remain DONE. G10 remains BLOCKED at deploy-check because the audited Git publisher still lacks its platform-managed credential.
+**PRODUCTIZATION_COMPLETE_AND_PUBLICLY_VERIFIED — EXTERNAL GIT PUBLISHER BLOCKER ONLY.** Core N1–N6 remains complete. Productization P1/P2/P3 are DONE with every blocking gate PASS. Current source passes 279/279 Vitest and 52/52 local Playwright. Reviewed source `7b6004c1fa5b715b1c2775d07981ebac1eee8622` is deployed to the existing Vercel project as `dpl_DMA3WxfAfMgwc7kZLueKctx6kfsy`; Donna/product/API markers and a clean external 52/52 Playwright matrix PASS on the production alias. G9 Chrome and G11 n8n remain DONE. G10 remains BLOCKED at deploy-check because the audited Git publisher still lacks its platform-managed credential.
 
 Public alias: `https://cadre-ai-chatbot-tawny.vercel.app`.
 
-Product, contextual extension, CI/CD, n8n and documentation increments are split into bounded commits. Existing Git author/committer history is retained as recorded and is not used as proof that a particular human or coding tool executed a change. This checkpoint intentionally does not embed a self-referential current HEAD; reproduce it with `git rev-parse HEAD`. Main graph sequence is **157**, last event `afc29093-95c1-4994-bb9f-36e7032be67a`. Extension graph sequence is **34**, last event `9db84544-4f7c-42fa-9605-e3f1983740d6`. CI/CD graph sequence is **14**, last event `ad80d350-31bd-422a-be23-2c644e837d15`. n8n graph sequence is **12**, last event `a35c57ad-30b4-4fd7-aeec-ce11084d239c`. Productization graph sequence is **51**, last event `1fe50e49-f77d-4d69-ae72-1f379208ba65`; P1/P2/P3 are DONE.
+Product, contextual extension, CI/CD, n8n and documentation increments are split into bounded commits. Existing Git author/committer history is retained as recorded and is not used as proof that a particular human or coding tool executed a change. This checkpoint intentionally does not embed a self-referential current HEAD; reproduce it with `git rev-parse HEAD`. Main graph sequence is **157**, last event `afc29093-95c1-4994-bb9f-36e7032be67a`. Extension graph sequence is **34**, last event `9db84544-4f7c-42fa-9605-e3f1983740d6`. CI/CD graph sequence is **14**, last event `ad80d350-31bd-422a-be23-2c644e837d15`. n8n graph sequence is **12**, last event `a35c57ad-30b4-4fd7-aeec-ce11084d239c`. Productization graph sequence is **52**, last event `06a549a2-1108-47c5-b971-2a3faa0e24c6`; P1/P2/P3 are DONE and the public release integration evidence is attached to P3.
 
 ## Main graph
 
@@ -102,16 +102,17 @@ Owner-interactive Vercel CLI authentication restored access to the existing `Cad
 
 The first prebuilt attempt exposed a bounded transport defect: Next file tracing referenced tracked `.env.example` while `.vercelignore` denied all `.env*`. The fix allows only root `.env.example`; real environment files remain excluded. The rebuilt artifact then deployed successfully as `dpl_ExDWE91vPxtEmLaDG6UBCCTamGLM` and Vercel aliased it to `https://cadre-ai-chatbot-tawny.vercel.app`.
 
-Anonymous/public verification of the **prior core release** after its promotion:
+Anonymous/public productized release verification after promotion:
 
 - `/api/health`: PASS;
-- Cadre Signal `Turn AI curiosity` hero present and stale marker absent;
+- `Donna | Cadre AI`, `cadre-donna`, visible Donna identity and configured composer prompt: PASS;
 - `/icon.svg`: PASS;
 - exact `hello`: `kind=greeting` PASS;
-- public Playwright: **50/50 PASS** for the prior core release; the productized Donna line requires a new 52-case public run after promotion;
-- bounded live `What does Cadre AI do?`: `kind=grounded` with substantive Cadre content and official links, PASS.
+- direct grounded Donna question / explicit no-follow-up / pricing-boundary probes: PASS;
+- clean public Playwright: **52/52 PASS**;
+- deployment identity: `dpl_DMA3WxfAfMgwc7kZLueKctx6kfsy`, source `7b6004c1fa5b715b1c2775d07981ebac1eee8622`.
 
-Evidence: `evidence/N6-release/public-release-equivalence-20260909.md`. N6 is DONE; historical stale-deployment evidence remains retained rather than overwritten.
+Evidence: `evidence/productization/public-release-20260909.md`. N6 remains DONE; the productization graph carries separate post-DONE public integration evidence. Historical core/stale-deployment evidence remains retained rather than overwritten.
 
 ## CI/CD workstream
 
@@ -139,8 +140,6 @@ Local `main` remains ahead of `origin/main` with no known remote-only commits fr
 
 ## Exact resume path
 
-1. Promote the completed Donna/productized line to the **existing** Vercel `cadre-ai-chatbot` project using the authenticated owner session and prebuilt/exact-source workflow; do not create or relink a replacement project.
-2. Reverify the public alias: health, Donna title/heading, `cadre-donna` product marker, configured composer prompt, greeting, one grounded Donna question, explicit no-follow-up suppression, pricing/account boundary without persona guidance, and external Playwright 52/52. Record deployment ID/URL and exact source SHA.
-3. Retry only the dedicated audited Git publication action from the final closure HEAD. Shared/container GitHub authentication is already healthy but does **not** inject the token required by that publisher. If it still returns `GITHUB_TOKEN is required for git_push`, retain G10 BLOCKED and request reconnection/authorization of the outer sandbox GitHub publisher channel; do not use shell push/token extraction/API history reconstruction.
-4. Rebuild the final candidate ZIP from the final closure commit with `.git` included and dependencies/build output/env secrets excluded; clean-room verify install/tests/build and record checksum.
-5. Recruiting upload/email, Chrome Web Store publication and real n8n email delivery remain separate actions unless explicitly authorized.
+1. Retry only the dedicated audited Git publication action from the current closure HEAD. Shared/container GitHub authentication is healthy but does **not** inject the token required by that publisher. If it still returns `GITHUB_TOKEN is required for git_push`, retain G10 BLOCKED and request reconnection/authorization of the outer sandbox GitHub publisher channel; do not use shell push/token extraction/API history reconstruction.
+2. Rebuild the final candidate ZIP from the final closure commit with `.git` included and dependencies/build output/env secrets excluded; clean-room verify install/tests/build and record checksum.
+3. Recruiting upload/email, Chrome Web Store publication and real n8n email delivery remain separate actions unless explicitly authorized.

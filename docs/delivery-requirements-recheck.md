@@ -7,13 +7,13 @@ Reconciled 2026-09-09 against the supplied v1.1 take-home brief and the current 
 | Expectation | Current evidence | Remaining / claim boundary |
 |---|---|---|
 | Plan before implementation | Root `CLAUDE.md`, `plan.md`, approved specs, dated decisions and graph approval events | Keep projections current; do not rewrite historical approvals |
-| Public working chatbot URL | Existing Vercel alias is reachable and proven for the prior core release | **PENDING PRODUCTIZED REVALIDATION:** promote the completed Donna line to the same existing project, then rerun public markers + 52-case Playwright + bounded Donna smoke |
+| Public working chatbot URL | Existing Vercel alias serves the productized Donna line | **PASS:** existing project deployment `dpl_DMA3WxfAfMgwc7kZLueKctx6kfsy`; Donna/product/health/API markers PASS; clean external Playwright **52/52 PASS** |
 | Six supported scenario families | Typed `src/config/cadre.ts`, deterministic routing/policy, API/UI regressions | Maintain source freshness; do not claim unlimited semantic coverage |
 | Deliberate architecture | Config/core/provider/server/UI separation plus `docs/architecture-overview.md` and component inventory | Keep optional extension/n8n outside core authority |
 | Claude Code workflow/context management | Root `CLAUDE.md`, `.claude/agents/`, `.claude/commands/`, bounded role briefs and review protocol | Configuration is not proof of invocation. Claim actual Claude usage only from a genuine observed run |
 | Independent critique/verification | Producer/critic/fixer/verifier artifacts, retained FAIL-to-fix evidence, Granite bounded reviews | A model review is one evidence class; it is not human approval or deployment proof |
 | Small authentic commits | Incremental Git history across policy, UI, extension, CI/CD, n8n and docs | Preserve actual technical committer/provenance; no history rewrite |
-| Test and inspect output | Current productized app **279/279** Vitest, **52/52** Playwright; extension **72/72**, synthetic extension **23/23**, installed-site contextual proof **17/17** | Local productization is green; public Donna release must still be revalidated |
+| Test and inspect output | Productized app **279/279** Vitest, local **52/52** Playwright, clean public **52/52** Playwright; extension **72/72**, synthetic extension **23/23**, installed-site contextual proof **17/17** | **PASS** at declared scopes |
 | Explicit scope decisions | No auth/database/CRM/vector DB/real booking/account access; G9 and G11 isolated as optional workstreams | Do not add scope merely to work around release infrastructure |
 | CI/CD maturity | Secret-free GitHub CI + gated exact-SHA Vercel production workflow; local YAML/marker verification + Granite review PASS | Workflows are not active remotely until audited Git publication succeeds; existing Vercel target is now proven through manual authorized recovery |
 | Lightweight complete source archive | Fresh pre-closure transport archive independently passes source/history audit and clean extraction verification | Rebuild once from the final closure commit; no additional product work required |
@@ -24,7 +24,7 @@ Reconciled 2026-09-09 against the supplied v1.1 take-home brief and the current 
 The brief weights workflow/context management 30%, architecture 25%, development speed/scope 20%, verification 15%, and communication/reasoning 10%. The repository now has direct proof surfaces for each dimension, but two distinctions matter during review:
 
 1. **Claude configuration vs Claude execution.** Project agents/commands show deliberate context design. They do not prove Claude actually ran them. If a genuine Claude Code review is performed later, record that separately rather than retroactively attributing prior work.
-2. **Local readiness vs public readiness.** The previous core line is publicly proven; the new productized Donna line is locally green and must be promoted/reverified before the same public-equivalence claim is extended to it. Remote CI/CD activation remains a separate claim.
+2. **Local readiness vs public readiness.** Both are evidenced for the productized Donna line: local regression is green and the existing public alias is reverified against the same behavior/presentation markers. Remote GitHub CI/CD activation remains a separate claim.
 
 ## Current acceptance snapshot
 
@@ -32,7 +32,7 @@ The brief weights workflow/context management 30%, architecture 25%, development
 - Strict typecheck: PASS.
 - Productized Vitest: **14 files / 279 tests PASS**.
 - Production Next.js build: PASS, including `/icon.svg`.
-- Productized Playwright desktop/mobile: **52/52 PASS** locally; prior public core line was 50/50 PASS.
+- Productized Playwright desktop/mobile: **52/52 PASS** locally and **52/52 PASS** on a clean external production run.
 - Chrome Integration Preview: G9 DONE, all three gates PASS; 72 extension tests, 23 synthetic browser checks, 17 installed-site contextual checks.
 - n8n human-handoff contract: G11 DONE at contract/runtime-prototype scope; real email delivery intentionally not claimed.
 - GitHub/Vercel CI/CD: G10 verification/code-review PASS, deploy-check BLOCKED only because remote workflow activation/source publication is still unavailable.

@@ -4,12 +4,12 @@ Purpose: finish the current Cadre AI chatbot release without confusing local rea
 
 ## Current release state
 
-Core N6 production verification is complete, and the separate Donna productization graph is locally complete. Before final handoff, the productized line must be promoted/reverified on the **existing** Vercel project; remote GitHub CI/CD activation remains independently blocked:
+Core N6 production verification and the separate Donna productization release are complete on the **existing** Vercel project. Remote GitHub CI/CD activation remains independently blocked:
 
 | Gate | Current state | What clears it |
 |---|---|---|
 | Core N6 release | **DONE** | Existing production alias reverified for the prior core line; release-check PASS and package check PASS |
-| Donna productization P1–P3 | **DONE locally** | 279/279 Vitest + 52/52 Playwright + all productization gates PASS; promote/reverify on existing Vercel project before public equivalence |
+| Donna productization P1–P3 | **DONE + public PASS** | all gates PASS; 279/279 Vitest; 52/52 local + clean public Playwright; deployment `dpl_DMA3WxfAfMgwc7kZLueKctx6kfsy` on existing project |
 | G10 CI/CD deploy-check | BLOCKED | Publish workflows to GitHub, provision existing-project production secrets, then exercise automated exact-SHA delivery |
 | GitHub remote activation | BLOCKED | Dedicated audited publication channel receives its platform-managed GitHub credential |
 | G9 Chrome preview | DONE | No further action required for core release |

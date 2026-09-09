@@ -1,6 +1,6 @@
 # Productized conversational assistant architecture
 
-Status: **implemented and locally verified**, 2026-09-09. P1–P3 are DONE with all blocking productization gates PASS; public promotion of this productized line is tracked separately in `progress/checkpoint.md`.
+Status: **implemented, released and publicly verified**, 2026-09-09. P1–P3 are DONE with all blocking productization gates PASS; public release evidence is `evidence/productization/public-release-20260909.md`.
 
 ## Product hypothesis
 
