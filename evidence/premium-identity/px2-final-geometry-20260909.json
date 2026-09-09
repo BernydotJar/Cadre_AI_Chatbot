@@ -1,0 +1,52 @@
+[
+  {
+    "name": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "document": {
+      "width": 1440,
+      "height": 1000
+    },
+    "composer": {
+      "top": 171,
+      "bottom": 407.96875
+    },
+    "welcome": {
+      "top": 431.96875,
+      "bottom": 883.53125
+    },
+    "avatarCount": 2,
+    "animatedSignalCount": 0,
+    "heroEyebrowCount": 1,
+    "trustLabelStyledAsEyebrow": false,
+    "horizontalOverflow": false,
+    "composerPrecedesWelcome": true
+  },
+  {
+    "name": "mobile",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "document": {
+      "width": 390,
+      "height": 1142
+    },
+    "composer": {
+      "top": 330.796875,
+      "bottom": 579.546875
+    },
+    "welcome": {
+      "top": 595.546875,
+      "bottom": 1056.796875
+    },
+    "avatarCount": 2,
+    "animatedSignalCount": 0,
+    "heroEyebrowCount": 1,
+    "trustLabelStyledAsEyebrow": false,
+    "horizontalOverflow": false,
+    "composerPrecedesWelcome": true
+  }
+]

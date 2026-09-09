@@ -278,7 +278,7 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
         </div>
         <div className="intro-bottom">
           <div className="scope-note">
-            <p className="eyebrow">{experience.copy.trustLabel}</p>
+            <p className="trust-label">{experience.copy.trustLabel}</p>
             <p>{experience.copy.trustBody}</p>
             <p className="scope-boundary">{experience.copy.trustBoundary}</p>
           </div>
