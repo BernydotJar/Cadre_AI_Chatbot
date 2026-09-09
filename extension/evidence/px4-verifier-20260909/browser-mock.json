@@ -1,0 +1,105 @@
+{
+  "generatedAt": "2026-09-09T20:19:11.951Z",
+  "scope": "Synthetic HTTPS host, fake runtime ports, all HTTP intercepted. Not an installed MV3 extension or actual Cadre site test.",
+  "browserVersion": "153.0.8010.12",
+  "checks": [
+    {
+      "name": "unsupported origin gets no host",
+      "result": "PASS"
+    },
+    {
+      "name": "one widget across duplicate script evaluation",
+      "result": "PASS"
+    },
+    {
+      "name": "launcher uses closed shadow root",
+      "result": "PASS"
+    },
+    {
+      "name": "idle worker disconnect preserves launcher for user-driven reconnection",
+      "result": "PASS"
+    },
+    {
+      "name": "user click re-registers host after idle disconnect",
+      "result": "PASS"
+    },
+    {
+      "name": "six core topic labels available",
+      "result": "PASS"
+    },
+    {
+      "name": "approved URL context reaches the panel without page-text scraping",
+      "result": "PASS"
+    },
+    {
+      "name": "mode privacy and boundary copy stay at least 12px",
+      "result": "PASS"
+    },
+    {
+      "name": "host stylesheet cannot override panel controls",
+      "result": "PASS"
+    },
+    {
+      "name": "one explicit submission yields one mock request",
+      "result": "PASS"
+    },
+    {
+      "name": "reply rendered as text, not model HTML",
+      "result": "PASS"
+    },
+    {
+      "name": "only exact approved contact URL is clickable",
+      "result": "PASS"
+    },
+    {
+      "name": "host form remains unchanged",
+      "result": "PASS"
+    },
+    {
+      "name": "minimize restores launcher focus",
+      "result": "PASS"
+    },
+    {
+      "name": "minimize preserves in-memory conversation",
+      "result": "PASS"
+    },
+    {
+      "name": "reset clears panel display",
+      "result": "PASS"
+    },
+    {
+      "name": "empty submit sends nothing",
+      "result": "PASS"
+    },
+    {
+      "name": "manual retry retains one user bubble",
+      "result": "PASS"
+    },
+    {
+      "name": "stop cancels once without resubmit",
+      "result": "PASS"
+    },
+    {
+      "name": "close/reopen clears all conversation state",
+      "result": "PASS"
+    },
+    {
+      "name": "mobile host width stays inside viewport",
+      "result": "PASS"
+    },
+    {
+      "name": "mobile panel has no horizontal overflow",
+      "result": "PASS"
+    },
+    {
+      "name": "host removal disconnects preview and disposes iframe",
+      "result": "PASS"
+    },
+    {
+      "name": "no API or unmocked network URL was requested",
+      "result": "PASS"
+    }
+  ],
+  "realApiRequests": 0,
+  "actualSiteRequests": 0
+}
