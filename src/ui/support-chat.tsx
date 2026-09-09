@@ -82,6 +82,7 @@ export function SupportChat({ clientName, botName, contact, topics, approvedLink
   }
 
   function jumpToLatest() {
+    composer.current?.focus({ preventScroll: true });
     followingLatest.current = true;
     setAwayFromLatest(false);
     if (transcript.current) transcript.current.scrollTop = transcript.current.scrollHeight;
@@ -220,6 +221,7 @@ export function SupportChat({ clientName, botName, contact, topics, approvedLink
             onScroll={() => {
               const element = transcript.current;
               if (!element) return;
+              if (!started) { followingLatest.current = true; setAwayFromLatest(false); return; }
               const away = element.scrollHeight - element.scrollTop - element.clientHeight > 72;
               followingLatest.current = !away; setAwayFromLatest(away);
             }}>
@@ -247,7 +249,7 @@ export function SupportChat({ clientName, botName, contact, topics, approvedLink
               {pending && <div className="pending-message" aria-hidden="true"><span className="request-indicator" />Getting a response…</div>}
             </>}
           </div>
-          {awayFromLatest && <button className="jump-button" type="button" onClick={jumpToLatest}>Jump to latest <span aria-hidden="true">↓</span></button>}
+          {started && awayFromLatest && <button className="jump-button" type="button" onClick={jumpToLatest}>Jump to latest <span aria-hidden="true">↓</span></button>}
         </div>
         <div className="composer-section">
           {failed && <div className="error-panel">
