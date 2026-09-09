@@ -1,0 +1,14 @@
+PX5 premium release closure gate
+Date: 2026-09-09 UTC
+
+Premium Graph state after release-gate transition:
+- PX2-donna-premium-identity: DONE; design-review/verification/integration-proof PASS
+- PX3-ambient-media: DONE; design-review/verification/integration-proof PASS
+- PX3B-premium-shell-refinement: DONE; design-review/verification/integration-proof PASS
+- PX4-contextual-donna: DONE revision 1; design-review/verification/integration-proof PASS
+- PX5-premium-release: DONE revision 3; design-review/verification/integration-proof PASS
+
+`npm run release:gate` observed result:
+Premium release gate: PASS — all 5 premium nodes are DONE with no active non-PASS gate
+
+Public premium equivalence is not claimed by this artifact. Production remains on the previously verified productized line until the closure SHA is published and deployed to the existing Vercel project.

@@ -10,9 +10,9 @@ Core N6 production verification and the separate Donna productization release ar
 |---|---|---|
 | Core N6 release | **DONE** | Existing production alias reverified for the prior core line; release-check PASS and package check PASS |
 | Donna productization P1–P3 | **DONE + public PASS** | all gates PASS; 279/279 Vitest; 52/52 local + clean public Playwright; deployment `dpl_DMA3WxfAfMgwc7kZLueKctx6kfsy` on existing project |
-| G10 CI/CD deploy-check | BLOCKED | Finish premium release gates, provision existing-project production secrets, then exercise automated exact-SHA delivery |
+| G10 CI/CD deploy-check | BLOCKED | Premium release gate is satisfied; provision existing-project production secrets, then exercise automated exact-SHA delivery |
 | GitHub remote activation | **ACTIVE + CI PASS** | `main` published through the audited channel; CI run `34382168718` passed |
-| Premium PX2–PX5 | IN PROGRESS | `npm run release:gate` must pass before CD may consume Vercel credentials |
+| Premium PX2–PX5 | **DONE / local release gate PASS** | public premium equivalence is still pending exact-SHA publication and deployment |
 | G9 Chrome preview | DONE | No further action required for core release |
 | G11 n8n contract | DONE | Real email delivery is optional and not a core release requirement |
 
