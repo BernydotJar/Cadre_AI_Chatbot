@@ -8,7 +8,7 @@ Updated: 2026-09-09 UTC. This is a projection; the append-only Graph Harness led
 
 Public alias: `https://cadre-ai-chatbot-tawny.vercel.app`.
 
-Product, contextual extension, CI/CD, n8n and documentation increments are split into bounded commits. Existing Git author/committer history is retained as recorded and is not used as proof that a particular human or coding tool executed a change. This checkpoint intentionally does not embed a self-referential current HEAD; reproduce it with `git rev-parse HEAD`. Main graph sequence remains **149**. Extension graph sequence is **34**, last event `9db84544-4f7c-42fa-9605-e3f1983740d6`. CI/CD graph sequence is **12**, last event `4495e3a7-7302-426f-ad9f-33e67086f306`. n8n graph sequence is **12**, last event `a35c57ad-30b4-4fd7-aeec-ce11084d239c`.
+Product, contextual extension, CI/CD, n8n and documentation increments are split into bounded commits. Existing Git author/committer history is retained as recorded and is not used as proof that a particular human or coding tool executed a change. This checkpoint intentionally does not embed a self-referential current HEAD; reproduce it with `git rev-parse HEAD`. Main graph sequence remains **149**. Extension graph sequence is **34**, last event `9db84544-4f7c-42fa-9605-e3f1983740d6`. CI/CD graph sequence is **14**, last event `ad80d350-31bd-422a-be23-2c644e837d15`. n8n graph sequence is **12**, last event `a35c57ad-30b4-4fd7-aeec-ce11084d239c`.
 
 ## Main graph
 
