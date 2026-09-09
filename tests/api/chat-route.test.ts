@@ -31,7 +31,7 @@ describe("POST /api/chat bounded grounded pipeline (no live calls)", () => {
     ["How do I book a call?", "grounded", "cannot create bookings"],
     ["I need portal access", "grounded", "no public portal address is verified"],
     ["What is the maturity index?", "grounded", "cannot run the assessment"],
-    ["Which models do you use?", "grounded", "Specific security practices"],
+    ["Which models do you use?", "grounded", "Certifications and client-specific controls are not verified here"],
     ["What is your pricing?", "decline", "verified information"],
     ["Check my invoice", "redirect", "credentials or personal details"],
     ["How far away is the moon?", "redirect", "outside what I can answer"],

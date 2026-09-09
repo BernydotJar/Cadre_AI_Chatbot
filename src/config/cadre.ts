@@ -9,8 +9,8 @@ import { validateClientConfig, type ClientConfig } from "./types";
  * - "Cadre AI company profile (provided 2026-09)": company-supplied profile
  *   facts for this assistant's knowledge set (e.g. the partner list) — stated
  *   by the company, not independently verified on the public site.
- * No pricing, certifications, client results, or security guarantees are in
- * this set, so the assistant must decline or redirect those requests.
+ * Published service/security statements are attributed company claims, not
+ * independent guarantees. No pricing, certifications or private client results.
  *
  * Trigger design rule (learned in review): boundary triggers outrank routing,
  * so they must be request-shaped ("my invoice", "reset my password"), never
@@ -39,6 +39,7 @@ const cadreConfig: ClientConfig = {
         "Cadre AI is an AI strategy and implementation consultancy that helps businesses move from AI confusion to AI confidence.",
         "Cadre AI works department by department to identify high-ROI AI opportunities, build workflows and agents, and train teams so changes stick.",
         "Core services are AI Strategy, AI Leadership & Facilitation, AI Engineering, and AI Agents.",
+        "Its engineering approach considers existing tools, workflow automation, API connections, and custom agents according to the business problem.",
       ],
       approvedLinks: [
         { label: "AI Strategy", url: "https://cadre.ai/strategy" },
@@ -46,7 +47,7 @@ const cadreConfig: ClientConfig = {
         { label: "AI Agents", url: "https://cadre.ai/agents" },
         { label: "AI Leadership & Facilitation", url: "https://cadre.ai/leadership-facilitation" },
       ],
-      source: { origin: "https://cadre.ai and Cadre AI company profile (provided 2026-09)", retrievedAt: "2026-09-08" },
+      source: { origin: "https://cadre.ai; https://cadre.ai/ai-engineering (approach); Cadre AI company profile (provided 2026-09)", retrievedAt: "2026-09-08" },
     },
     {
       id: "industries-served",
@@ -59,18 +60,19 @@ const cadreConfig: ClientConfig = {
         "lending", "e-commerce", "fit for", "case studies", "case study",
         "clients", "department", "departments", "sales", "marketing",
         "customer success", "executive leadership", "finance", "operations",
-        "technology", "legal",
+        "technology", "legal", "hospitality", "hotel", "hotels", "b2b", "b2c",
       ],
       facts: [
-        "Cadre AI serves B2B companies across professional services, private equity, financial services, real estate, mortgage and lending, construction, retail and e-commerce, and manufacturing and logistics.",
+        "Cadre AI serves B2B companies and B2C services businesses. Published industries include professional services, private equity, financial services, real estate, mortgage and lending, construction, retail and e-commerce, manufacturing and logistics, and hospitality.",
         "Cadre AI works across departments including sales, marketing, customer success, executive leadership, finance, operations, technology, and legal.",
         "Client examples are published on the case studies page.",
       ],
       approvedLinks: [
+        { label: "Industries", url: "https://cadre.ai/industries" },
         { label: "Case studies", url: "https://cadre.ai/case-studies" },
         { label: "About Cadre AI", url: "https://cadre.ai/about" },
       ],
-      source: { origin: "https://cadre.ai", retrievedAt: "2026-09-08" },
+      source: { origin: "https://cadre.ai/industries (industry index); https://cadre.ai/contact (fit FAQ); https://cadre.ai/leadership-facilitation (departments)", retrievedAt: "2026-09-08" },
     },
     {
       id: "strategist-call",
@@ -83,12 +85,12 @@ const cadreConfig: ClientConfig = {
       ],
       facts: [
         "You can request a conversation with an AI strategist through the official contact page — the site's 'Talk to an AI Strategist' action goes there.",
-        "This assistant cannot create bookings itself; the Cadre AI team follows up after you submit the contact form.",
+        "This assistant cannot create bookings itself; use the contact form to submit a request. A request does not confirm an appointment or a response time.",
       ],
       approvedLinks: [
         { label: "Talk to an AI Strategist", url: "https://cadre.ai/contact" },
       ],
-      source: { origin: "https://cadre.ai", retrievedAt: "2026-09-08" },
+      source: { origin: "https://cadre.ai (strategist CTA); https://cadre.ai/contact (request form)", retrievedAt: "2026-09-08" },
     },
     {
       id: "client-portal",
@@ -101,13 +103,14 @@ const cadreConfig: ClientConfig = {
         "my agents", "my ai agents", "my results",
       ],
       facts: [
+        "Cadre describes a central portal for tools, agents, training, and results; its public results action leads to the contact page.",
         "This assistant does not have access to client portals or account systems, and no public portal address is verified in its knowledge set.",
         "Existing clients should use the access instructions from their Cadre AI team, or reach out through the contact page to be connected with the right person.",
       ],
       approvedLinks: [
         { label: "Contact Cadre AI", url: "https://cadre.ai/contact" },
       ],
-      source: { origin: "https://cadre.ai (no public portal link found)", retrievedAt: "2026-09-08" },
+      source: { origin: "https://cadre.ai/industries (Track your AI results); https://cadre.ai/contact (no public login link found in reviewed pages)", retrievedAt: "2026-09-08" },
     },
     {
       id: "maturity-index",
@@ -119,13 +122,14 @@ const cadreConfig: ClientConfig = {
       ],
       facts: [
         "The AI Maturity Index is Cadre AI's assessment that scores a company across its eight-pillar framework.",
+        "Cadre describes a grade for each area, explanations, and guidance for improvement; scoring weights and assessment duration are not verified in this knowledge set.",
         "To get scored, use the official contact page — the site's 'Get Your AI Maturity Index' action goes there.",
         "This assistant cannot run the assessment or produce a score in chat.",
       ],
       approvedLinks: [
         { label: "Get Your AI Maturity Index", url: "https://cadre.ai/contact" },
       ],
-      source: { origin: "https://cadre.ai", retrievedAt: "2026-09-08" },
+      source: { origin: "https://cadre.ai (maturity CTA); https://cadre.ai/contact (AI Maturity Index FAQ)", retrievedAt: "2026-09-08" },
     },
     {
       id: "models-and-security",
@@ -138,15 +142,17 @@ const cadreConfig: ClientConfig = {
         "openrouter", "snowflake", "salesforce", "aws",
       ],
       facts: [
-        "Cadre AI works across major AI platforms: its partners include OpenAI, Anthropic (Claude), Google, Microsoft, AWS, Salesforce, and Snowflake, plus OpenRouter for model access.",
+        "Cadre's company-provided profile names OpenAI, Anthropic (Claude), Google, Microsoft, AWS, Salesforce, Snowflake, and OpenRouter among its platforms and partners; these relationships have not all been independently verified here.",
         "Model selection is matched to each client's use case rather than tied to a single vendor.",
-        "Specific security practices, certifications, and data-handling policies are not published in this assistant's knowledge set — for those details, ask the team directly.",
+        "Cadre's engineering page describes measures intended to keep business data out of model training and reduce use of personal AI accounts. These are company claims, not a verified guarantee for every deployment.",
+        "Cadre publishes a privacy policy for its website and services; it does not automatically describe this separately hosted chatbot. Certifications and client-specific controls are not verified here — ask the team directly.",
       ],
       approvedLinks: [
         { label: "AI Engineering", url: "https://cadre.ai/ai-engineering" },
+        { label: "Cadre privacy policy", url: "https://cadre.ai/legal/privacy-policy" },
         { label: "Contact Cadre AI", url: "https://cadre.ai/contact" },
       ],
-      source: { origin: "Cadre AI company profile (provided 2026-09); services pages on https://cadre.ai", retrievedAt: "2026-09-08" },
+      source: { origin: "Cadre AI company profile (provided 2026-09); https://cadre.ai/ai-engineering (LLM Selection & Data Security); https://cadre.ai/legal/privacy-policy (scope and security)", retrievedAt: "2026-09-08" },
     },
   ],
   boundaries: {

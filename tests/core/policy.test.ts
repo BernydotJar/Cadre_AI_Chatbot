@@ -79,7 +79,8 @@ describe("response policy — grounded answers (S1–S5)", () => {
   it("keeps model/security answers inside verified facts", () => {
     const reply = respond([user("How does Cadre handle data security and model selection?")], cadre);
     expect(reply.kind).toBe("grounded");
-    expect(reply.text).toContain("not published in this assistant's knowledge set");
+    expect(reply.text).toContain("company claims, not a verified guarantee");
+    expect(reply.text).toContain("Certifications and client-specific controls are not verified here");
   });
 });
 
