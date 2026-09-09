@@ -1,0 +1,44 @@
+{
+  "id": "cadreHandoff001",
+  "name": "Cadre AI Concierge — Human Handoff",
+  "nodes": [
+    {
+      "parameters": {"httpMethod": "POST", "path": "cadre-handoff", "responseMode": "responseNode", "options": {}},
+      "id": "c0735884-2805-4f44-9152-06c16a67d74c",
+      "name": "Cadre Handoff Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [-420, 0],
+      "webhookId": "b5e20b0b-9935-4e4f-a376-87467c0db74d"
+    },
+    {
+      "parameters": {
+        "jsCode": "const payload = $json.body ?? $json;\nconst allowedTypes = new Set(['qualified_lead','client_support','portal_support','general_escalation']);\nconst routeKeys = { qualified_lead: 'CADRE_SALES_EMAIL', client_support: 'CADRE_CLIENT_SUCCESS_EMAIL', portal_support: 'CADRE_SUPPORT_EMAIL', general_escalation: 'CADRE_GENERAL_EMAIL' };\nconst fail = (reason) => [{ json: { ok: false, status: 'failed', reason } }];\nif (!payload || typeof payload !== 'object' || Array.isArray(payload)) return fail('invalid_payload');\nif (!allowedTypes.has(payload.type)) return fail('invalid_type');\nif (payload.consent_to_contact !== true) return fail('consent_required');\nif (payload.source !== 'cadre-ai-concierge') return fail('invalid_source');\nconst email = payload.contact?.email;\nif (typeof email !== 'string' || email.length > 254 || !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) return fail('invalid_email');\nif (typeof payload.intent !== 'string' || !payload.intent.trim() || typeof payload.summary !== 'string' || !payload.summary.trim() || typeof payload.recommended_next_step !== 'string' || !payload.recommended_next_step.trim()) return fail('missing_required_field');\nconst clean = (value, max = 500) => typeof value === 'string' ? value.trim().slice(0, max) : '';\nconst pains = Array.isArray(payload.pain_points) ? payload.pain_points.filter((v) => typeof v === 'string').slice(0, 8).map((v) => clean(v, 160)) : [];\nconst destinationKey = routeKeys[payload.type];\nconst company = clean(payload.company?.name, 160);\nconst notification = { subject: `[Cadre AI Concierge] ${payload.type} — ${company || email}`, contact: { name: clean(payload.contact?.name, 120), email }, company: { name: company, industry: clean(payload.company?.industry, 160) }, intent: clean(payload.intent, 240), topic: clean(payload.topic, 240), pain_points: pains, volume: clean(payload.volume, 160), recommended_next_step: clean(payload.recommended_next_step, 300), summary: clean(payload.summary, 1200), source: 'cadre-ai-concierge' };\nreturn [{ json: { ok: true, status: 'accepted', handoffId: `n8n-${$execution.id}`, route: destinationKey, notification } }];"
+      },
+      "id": "17bbc80a-fc28-407c-b8e0-acde21740479",
+      "name": "Validate Consent and Route",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-160, 0]
+    },
+    {
+      "parameters": {"respondWith": "json", "responseBody": "={{ $json }}", "options": {"responseCode": "={{ $json.ok ? 202 : 400 }}"}},
+      "id": "57cb58b7-f5ba-43a0-99d5-ce20bc219f91",
+      "name": "Return Handoff Result",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [120, 0]
+    }
+  ],
+  "connections": {
+    "Cadre Handoff Webhook": {"main": [[{"node": "Validate Consent and Route", "type": "main", "index": 0}]]},
+    "Validate Consent and Route": {"main": [[{"node": "Return Handoff Result", "type": "main", "index": 0}]]}
+  },
+  "settings": {"executionOrder": "v1"},
+  "staticData": null,
+  "meta": {"candidateBoundary": "HumanHandoffProvider adapter; no email credential or real recipient is embedded"},
+  "pinData": {},
+  "versionId": "a69eb90d-6505-4866-bcd4-06b36c626288",
+  "active": false,
+  "tags": []
+}

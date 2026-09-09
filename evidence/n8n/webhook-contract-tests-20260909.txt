@@ -1,0 +1,20 @@
+Cadre n8n isolated runtime webhook contract probes — 2026-09-09 UTC
+n8n 2.38.1, private Node 24.9.0 runtime, persistent SQLite state.
+
+--- valid lead ---
+HTTP 202
+{"ok":true,"status":"accepted","handoffId":"n8n-1","route":"CADRE_SALES_EMAIL","notification":{"subject":"[Cadre AI Concierge] qualified_lead — Acme Lending","contact":{"name":"Jane Doe","email":"jane@example.test"},"company":{"name":"Acme Lending","industry":"mortgage lending"},"intent":"explore_ai_opportunity","topic":"underwriting automation","pain_points":["manual document review","slow underwriting cycle"],"volume":"2000 files/week","recommended_next_step":"AI strategy call","summary":"Prospect wants to reduce underwriting review time.","source":"cadre-ai-concierge"}}
+
+--- client support ---
+HTTP 202
+{"ok":true,"status":"accepted","handoffId":"n8n-2","route":"CADRE_CLIENT_SUCCESS_EMAIL"}
+
+--- missing consent ---
+HTTP 400
+{"ok":false,"status":"failed","reason":"consent_required"}
+
+--- invalid email ---
+HTTP 400
+{"ok":false,"status":"failed","reason":"invalid_email"}
+
+No real recipient or external email provider was configured. These probes establish webhook validation/routing only.

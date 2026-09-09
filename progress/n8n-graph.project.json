@@ -1,0 +1,21 @@
+{
+  "schema_version": "graph-harness.project.v1",
+  "project_id": "cadre-ai-n8n-handoff",
+  "mode": "MVP",
+  "gate_definitions": [
+    {"id":"verification","required_evidence_kinds":["test_output"],"blocking":true},
+    {"id":"code-review","required_evidence_kinds":["review_report"],"blocking":true},
+    {"id":"integration-proof","required_evidence_kinds":["integration_check"],"blocking":true}
+  ],
+  "nodes": [{
+    "id":"G11-n8n-handoff-contract",
+    "kind":"feature-increment",
+    "title":"n8n human-handoff contract and isolated runtime proof",
+    "status":"spec_ready",
+    "depends_on":[],
+    "capability":"engineering",
+    "gates":{"done":["verification","code-review","integration-proof"]},
+    "allowed_paths":["integrations/n8n/**","evidence/n8n/**","progress/n8n-authorization-2026-09-09.md","progress/n8n-graph.project.json","progress/n8n-graph.events.jsonl"],
+    "metadata":{"authorization":"progress/n8n-authorization-2026-09-09.md","boundary":"This node proves the n8n runtime + handoff validation/routing contract only. Application wiring and a real email provider are a later optional feature and are not claimed by this node."}
+  }]
+}
