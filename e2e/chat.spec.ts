@@ -45,6 +45,10 @@ test("ambient media is local, muted, bounded, and presentation-only", async ({ p
   })).toBe(true);
   const pause = page.getByRole("button", { name: "Pause ambient motion" });
   await expect(pause).toBeVisible();
+  // Reproduce the production cold-load race deterministically: application
+  // state already offers Pause while native autoplay has not started yet.
+  await video.evaluate((node) => (node as HTMLVideoElement).pause());
+  expect(await video.evaluate((node) => (node as HTMLVideoElement).paused)).toBe(true);
   await pause.click();
   await expect(media).toHaveAttribute("data-motion", "paused");
   expect(await video.evaluate((node) => (node as HTMLVideoElement).paused)).toBe(true);

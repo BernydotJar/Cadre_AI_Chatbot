@@ -30,8 +30,16 @@ export function evaluatePremiumRelease(projectFile, eventsFile) {
       statuses.set(event.node_id, event.payload?.to);
     }
 
+    if (event.event_type === "node.invalidated") {
+      statuses.set(event.node_id, "repair_required");
+    }
+
     if (event.event_type === "gate.evaluated") {
       latestBlockingGate.set(`${event.node_id}:${event.payload?.gate_id}`, event.payload?.result);
+    }
+
+    if (event.event_type === "failure.recorded" && event.payload?.gate_id) {
+      latestBlockingGate.set(`${event.node_id}:${event.payload.gate_id}`, "FAIL");
     }
   }
 

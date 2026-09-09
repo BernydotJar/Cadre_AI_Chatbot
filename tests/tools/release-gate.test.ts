@@ -50,6 +50,32 @@ describe("premium production release gate", () => {
     expect(result.reason).toContain("design-review=BLOCKED");
   });
 
+  it("fails closed when a previously DONE node is invalidated after deployment evidence", () => {
+    const { project, ledger } = fixture(["PX5"], [
+      { event_type: "gate.evaluated", node_id: "PX5", payload: { gate_id: "integration-proof", result: "PASS" } },
+      { event_type: "node.transitioned", node_id: "PX5", payload: { to: "done" } },
+      { event_type: "failure.recorded", node_id: "PX5", payload: { gate_id: "integration-proof", reason: "public browser failure" } },
+      { event_type: "node.invalidated", node_id: "PX5", payload: { reason: "public browser failure" } },
+    ]);
+    const result = evaluatePremiumRelease(project, ledger);
+    expect(result.ok).toBe(false);
+    expect(result.reason).toContain("incomplete nodes: PX5");
+    expect(result.reason).toContain("integration-proof=FAIL");
+  });
+
+  it("passes again only after the invalidated node is repaired, re-gated, and DONE", () => {
+    const { project, ledger } = fixture(["PX5"], [
+      { event_type: "gate.evaluated", node_id: "PX5", payload: { gate_id: "integration-proof", result: "PASS" } },
+      { event_type: "node.transitioned", node_id: "PX5", payload: { to: "done" } },
+      { event_type: "failure.recorded", node_id: "PX5", payload: { gate_id: "integration-proof", reason: "public browser failure" } },
+      { event_type: "node.invalidated", node_id: "PX5", payload: { reason: "public browser failure" } },
+      { event_type: "node.transitioned", node_id: "PX5", payload: { to: "running" } },
+      { event_type: "gate.evaluated", node_id: "PX5", payload: { gate_id: "integration-proof", result: "PASS" } },
+      { event_type: "node.transitioned", node_id: "PX5", payload: { to: "done" } },
+    ]);
+    expect(evaluatePremiumRelease(project, ledger).ok).toBe(true);
+  });
+
   it("passes only after every premium node is DONE and active gates pass", () => {
     const { project, ledger } = fixture(["PX2", "PX3"], [
       { event_type: "gate.evaluated", node_id: "PX2", payload: { gate_id: "design-review", result: "PASS" } },

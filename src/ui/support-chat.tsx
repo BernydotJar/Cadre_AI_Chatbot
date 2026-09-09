@@ -74,13 +74,20 @@ function AmbientMedia({ media }: { media: NonNullable<ExperienceProfile["ambient
   function toggleMotion() {
     const element = video.current;
     if (!element) return;
-    if (element.paused) {
-      void element.play();
-      setPaused(false);
-    } else {
+
+    // The visible control is application-owned state. During a remote cold load
+    // the native element can still report `paused=true` while autoplay is
+    // pending, even though the control already says “Pause”. Branching on the
+    // native property can therefore invert the user's intent.
+    if (!paused) {
       element.pause();
       setPaused(true);
+      return;
     }
+
+    void element.play()
+      .then(() => setPaused(false))
+      .catch(() => setPaused(true));
   }
 
   return <>
