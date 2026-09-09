@@ -1,0 +1,99 @@
+{
+  "checkedAt": "2026-09-09T02:36:21.364Z",
+  "sourceCommit": "7ac6086",
+  "base": "https://cadre-ai-chatbot-tawny.vercel.app",
+  "mode": "mock",
+  "checks": [
+    {
+      "case": "anonymous scaffold",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "case": "/api/health",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "case": "/.env.local",
+      "status": 404,
+      "pass": true
+    },
+    {
+      "case": "/.codex",
+      "status": 404,
+      "pass": true
+    },
+    {
+      "case": "/.git/config",
+      "status": 404,
+      "pass": true
+    },
+    {
+      "case": "/CLAUDE.md",
+      "status": 404,
+      "pass": true
+    },
+    {
+      "case": "mock chat",
+      "status": 200,
+      "kind": "grounded",
+      "reply": "Cadre AI is an AI strategy and implementation consultancy that helps businesses move from AI confusion to AI confidence. Cadre AI works department by department to identify high-ROI AI opportunities, build workflows and agents, and train teams so changes stick. Core services are AI Strategy, AI Leadership & Facilitation, AI Engineering, and AI Agents.\n\nAI Strategy: https://cadre.ai/strategy\n\nAI Engineering: https://cadre.ai/ai-engineering\n\nAI Agents: https://cadre.ai/agents\n\nAI Leadership & Facilitation: https://cadre.ai/leadership-facilitation",
+      "cacheControl": "no-store",
+      "pass": true
+    },
+    {
+      "case": "empty input",
+      "status": 400,
+      "kind": "error",
+      "reply": "Please check your message: message content must not be empty.",
+      "cacheControl": "no-store",
+      "pass": true
+    },
+    {
+      "case": "cross-site simple media",
+      "status": 415,
+      "kind": "error",
+      "reply": "Please send your message as JSON.",
+      "cacheControl": "no-store",
+      "pass": true
+    },
+    {
+      "case": "client bundle",
+      "path": "/_next/static/immutable/chunks/074srxx4geiy-.js",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "case": "client bundle",
+      "path": "/_next/static/immutable/chunks/0j5a_qkw23a8h.js",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "case": "client bundle",
+      "path": "/_next/static/immutable/chunks/turbopack-358ypo1z85df3.js",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "case": "client bundle",
+      "path": "/_next/static/immutable/chunks/2corl6wyj4669.js",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "case": "client bundle",
+      "path": "/_next/static/immutable/chunks/0c0hxoamwjsbw.js",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "case": "client bundle",
+      "path": "/_next/static/immutable/chunks/1kbt14nefgsiq.js",
+      "status": 200,
+      "pass": true
+    }
+  ],
+  "passed": true
+}
