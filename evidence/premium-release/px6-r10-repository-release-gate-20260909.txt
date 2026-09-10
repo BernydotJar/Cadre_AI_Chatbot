@@ -1,0 +1,175 @@
+PX6 revision 10 repository release gate
+snapshot=47f0764c64df0725d4754130f67ced3c2c079ab9
+started=2026-09-10T05:40:56Z
+
+== premium graph validate ==
+{"event_count": 203, "project_id": "cadre-donna-premium-experience", "ready_nodes": [], "valid": true}
+
+== premium graph status summary ==
+{
+  "checkpoint_count": 0,
+  "event_count": 203,
+  "last_event_id": "98ae4b8e-cd3a-4885-9862-4807a22a9081",
+  "mode": "MVP",
+  "nodes": [
+    {
+      "active_evidence_ids": [
+        "22e4002f-05cd-4df5-99d6-28f19e4bc535",
+        "4b74a4f7-8b0d-4ffc-a085-c3a34bf9ff51",
+        "a86982d9-64d1-47a1-8db1-84d8ae1bfc89",
+        "c4573f07-b861-4f87-865a-3f3091735e8b",
+        "cc753a44-27ad-4060-bf36-0f5d87927984",
+        "cfc91bd6-4459-429e-a652-89d549cacfe4"
+      ],
+      "active_gates": {
+        "design-review": "PASS",
+        "integration-proof": "PASS",
+        "verification": "PASS"
+      },
+      "approval_count": 1,
+      "capability": "engineering",
+      "depends_on": [],
+      "id": "PX2-donna-premium-identity",
+      "kind": "feature-increment",
+      "revision": 0,
+      "status": "done",
+      "title": "Premium Donna identity, typography, and visual language"
+    },
+    {
+      "active_evidence_ids": [
+        "258fbd94-1e66-464c-a641-3e9429f8e88f",
+        "4781a9e7-5c0d-49b7-8181-c968f02f4033",
+        "75c2a9e7-4bfa-4451-966b-562b697fdb80",
+        "8ab4f3fd-4ada-43ae-b427-e80ad81e950b",
+        "a1d57fdb-65b4-4d1c-a26e-afe64896ee3e",
+        "c976f4fa-2829-4c07-afa6-4ac2830f81fc"
+      ],
+      "active_gates": {
+        "design-review": "PASS",
+        "integration-proof": "PASS",
+        "verification": "PASS"
+      },
+      "approval_count": 1,
+      "capability": "engineering",
+      "depends_on": [
+        "PX2-donna-premium-identity"
+      ],
+      "id": "PX3-ambient-media",
+      "kind": "feature-increment",
+      "revision": 0,
+      "status": "done",
+      "title": "Accessible cinematic ambient media layer"
+    },
+    {
+      "active_evidence_ids": [
+        "38665c84-616f-4d4a-a6e0-27bfbd32be6e",
+        "7de1d5d5-a7e1-452b-82b9-72c898f2c2c9",
+        "ce0581bb-f73a-4c7a-90fd-be155a1b5f6a"
+      ],
+      "active_gates": {
+        "design-review": "PASS",
+        "integration-proof": "PASS",
+        "verification": "PASS"
+      },
+      "approval_count": 1,
+      "capability": "engineering",
+      "depends_on": [
+        "PX3-ambient-media"
+      ],
+      "id": "PX3B-premium-shell-refinement",
+      "kind": "feature-increment",
+      "revision": 0,
+      "status": "done",
+      "title": "Donna editorial identity and product shell refinement"
+    },
+    {
+      "active_evidence_ids": [
+        "04b9e0e8-e841-44b3-8339-884dde3eb0eb",
+        "1595f1fe-de8c-4e58-a78e-7db6d30cdd7b",
+        "6193581b-64c8-4b14-8bb6-90fe74a3f053",
+        "a949818e-e967-497b-91a4-2772d6a95c9e"
+      ],
+      "active_gates": {
+        "design-review": "PASS",
+        "integration-proof": "PASS",
+        "verification": "PASS"
+      },
+      "approval_count": 0,
+      "capability": "engineering",
+      "depends_on": [
+        "PX2-donna-premium-identity"
+      ],
+      "id": "PX4-contextual-donna",
+      "kind": "feature-increment",
+      "revision": 1,
+      "status": "done",
+      "title": "Bounded page-context awareness for Donna extension"
+    },
+    {
+      "active_evidence_ids": [
+        "1dcaca8d-4224-4726-8831-633060e79bc8",
+        "476baf83-7a68-47bd-8808-6a8fbd79d1b0",
+        "4a90debc-718e-45a6-8f0d-8f8fe0a16bf0",
+        "62b925ea-f460-4048-bcc7-edb5d70bc587",
+        "8d7bae04-77ae-4669-a8ab-84d5f014e40b",
+        "8eef53e7-a3a1-47f7-bd32-2c3620681ed1",
+        "d4f60081-b71e-4e90-a792-0707f6d5b669"
+      ],
+      "active_gates": {
+        "design-review": "PASS",
+        "integration-proof": "PASS",
+        "verification": "PASS"
+      },
+      "approval_count": 0,
+      "capability": "engineering",
+      "depends_on": [
+        "PX3-ambient-media",
+        "PX3B-premium-shell-refinement",
+        "PX4-contextual-donna"
+      ],
+      "id": "PX5-premium-release",
+      "kind": "feature-increment",
+      "revision": 4,
+      "status": "done",
+      "title": "Premium integration, public verification, and release evidence"
+    },
+    {
+      "active_evidence_ids": [
+        "383b4ec5-6340-46ba-ae5d-63ea017a9453",
+        "6b9d7738-eb4c-45d2-9a36-afdd76c737c8",
+        "c63e44ae-9f31-4479-85ed-fb79df62ebac",
+        "cb1f1f9a-d6df-441c-8d1f-5508a245e976",
+        "d191fdf2-c8e6-44ac-a673-74cf99d3844c"
+      ],
+      "active_gates": {
+        "design-review": "PASS",
+        "integration-proof": "PASS",
+        "verification": "PASS"
+      },
+      "approval_count": 0,
+      "capability": "engineering",
+      "depends_on": [
+        "PX5-premium-release"
+      ],
+      "id": "PX6-cinematic-proactive-donna",
+      "kind": "feature-increment",
+      "revision": 10,
+      "status": "done",
+      "title": "Cadre-native cinematic shell and proactive Donna interaction"
+    }
+  ],
+  "project_id": "cadre-donna-premium-experience",
+  "ready_nodes": [],
+  "repair_plan_count": 14,
+  "schema_version": "graph-harness.state.v1"
+}
+
+== repository release gate ==
+
+> cadre-ai-chatbot@0.1.0 release:gate
+> node tools/release/check-premium-gate.mjs
+
+Premium release gate: PASS — all 6 premium nodes are DONE with no active non-PASS gate
+
+repository_release_gate=PASS
+finished=2026-09-10T05:40:56Z
