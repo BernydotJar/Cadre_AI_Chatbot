@@ -87,11 +87,20 @@ test("pre-chat invitation rotates configured prompts without background chat tra
   await page.clock.fastForward(5_300);
   await expect(stack).toHaveAttribute("data-invitation-index", "2");
   await expect(label).toHaveText("Track AI results");
-  const exactPrompt = "How does Cadre help clients track AI tools, agents, training, and results?";
-  await expect(message).toHaveText(exactPrompt);
+  await expect(message).toHaveText("How does Cadre help clients track AI tools, agents, training, and results?");
   expect(calls).toBe(0);
 
-  await page.getByRole("button", { name: "Ask Donna: Track AI results" }).click();
+  await page.clock.fastForward(5_300);
+  await expect(stack).toHaveAttribute("data-invitation-index", "3");
+  await expect(label).toHaveText("Check AI readiness");
+  const exactPrompt = "How does the AI Maturity Index work?";
+  await expect(message).toHaveText(exactPrompt);
+  await page.clock.fastForward(20_000);
+  await expect(stack).toHaveAttribute("data-invitation-index", "3");
+  await expect(label).toHaveText("Check AI readiness");
+  expect(calls).toBe(0);
+
+  await page.getByRole("button", { name: "Ask Donna: Check AI readiness" }).click();
   await expect(messages(page, "user")).toHaveCount(1);
   await expect(messages(page, "user").first()).toContainText(exactPrompt);
   await expect.poll(() => calls).toBe(1);

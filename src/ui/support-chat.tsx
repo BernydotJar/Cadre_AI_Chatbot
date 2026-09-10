@@ -510,7 +510,7 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
         </p>
         {invitationPrompt && <div className="nudge-action-row">
           <button type="button" className="nudge-action" aria-label={`Ask ${experience.assistantLabel}: ${invitationPrompt.label}`} disabled={!ready} onClick={() => send(invitationPrompt.message)}>
-            Ask this <Arrow />
+            {invitationPrompt.label} <Arrow />
           </button>
           <span className="nudge-position" aria-hidden="true">{invitationPosition}</span>
         </div>}
