@@ -1,0 +1,419 @@
+PX6 revision-7 independent clean-worktree verification
+snapshot=74ab37ff336cb8550f0e03c6a7ef358053288fa3
+worktree=/tmp/cadre-px6-final-74ab37f
+node=v22.23.2
+npm=10.9.8
+
+== git integrity ==
+dangling blob 29442132d8877438a56ae08c5dedc33acc9178be
+dangling blob 3516378bc22af526a152d04434c558b6190266d3
+dangling blob 1fb8f760110892d71af15f0ba044380e7a1044fa
+dangling blob 6ffa853eabcf6b01da303cd8cb80013cb0ac304c
+dangling blob beceecb4c7dd37a25057e3236da90ccc3207c31a
+
+== locked install ==
+npm warn deprecated eslint@9.39.5: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+
+added 380 packages, and audited 381 packages in 7s
+
+151 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+== typecheck ==
+
+> cadre-ai-chatbot@0.1.0 typecheck
+> tsc --noEmit
+
+
+== lint ==
+
+> cadre-ai-chatbot@0.1.0 lint
+> eslint .
+
+
+== unit/integration ==
+
+> cadre-ai-chatbot@0.1.0 test
+> vitest run
+
+[33m(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `"type": "module"` in the closest package.json
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.[39m
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90m/tmp/cadre-px6-final-74ab37f[39m
+
+ [32m✓[39m tests/core/policy.test.ts [2m([22m[2m59 tests[22m[2m)[22m[32m 36[2mms[22m[39m
+ [32m✓[39m tests/api/chat-route.test.ts [2m([22m[2m45 tests[22m[2m)[22m[32m 67[2mms[22m[39m
+ [32m✓[39m tests/product/contracts.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+ [32m✓[39m tests/provider/openrouter.test.ts [2m([22m[2m48 tests[22m[2m)[22m[32m 59[2mms[22m[39m
+ [32m✓[39m tests/tools/release-gate.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m tests/product/donna.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 36[2mms[22m[39m
+ [32m✓[39m tests/config/knowledge-refresh.test.ts [2m([22m[2m22 tests[22m[2m)[22m[32m 36[2mms[22m[39m
+ [32m✓[39m tests/config/config.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m tests/core/route.test.ts [2m([22m[2m33 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m tests/tools/graph-baseline.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 25[2mms[22m[39m
+ [32m✓[39m tests/ui/conversation.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m tests/core/validate.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m tests/provider/model-selection.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 23[2mms[22m[39m
+ [32m✓[39m tests/server/rate-limit.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 23[2mms[22m[39m
+ [32m✓[39m tests/product/view.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m tests/product/media-assets.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m16 passed[39m[22m[90m (16)[39m
+[2m      Tests [22m [1m[32m301 passed[39m[22m[90m (301)[39m
+[2m   Start at [22m 05:10:19
+[2m   Duration [22m 1.03s[2m (transform 51%, import 29%, tests 18%, worker 1%)[22m
+
+
+== production build ==
+
+> cadre-ai-chatbot@0.1.0 build
+> next build
+
+▲ Next.js 16.3.4 (Turbopack)
+✓ Running next.config.ts took 36ms
+⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 2.7s
+  Running TypeScript ...
+  Finished TypeScript in 1913ms ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/5) ...
+  Generating static pages using 7 workers (1/5) 
+  Generating static pages using 7 workers (2/5) 
+  Generating static pages using 7 workers (3/5) 
+✓ Generating static pages using 7 workers (5/5) in 300ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ○ /_not-found
+├ ƒ /api/chat
+├ ƒ /api/health
+└ ○ /icon.svg
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+== browser matrix ==
+
+> cadre-ai-chatbot@0.1.0 test:e2e
+> playwright test --config=playwright.config.ts
+
+
+Running 68 tests using 1 worker
+
+  ✓   1 [desktop] › e2e/chat.spec.ts:17:5 › first impression feels like a Cadre page with an inviting Donna product (949ms)
+  ✓   2 [desktop] › e2e/chat.spec.ts:44:5 › floating Donna closes with Escape and restores launcher focus (360ms)
+  ✓   3 [desktop] › e2e/chat.spec.ts:53:5 › new PX6 chat controls preserve 44px touch targets (486ms)
+  ✓   4 [desktop] › e2e/chat.spec.ts:75:5 › reduced motion disables the new orb and glare animations (385ms)
+  ✓   5 [desktop] › e2e/chat.spec.ts:86:5 › ambient media is local, muted, bounded, and presentation-only (547ms)
+  ✓   6 [desktop] › e2e/chat.spec.ts:112:5 › reduced motion keeps the static poster and never mounts the ambient video (395ms)
+  ✓   7 [desktop] › e2e/chat.spec.ts:123:5 › ambient motion control never obscures the hero across responsive widths (596ms)
+  ✓   8 [desktop] › e2e/chat.spec.ts:154:5 › anonymous conversation uses the real server and official links (502ms)
+  ✓   9 [desktop] › e2e/chat.spec.ts:171:5 › Donna presentation handles one configured next step and an opt-out (518ms)
+  ✓  10 [desktop] › e2e/chat.spec.ts:193:5 › all six entry points are present and clarification preserves an ordinal follow-up (537ms)
+  ✓  11 [desktop] › e2e/chat.spec.ts:208:5 › loading is announced and rapid Enter cannot duplicate a request (352ms)
+  ✓  12 [desktop] › e2e/chat.spec.ts:228:5 › Donna visibly shapes while a grounded request is in flight (434ms)
+  ✓  13 [desktop] › e2e/chat.spec.ts:244:5 › pricing is empathetic and commercially aware without inventing a rate (349ms)
+  ✓  14 [desktop] › e2e/chat.spec.ts:255:5 › retry preserves the failed turn and does not duplicate history (387ms)
+  ✓  15 [desktop] › e2e/chat.spec.ts:273:5 › network failure has a safe retry path (354ms)
+  ✓  16 [desktop] › e2e/chat.spec.ts:282:5 › cancelling prevents a late response from appearing and preserves a retry (336ms)
+  ✓  17 [desktop] › e2e/chat.spec.ts:304:5 › malformed responses produce a recoverable safe error (313ms)
+  ✓  18 [desktop] › e2e/chat.spec.ts:313:5 › model text is inert and only exact approved URLs become links (365ms)
+  ✓  19 [desktop] › e2e/chat.spec.ts:326:5 › blank input, multiline entry, and IME composition do not send accidentally (334ms)
+  ✓  20 [desktop] › e2e/chat.spec.ts:341:5 › new conversation clears local state without persistence (393ms)
+  ✓  21 [desktop] › e2e/chat.spec.ts:353:5 › viewport has no horizontal overflow and primary controls are reachable (326ms)
+  ✓  22 [desktop] › e2e/chat.spec.ts:364:5 › long conversations and composer input remain bounded (1.3s)
+  ✓  23 [desktop] › e2e/chat.spec.ts:388:5 › long inert response remains within the mobile viewport with reduced motion (330ms)
+  ✓  24 [desktop] › e2e/chat.spec.ts:397:5 › a new conversation cannot be overwritten by an older in-flight response (420ms)
+  ✓  25 [desktop] › e2e/chat.spec.ts:421:5 › reading earlier messages is respected until Jump to latest is used (506ms)
+  ✓  26 [desktop] › e2e/chat.spec.ts:443:5 › welcome starts at the top and reset restores that position (423ms)
+  ✓  27 [desktop] › e2e/chat.spec.ts:462:5 › keyboard topic activation preserves a stable focus target (349ms)
+  ✓  28 [desktop] › e2e/chat.spec.ts:474:5 › keyboard retry preserves focus without duplicating the user turn (357ms)
+  ✓  29 [desktop] › e2e/chat.spec.ts:493:5 › client deadline yields a saved draft and does not accept late output (299ms)
+  ✓  30 [desktop] › e2e/hydration.spec.ts:3:5 › cold-load launcher waits for hydration before opening the first conversation (409ms)
+  ✓  31 [desktop] › e2e/hydration.spec.ts:43:5 › without JavaScript the public Cadre page and contact route remain usable without fake chat (206ms)
+  ✘  32 [desktop] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 320x568 (295ms)
+  ✘  33 [desktop] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 360x640 (607ms)
+  ✓  34 [desktop] › e2e/readability.spec.ts:70:5 › important helper and privacy copy remains at least 12px (521ms)
+  ✓  35 [mobile] › e2e/chat.spec.ts:17:5 › first impression feels like a Cadre page with an inviting Donna product (492ms)
+  ✓  36 [mobile] › e2e/chat.spec.ts:44:5 › floating Donna closes with Escape and restores launcher focus (259ms)
+  ✓  37 [mobile] › e2e/chat.spec.ts:53:5 › new PX6 chat controls preserve 44px touch targets (347ms)
+  ✓  38 [mobile] › e2e/chat.spec.ts:75:5 › reduced motion disables the new orb and glare animations (289ms)
+  ✓  39 [mobile] › e2e/chat.spec.ts:86:5 › ambient media is local, muted, bounded, and presentation-only (432ms)
+  ✓  40 [mobile] › e2e/chat.spec.ts:112:5 › reduced motion keeps the static poster and never mounts the ambient video (295ms)
+  ✓  41 [mobile] › e2e/chat.spec.ts:123:5 › ambient motion control never obscures the hero across responsive widths (487ms)
+  ✓  42 [mobile] › e2e/chat.spec.ts:154:5 › anonymous conversation uses the real server and official links (303ms)
+  ✓  43 [mobile] › e2e/chat.spec.ts:171:5 › Donna presentation handles one configured next step and an opt-out (361ms)
+  ✘  44 [mobile] › e2e/chat.spec.ts:193:5 › all six entry points are present and clarification preserves an ordinal follow-up (8.4s)
+  ✓  45 [mobile] › e2e/chat.spec.ts:208:5 › loading is announced and rapid Enter cannot duplicate a request (352ms)
+  ✓  46 [mobile] › e2e/chat.spec.ts:228:5 › Donna visibly shapes while a grounded request is in flight (241ms)
+  ✘  47 [mobile] › e2e/chat.spec.ts:244:5 › pricing is empathetic and commercially aware without inventing a rate (8.4s)
+  ✓  48 [mobile] › e2e/chat.spec.ts:255:5 › retry preserves the failed turn and does not duplicate history (391ms)
+  ✓  49 [mobile] › e2e/chat.spec.ts:273:5 › network failure has a safe retry path (275ms)
+  ✓  50 [mobile] › e2e/chat.spec.ts:282:5 › cancelling prevents a late response from appearing and preserves a retry (281ms)
+  ✓  51 [mobile] › e2e/chat.spec.ts:304:5 › malformed responses produce a recoverable safe error (227ms)
+  ✓  52 [mobile] › e2e/chat.spec.ts:313:5 › model text is inert and only exact approved URLs become links (245ms)
+  ✓  53 [mobile] › e2e/chat.spec.ts:326:5 › blank input, multiline entry, and IME composition do not send accidentally (263ms)
+  ✓  54 [mobile] › e2e/chat.spec.ts:341:5 › new conversation clears local state without persistence (278ms)
+  ✓  55 [mobile] › e2e/chat.spec.ts:353:5 › viewport has no horizontal overflow and primary controls are reachable (245ms)
+  ✓  56 [mobile] › e2e/chat.spec.ts:364:5 › long conversations and composer input remain bounded (1.1s)
+  ✓  57 [mobile] › e2e/chat.spec.ts:388:5 › long inert response remains within the mobile viewport with reduced motion (271ms)
+  ✓  58 [mobile] › e2e/chat.spec.ts:397:5 › a new conversation cannot be overwritten by an older in-flight response (337ms)
+  ✓  59 [mobile] › e2e/chat.spec.ts:421:5 › reading earlier messages is respected until Jump to latest is used (393ms)
+  ✓  60 [mobile] › e2e/chat.spec.ts:443:5 › welcome starts at the top and reset restores that position (297ms)
+  ✓  61 [mobile] › e2e/chat.spec.ts:462:5 › keyboard topic activation preserves a stable focus target (276ms)
+  ✓  62 [mobile] › e2e/chat.spec.ts:474:5 › keyboard retry preserves focus without duplicating the user turn (281ms)
+  ✓  63 [mobile] › e2e/chat.spec.ts:493:5 › client deadline yields a saved draft and does not accept late output (244ms)
+  ✓  64 [mobile] › e2e/hydration.spec.ts:3:5 › cold-load launcher waits for hydration before opening the first conversation (378ms)
+  ✓  65 [mobile] › e2e/hydration.spec.ts:43:5 › without JavaScript the public Cadre page and contact route remain usable without fake chat (145ms)
+  ✘  66 [mobile] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 320x568 (302ms)
+  ✘  67 [mobile] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 360x640 (394ms)
+  ✘  68 [mobile] › e2e/readability.spec.ts:70:5 › important helper and privacy copy remains at least 12px (488ms)
+
+
+  1) [desktop] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 320x568 
+
+    Error: expect(received).toBeGreaterThanOrEqual(expected)
+
+    Expected: >= 240
+    Received:    0
+
+      45 |       };
+      46 |     });
+    > 47 |     expect(geometry.spaceHeight).toBeGreaterThanOrEqual(240);
+         |                                  ^
+      48 |     expect(geometry.readableHeight).toBeGreaterThanOrEqual(144);
+      49 |     expect(geometry.transcriptBottom).toBeLessThanOrEqual(geometry.composerTop + 1);
+      50 |     expect(geometry.privacyBottom).toBeLessThanOrEqual(geometry.cardBottom);
+        at /tmp/cadre-px6-final-74ab37f/e2e/readability.spec.ts:47:34
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/readability-text-spacing-k-0c40c-ecovery-readable-at-320x568-desktop/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/readability-text-spacing-k-0c40c-ecovery-readable-at-320x568-desktop/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/readability-text-spacing-k-0c40c-ecovery-readable-at-320x568-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/readability-text-spacing-k-0c40c-ecovery-readable-at-320x568-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [desktop] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 360x640 
+
+    Error: expect(received).toBeGreaterThanOrEqual(expected)
+
+    Expected: >= 240
+    Received:    0
+
+      45 |       };
+      46 |     });
+    > 47 |     expect(geometry.spaceHeight).toBeGreaterThanOrEqual(240);
+         |                                  ^
+      48 |     expect(geometry.readableHeight).toBeGreaterThanOrEqual(144);
+      49 |     expect(geometry.transcriptBottom).toBeLessThanOrEqual(geometry.composerTop + 1);
+      50 |     expect(geometry.privacyBottom).toBeLessThanOrEqual(geometry.cardBottom);
+        at /tmp/cadre-px6-final-74ab37f/e2e/readability.spec.ts:47:34
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/readability-text-spacing-k-5c4ec-ecovery-readable-at-360x640-desktop/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/readability-text-spacing-k-5c4ec-ecovery-readable-at-360x640-desktop/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/readability-text-spacing-k-5c4ec-ecovery-readable-at-360x640-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/readability-text-spacing-k-5c4ec-ecovery-readable-at-360x640-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [mobile] › e2e/chat.spec.ts:193:5 › all six entry points are present and clarification preserves an ordinal follow-up 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('[data-testid="chat-message"][data-role="assistant"]')
+    Expected: 2
+    Received: 1
+    Timeout:  8000ms
+
+    Call log:
+      - Expect "toHaveCount" locator('[data-testid="chat-message"][data-role="assistant"]') with timeout 8000ms
+      - waiting for locator('[data-testid="chat-message"][data-role="assistant"]')
+        20 × locator resolved to 1 element
+           - unexpected value "1"
+
+
+      202 |   await input(page).fill("the second one");
+      203 |   await input(page).press("Enter");
+    > 204 |   await expect(messages(page, "assistant")).toHaveCount(2);
+          |                                             ^
+      205 |   await expect(messages(page, "assistant").last()).toContainText("B2B companies");
+      206 | });
+      207 |
+        at /tmp/cadre-px6-final-74ab37f/e2e/chat.spec.ts:204:45
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/chat-all-six-entry-points--17e47-serves-an-ordinal-follow-up-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/chat-all-six-entry-points--17e47-serves-an-ordinal-follow-up-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/chat-all-six-entry-points--17e47-serves-an-ordinal-follow-up-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/chat-all-six-entry-points--17e47-serves-an-ordinal-follow-up-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [mobile] › e2e/chat.spec.ts:244:5 › pricing is empathetic and commercially aware without inventing a rate 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('[data-testid="chat-message"][data-role="assistant"]').first()
+    Expected substring: "Fair question"
+    Timeout: 8000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" locator('[data-testid="chat-message"][data-role="assistant"]').first() with timeout 8000ms
+      - waiting for locator('[data-testid="chat-message"][data-role="assistant"]').first()
+
+
+      246 |   await input(page).press("Enter");
+      247 |   const reply = messages(page, "assistant").first();
+    > 248 |   await expect(reply).toContainText("Fair question");
+          |                       ^
+      249 |   await expect(reply).toContainText("revenue, profitability, and measurable business impact");
+      250 |   await expect(reply).toContainText("price list or rate card");
+      251 |   await expect(reply.locator('a[href="https://cadre.ai/contact"]')).toBeVisible();
+        at /tmp/cadre-px6-final-74ab37f/e2e/chat.spec.ts:248:23
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/chat-pricing-is-empathetic-562f5-re-without-inventing-a-rate-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/chat-pricing-is-empathetic-562f5-re-without-inventing-a-rate-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/chat-pricing-is-empathetic-562f5-re-without-inventing-a-rate-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/chat-pricing-is-empathetic-562f5-re-without-inventing-a-rate-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [mobile] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 320x568 
+
+    Error: expect(received).toBeGreaterThanOrEqual(expected)
+
+    Expected: >= 240
+    Received:    0
+
+      45 |       };
+      46 |     });
+    > 47 |     expect(geometry.spaceHeight).toBeGreaterThanOrEqual(240);
+         |                                  ^
+      48 |     expect(geometry.readableHeight).toBeGreaterThanOrEqual(144);
+      49 |     expect(geometry.transcriptBottom).toBeLessThanOrEqual(geometry.composerTop + 1);
+      50 |     expect(geometry.privacyBottom).toBeLessThanOrEqual(geometry.cardBottom);
+        at /tmp/cadre-px6-final-74ab37f/e2e/readability.spec.ts:47:34
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/readability-text-spacing-k-0c40c-ecovery-readable-at-320x568-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/readability-text-spacing-k-0c40c-ecovery-readable-at-320x568-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/readability-text-spacing-k-0c40c-ecovery-readable-at-320x568-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/readability-text-spacing-k-0c40c-ecovery-readable-at-320x568-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) [mobile] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 360x640 
+
+    Error: expect(received).toBeGreaterThanOrEqual(expected)
+
+    Expected: >= 240
+    Received:    0
+
+      45 |       };
+      46 |     });
+    > 47 |     expect(geometry.spaceHeight).toBeGreaterThanOrEqual(240);
+         |                                  ^
+      48 |     expect(geometry.readableHeight).toBeGreaterThanOrEqual(144);
+      49 |     expect(geometry.transcriptBottom).toBeLessThanOrEqual(geometry.composerTop + 1);
+      50 |     expect(geometry.privacyBottom).toBeLessThanOrEqual(geometry.cardBottom);
+        at /tmp/cadre-px6-final-74ab37f/e2e/readability.spec.ts:47:34
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/readability-text-spacing-k-5c4ec-ecovery-readable-at-360x640-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/readability-text-spacing-k-5c4ec-ecovery-readable-at-360x640-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/readability-text-spacing-k-5c4ec-ecovery-readable-at-360x640-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/readability-text-spacing-k-5c4ec-ecovery-readable-at-360x640-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  7) [mobile] › e2e/readability.spec.ts:70:5 › important helper and privacy copy remains at least 12px 
+
+    Error: expect(received).toBeGreaterThanOrEqual(expected)
+
+    Expected: >= 16
+    Received:    15
+
+      92 |     expect(await element.evaluate((node) => parseFloat(getComputedStyle(node).fontSize))).toBeGreaterThanOrEqual(12);
+      93 |   }
+    > 94 |   if (isMobile) expect(await input.evaluate((node) => parseFloat(getComputedStyle(node).fontSize))).toBeGreaterThanOrEqual(16);
+         |                                                                                                     ^
+      95 | });
+      96 |
+        at /tmp/cadre-px6-final-74ab37f/e2e/readability.spec.ts:94:101
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/readability-important-help-d07fb--copy-remains-at-least-12px-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/readability-important-help-d07fb--copy-remains-at-least-12px-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/readability-important-help-d07fb--copy-remains-at-least-12px-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/readability-important-help-d07fb--copy-remains-at-least-12px-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  7 failed
+    [desktop] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 320x568 
+    [desktop] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 360x640 
+    [mobile] › e2e/chat.spec.ts:193:5 › all six entry points are present and clarification preserves an ordinal follow-up 
+    [mobile] › e2e/chat.spec.ts:244:5 › pricing is empathetic and commercially aware without inventing a rate 
+    [mobile] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 320x568 
+    [mobile] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 360x640 
+    [mobile] › e2e/readability.spec.ts:70:5 › important helper and privacy copy remains at least 12px 
+  61 passed (47.8s)
