@@ -15,4 +15,4 @@ Updated: 2026-09-10 UTC. The append-only premium Graph ledger is authoritative f
 
 - Git history remains forward-only. Actual Claude Code review/verifier executions, session-limit failures, Granite timeouts/inconsistent outputs, and accepted/rejected findings remain distinct evidence classes; author/committer metadata is not treated as model provenance.
 
-Next safe action: commit the assembled revision-11 source repair and Claude Producer evidence, run an independent read-only Claude Code critic, repair only if that critic identifies a real defect, and then run the complete detached verifier once at the end. Only fresh r11 gates may reopen publication/deployment. PX5 remains the rollback baseline until PX6 public equivalence passes.
+Next safe action: run an independent read-only Claude Code critic against committed r11 source `ed43a8b`, repair only if that critic identifies a real defect, and then run the complete detached verifier once at the end. Only fresh r11 gates may reopen publication/deployment. PX5 remains the rollback baseline until PX6 public equivalence passes.
