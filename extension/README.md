@@ -19,7 +19,7 @@ rtk proxy node extension/tests/browser-mock.mjs unique-run-label
 EXTENSION_ACTUAL_SITE=1 node extension/tests/installed-site.mjs unique-actual-site-label
 ```
 
-Run from the repository root. `npm ci` is needed only for a clean checkout. The build reads `extension/config.json` and safe literal display fields from `src/config/cadre.ts`. It copies/transpiles the pure core limits and conversation utilities with the existing TypeScript compiler. It does not read environment files, execute client configuration, or include provider/server code. The generated manifest is **`extension/dist/manifest.json`**, not a hand-maintained second manifest.
+Run from the repository root. `npm ci` is needed only for a clean checkout. The build reads `extension/config.json` and safe literal display fields from `src/config/cadre.ts`. Presentation links are validated independently against the literal client `officialDomain` plus any explicitly declared `additionalOfficialDomains`; this affects only links rendered inside the panel and does **not** widen the extension activation sites, API destination, or browser permissions. It copies/transpiles the pure core limits and conversation utilities with the existing TypeScript compiler. It does not read environment files, execute client configuration, or include provider/server code. The generated manifest is **`extension/dist/manifest.json`**, not a hand-maintained second manifest.
 
 `extension/dist/` is ignored and excluded from the source ZIP; the reviewer can reproduce it with the build command. The generated output is fifteen local files, including four generated extension icon sizes. No runtime package download, remote script, source map, client key or executable model output is included.
 

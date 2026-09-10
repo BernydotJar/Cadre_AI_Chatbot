@@ -42,6 +42,14 @@ describe("generated extension manifest and public output", () => {
     expect(presentation).not.toHaveProperty("facts");
     expect(presentation).not.toHaveProperty("boundaries");
   });
+  it("includes the delegated AI Maturity Index portal link while restricting activation to exact Cadre sites", () => {
+    const generated = readFileSync(path.join(directory, "config.js"), "utf8");
+    const presentation = JSON.parse(generated.match(/export const PRESENTATION = (.*);/u)![1]!);
+    const portalLink = [cadre.contact, ...cadre.knowledge.flatMap((topic) => topic.approvedLinks)].find((link) => link.url === "https://portal.gocadre.ai/ai-maturity-index");
+    expect(portalLink).toBeDefined();
+    expect(presentation.links).toContainEqual(portalLink);
+    expect(manifest.content_scripts).toEqual([{ matches: ["https://cadre.ai/*", "https://www.cadre.ai/*"], js: ["content-script.js"], run_at: "document_idle", world: "ISOLATED", all_frames: false, match_about_blank: false }]);
+  });
   it("copies core limits and safe conversation utilities rather than a second chatbot policy", () => {
     const code = readFileSync(path.join(directory, "shared/conversation.js"), "utf8");
     expect(code).toContain('from "./limits.js"');

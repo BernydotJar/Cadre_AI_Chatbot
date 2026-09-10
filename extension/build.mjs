@@ -34,8 +34,21 @@ for (const statement of configSource.statements) if (ts.isVariableStatement(stat
   }
 }
 if (!client || !Array.isArray(client.knowledge) || client.knowledge.length !== 6) throw new Error("Expected six approved topics");
+if (typeof client.officialDomain !== "string" || !client.officialDomain) throw new Error("Expected a literal official domain");
+const additionalOfficialDomains = client.additionalOfficialDomains ?? [];
+if (!Array.isArray(additionalOfficialDomains) || additionalOfficialDomains.some((domain) => typeof domain !== "string" || !domain)) throw new Error("Expected literal additional official domains");
+const approvedHosts = [client.officialDomain, ...additionalOfficialDomains].map((domain) => {
+  const url = new URL(domain);
+  if (url.protocol !== "https:" || url.username || url.password || url.port) throw new Error("Official domains must be plain HTTPS URLs");
+  return url.hostname;
+});
+const isApprovedHost = (hostname) => approvedHosts.some((host) => hostname === host || hostname.endsWith(`.${host}`));
 const links = [...new Map([client.contact, ...client.knowledge.flatMap((entry) => entry.approvedLinks)].map((link) => [link.url, link])).values()];
-if (links.some((link) => typeof link.label !== "string" || new URL(link.url).origin !== "https://cadre.ai")) throw new Error("Unexpected approved link");
+if (links.some((link) => {
+  if (typeof link.label !== "string" || !link.label) return true;
+  const url = new URL(link.url);
+  return url.protocol !== "https:" || url.username || url.password || url.port || !isApprovedHost(url.hostname);
+})) throw new Error("Unexpected approved link");
 const presentation = { botName: client.botName, topics: client.knowledge.map(({ label, topic }) => ({ label, topic })), links };
 
 await mkdir(path.join(output, "shared"), { recursive: true });
