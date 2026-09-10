@@ -42,6 +42,8 @@ Donna uses an original CSS signal orb with two states:
 
 The launcher has one restrained glare sweep. These are the only new PX6 motion effects. The pre-existing local hero video remains the cinematic media layer. `prefers-reduced-motion` disables orb/glare animation and keeps the poster-only hero behavior.
 
+At `<=430px`, the floating launcher intentionally collapses to the signal orb only: visual launcher text is hidden to preserve the compact control, and the button's `aria-label` remains the authoritative accessible name.
+
 ## Page structure
 
 The page is deliberately website-first:

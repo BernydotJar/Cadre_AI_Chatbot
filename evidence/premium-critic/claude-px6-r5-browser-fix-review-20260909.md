@@ -1,3 +1,5 @@
+> Provenance: this substantive report came from a separate authenticated Claude Code **2.1.266** CLI invocation that exited successfully using the project `critic` agent, `--effort low`, `--max-budget-usd 0.30`, and `--no-session-persistence`. The preceding `claude-px6-r5-browser-fix-attempt-20260909.md` records an earlier, distinct invocation that aborted after exceeding its USD 0.35 budget. No `--model` value was pinned in the successful invocation; the underlying model identifier was not captured and is not inferred here.
+
 Based on source-level inspection only (no commands executed that run tests/build/lint/typecheck/browser/network/deploy).
 
 ## VERDICT: CHANGES_REQUESTED

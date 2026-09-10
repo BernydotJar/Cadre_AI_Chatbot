@@ -1179,6 +1179,7 @@
   .donna-launcher>.persona-avatar{
     width:44px
   }
+  /* <=430px is intentionally icon-only; aria-label remains the accessible name. */
   .donna-launcher .launcher-copy,.donna-launcher>svg{
     display:none
   }

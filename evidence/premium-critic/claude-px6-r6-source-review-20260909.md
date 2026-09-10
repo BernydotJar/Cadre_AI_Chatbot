@@ -1,0 +1,34 @@
+## VERDICT: CHANGES_REQUESTED
+
+This is a **source-level review only**. Per the task constraints, I did not run tests, build, lint, typecheck, browser automation, network calls, or any git-writing command; all conclusions below are inferences from static inspection of the committed tree and retained evidence files, not fresh execution.
+
+### Findings (ordered by severity)
+
+**1. Medium — `progress/checkpoint.md` is stale relative to the claimed revision-6 state (progress/checkpoint.md:7; last touched at `e01f7ba`, well before revisions 2–6)**
+The checkpoint still describes PX6 as "RUNNING… application tests are deferred until producer assembly is complete," with no mention of revisions 2–6, the r4 browser-failure evidence, the r5 critic findings, or the r6 test-only repair now under review. CLAUDE.md's lifecycle section requires the checkpoint to hold "commit, active node, exact next action, unresolved findings, and environment caveats" before handoff. A reader following the mandated "Start or resume" sequence (read `checkpoint.md` first) would get a materially outdated picture of PX6 state.
+- Repair scope: append a short checkpoint entry recording commit `085db5e`, node `PX6-cinematic-proactive-donna` revision 6/`running`, the two named r4 runtime concerns now reproduced PASS at r5 (`evidence/premium-verification/px6-r5-focused-reproduction-20260909.md`), and that the outstanding next action is full independent runtime re-verification, not another product change.
+
+**2. Low/Medium — critic finding #3's "document the intentional omission" option was only partially satisfied (e2e/readability.spec.ts:80-82; app/premium.css:1182-1184; docs/cinematic-proactive-experience.md)**
+The retained r5 critique (`evidence/premium-critic/claude-px6-r5-browser-fix-review-20260909.md:15-17`) offered two acceptable repairs: (a) confirm/document in `premium.css` that the helper text is deliberately not shown on mobile, or (b) add a mobile-visible substitute. The r6 diff adds only an inline test comment ("Under the compact <=430px launcher contract, visual helper copy is intentionally omitted…") — it does not add a corresponding comment at the actual CSS rule (`app/premium.css:1182-1184`, which hides the *entire* `.launcher-copy` including the "Ask Donna" text label, not just the `<small>` hint), and `docs/cinematic-proactive-experience.md` (checked for "helper"/"launcher"/"430"/"compact") contains no mention of this icon-only mobile launcher behavior at all, despite CLAUDE.md's explicit requirement to "keep `docs/cinematic-proactive-experience.md` synchronized with the implementation." A test-file comment is not equivalent to source/doc documentation the critic asked for.
+- Repair scope: add a one-line comment above `app/premium.css:1182` and one sentence in `docs/cinematic-proactive-experience.md` stating the compact (<=430px) launcher shows icon-only with the accessible name carried solely by `aria-label`.
+
+**3. Low — critique/provenance traceability gap around the r5 review artifact (evidence/premium-critic/claude-px6-r5-browser-fix-attempt-20260909.md vs. …-review-20260909.md)**
+The paired "attempt" file contains only `Error: Exceeded USD budget (0.35)`, indicating the live critic invocation aborted. The accompanying "…-review-20260909.md" file that actually contains the substantive CHANGES_REQUESTED critique carries no internal provenance header (role/runtime/model/inputs) despite its `claude-` filename prefix. CLAUDE.md requires recording "role, runtime/model or tool actually used" as observable facts and explicitly forbids implying a named tool ran when it did not. As committed, it's not possible to independently confirm from the artifact itself whether this critique was produced by an authenticated Claude Code session (as the filename implies) or reconstructed afterward under the same label.
+- Repair scope: add a short provenance line to the review file (actual model/tool, session outcome, and relation to the failed-budget attempt) or rename/annotate it to avoid implying a completed Claude Code run.
+
+### Correctly matched / not disputed at source level
+
+- `git diff --stat 9b3bbd0 085db5e` confirms the revision-6 diff touches only `e2e/readability.spec.ts` (+4 lines) plus evidence/ledger files — matching the stated claim that "r5 product code is otherwise unchanged."
+- The new assertion (`toBeHidden()` on `.launcher-copy small` when `isMobile`) is logically consistent with `app/premium.css:1139/1182-1184` (`@media(max-width:430px){ .donna-launcher .launcher-copy,.donna-launcher>svg{display:none} }`) and the mobile Playwright project's 360px viewport (`playwright.config.ts:20`), so the assertion should mechanically pass if executed — but this is a **static consistency check, not a runtime observation**.
+- The two "disputed runtime concerns" referenced in `evidence/premium-verification/px6-r5-focused-reproduction-20260909.md` (`ambient media is local…`, `ambient motion control never obscures…`) match, by exact test name, the two failures explicitly recorded in the retained r4 evidence (`evidence/premium-verification/px6-r4-clean-verifier-20260909.txt:109,111,143,145`), so no evidence substitution/mislabeling was found there.
+- The r4 failure evidence file and the original unconditional `toBeVisible()` assertion (`px6-r4-clean-verifier-20260909.txt:1482-1503`) are retained unmodified, consistent with "preserve original failure evidence after repair."
+- Ledger events (`progress/premium-graph.events.jsonl:163-164`) correctly leave the node in `running`, not `review`/`done`, and the handoff doc explicitly disclaims "does not claim the full PX6 verification matrix, integration proof, deployment, or release gate PASS" — no overclaiming of readiness was found in the ledger or handoff text itself.
+- No changes in this diff touch `src/core/`, `src/config/cadre.ts`, `src/provider/`, `src/server/`, or any routing/policy/security boundary.
+
+### Explicitly NOT verified (source review only)
+
+- Did not run `npm run test:e2e`, `npm test`, `npm run typecheck`, `npm run lint`, `npm run build`, or any Playwright command; cannot confirm the `toBeHidden()` assertion, the r5 "4/4 PASS" claim, or absence of new regressions actually execute as expected in a live browser.
+- Did not verify computed styles/accessible-name resolution in a real browser or the actual mobile-project screenshot evidence.
+- Did not independently confirm the sha256 in the ledger evidence event against the current file bytes.
+- Did not inspect the full `app/premium.css` file for other rules that might interact with `.launcher-copy`/`.donna-launcher` outside the excerpted lines.
+- Did not evaluate whether Claude Code was actually invoked/authenticated for the r5 review (finding #3 above is about missing self-declared provenance, not a determination that it was fabricated).
