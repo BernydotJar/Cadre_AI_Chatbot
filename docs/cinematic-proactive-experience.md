@@ -46,6 +46,8 @@ At `<=430px`, the floating launcher intentionally collapses to the signal orb on
 
 The compact chat sheet preserves a 240px minimum conversation region after a conversation starts and only then may the outer sheet scroll vertically when user text-spacing overrides expand recovery/composer content. Before the first send, the outer sheet remains clipped and the welcome transcript is the single vertical scroller, avoiding nested scrolling while keeping the composer outside that scroller. Composer text is at least 16px on mobile to avoid browser zoom/readability regressions.
 
+For very short compact viewports (`<=430px` wide and `<=590px` tall), the sheet expands to `calc(100dvh - 12px)` instead of `88dvh`. This preserves a fully navigable welcome-row viewport under enlarged text spacing without changing the normal mobile presentation at taller heights.
+
 ## Page structure
 
 The page is deliberately website-first:
