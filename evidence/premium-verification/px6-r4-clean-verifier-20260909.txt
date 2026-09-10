@@ -1,0 +1,1553 @@
+PX6 revision-4 independent clean-worktree verification
+snapshot=c51a7294a6e47d5ffbdf4bba5cbe2850394d0155
+node=v22.23.2
+npm=10.9.8
+
+== git integrity ==
+dangling blob 29442132d8877438a56ae08c5dedc33acc9178be
+dangling blob 3516378bc22af526a152d04434c558b6190266d3
+dangling blob 1fb8f760110892d71af15f0ba044380e7a1044fa
+dangling blob 6ffa853eabcf6b01da303cd8cb80013cb0ac304c
+dangling blob beceecb4c7dd37a25057e3236da90ccc3207c31a
+
+== locked install ==
+npm warn deprecated eslint@9.39.5: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+
+added 380 packages in 7s
+
+== typecheck ==
+
+> cadre-ai-chatbot@0.1.0 typecheck
+> tsc --noEmit
+
+
+== lint ==
+
+> cadre-ai-chatbot@0.1.0 lint
+> eslint .
+
+
+== unit/integration ==
+
+> cadre-ai-chatbot@0.1.0 test
+> vitest run
+
+[33m(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `"type": "module"` in the closest package.json
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.[39m
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90m/tmp/cadre-px6-verify-c51a729[39m
+
+ [32m✓[39m tests/core/policy.test.ts [2m([22m[2m59 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+ [32m✓[39m tests/api/chat-route.test.ts [2m([22m[2m45 tests[22m[2m)[22m[32m 43[2mms[22m[39m
+ [32m✓[39m tests/provider/openrouter.test.ts [2m([22m[2m48 tests[22m[2m)[22m[32m 46[2mms[22m[39m
+ [32m✓[39m tests/product/contracts.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m tests/tools/release-gate.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m tests/product/donna.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 31[2mms[22m[39m
+ [32m✓[39m tests/config/knowledge-refresh.test.ts [2m([22m[2m22 tests[22m[2m)[22m[32m 29[2mms[22m[39m
+ [32m✓[39m tests/config/config.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m tests/core/route.test.ts [2m([22m[2m33 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m tests/tools/graph-baseline.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 24[2mms[22m[39m
+ [32m✓[39m tests/provider/model-selection.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+ [32m✓[39m tests/ui/conversation.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m tests/core/validate.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m tests/server/rate-limit.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 23[2mms[22m[39m
+ [32m✓[39m tests/product/view.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m tests/product/media-assets.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m16 passed[39m[22m[90m (16)[39m
+[2m      Tests [22m [1m[32m301 passed[39m[22m[90m (301)[39m
+[2m   Start at [22m 04:43:56
+[2m   Duration [22m 718ms[2m (import 39%, transform 33%, tests 25%, worker 2%)[22m
+
+
+== production build ==
+
+> cadre-ai-chatbot@0.1.0 build
+> next build
+
+▲ Next.js 16.3.4 (Turbopack)
+✓ Running next.config.ts took 32ms
+⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 2.4s
+  Running TypeScript ...
+  Finished TypeScript in 1946ms ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/5) ...
+  Generating static pages using 7 workers (1/5) 
+  Generating static pages using 7 workers (2/5) 
+  Generating static pages using 7 workers (3/5) 
+✓ Generating static pages using 7 workers (5/5) in 274ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ○ /_not-found
+├ ƒ /api/chat
+├ ƒ /api/health
+└ ○ /icon.svg
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+== browser matrix ==
+
+> cadre-ai-chatbot@0.1.0 test:e2e
+> playwright test --config=playwright.config.ts
+
+
+Running 68 tests using 1 worker
+
+  ✓   1 [desktop] › e2e/chat.spec.ts:17:5 › first impression feels like a Cadre page with an inviting Donna product (680ms)
+  ✓   2 [desktop] › e2e/chat.spec.ts:43:5 › floating Donna closes with Escape and restores launcher focus (318ms)
+  ✓   3 [desktop] › e2e/chat.spec.ts:52:5 › new PX6 chat controls preserve 44px touch targets (443ms)
+  ✓   4 [desktop] › e2e/chat.spec.ts:73:5 › reduced motion disables the new orb and glare animations (347ms)
+  ✘   5 [desktop] › e2e/chat.spec.ts:84:5 › ambient media is local, muted, bounded, and presentation-only (37.9s)
+  ✓   6 [desktop] › e2e/chat.spec.ts:109:5 › reduced motion keeps the static poster and never mounts the ambient video (529ms)
+  ✘   7 [desktop] › e2e/chat.spec.ts:120:5 › ambient motion control never obscures the hero across responsive widths (344ms)
+  ✘   8 [desktop] › e2e/chat.spec.ts:151:5 › anonymous conversation uses the real server and official links (8.6s)
+  ✓   9 [desktop] › e2e/chat.spec.ts:168:5 › Donna presentation handles one configured next step and an opt-out (489ms)
+  ✓  10 [desktop] › e2e/chat.spec.ts:190:5 › all six entry points are present and clarification preserves an ordinal follow-up (410ms)
+  ✓  11 [desktop] › e2e/chat.spec.ts:205:5 › loading is announced and rapid Enter cannot duplicate a request (290ms)
+  ✓  12 [desktop] › e2e/chat.spec.ts:225:5 › Donna visibly shapes while a grounded request is in flight (311ms)
+  ✓  13 [desktop] › e2e/chat.spec.ts:241:5 › pricing is empathetic and commercially aware without inventing a rate (332ms)
+  ✘  14 [desktop] › e2e/chat.spec.ts:252:5 › retry preserves the failed turn and does not duplicate history (344ms)
+  ✓  15 [desktop] › e2e/chat.spec.ts:270:5 › network failure has a safe retry path (423ms)
+  ✓  16 [desktop] › e2e/chat.spec.ts:279:5 › cancelling prevents a late response from appearing and preserves a retry (337ms)
+  ✓  17 [desktop] › e2e/chat.spec.ts:301:5 › malformed responses produce a recoverable safe error (305ms)
+  ✓  18 [desktop] › e2e/chat.spec.ts:310:5 › model text is inert and only exact approved URLs become links (329ms)
+  ✘  19 [desktop] › e2e/chat.spec.ts:323:5 › blank input, multiline entry, and IME composition do not send accidentally (334ms)
+  ✓  20 [desktop] › e2e/chat.spec.ts:338:5 › new conversation clears local state without persistence (469ms)
+  ✓  21 [desktop] › e2e/chat.spec.ts:350:5 › viewport has no horizontal overflow and primary controls are reachable (305ms)
+  ✘  22 [desktop] › e2e/chat.spec.ts:361:5 › long conversations and composer input remain bounded (330ms)
+  ✓  23 [desktop] › e2e/chat.spec.ts:385:5 › long inert response remains within the mobile viewport with reduced motion (388ms)
+  ✓  24 [desktop] › e2e/chat.spec.ts:394:5 › a new conversation cannot be overwritten by an older in-flight response (401ms)
+  ✓  25 [desktop] › e2e/chat.spec.ts:418:5 › reading earlier messages is respected until Jump to latest is used (577ms)
+  ✓  26 [desktop] › e2e/chat.spec.ts:440:5 › welcome starts at the top and reset restores that position (395ms)
+  ✓  27 [desktop] › e2e/chat.spec.ts:459:5 › keyboard topic activation preserves a stable focus target (350ms)
+  ✓  28 [desktop] › e2e/chat.spec.ts:471:5 › keyboard retry preserves focus without duplicating the user turn (352ms)
+  ✘  29 [desktop] › e2e/chat.spec.ts:490:5 › client deadline yields a saved draft and does not accept late output (379ms)
+  ✓  30 [desktop] › e2e/hydration.spec.ts:3:5 › cold-load launcher waits for hydration before opening the first conversation (551ms)
+  ✓  31 [desktop] › e2e/hydration.spec.ts:43:5 › without JavaScript the public Cadre page and contact route remain usable without fake chat (222ms)
+  ✘  32 [desktop] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 320x568 (300ms)
+  ✘  33 [desktop] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 360x640 (472ms)
+  ✓  34 [desktop] › e2e/readability.spec.ts:70:5 › important helper and privacy copy remains at least 12px (469ms)
+  ✘  35 [mobile] › e2e/chat.spec.ts:17:5 › first impression feels like a Cadre page with an inviting Donna product (8.6s)
+  ✘  36 [mobile] › e2e/chat.spec.ts:43:5 › floating Donna closes with Escape and restores launcher focus (8.4s)
+  ✘  37 [mobile] › e2e/chat.spec.ts:52:5 › new PX6 chat controls preserve 44px touch targets (382ms)
+  ✘  38 [mobile] › e2e/chat.spec.ts:73:5 › reduced motion disables the new orb and glare animations (8.4s)
+  ✘  39 [mobile] › e2e/chat.spec.ts:84:5 › ambient media is local, muted, bounded, and presentation-only (38.3s)
+  ✓  40 [mobile] › e2e/chat.spec.ts:109:5 › reduced motion keeps the static poster and never mounts the ambient video (387ms)
+  ✘  41 [mobile] › e2e/chat.spec.ts:120:5 › ambient motion control never obscures the hero across responsive widths (320ms)
+  ✘  42 [mobile] › e2e/chat.spec.ts:151:5 › anonymous conversation uses the real server and official links (8.5s)
+  ✘  43 [mobile] › e2e/chat.spec.ts:168:5 › Donna presentation handles one configured next step and an opt-out (8.4s)
+  ✘  44 [mobile] › e2e/chat.spec.ts:190:5 › all six entry points are present and clarification preserves an ordinal follow-up (35.4s)
+  ✘  45 [mobile] › e2e/chat.spec.ts:205:5 › loading is announced and rapid Enter cannot duplicate a request (8.5s)
+  ✓  46 [mobile] › e2e/chat.spec.ts:225:5 › Donna visibly shapes while a grounded request is in flight (316ms)
+  ✘  47 [mobile] › e2e/chat.spec.ts:241:5 › pricing is empathetic and commercially aware without inventing a rate (8.4s)
+  ✘  48 [mobile] › e2e/chat.spec.ts:252:5 › retry preserves the failed turn and does not duplicate history (8.5s)
+  ✓  49 [mobile] › e2e/chat.spec.ts:270:5 › network failure has a safe retry path (364ms)
+  ✘  50 [mobile] › e2e/chat.spec.ts:279:5 › cancelling prevents a late response from appearing and preserves a retry (8.4s)
+  ✓  51 [mobile] › e2e/chat.spec.ts:301:5 › malformed responses produce a recoverable safe error (379ms)
+  ✘  52 [mobile] › e2e/chat.spec.ts:310:5 › model text is inert and only exact approved URLs become links (8.4s)
+  ✘  53 [mobile] › e2e/chat.spec.ts:323:5 › blank input, multiline entry, and IME composition do not send accidentally (321ms)
+  ✓  54 [mobile] › e2e/chat.spec.ts:338:5 › new conversation clears local state without persistence (374ms)
+  ✓  55 [mobile] › e2e/chat.spec.ts:350:5 › viewport has no horizontal overflow and primary controls are reachable (243ms)
+  ✘  56 [mobile] › e2e/chat.spec.ts:361:5 › long conversations and composer input remain bounded (264ms)
+  ✓  57 [mobile] › e2e/chat.spec.ts:385:5 › long inert response remains within the mobile viewport with reduced motion (317ms)
+  ✓  58 [mobile] › e2e/chat.spec.ts:394:5 › a new conversation cannot be overwritten by an older in-flight response (357ms)
+  ✓  59 [mobile] › e2e/chat.spec.ts:418:5 › reading earlier messages is respected until Jump to latest is used (446ms)
+  ✘  60 [mobile] › e2e/chat.spec.ts:440:5 › welcome starts at the top and reset restores that position (267ms)
+  ✘  61 [mobile] › e2e/chat.spec.ts:459:5 › keyboard topic activation preserves a stable focus target (35.4s)
+  ✘  62 [mobile] › e2e/chat.spec.ts:471:5 › keyboard retry preserves focus without duplicating the user turn (8.5s)
+  ✘  63 [mobile] › e2e/chat.spec.ts:490:5 › client deadline yields a saved draft and does not accept late output (387ms)
+  ✘  64 [mobile] › e2e/hydration.spec.ts:3:5 › cold-load launcher waits for hydration before opening the first conversation (465ms)
+  ✓  65 [mobile] › e2e/hydration.spec.ts:43:5 › without JavaScript the public Cadre page and contact route remain usable without fake chat (224ms)
+  ✘  66 [mobile] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 320x568 (333ms)
+  ✘  67 [mobile] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 360x640 (451ms)
+  ✘  68 [mobile] › e2e/readability.spec.ts:70:5 › important helper and privacy copy remains at least 12px (8.4s)
+
+
+  1) [desktop] › e2e/chat.spec.ts:84:5 › ambient media is local, muted, bounded, and presentation-only 
+
+    Test timeout of 35000ms exceeded.
+
+    Error: locator.click: Test timeout of 35000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: 'Pause ambient motion' })
+        - locator resolved to <button type="button" aria-pressed="false" class="motion-toggle" aria-label="Pause ambient motion">Pause</button>
+      - attempting click action
+        2 × waiting for element to be visible, enabled and stable
+          - element is visible, enabled and stable
+          - scrolling into view if needed
+          - done scrolling
+          - <header class="chat-header">…</header> from <section id="donna-chat" class="chat-card" data-started="false" aria-label="Chat with Donna">…</section> subtree intercepts pointer events
+        - retrying click action
+        - waiting 20ms
+        - waiting for element to be visible, enabled and stable
+        - element is visible, enabled and stable
+        - scrolling into view if needed
+        - done scrolling
+        - <header class="chat-header">…</header> from <section id="donna-chat" class="chat-card" data-started="false" aria-label="Chat with Donna">…</section> subtree intercepts pointer events
+      2 × retrying click action
+          - waiting 100ms
+          - waiting for element to be visible, enabled and stable
+          - element is visible, enabled and stable
+          - scrolling into view if needed
+          - done scrolling
+          - <a target="_blank" class="contact-link" rel="noopener noreferrer" href="https://cadre.ai/contact">…</a> from <header class="site-header">…</header> subtree intercepts pointer events
+      17 × retrying click action
+           - waiting 500ms
+           - waiting for element to be visible, enabled and stable
+           - element is visible, enabled and stable
+           - scrolling into view if needed
+           - done scrolling
+           - <header class="chat-header">…</header> from <section id="donna-chat" class="chat-card" data-started="false" aria-label="Chat with Donna">…</section> subtree intercepts pointer events
+         - retrying click action
+           - waiting 500ms
+           - waiting for element to be visible, enabled and stable
+           - element is visible, enabled and stable
+           - scrolling into view if needed
+           - done scrolling
+           - <header class="chat-header">…</header> from <section id="donna-chat" class="chat-card" data-started="false" aria-label="Chat with Donna">…</section> subtree intercepts pointer events
+         - retrying click action
+           - waiting 500ms
+           - waiting for element to be visible, enabled and stable
+           - element is visible, enabled and stable
+           - scrolling into view if needed
+           - done scrolling
+           - <a target="_blank" class="contact-link" rel="noopener noreferrer" href="https://cadre.ai/contact">…</a> from <header class="site-header">…</header> subtree intercepts pointer events
+         - retrying click action
+           - waiting 500ms
+           - waiting for element to be visible, enabled and stable
+           - element is visible, enabled and stable
+           - scrolling into view if needed
+           - done scrolling
+           - <a target="_blank" class="contact-link" rel="noopener noreferrer" href="https://cadre.ai/contact">…</a> from <header class="site-header">…</header> subtree intercepts pointer events
+      2 × retrying click action
+          - waiting 500ms
+          - waiting for element to be visible, enabled and stable
+          - element is visible, enabled and stable
+          - scrolling into view if needed
+          - done scrolling
+          - <header class="chat-header">…</header> from <section id="donna-chat" class="chat-card" data-started="false" aria-label="Chat with Donna">…</section> subtree intercepts pointer events
+      - retrying click action
+        - waiting 500ms
+
+
+      100 |   await video.evaluate((node) => (node as HTMLVideoElement).pause());
+      101 |   expect(await video.evaluate((node) => (node as HTMLVideoElement).paused)).toBe(true);
+    > 102 |   await pause.click();
+          |               ^
+      103 |   await expect(media).toHaveAttribute("data-motion", "paused");
+      104 |   expect(await video.evaluate((node) => (node as HTMLVideoElement).paused)).toBe(true);
+      105 |   await page.getByRole("button", { name: "Play ambient motion" }).click();
+        at /tmp/cadre-px6-verify-c51a729/e2e/chat.spec.ts:102:15
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/chat-ambient-media-is-loca-42144-unded-and-presentation-only-desktop/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/chat-ambient-media-is-loca-42144-unded-and-presentation-only-desktop/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/chat-ambient-media-is-loca-42144-unded-and-presentation-only-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/chat-ambient-media-is-loca-42144-unded-and-presentation-only-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [desktop] › e2e/chat.spec.ts:120:5 › ambient motion control never obscures the hero across responsive widths 
+
+    Error: 320px motion control overlaps hero
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: false
+    Received: true
+
+      137 |         && headingBox.y < controlBox.y + controlBox.height && headingBox.y + headingBox.height > controlBox.y
+      138 |       : true;
+    > 139 |     expect(overlaps, `${size.width}px motion control overlaps hero`).toBe(false);
+          |                                                                      ^
+      140 |     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+      141 |   }
+      142 |
+        at /tmp/cadre-px6-verify-c51a729/e2e/chat.spec.ts:139:70
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/chat-ambient-motion-contro-b86a0-ro-across-responsive-widths-desktop/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/chat-ambient-motion-contro-b86a0-ro-across-responsive-widths-desktop/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/chat-ambient-motion-contro-b86a0-ro-across-responsive-widths-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/chat-ambient-motion-contro-b86a0-ro-across-responsive-widths-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [desktop] › e2e/chat.spec.ts:151:5 › anonymous conversation uses the real server and official links 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByRole('alert')
+    Expected: 0
+    Received: 1
+    Timeout:  8000ms
+
+    Call log:
+      - Expect "toHaveCount" getByRole('alert') with timeout 8000ms
+      - waiting for getByRole('alert')
+        20 × locator resolved to 1 element
+           - unexpected value "1"
+
+
+      163 |   await expect(messages(page, "assistant").last()).toContainText(/contact/i);
+      164 |   await expect(messages(page, "assistant").last().locator('a[href="https://cadre.ai/contact"]')).toBeVisible();
+    > 165 |   await expect(page.getByRole("alert")).toHaveCount(0);
+          |                                         ^
+      166 | });
+      167 |
+      168 | test("Donna presentation handles one configured next step and an opt-out", async ({ page }) => {
+        at /tmp/cadre-px6-verify-c51a729/e2e/chat.spec.ts:165:41
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/chat-anonymous-conversatio-61d05-l-server-and-official-links-desktop/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/chat-anonymous-conversatio-61d05-l-server-and-official-links-desktop/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/chat-anonymous-conversatio-61d05-l-server-and-official-links-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/chat-anonymous-conversatio-61d05-l-server-and-official-links-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [desktop] › e2e/chat.spec.ts:252:5 › retry preserves the failed turn and does not duplicate history 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('alert')
+    Expected: visible
+    Error: strict mode violation: getByRole('alert') resolved to 2 elements:
+        1) <div role="alert">…</div> aka getByText('We couldn\'t get a response. Please try again or contact the team.Your message')
+        2) <div role="alert" aria-live="assertive" id="__next-route-announcer__"></div> aka locator('[id="__next-route-announcer__"]')
+
+    Call log:
+      - Expect "toBeVisible" getByRole('alert') with timeout 8000ms
+      - waiting for getByRole('alert')
+
+
+      260 |   await input(page).fill("services");
+      261 |   await input(page).press("Enter");
+    > 262 |   await expect(page.getByRole("alert")).toBeVisible();
+          |                                         ^
+      263 |   await page.getByRole("button", { name: "Retry response" }).click();
+      264 |   await expect(messages(page, "assistant")).toHaveCount(1);
+      265 |   await expect(messages(page, "user")).toHaveCount(1);
+        at /tmp/cadre-px6-verify-c51a729/e2e/chat.spec.ts:262:41
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/chat-retry-preserves-the-f-9b817--does-not-duplicate-history-desktop/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/chat-retry-preserves-the-f-9b817--does-not-duplicate-history-desktop/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/chat-retry-preserves-the-f-9b817--does-not-duplicate-history-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/chat-retry-preserves-the-f-9b817--does-not-duplicate-history-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [desktop] › e2e/chat.spec.ts:323:5 › blank input, multiline entry, and IME composition do not send accidentally 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('alert')
+    Expected pattern: /Write a message/
+    Error: strict mode violation: getByRole('alert') resolved to 2 elements:
+        1) <p role="alert" id="message-validation" class="validation-message">Write a message before sending.</p> aka getByText('Write a message before')
+        2) <div role="alert" aria-live="assertive" id="__next-route-announcer__"></div> aka locator('[id="__next-route-announcer__"]')
+
+    Call log:
+      - Expect "toContainText" getByRole('alert') with timeout 8000ms
+      - waiting for getByRole('alert')
+
+
+      326 |   await input(page).focus();
+      327 |   await input(page).press("Enter");
+    > 328 |   await expect(page.getByRole("alert")).toContainText(/Write a message/);
+          |                                         ^
+      329 |   expect(calls).toBe(0);
+      330 |   await input(page).fill("services");
+      331 |   await input(page).press("Shift+Enter");
+        at /tmp/cadre-px6-verify-c51a729/e2e/chat.spec.ts:328:41
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/chat-blank-input-multiline-8add5-on-do-not-send-accidentally-desktop/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/chat-blank-input-multiline-8add5-on-do-not-send-accidentally-desktop/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/chat-blank-input-multiline-8add5-on-do-not-send-accidentally-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/chat-blank-input-multiline-8add5-on-do-not-send-accidentally-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) [desktop] › e2e/chat.spec.ts:361:5 › long conversations and composer input remain bounded ─────
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('alert')
+    Expected pattern: /2,?000/
+    Error: strict mode violation: getByRole('alert') resolved to 2 elements:
+        1) <p role="alert" id="message-validation" class="validation-message">Please shorten your message to 2,000 characters o…</p> aka getByText('Please shorten your message')
+        2) <div role="alert" aria-live="assertive" id="__next-route-announcer__"></div> aka locator('[id="__next-route-announcer__"]')
+
+    Call log:
+      - Expect "toContainText" getByRole('alert') with timeout 8000ms
+      - waiting for getByRole('alert')
+
+
+      372 |   await expect(input(page)).toHaveValue("x".repeat(2100));
+      373 |   await expect(page.getByRole("button", { name: "Send message", exact: true })).toBeDisabled();
+    > 374 |   await expect(page.getByRole("alert")).toContainText(/2,?000/);
+          |                                         ^
+      375 |   for (let turn = 0; turn < 23; turn += 1) {
+      376 |     await input(page).fill(`services ${turn}`);
+      377 |     await input(page).press("Enter");
+        at /tmp/cadre-px6-verify-c51a729/e2e/chat.spec.ts:374:41
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/chat-long-conversations-and-composer-input-remain-bounded-desktop/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/chat-long-conversations-and-composer-input-remain-bounded-desktop/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/chat-long-conversations-and-composer-input-remain-bounded-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/chat-long-conversations-and-composer-input-remain-bounded-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  7) [desktop] › e2e/chat.spec.ts:490:5 › client deadline yields a saved draft and does not accept late output 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('alert')
+    Expected pattern: /too long|timed out/i
+    Error: strict mode violation: getByRole('alert') resolved to 2 elements:
+        1) <div role="alert">…</div> aka getByText('The response took too long. Please try again.Your message is saved. Edit it')
+        2) <div role="alert" aria-live="assertive" id="__next-route-announcer__"></div> aka locator('[id="__next-route-announcer__"]')
+
+    Call log:
+      - Expect "toContainText" getByRole('alert') with timeout 8000ms
+      - waiting for getByRole('alert')
+
+
+      502 |   await expect.poll(() => calls).toBe(1);
+      503 |   await page.clock.fastForward(25_001);
+    > 504 |   await expect(page.getByRole("alert")).toContainText(/too long|timed out/i);
+          |                                         ^
+      505 |   await expect(page.getByRole("button", { name: "Retry response" })).toBeVisible();
+      506 |   await expect(input(page)).toHaveValue("services");
+      507 |   release();
+        at /tmp/cadre-px6-verify-c51a729/e2e/chat.spec.ts:504:41
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/chat-client-deadline-yield-6db7d-does-not-accept-late-output-desktop/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/chat-client-deadline-yield-6db7d-does-not-accept-late-output-desktop/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/chat-client-deadline-yield-6db7d-does-not-accept-late-output-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/chat-client-deadline-yield-6db7d-does-not-accept-late-output-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  8) [desktop] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 320x568 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 1
+    Received: 2
+
+      23 |     await expect(retry).toBeVisible();
+      24 |     await expect(input).toHaveValue(draft);
+    > 25 |     expect(requests).toBe(1);
+         |                      ^
+      26 |
+      27 |     const geometry = await page.evaluate(() => {
+      28 |       const space = document.querySelector(".conversation-space")!.getBoundingClientRect();
+        at /tmp/cadre-px6-verify-c51a729/e2e/readability.spec.ts:25:22
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/readability-text-spacing-k-0c40c-ecovery-readable-at-320x568-desktop/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/readability-text-spacing-k-0c40c-ecovery-readable-at-320x568-desktop/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/readability-text-spacing-k-0c40c-ecovery-readable-at-320x568-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/readability-text-spacing-k-0c40c-ecovery-readable-at-320x568-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  9) [desktop] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 360x640 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 1
+    Received: 2
+
+      23 |     await expect(retry).toBeVisible();
+      24 |     await expect(input).toHaveValue(draft);
+    > 25 |     expect(requests).toBe(1);
+         |                      ^
+      26 |
+      27 |     const geometry = await page.evaluate(() => {
+      28 |       const space = document.querySelector(".conversation-space")!.getBoundingClientRect();
+        at /tmp/cadre-px6-verify-c51a729/e2e/readability.spec.ts:25:22
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/readability-text-spacing-k-5c4ec-ecovery-readable-at-360x640-desktop/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/readability-text-spacing-k-5c4ec-ecovery-readable-at-360x640-desktop/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/readability-text-spacing-k-5c4ec-ecovery-readable-at-360x640-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/readability-text-spacing-k-5c4ec-ecovery-readable-at-360x640-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  10) [mobile] › e2e/chat.spec.ts:17:5 › first impression feels like a Cadre page with an inviting Donna product 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('button', { name: /Ask Donna/ }).last().locator('.persona-avatar[data-avatar-style="signal-orb"]')
+    Expected: visible
+    Timeout: 8000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('button', { name: /Ask Donna/ }).last().locator('.persona-avatar[data-avatar-style="signal-orb"]') with timeout 8000ms
+      - waiting for getByRole('button', { name: /Ask Donna/ }).last().locator('.persona-avatar[data-avatar-style="signal-orb"]')
+
+
+      27 |   const launcher = page.getByRole("button", { name: /Ask Donna/ }).last();
+      28 |   await expect(launcher).toBeVisible();
+    > 29 |   await expect(launcher.locator('.persona-avatar[data-avatar-style="signal-orb"]')).toBeVisible();
+         |                                                                                     ^
+      30 |   await launcher.click();
+      31 |   await expect(page.getByRole("heading", { name: "Donna", exact: true })).toBeVisible();
+      32 |   await expect(page.locator(".chat-header .persona-avatar")).toHaveAttribute("data-avatar-style", "signal-orb");
+        at /tmp/cadre-px6-verify-c51a729/e2e/chat.spec.ts:29:85
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/chat-first-impression-feel-472ce-h-an-inviting-Donna-product-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/chat-first-impression-feel-472ce-h-an-inviting-Donna-product-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/chat-first-impression-feel-472ce-h-an-inviting-Donna-product-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/chat-first-impression-feel-472ce-h-an-inviting-Donna-product-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  11) [mobile] › e2e/chat.spec.ts:43:5 › floating Donna closes with Escape and restores launcher focus 
+
+    Error: expect(locator).toBeFocused() failed
+
+    Locator:  getByRole('button', { name: /Ask Donna/ }).last()
+    Expected: focused
+    Received: inactive
+    Timeout:  8000ms
+
+    Call log:
+      - Expect "toBeFocused" getByRole('button', { name: /Ask Donna/ }).last() with timeout 8000ms
+      - waiting for getByRole('button', { name: /Ask Donna/ }).last()
+        20 × locator resolved to <button type="button">…</button>
+           - unexpected value "inactive"
+
+
+      47 |   await expect(page.locator(".chat-card")).toHaveCount(0);
+      48 |   await expect(launcher).toBeVisible();
+    > 49 |   await expect(launcher).toBeFocused();
+         |                          ^
+      50 | });
+      51 |
+      52 | test("new PX6 chat controls preserve 44px touch targets", async ({ page }) => {
+        at /tmp/cadre-px6-verify-c51a729/e2e/chat.spec.ts:49:26
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/chat-floating-Donna-closes-410b1-and-restores-launcher-focus-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/chat-floating-Donna-closes-410b1-and-restores-launcher-focus-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/chat-floating-Donna-closes-410b1-and-restores-launcher-focus-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/chat-floating-Donna-closes-410b1-and-restores-launcher-focus-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  12) [mobile] › e2e/chat.spec.ts:52:5 › new PX6 chat controls preserve 44px touch targets ─────────
+
+    Error: expect(received).not.toBeNull()
+
+    Received: null
+
+      54 |   const assertTarget = async (selector: string) => {
+      55 |     const box = await page.locator(selector).boundingBox();
+    > 56 |     expect(box).not.toBeNull();
+         |                     ^
+      57 |     expect(box!.width).toBeGreaterThanOrEqual(44);
+      58 |     expect(box!.height).toBeGreaterThanOrEqual(44);
+      59 |   };
+        at assertTarget (/tmp/cadre-px6-verify-c51a729/e2e/chat.spec.ts:56:21)
+        at /tmp/cadre-px6-verify-c51a729/e2e/chat.spec.ts:61:3
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/chat-new-PX6-chat-controls-preserve-44px-touch-targets-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/chat-new-PX6-chat-controls-preserve-44px-touch-targets-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/chat-new-PX6-chat-controls-preserve-44px-touch-targets-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/chat-new-PX6-chat-controls-preserve-44px-touch-targets-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  13) [mobile] › e2e/chat.spec.ts:73:5 › reduced motion disables the new orb and glare animations ──
+
+    Error: expect(locator).toHaveCSS(expected) failed
+
+    Locator: getByRole('button', { name: /Ask Donna/ }).last().locator('.donna-orb')
+    Expected: "none"
+    Timeout: 8000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveCSS" getByRole('button', { name: /Ask Donna/ }).last().locator('.donna-orb') with timeout 8000ms
+      - waiting for getByRole('button', { name: /Ask Donna/ }).last().locator('.donna-orb')
+
+
+      77 |   await expect(launcher).toBeVisible();
+      78 |   const orb = launcher.locator(".donna-orb");
+    > 79 |   await expect(orb).toHaveCSS("animation-name", "none");
+         |                     ^
+      80 |   expect(await launcher.evaluate((element) => getComputedStyle(element, "::after").animationName)).toBe("none");
+      81 |   await expect(page.locator(".intro-media")).toHaveAttribute("data-motion", "poster");
+      82 | });
+        at /tmp/cadre-px6-verify-c51a729/e2e/chat.spec.ts:79:21
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/chat-reduced-motion-disabl-e39ef-ew-orb-and-glare-animations-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/chat-reduced-motion-disabl-e39ef-ew-orb-and-glare-animations-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/chat-reduced-motion-disabl-e39ef-ew-orb-and-glare-animations-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/chat-reduced-motion-disabl-e39ef-ew-orb-and-glare-animations-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  14) [mobile] › e2e/chat.spec.ts:84:5 › ambient media is local, muted, bounded, and presentation-only 
+
+    Test timeout of 35000ms exceeded.
+
+    Error: locator.click: Test timeout of 35000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: 'Pause ambient motion' })
+        - locator resolved to <button type="button" aria-pressed="false" class="motion-toggle" aria-label="Pause ambient motion">Pause</button>
+      - attempting click action
+        2 × waiting for element to be visible, enabled and stable
+          - element is visible, enabled and stable
+          - scrolling into view if needed
+          - done scrolling
+          - <button type="button" class="reset-button" aria-label="New conversation">…</button> from <section id="donna-chat" class="chat-card" data-started="true" aria-label="Chat with Donna">…</section> subtree intercepts pointer events
+        - retrying click action
+        - waiting 20ms
+        - waiting for element to be visible, enabled and stable
+        - element is visible, enabled and stable
+        - scrolling into view if needed
+        - done scrolling
+        - <button type="button" class="reset-button" aria-label="New conversation">…</button> from <section id="donna-chat" class="chat-card" data-started="true" aria-label="Chat with Donna">…</section> subtree intercepts pointer events
+      2 × retrying click action
+          - waiting 100ms
+          - waiting for element to be visible, enabled and stable
+          - element is visible, enabled and stable
+          - scrolling into view if needed
+          - done scrolling
+          - <header class="site-header">…</header> intercepts pointer events
+      17 × retrying click action
+           - waiting 500ms
+           - waiting for element to be visible, enabled and stable
+           - element is visible, enabled and stable
+           - scrolling into view if needed
+           - done scrolling
+           - <button type="button" class="reset-button" aria-label="New conversation">…</button> from <section id="donna-chat" class="chat-card" data-started="true" aria-label="Chat with Donna">…</section> subtree intercepts pointer events
+         - retrying click action
+           - waiting 500ms
+           - waiting for element to be visible, enabled and stable
+           - element is visible, enabled and stable
+           - scrolling into view if needed
+           - done scrolling
+           - <button type="button" class="reset-button" aria-label="New conversation">…</button> from <section id="donna-chat" class="chat-card" data-started="true" aria-label="Chat with Donna">…</section> subtree intercepts pointer events
+         - retrying click action
+           - waiting 500ms
+           - waiting for element to be visible, enabled and stable
+           - element is visible, enabled and stable
+           - scrolling into view if needed
+           - done scrolling
+           - <header class="site-header">…</header> intercepts pointer events
+         - retrying click action
+           - waiting 500ms
+           - waiting for element to be visible, enabled and stable
+           - element is visible, enabled and stable
+           - scrolling into view if needed
+           - done scrolling
+           - <header class="site-header">…</header> intercepts pointer events
+      2 × retrying click action
+          - waiting 500ms
+          - waiting for element to be visible, enabled and stable
+          - element is visible, enabled and stable
+          - scrolling into view if needed
+          - done scrolling
+          - <button type="button" class="reset-button" aria-label="New conversation">…</button> from <section id="donna-chat" class="chat-card" data-started="true" aria-label="Chat with Donna">…</section> subtree intercepts pointer events
+      - retrying click action
+        - waiting 500ms
+
+
+      100 |   await video.evaluate((node) => (node as HTMLVideoElement).pause());
+      101 |   expect(await video.evaluate((node) => (node as HTMLVideoElement).paused)).toBe(true);
+    > 102 |   await pause.click();
+          |               ^
+      103 |   await expect(media).toHaveAttribute("data-motion", "paused");
+      104 |   expect(await video.evaluate((node) => (node as HTMLVideoElement).paused)).toBe(true);
+      105 |   await page.getByRole("button", { name: "Play ambient motion" }).click();
+        at /tmp/cadre-px6-verify-c51a729/e2e/chat.spec.ts:102:15
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/chat-ambient-media-is-loca-42144-unded-and-presentation-only-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/chat-ambient-media-is-loca-42144-unded-and-presentation-only-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/chat-ambient-media-is-loca-42144-unded-and-presentation-only-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/chat-ambient-media-is-loca-42144-unded-and-presentation-only-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  15) [mobile] › e2e/chat.spec.ts:120:5 › ambient motion control never obscures the hero across responsive widths 
+
+    Error: 320px motion control overlaps hero
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: false
+    Received: true
+
+      137 |         && headingBox.y < controlBox.y + controlBox.height && headingBox.y + headingBox.height > controlBox.y
+      138 |       : true;
+    > 139 |     expect(overlaps, `${size.width}px motion control overlaps hero`).toBe(false);
+          |                                                                      ^
+      140 |     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+      141 |   }
+      142 |
+        at /tmp/cadre-px6-verify-c51a729/e2e/chat.spec.ts:139:70
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/chat-ambient-motion-contro-b86a0-ro-across-responsive-widths-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/chat-ambient-motion-contro-b86a0-ro-across-responsive-widths-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/chat-ambient-motion-contro-b86a0-ro-across-responsive-widths-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/chat-ambient-motion-contro-b86a0-ro-across-responsive-widths-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  16) [mobile] › e2e/chat.spec.ts:151:5 › anonymous conversation uses the real server and official links 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('[data-testid="chat-message"][data-role="assistant"]').first()
+    Timeout: 8000ms
+    - Expected substring  - 1
+    + Received string     + 3
+
+    - AI Strategy
+    + DonnaCadre describes a central portal for tools, agents, training, and results; its public results action leads to the contact page. This assistant does not have access to client portals or account systems, and no public portal address is verified in its knowledge set. Existing clients should use the access instructions from their Cadre AI team, or reach out through the contact page to be connected with the right person.
+    +
+    + Contact Cadre AI: https://cadre.ai/contact (opens in a new tab)
+
+    Call log:
+      - Expect "toContainText" locator('[data-testid="chat-message"][data-role="assistant"]').first() with timeout 8000ms
+      - waiting for locator('[data-testid="chat-message"][data-role="assistant"]').first()
+        20 × locator resolved to <li data-role="assistant" data-testid="chat-message" class="message message-assistant">…</li>
+           - unexpected value "DonnaCadre describes a central portal for tools, agents, training, and results; its public results action leads to the contact page. This assistant does not have access to client portals or account systems, and no public portal address is verified in its knowledge set. Existing clients should use the access instructions from their Cadre AI team, or reach out through the contact page to be connected with the right person.
+    
+    Contact Cadre AI: https://cadre.ai/contact (opens in a new tab)"
+
+
+      156 |   await input(page).press("Enter");
+      157 |   await expect(messages(page, "assistant")).toHaveCount(1);
+    > 158 |   await expect(messages(page, "assistant").first()).toContainText("AI Strategy");
+          |                                                     ^
+      159 |   await expect(messages(page, "assistant").first().locator('a[href="https://cadre.ai/strategy"]')).toBeVisible();
+      160 |   await input(page).fill("How do I access my client portal?");
+      161 |   await page.getByRole("button", { name: "Send message", exact: true }).click();
+        at /tmp/cadre-px6-verify-c51a729/e2e/chat.spec.ts:158:53
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/chat-anonymous-conversatio-61d05-l-server-and-official-links-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/chat-anonymous-conversatio-61d05-l-server-and-official-links-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/chat-anonymous-conversatio-61d05-l-server-and-official-links-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/chat-anonymous-conversatio-61d05-l-server-and-official-links-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  17) [mobile] › e2e/chat.spec.ts:168:5 › Donna presentation handles one configured next step and an opt-out 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('[data-testid="chat-message"][data-role="assistant"]').first()
+    Timeout: 8000ms
+    - Expected substring  - 1
+    + Received string     + 3
+
+    - AI strategy and implementation consultancy
+    + DonnaCadre describes a central portal for tools, agents, training, and results; its public results action leads to the contact page. This assistant does not have access to client portals or account systems, and no public portal address is verified in its knowledge set. Existing clients should use the access instructions from their Cadre AI team, or reach out through the contact page to be connected with the right person.
+    +
+    + Contact Cadre AI: https://cadre.ai/contact (opens in a new tab)
+
+    Call log:
+      - Expect "toContainText" locator('[data-testid="chat-message"][data-role="assistant"]').first() with timeout 8000ms
+      - waiting for locator('[data-testid="chat-message"][data-role="assistant"]').first()
+        20 × locator resolved to <li data-role="assistant" data-testid="chat-message" class="message message-assistant">…</li>
+           - unexpected value "DonnaCadre describes a central portal for tools, agents, training, and results; its public results action leads to the contact page. This assistant does not have access to client portals or account systems, and no public portal address is verified in its knowledge set. Existing clients should use the access instructions from their Cadre AI team, or reach out through the contact page to be connected with the right person.
+    
+    Contact Cadre AI: https://cadre.ai/contact (opens in a new tab)"
+
+
+      178 |   await input(page).press("Enter");
+      179 |   const reply = messages(page, "assistant").first();
+    > 180 |   await expect(reply).toContainText("AI strategy and implementation consultancy");
+          |                       ^
+      181 |   await expect(reply).toContainText(nextStep);
+      182 |   expect((await reply.innerText()).split(nextStep)).toHaveLength(2);
+      183 |
+        at /tmp/cadre-px6-verify-c51a729/e2e/chat.spec.ts:180:23
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/chat-Donna-presentation-ha-92ec9-ed-next-step-and-an-opt-out-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/chat-Donna-presentation-ha-92ec9-ed-next-step-and-an-opt-out-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/chat-Donna-presentation-ha-92ec9-ed-next-step-and-an-opt-out-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/chat-Donna-presentation-ha-92ec9-ed-next-step-and-an-opt-out-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  18) [mobile] › e2e/chat.spec.ts:190:5 › all six entry points are present and clarification preserves an ordinal follow-up 
+
+    Test timeout of 35000ms exceeded.
+
+    Error: locator.evaluate: Test timeout of 35000ms exceeded.
+    Call log:
+      - waiting for locator('.topic-browser')
+
+
+      189 |
+      190 | test("all six entry points are present and clarification preserves an ordinal follow-up", async ({ page }) => {
+    > 191 |   await page.locator(".topic-browser").evaluate((node) => { (node as HTMLDetailsElement).open = true; });
+          |                                        ^
+      192 |   for (const label of ["what Cadre AI does", "industries we serve", "booking a strategist call", "client portal access", "the AI Maturity Index", "models and data security"]) {
+      193 |     await expect(page.getByRole("button", { name: label, exact: true })).toBeVisible();
+      194 |   }
+        at /tmp/cadre-px6-verify-c51a729/e2e/chat.spec.ts:191:40
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/chat-all-six-entry-points--17e47-serves-an-ordinal-follow-up-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/chat-all-six-entry-points--17e47-serves-an-ordinal-follow-up-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/chat-all-six-entry-points--17e47-serves-an-ordinal-follow-up-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/chat-all-six-entry-points--17e47-serves-an-ordinal-follow-up-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  19) [mobile] › e2e/chat.spec.ts:205:5 › loading is announced and rapid Enter cannot duplicate a request 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('[data-testid="chat-message"][data-role="user"]')
+    Expected: 1
+    Received: 2
+    Timeout:  8000ms
+
+    Call log:
+      - Expect "toHaveCount" locator('[data-testid="chat-message"][data-role="user"]') with timeout 8000ms
+      - waiting for locator('[data-testid="chat-message"][data-role="user"]')
+        20 × locator resolved to 2 elements
+           - unexpected value "2"
+
+
+      217 |   await expect(page.locator('[aria-busy="true"]').first()).toBeVisible();
+      218 |   await page.keyboard.press("Enter");
+    > 219 |   await expect(messages(page, "user")).toHaveCount(1);
+          |                                        ^
+      220 |   expect(calls).toBe(1);
+      221 |   release();
+      222 |   await expect(messages(page, "assistant")).toHaveCount(1);
+        at /tmp/cadre-px6-verify-c51a729/e2e/chat.spec.ts:219:40
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/chat-loading-is-announced--a473a--cannot-duplicate-a-request-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/chat-loading-is-announced--a473a--cannot-duplicate-a-request-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/chat-loading-is-announced--a473a--cannot-duplicate-a-request-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/chat-loading-is-announced--a473a--cannot-duplicate-a-request-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  20) [mobile] › e2e/chat.spec.ts:241:5 › pricing is empathetic and commercially aware without inventing a rate 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('[data-testid="chat-message"][data-role="assistant"]').first()
+    Timeout: 8000ms
+    - Expected substring  - 1
+    + Received string     + 3
+
+    - Fair question
+    + DonnaCadre describes a central portal for tools, agents, training, and results; its public results action leads to the contact page. This assistant does not have access to client portals or account systems, and no public portal address is verified in its knowledge set. Existing clients should use the access instructions from their Cadre AI team, or reach out through the contact page to be connected with the right person.
+    +
+    + Contact Cadre AI: https://cadre.ai/contact (opens in a new tab)
+
+    Call log:
+      - Expect "toContainText" locator('[data-testid="chat-message"][data-role="assistant"]').first() with timeout 8000ms
+      - waiting for locator('[data-testid="chat-message"][data-role="assistant"]').first()
+        20 × locator resolved to <li data-role="assistant" data-testid="chat-message" class="message message-assistant">…</li>
+           - unexpected value "DonnaCadre describes a central portal for tools, agents, training, and results; its public results action leads to the contact page. This assistant does not have access to client portals or account systems, and no public portal address is verified in its knowledge set. Existing clients should use the access instructions from their Cadre AI team, or reach out through the contact page to be connected with the right person.
+    
+    Contact Cadre AI: https://cadre.ai/contact (opens in a new tab)"
+
+
+      243 |   await input(page).press("Enter");
+      244 |   const reply = messages(page, "assistant").first();
+    > 245 |   await expect(reply).toContainText("Fair question");
+          |                       ^
+      246 |   await expect(reply).toContainText("revenue, profitability, and measurable business impact");
+      247 |   await expect(reply).toContainText("price list or rate card");
+      248 |   await expect(reply.locator('a[href="https://cadre.ai/contact"]')).toBeVisible();
+        at /tmp/cadre-px6-verify-c51a729/e2e/chat.spec.ts:245:23
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/chat-pricing-is-empathetic-562f5-re-without-inventing-a-rate-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/chat-pricing-is-empathetic-562f5-re-without-inventing-a-rate-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/chat-pricing-is-empathetic-562f5-re-without-inventing-a-rate-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/chat-pricing-is-empathetic-562f5-re-without-inventing-a-rate-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  21) [mobile] › e2e/chat.spec.ts:252:5 › retry preserves the failed turn and does not duplicate history 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('[data-testid="chat-message"][data-role="user"]')
+    Expected: 1
+    Received: 2
+    Timeout:  8000ms
+
+    Call log:
+      - Expect "toHaveCount" locator('[data-testid="chat-message"][data-role="user"]') with timeout 8000ms
+      - waiting for locator('[data-testid="chat-message"][data-role="user"]')
+        20 × locator resolved to 2 elements
+           - unexpected value "2"
+
+
+      263 |   await page.getByRole("button", { name: "Retry response" }).click();
+      264 |   await expect(messages(page, "assistant")).toHaveCount(1);
+    > 265 |   await expect(messages(page, "user")).toHaveCount(1);
+          |                                        ^
+      266 |   expect(requests).toHaveLength(2);
+      267 |   expect(requests[1]).toEqual(requests[0]);
+      268 | });
+        at /tmp/cadre-px6-verify-c51a729/e2e/chat.spec.ts:265:40
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/chat-retry-preserves-the-f-9b817--does-not-duplicate-history-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/chat-retry-preserves-the-f-9b817--does-not-duplicate-history-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/chat-retry-preserves-the-f-9b817--does-not-duplicate-history-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/chat-retry-preserves-the-f-9b817--does-not-duplicate-history-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  22) [mobile] › e2e/chat.spec.ts:279:5 › cancelling prevents a late response from appearing and preserves a retry 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('[data-testid="chat-message"][data-role="assistant"]')
+    Expected: 0
+    Received: 1
+    Timeout:  8000ms
+
+    Call log:
+      - Expect "toHaveCount" locator('[data-testid="chat-message"][data-role="assistant"]') with timeout 8000ms
+      - waiting for locator('[data-testid="chat-message"][data-role="assistant"]')
+        20 × locator resolved to 1 element
+           - unexpected value "1"
+
+
+      293 |   release();
+      294 |   await expect(page.getByRole("button", { name: "Retry response" })).toBeVisible();
+    > 295 |   await expect(messages(page, "assistant")).toHaveCount(0);
+          |                                             ^
+      296 |   await expect(messages(page, "user")).toHaveCount(1);
+      297 |   await expect(input(page)).toHaveValue("services");
+      298 |   expect(intercepted).toBe(1);
+        at /tmp/cadre-px6-verify-c51a729/e2e/chat.spec.ts:295:45
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/chat-cancelling-prevents-a-71d87-aring-and-preserves-a-retry-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/chat-cancelling-prevents-a-71d87-aring-and-preserves-a-retry-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/chat-cancelling-prevents-a-71d87-aring-and-preserves-a-retry-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/chat-cancelling-prevents-a-71d87-aring-and-preserves-a-retry-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  23) [mobile] › e2e/chat.spec.ts:310:5 › model text is inert and only exact approved URLs become links 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('[data-testid="chat-message"][data-role="assistant"]').first()
+    Timeout: 8000ms
+    - Expected substring  - 1
+    + Received string     + 3
+
+    - <img
+    + DonnaCadre describes a central portal for tools, agents, training, and results; its public results action leads to the contact page. This assistant does not have access to client portals or account systems, and no public portal address is verified in its knowledge set. Existing clients should use the access instructions from their Cadre AI team, or reach out through the contact page to be connected with the right person.
+    +
+    + Contact Cadre AI: https://cadre.ai/contact (opens in a new tab)
+
+    Call log:
+      - Expect "toContainText" locator('[data-testid="chat-message"][data-role="assistant"]').first() with timeout 8000ms
+      - waiting for locator('[data-testid="chat-message"][data-role="assistant"]').first()
+        20 × locator resolved to <li data-role="assistant" data-testid="chat-message" class="message message-assistant">…</li>
+           - unexpected value "DonnaCadre describes a central portal for tools, agents, training, and results; its public results action leads to the contact page. This assistant does not have access to client portals or account systems, and no public portal address is verified in its knowledge set. Existing clients should use the access instructions from their Cadre AI team, or reach out through the contact page to be connected with the right person.
+    
+    Contact Cadre AI: https://cadre.ai/contact (opens in a new tab)"
+
+
+      314 |   await input(page).press("Enter");
+      315 |   const reply = messages(page, "assistant").first();
+    > 316 |   await expect(reply).toContainText("<img");
+          |                       ^
+      317 |   await expect(reply.locator("img")).toHaveCount(0);
+      318 |   await expect(reply.locator("a")).toHaveCount(1);
+      319 |   await expect(reply.locator("a")).toHaveAttribute("href", "https://cadre.ai/contact");
+        at /tmp/cadre-px6-verify-c51a729/e2e/chat.spec.ts:316:23
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/chat-model-text-is-inert-a-1a0c9--approved-URLs-become-links-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/chat-model-text-is-inert-a-1a0c9--approved-URLs-become-links-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/chat-model-text-is-inert-a-1a0c9--approved-URLs-become-links-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/chat-model-text-is-inert-a-1a0c9--approved-URLs-become-links-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  24) [mobile] › e2e/chat.spec.ts:323:5 › blank input, multiline entry, and IME composition do not send accidentally 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('alert')
+    Expected pattern: /Write a message/
+    Error: strict mode violation: getByRole('alert') resolved to 2 elements:
+        1) <p role="alert" id="message-validation" class="validation-message">Write a message before sending.</p> aka getByText('Write a message before')
+        2) <div role="alert" aria-live="assertive" id="__next-route-announcer__"></div> aka locator('[id="__next-route-announcer__"]')
+
+    Call log:
+      - Expect "toContainText" getByRole('alert') with timeout 8000ms
+      - waiting for getByRole('alert')
+
+
+      326 |   await input(page).focus();
+      327 |   await input(page).press("Enter");
+    > 328 |   await expect(page.getByRole("alert")).toContainText(/Write a message/);
+          |                                         ^
+      329 |   expect(calls).toBe(0);
+      330 |   await input(page).fill("services");
+      331 |   await input(page).press("Shift+Enter");
+        at /tmp/cadre-px6-verify-c51a729/e2e/chat.spec.ts:328:41
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/chat-blank-input-multiline-8add5-on-do-not-send-accidentally-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/chat-blank-input-multiline-8add5-on-do-not-send-accidentally-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/chat-blank-input-multiline-8add5-on-do-not-send-accidentally-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/chat-blank-input-multiline-8add5-on-do-not-send-accidentally-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  25) [mobile] › e2e/chat.spec.ts:361:5 › long conversations and composer input remain bounded ─────
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('alert')
+    Expected pattern: /2,?000/
+    Error: strict mode violation: getByRole('alert') resolved to 3 elements:
+        1) <div role="alert">…</div> aka getByText('Chat is busy. Please wait a moment, then try again.Your message is saved. Edit')
+        2) <p role="alert" id="message-validation" class="validation-message">Please shorten your message to 2,000 characters o…</p> aka getByText('Please shorten your message')
+        3) <div role="alert" aria-live="assertive" id="__next-route-announcer__"></div> aka locator('[id="__next-route-announcer__"]')
+
+    Call log:
+      - Expect "toContainText" getByRole('alert') with timeout 8000ms
+      - waiting for getByRole('alert')
+
+
+      372 |   await expect(input(page)).toHaveValue("x".repeat(2100));
+      373 |   await expect(page.getByRole("button", { name: "Send message", exact: true })).toBeDisabled();
+    > 374 |   await expect(page.getByRole("alert")).toContainText(/2,?000/);
+          |                                         ^
+      375 |   for (let turn = 0; turn < 23; turn += 1) {
+      376 |     await input(page).fill(`services ${turn}`);
+      377 |     await input(page).press("Enter");
+        at /tmp/cadre-px6-verify-c51a729/e2e/chat.spec.ts:374:41
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/chat-long-conversations-and-composer-input-remain-bounded-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/chat-long-conversations-and-composer-input-remain-bounded-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/chat-long-conversations-and-composer-input-remain-bounded-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/chat-long-conversations-and-composer-input-remain-bounded-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  26) [mobile] › e2e/chat.spec.ts:440:5 › welcome starts at the top and reset restores that position 
+
+    Error: expect(received).toBeGreaterThanOrEqual(expected)
+
+    Matcher error: received value must be a number or bigint
+
+    Received has value: undefined
+
+      446 |     heading: element.querySelector("h3")?.getBoundingClientRect().top,
+      447 |   }));
+    > 448 |   expect(geometry.heading).toBeGreaterThanOrEqual(geometry.top);
+          |                            ^
+      449 |   await page.route("**/api/chat", (route) => route.fulfill({ json: { reply: "Resettable answer.", kind: "grounded" } }));
+      450 |   await input(page).fill("services");
+      451 |   await input(page).press("Enter");
+        at /tmp/cadre-px6-verify-c51a729/e2e/chat.spec.ts:448:28
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/chat-welcome-starts-at-the-89225-eset-restores-that-position-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/chat-welcome-starts-at-the-89225-eset-restores-that-position-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/chat-welcome-starts-at-the-89225-eset-restores-that-position-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/chat-welcome-starts-at-the-89225-eset-restores-that-position-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  27) [mobile] › e2e/chat.spec.ts:459:5 › keyboard topic activation preserves a stable focus target 
+
+    Test timeout of 35000ms exceeded.
+
+    Error: locator.evaluate: Test timeout of 35000ms exceeded.
+    Call log:
+      - waiting for locator('.topic-browser')
+
+
+      458 |
+      459 | test("keyboard topic activation preserves a stable focus target", async ({ page }) => {
+    > 460 |   await page.locator(".topic-browser").evaluate((node) => { (node as HTMLDetailsElement).open = true; });
+          |                                        ^
+      461 |   await page.route("**/api/chat", (route) => route.fulfill({ json: { reply: "A topic response.", kind: "grounded" } }));
+      462 |   const topic = page.getByRole("button", { name: "what Cadre AI does", exact: true });
+      463 |   await topic.focus();
+        at /tmp/cadre-px6-verify-c51a729/e2e/chat.spec.ts:460:40
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/chat-keyboard-topic-activa-0d424-erves-a-stable-focus-target-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/chat-keyboard-topic-activa-0d424-erves-a-stable-focus-target-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/chat-keyboard-topic-activa-0d424-erves-a-stable-focus-target-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/chat-keyboard-topic-activa-0d424-erves-a-stable-focus-target-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  28) [mobile] › e2e/chat.spec.ts:471:5 › keyboard retry preserves focus without duplicating the user turn 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('[data-testid="chat-message"][data-role="user"]')
+    Expected: 1
+    Received: 2
+    Timeout:  8000ms
+
+    Call log:
+      - Expect "toHaveCount" locator('[data-testid="chat-message"][data-role="user"]') with timeout 8000ms
+      - waiting for locator('[data-testid="chat-message"][data-role="user"]')
+        20 × locator resolved to 2 elements
+           - unexpected value "2"
+
+
+      483 |   await retry.press("Enter");
+      484 |   await expect(messages(page, "assistant")).toHaveCount(1);
+    > 485 |   await expect(messages(page, "user")).toHaveCount(1);
+          |                                        ^
+      486 |   await expect(input(page)).toBeFocused();
+      487 |   expect(calls).toBe(2);
+      488 | });
+        at /tmp/cadre-px6-verify-c51a729/e2e/chat.spec.ts:485:40
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/chat-keyboard-retry-preser-cd22b-t-duplicating-the-user-turn-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/chat-keyboard-retry-preser-cd22b-t-duplicating-the-user-turn-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/chat-keyboard-retry-preser-cd22b-t-duplicating-the-user-turn-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/chat-keyboard-retry-preser-cd22b-t-duplicating-the-user-turn-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  29) [mobile] › e2e/chat.spec.ts:490:5 › client deadline yields a saved draft and does not accept late output 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('alert')
+    Expected pattern: /too long|timed out/i
+    Error: strict mode violation: getByRole('alert') resolved to 2 elements:
+        1) <div role="alert">…</div> aka getByText('The response took too long. Please try again.Your message is saved. Edit it')
+        2) <div role="alert" aria-live="assertive" id="__next-route-announcer__"></div> aka locator('[id="__next-route-announcer__"]')
+
+    Call log:
+      - Expect "toContainText" getByRole('alert') with timeout 8000ms
+      - waiting for getByRole('alert')
+
+
+      502 |   await expect.poll(() => calls).toBe(1);
+      503 |   await page.clock.fastForward(25_001);
+    > 504 |   await expect(page.getByRole("alert")).toContainText(/too long|timed out/i);
+          |                                         ^
+      505 |   await expect(page.getByRole("button", { name: "Retry response" })).toBeVisible();
+      506 |   await expect(input(page)).toHaveValue("services");
+      507 |   release();
+        at /tmp/cadre-px6-verify-c51a729/e2e/chat.spec.ts:504:41
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/chat-client-deadline-yield-6db7d-does-not-accept-late-output-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/chat-client-deadline-yield-6db7d-does-not-accept-late-output-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/chat-client-deadline-yield-6db7d-does-not-accept-late-output-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/chat-client-deadline-yield-6db7d-does-not-accept-late-output-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  30) [mobile] › e2e/hydration.spec.ts:3:5 › cold-load launcher waits for hydration before opening the first conversation 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  0
+    + Received  + 16
+
+    @@ -1,9 +1,25 @@
+      Array [
+        Object {
+          "messages": Array [
+            Object {
+    +         "content": "How does Cadre help clients track AI tools, agents, training, and results?",
+    +         "role": "user",
+    +       },
+    +     ],
+    +   },
+    +   Object {
+    +     "messages": Array [
+    +       Object {
+    +         "content": "How does Cadre help clients track AI tools, agents, training, and results?",
+    +         "role": "user",
+    +       },
+    +       Object {
+    +         "content": "A controlled first reply.",
+    +         "role": "assistant",
+    +       },
+    +       Object {
+              "content": "Do you serve hotels?",
+              "role": "user",
+            },
+          ],
+        },
+
+      34 |     await input.press("Enter");
+      35 |     await expect(page.locator('[data-testid="chat-message"][data-role="assistant"]')).toHaveText(/A controlled first reply/);
+    > 36 |     expect(requests).toEqual([{ messages: [{ role: "user", content: "Do you serve hotels?" }] }]);
+         |                      ^
+      37 |     expect(pageErrors).toEqual([]);
+      38 |   } finally {
+      39 |     release();
+        at /tmp/cadre-px6-verify-c51a729/e2e/hydration.spec.ts:36:22
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/hydration-cold-load-launch-3119b-ning-the-first-conversation-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/hydration-cold-load-launch-3119b-ning-the-first-conversation-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/hydration-cold-load-launch-3119b-ning-the-first-conversation-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/hydration-cold-load-launch-3119b-ning-the-first-conversation-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  31) [mobile] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 320x568 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 1
+    Received: 2
+
+      23 |     await expect(retry).toBeVisible();
+      24 |     await expect(input).toHaveValue(draft);
+    > 25 |     expect(requests).toBe(1);
+         |                      ^
+      26 |
+      27 |     const geometry = await page.evaluate(() => {
+      28 |       const space = document.querySelector(".conversation-space")!.getBoundingClientRect();
+        at /tmp/cadre-px6-verify-c51a729/e2e/readability.spec.ts:25:22
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/readability-text-spacing-k-0c40c-ecovery-readable-at-320x568-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/readability-text-spacing-k-0c40c-ecovery-readable-at-320x568-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/readability-text-spacing-k-0c40c-ecovery-readable-at-320x568-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/readability-text-spacing-k-0c40c-ecovery-readable-at-320x568-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  32) [mobile] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 360x640 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 1
+    Received: 2
+
+      23 |     await expect(retry).toBeVisible();
+      24 |     await expect(input).toHaveValue(draft);
+    > 25 |     expect(requests).toBe(1);
+         |                      ^
+      26 |
+      27 |     const geometry = await page.evaluate(() => {
+      28 |       const space = document.querySelector(".conversation-space")!.getBoundingClientRect();
+        at /tmp/cadre-px6-verify-c51a729/e2e/readability.spec.ts:25:22
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/readability-text-spacing-k-5c4ec-ecovery-readable-at-360x640-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/readability-text-spacing-k-5c4ec-ecovery-readable-at-360x640-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/readability-text-spacing-k-5c4ec-ecovery-readable-at-360x640-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/readability-text-spacing-k-5c4ec-ecovery-readable-at-360x640-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  33) [mobile] › e2e/readability.spec.ts:70:5 › important helper and privacy copy remains at least 12px 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('.launcher-copy small')
+    Expected: visible
+    Received: hidden
+    Timeout:  8000ms
+
+    Call log:
+      - Expect "toBeVisible" locator('.launcher-copy small') with timeout 8000ms
+      - waiting for locator('.launcher-copy small')
+        20 × locator resolved to <small>Try a question. I'll keep it grounded.</small>
+           - unexpected value "hidden"
+
+
+      72 |   await page.goto("/");
+      73 |   const launcherHint = page.locator(".launcher-copy small");
+    > 74 |   await expect(launcherHint).toBeVisible();
+         |                              ^
+      75 |   expect(await launcherHint.evaluate((node) => parseFloat(getComputedStyle(node).fontSize))).toBeGreaterThanOrEqual(12);
+      76 |   await page.getByRole("button", { name: /Ask Donna/ }).last().click();
+      77 |   const input = page.getByRole("textbox", { name: "Message", exact: true });
+        at /tmp/cadre-px6-verify-c51a729/e2e/readability.spec.ts:74:30
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/readability-important-help-d07fb--copy-remains-at-least-12px-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/readability-important-help-d07fb--copy-remains-at-least-12px-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/readability-important-help-d07fb--copy-remains-at-least-12px-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/readability-important-help-d07fb--copy-remains-at-least-12px-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  33 failed
+    [desktop] › e2e/chat.spec.ts:84:5 › ambient media is local, muted, bounded, and presentation-only 
+    [desktop] › e2e/chat.spec.ts:120:5 › ambient motion control never obscures the hero across responsive widths 
+    [desktop] › e2e/chat.spec.ts:151:5 › anonymous conversation uses the real server and official links 
+    [desktop] › e2e/chat.spec.ts:252:5 › retry preserves the failed turn and does not duplicate history 
+    [desktop] › e2e/chat.spec.ts:323:5 › blank input, multiline entry, and IME composition do not send accidentally 
+    [desktop] › e2e/chat.spec.ts:361:5 › long conversations and composer input remain bounded ──────
+    [desktop] › e2e/chat.spec.ts:490:5 › client deadline yields a saved draft and does not accept late output 
+    [desktop] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 320x568 
+    [desktop] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 360x640 
+    [mobile] › e2e/chat.spec.ts:17:5 › first impression feels like a Cadre page with an inviting Donna product 
+    [mobile] › e2e/chat.spec.ts:43:5 › floating Donna closes with Escape and restores launcher focus 
+    [mobile] › e2e/chat.spec.ts:52:5 › new PX6 chat controls preserve 44px touch targets ───────────
+    [mobile] › e2e/chat.spec.ts:73:5 › reduced motion disables the new orb and glare animations ────
+    [mobile] › e2e/chat.spec.ts:84:5 › ambient media is local, muted, bounded, and presentation-only 
+    [mobile] › e2e/chat.spec.ts:120:5 › ambient motion control never obscures the hero across responsive widths 
+    [mobile] › e2e/chat.spec.ts:151:5 › anonymous conversation uses the real server and official links 
+    [mobile] › e2e/chat.spec.ts:168:5 › Donna presentation handles one configured next step and an opt-out 
+    [mobile] › e2e/chat.spec.ts:190:5 › all six entry points are present and clarification preserves an ordinal follow-up 
+    [mobile] › e2e/chat.spec.ts:205:5 › loading is announced and rapid Enter cannot duplicate a request 
+    [mobile] › e2e/chat.spec.ts:241:5 › pricing is empathetic and commercially aware without inventing a rate 
+    [mobile] › e2e/chat.spec.ts:252:5 › retry preserves the failed turn and does not duplicate history 
+    [mobile] › e2e/chat.spec.ts:279:5 › cancelling prevents a late response from appearing and preserves a retry 
+    [mobile] › e2e/chat.spec.ts:310:5 › model text is inert and only exact approved URLs become links 
+    [mobile] › e2e/chat.spec.ts:323:5 › blank input, multiline entry, and IME composition do not send accidentally 
+    [mobile] › e2e/chat.spec.ts:361:5 › long conversations and composer input remain bounded ───────
+    [mobile] › e2e/chat.spec.ts:440:5 › welcome starts at the top and reset restores that position ─
+    [mobile] › e2e/chat.spec.ts:459:5 › keyboard topic activation preserves a stable focus target ──
+    [mobile] › e2e/chat.spec.ts:471:5 › keyboard retry preserves focus without duplicating the user turn 
+    [mobile] › e2e/chat.spec.ts:490:5 › client deadline yields a saved draft and does not accept late output 
+    [mobile] › e2e/hydration.spec.ts:3:5 › cold-load launcher waits for hydration before opening the first conversation 
+    [mobile] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 320x568 
+    [mobile] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 360x640 
+    [mobile] › e2e/readability.spec.ts:70:5 › important helper and privacy copy remains at least 12px 
+  35 passed (5.0m)
