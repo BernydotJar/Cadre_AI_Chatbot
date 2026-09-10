@@ -1,0 +1,59 @@
+PX6 revision-3 independent clean-worktree verification
+snapshot=030f5bb3bec9d1c5f0feb26f0438122cb74bb538
+node=v22.23.2
+npm=10.9.8
+
+== git integrity ==
+dangling blob 29442132d8877438a56ae08c5dedc33acc9178be
+dangling blob 3516378bc22af526a152d04434c558b6190266d3
+dangling blob 1fb8f760110892d71af15f0ba044380e7a1044fa
+dangling blob 6ffa853eabcf6b01da303cd8cb80013cb0ac304c
+dangling blob beceecb4c7dd37a25057e3236da90ccc3207c31a
+
+== locked install ==
+npm warn deprecated eslint@9.39.5: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+
+added 380 packages in 7s
+
+== typecheck ==
+
+> cadre-ai-chatbot@0.1.0 typecheck
+> tsc --noEmit
+
+
+== lint ==
+
+> cadre-ai-chatbot@0.1.0 lint
+> eslint .
+
+
+/tmp/cadre-px6-verify-030f5bb/src/ui/support-chat.tsx
+  345:80  error  Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+/tmp/cadre-px6-verify-030f5bb/src/ui/support-chat.tsx:345:80
+  343 |           {failed && <div className="error-panel">
+  344 |             <div role="alert"><p>{failed.reason}</p><span>Your message is saved. Edit it below or retry the same message.</span></div>
+> 345 |             <button type="button" className="retry-button" onClick={() => void requestReply(failed.message, failed.request)}>Retry response <Arrow /></button>
+      |                                                                                ^^^^^^^^^^^^ Passing a ref to a function may read its value during render
+  346 |           </div>}
+  347 |           <form onSubmit={onSubmit} noValidate>
+  348 |             <div className={`composer${validation || overLimit ? " composer-invalid" : ""}${pending ? " composer-pending" : ""}`}>  react-hooks/refs
+  345:80  error  Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+/tmp/cadre-px6-verify-030f5bb/src/ui/support-chat.tsx:345:80
+  343 |           {failed && <div className="error-panel">
+  344 |             <div role="alert"><p>{failed.reason}</p><span>Your message is saved. Edit it below or retry the same message.</span></div>
+> 345 |             <button type="button" className="retry-button" onClick={() => void requestReply(failed.message, failed.request)}>Retry response <Arrow /></button>
+      |                                                                                ^^^^^^^^^^^^ Passing a ref to a function may read its value during render
+  346 |           </div>}
+  347 |           <form onSubmit={onSubmit} noValidate>
+  348 |             <div className={`composer${validation || overLimit ? " composer-invalid" : ""}${pending ? " composer-pending" : ""}`}>  react-hooks/refs
+  514:71  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   react/no-unescaped-entities
+  515:83  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   react/no-unescaped-entities
+
+✖ 4 problems (4 errors, 0 warnings)
+
