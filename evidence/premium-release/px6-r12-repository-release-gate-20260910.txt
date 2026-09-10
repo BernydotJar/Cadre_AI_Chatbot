@@ -1,0 +1,12 @@
+PX6 revision 12 repository release gate
+snapshot=ad89d94c09b1c64549883d8a5dca956ca7be675b
+started=2026-09-10T06:46:53Z
+
+
+> cadre-ai-chatbot@0.1.0 release:gate
+> node tools/release/check-premium-gate.mjs
+
+Premium release gate: PASS — all 6 premium nodes are DONE with no active non-PASS gate
+
+repository_release_gate=PASS
+finished=2026-09-10T06:46:53Z
