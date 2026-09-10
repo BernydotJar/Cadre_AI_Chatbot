@@ -4,7 +4,7 @@ const messages = (page: Page, role: "user" | "assistant") => page.locator(`[data
 const input = (page: Page) => page.getByRole("textbox", { name: "Message", exact: true });
 
 async function openDonna(page: Page) {
-  const launcher = page.getByRole("button", { name: /Ask Donna/ }).last();
+  const launcher = page.locator(".donna-launcher");
   if (await launcher.isVisible().catch(() => false)) await launcher.click();
   await expect(input(page)).toBeVisible();
 }
@@ -23,8 +23,9 @@ test("first impression feels like a Cadre page with an inviting Donna product", 
   await expect(page.getByRole("heading", { name: "AI that earns its place in the business." })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Track your AI results" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Useful by design. Bounded on purpose." })).toBeVisible();
+  await expect(page.locator(".contact-link")).toHaveAccessibleName("Talk to an AI Strategist");
   await expect(page.locator(".donna-nudge")).toContainText("100+ high-ROI use cases");
-  const launcher = page.getByRole("button", { name: /Ask Donna/ }).last();
+  const launcher = page.locator(".donna-launcher");
   await expect(launcher).toBeVisible();
   await expect(launcher.locator('.persona-avatar[data-avatar-style="signal-orb"]')).toBeVisible();
   await launcher.click();
@@ -43,13 +44,13 @@ test("first impression feels like a Cadre page with an inviting Donna product", 
 test("floating Donna closes with Escape and restores launcher focus", async ({ page }) => {
   await expect(input(page)).toBeFocused();
   await page.keyboard.press("Escape");
-  const launcher = page.getByRole("button", { name: /Ask Donna/ }).last();
+  const launcher = page.locator(".donna-launcher");
   await expect(page.locator(".chat-card")).toHaveCount(0);
   await expect(launcher).toBeVisible();
   await expect(launcher).toBeFocused();
 });
 
-test("new PX6 chat controls preserve 44px touch targets", async ({ page }) => {
+test("new PX6 chat controls preserve 44px touch targets", async ({ page, isMobile }) => {
   await page.reload();
   const assertTarget = async (selector: string) => {
     const box = await page.locator(selector).boundingBox();
@@ -58,8 +59,9 @@ test("new PX6 chat controls preserve 44px touch targets", async ({ page }) => {
     expect(box!.height).toBeGreaterThanOrEqual(44);
   };
 
-  await assertTarget(".nudge-dismiss");
-  await page.getByRole("button", { name: /Ask Donna/ }).last().click();
+  if (isMobile) await assertTarget(".donna-launcher");
+  else await assertTarget(".nudge-dismiss");
+  await page.locator(".donna-launcher").click();
   await assertTarget(".chat-close");
 
   await page.route("**/api/chat", (route) => route.fulfill({ json: { reply: "A grounded answer.", kind: "grounded" } }));
@@ -73,7 +75,7 @@ test("new PX6 chat controls preserve 44px touch targets", async ({ page }) => {
 test("reduced motion disables the new orb and glare animations", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.reload();
-  const launcher = page.getByRole("button", { name: /Ask Donna/ }).last();
+  const launcher = page.locator(".donna-launcher");
   await expect(launcher).toBeVisible();
   const orb = launcher.locator(".donna-orb");
   await expect(orb).toHaveCSS("animation-name", "none");
@@ -82,6 +84,7 @@ test("reduced motion disables the new orb and glare animations", async ({ page }
 });
 
 test("ambient media is local, muted, bounded, and presentation-only", async ({ page }) => {
+  await page.reload();
   const media = page.locator(".intro-media");
   await expect(media).toBeVisible();
   await expect(media).toHaveAttribute("data-motion", "video");
@@ -162,7 +165,7 @@ test("anonymous conversation uses the real server and official links", async ({ 
   await expect(messages(page, "assistant")).toHaveCount(2);
   await expect(messages(page, "assistant").last()).toContainText(/contact/i);
   await expect(messages(page, "assistant").last().locator('a[href="https://cadre.ai/contact"]')).toBeVisible();
-  await expect(page.getByRole("alert")).toHaveCount(0);
+  await expect(page.locator(".error-panel")).toHaveCount(0);
 });
 
 test("Donna presentation handles one configured next step and an opt-out", async ({ page }) => {
@@ -259,7 +262,7 @@ test("retry preserves the failed turn and does not duplicate history", async ({ 
   });
   await input(page).fill("services");
   await input(page).press("Enter");
-  await expect(page.getByRole("alert")).toBeVisible();
+  await expect(page.locator(".error-panel [role=alert]")).toBeVisible();
   await page.getByRole("button", { name: "Retry response" }).click();
   await expect(messages(page, "assistant")).toHaveCount(1);
   await expect(messages(page, "user")).toHaveCount(1);
@@ -271,7 +274,7 @@ test("network failure has a safe retry path", async ({ page }) => {
   await page.route("**/api/chat", (route) => route.abort("failed"));
   await input(page).fill("services");
   await input(page).press("Enter");
-  await expect(page.getByRole("alert")).toBeVisible();
+  await expect(page.locator(".error-panel [role=alert]")).toBeVisible();
   await expect(page.getByRole("button", { name: "Retry response" })).toBeEnabled();
   await expect(page.locator("body")).not.toContainText("TypeError");
 });
@@ -302,7 +305,7 @@ test("malformed responses produce a recoverable safe error", async ({ page }) =>
   await page.route("**/api/chat", (route) => route.fulfill({ status: 200, contentType: "text/html", body: "<h1>Internal stack trace</h1>" }));
   await input(page).fill("services");
   await input(page).press("Enter");
-  await expect(page.getByRole("alert")).toBeVisible();
+  await expect(page.locator(".error-panel [role=alert]")).toBeVisible();
   await expect(page.getByRole("button", { name: "Retry response" })).toBeEnabled();
   await expect(page.locator("body")).not.toContainText("Internal stack trace");
 });
@@ -325,7 +328,7 @@ test("blank input, multiline entry, and IME composition do not send accidentally
   await page.route("**/api/chat", (route) => { calls += 1; return route.fulfill({ json: { reply: "Okay.", kind: "grounded" } }); });
   await input(page).focus();
   await input(page).press("Enter");
-  await expect(page.getByRole("alert")).toContainText(/Write a message/);
+  await expect(page.locator("#message-validation")).toContainText(/Write a message/);
   expect(calls).toBe(0);
   await input(page).fill("services");
   await input(page).press("Shift+Enter");
@@ -371,7 +374,7 @@ test("long conversations and composer input remain bounded", async ({ page }) =>
   await input(page).fill("x".repeat(2100));
   await expect(input(page)).toHaveValue("x".repeat(2100));
   await expect(page.getByRole("button", { name: "Send message", exact: true })).toBeDisabled();
-  await expect(page.getByRole("alert")).toContainText(/2,?000/);
+  await expect(page.locator("#message-validation")).toContainText(/2,?000/);
   for (let turn = 0; turn < 23; turn += 1) {
     await input(page).fill(`services ${turn}`);
     await input(page).press("Enter");
@@ -501,7 +504,7 @@ test("client deadline yields a saved draft and does not accept late output", asy
   await input(page).press("Enter");
   await expect.poll(() => calls).toBe(1);
   await page.clock.fastForward(25_001);
-  await expect(page.getByRole("alert")).toContainText(/too long|timed out/i);
+  await expect(page.locator(".error-panel [role=alert]")).toContainText(/too long|timed out/i);
   await expect(page.getByRole("button", { name: "Retry response" })).toBeVisible();
   await expect(input(page)).toHaveValue("services");
   release();

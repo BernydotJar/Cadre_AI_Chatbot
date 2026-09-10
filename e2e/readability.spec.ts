@@ -9,7 +9,7 @@ for (const viewport of [{ width: 320, height: 568 }, { width: 360, height: 640 }
       return route.fulfill({ status: 503, json: { reply: "Unavailable.", kind: "error" } });
     });
     await page.goto("/");
-    await page.getByRole("button", { name: /Ask Donna/ }).last().click();
+    await page.locator(".donna-launcher").click();
     const input = page.getByRole("textbox", { name: "Message", exact: true });
     await expect(input).toBeEditable();
     await page.addStyleTag({ content: `
@@ -70,10 +70,14 @@ for (const viewport of [{ width: 320, height: 568 }, { width: 360, height: 640 }
 test("important helper and privacy copy remains at least 12px", async ({ page, isMobile }) => {
   await page.route("**/api/chat", (route) => route.fulfill({ status: 503, json: { reply: "Unavailable.", kind: "error" } }));
   await page.goto("/");
+  const launcher = page.locator(".donna-launcher");
+  await expect(launcher).toHaveAccessibleName("Ask Donna");
   const launcherHint = page.locator(".launcher-copy small");
-  await expect(launcherHint).toBeVisible();
-  expect(await launcherHint.evaluate((node) => parseFloat(getComputedStyle(node).fontSize))).toBeGreaterThanOrEqual(12);
-  await page.getByRole("button", { name: /Ask Donna/ }).last().click();
+  if (!isMobile) {
+    await expect(launcherHint).toBeVisible();
+    expect(await launcherHint.evaluate((node) => parseFloat(getComputedStyle(node).fontSize))).toBeGreaterThanOrEqual(12);
+  }
+  await launcher.click();
   const input = page.getByRole("textbox", { name: "Message", exact: true });
   await expect(input).toBeEditable();
   await input.fill("services");

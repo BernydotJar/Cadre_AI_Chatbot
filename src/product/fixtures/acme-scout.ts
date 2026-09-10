@@ -33,6 +33,12 @@ const acmeScoutProfile: ChatbotProductProfile = {
       { label: "Plan a return", message: "How do returns work?" },
       { label: "Ask about fitting", message: "Can you tell me about boot fitting?" },
     ],
+    trustPoints: [
+      { title: "Verified store context", body: "Answers stay grounded in reviewed Acme Outdoors store information and approved links." },
+      { title: "One practical next step", body: "Scout can suggest one useful follow-up question without taking over the conversation." },
+      { title: "No order guessing", body: "Private order details and unsupported claims are handed off instead of invented." },
+      { title: "Human when it matters", body: "When verified store context ends, Scout points you to the official contact path." },
+    ],
     copy: {
       eyebrow: "GUIDED BY VERIFIED STORE CONTEXT",
       heroLead: "Find what you need",

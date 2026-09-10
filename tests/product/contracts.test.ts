@@ -30,6 +30,12 @@ const experience: ExperienceProfile = {
     { label: "Plan a return", message: "How do returns work?" },
     { label: "Ask about fitting", message: "Do you offer boot fitting?" },
   ],
+  trustPoints: [
+    { title: "Verified context", body: "A profile-owned trust point." },
+    { title: "One next step", body: "A second profile-owned trust point." },
+    { title: "No guessing", body: "A third profile-owned trust point." },
+    { title: "Human handoff", body: "A fourth profile-owned trust point." },
+  ],
   copy: {
     eyebrow: "GUIDED BY VERIFIED ACME CONTEXT",
     heroLead: "Find the right gear",

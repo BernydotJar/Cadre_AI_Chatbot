@@ -19,7 +19,7 @@ test("cold-load launcher waits for hydration before opening the first conversati
   try {
     await page.goto("/", { waitUntil: "commit" });
     await expect.poll(() => scriptsHeld).toBeGreaterThan(0);
-    const launcher = page.getByRole("button", { name: /Ask Donna/ }).last();
+    const launcher = page.locator(".donna-launcher");
     await expect(launcher).toBeVisible();
     await expect(launcher).toBeDisabled();
     await expect(page.getByRole("textbox", { name: "Message", exact: true })).toHaveCount(0);

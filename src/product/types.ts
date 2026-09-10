@@ -82,6 +82,10 @@ export const experienceProfileSchema = z.object({
       if (/[\r\n]/.test(value)) ctx.addIssue({ code: "custom", message: "quick prompts must be a single line" });
     }),
   })).min(3).max(5),
+  trustPoints: z.array(z.object({
+    title: z.string().trim().min(1).max(72),
+    body: z.string().trim().min(1).max(240),
+  })).length(4),
   ambientMedia: z.object({
     posterSrc: localPosterPath,
     videoSrc: localVideoPath,

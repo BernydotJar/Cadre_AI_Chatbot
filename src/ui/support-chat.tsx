@@ -380,7 +380,7 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
       <nav className="site-nav" aria-label="Primary">
         {outcomeHighlights.length > 0 && <a href="#outcomes">Outcomes</a>}
         <a href="#how-assistant-works">How {experience.assistantLabel} works</a>
-        <a className="contact-link" href={contact.url} target="_blank" rel="noopener noreferrer">
+        <a className="contact-link" aria-label={experience.copy.contactCta} href={contact.url} target="_blank" rel="noopener noreferrer">
           <span>{experience.copy.contactCta}</span><Arrow diagonal /><span className="sr-only"> (opens in a new tab)</span>
         </a>
       </nav>
@@ -447,12 +447,9 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
           <h2 id="trust-title">{experience.copy.trustTitle}</h2>
           <p>{experience.copy.trustSectionBody}</p>
         </div>
-        <div className="trust-grid">
-          <article><span>01</span><h3>Verified knowledge</h3><p>Public facts and approved links live in typed client configuration with source dates.</p></article>
-          <article><span>02</span><h3>Bounded persona</h3><p>{experience.assistantLabel} can be warm, concise, and proactive without adding pricing, promises, or new facts.</p></article>
-          <article><span>03</span><h3>Deterministic guardrails</h3><p>Pricing, private-account, and unsupported-claim boundaries are decided before model-assisted fact ordering.</p></article>
-          <article><span>04</span><h3>Human handoff</h3><p>When verified context ends, the official {clientName} contact path takes over instead of a guess.</p></article>
-        </div>
+        <div className="trust-grid">{experience.trustPoints.map((point, index) => <article key={point.title}>
+          <span>0{index + 1}</span><h3>{point.title}</h3><p>{point.body}</p>
+        </article>)}</div>
       </section>
       <noscript><div className="noscript-note">Chat needs JavaScript. You can still use the official contact link above.</div></noscript>
     </main>
@@ -469,7 +466,7 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
           {primaryPrompt.label} <Arrow />
         </button>}
       </div>}
-      <button ref={launcher} type="button" className="donna-launcher" disabled={!ready} aria-expanded="false" aria-controls="donna-chat" onClick={() => { setChatOpen(true); setNudgeDismissed(true); }}>
+      <button ref={launcher} type="button" className="donna-launcher" aria-label={`Ask ${experience.assistantLabel}`} disabled={!ready} aria-expanded="false" aria-controls="donna-chat" onClick={() => { setChatOpen(true); setNudgeDismissed(true); }}>
         <PersonaAvatar experience={experience} />
         <span className="launcher-copy"><strong>Ask {experience.assistantLabel}</strong><small>{experience.copy.launcherHint}</small></span>
         <Arrow />

@@ -1055,6 +1055,9 @@
     padding:26px 22px 32px;
     border-radius:20px
   }
+  .intro-copy{
+    padding-top:64px
+  }
   .intro h1{
     font-size:clamp(54px,15vw,84px);
     line-height:.9

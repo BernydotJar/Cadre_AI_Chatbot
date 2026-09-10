@@ -69,6 +69,12 @@ const cadreDonnaProfile: ChatbotProductProfile = {
       { label: "Track AI results", message: "How does Cadre help clients track AI tools, agents, training, and results?" },
       { label: "Check AI readiness", message: "How does the AI Maturity Index work?" },
     ],
+    trustPoints: [
+      { title: "Verified Cadre context", body: "Answers stay grounded in reviewed public Cadre information and approved links." },
+      { title: "One useful next step", body: "Donna can suggest one relevant follow-up question when it helps — and stops when you ask." },
+      { title: "No guessing", body: "Pricing, private account actions, and unsupported claims are handed off instead of invented." },
+      { title: "Human when it matters", body: "When verified context ends, Donna points you to the official Cadre team." },
+    ],
     ambientMedia: {
       posterSrc: "/media/donna-ambient-poster.webp",
       videoSrc: "/media/donna-ambient-loop.mp4",
