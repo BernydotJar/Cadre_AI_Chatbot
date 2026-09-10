@@ -142,6 +142,10 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
   const [messages, setMessages] = useState<Message[]>([]);
   const [chatOpen, setChatOpen] = useState(false);
   const [nudgeDismissed, setNudgeDismissed] = useState(false);
+  const [invitationIndex, setInvitationIndex] = useState(0);
+  const [invitationHovered, setInvitationHovered] = useState(false);
+  const [invitationFocused, setInvitationFocused] = useState(false);
+  const [invitationRotationAllowed, setInvitationRotationAllowed] = useState(false);
   const [draft, setDraft] = useState("");
   const [pending, setPending] = useState(false);
   const [failed, setFailed] = useState<FailedTurn | null>(null);
@@ -163,6 +167,26 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
     active.current = null;
     operation?.controller.abort();
   }, []);
+
+  useEffect(() => {
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => {
+      setInvitationRotationAllowed(!query.matches);
+      if (query.matches) setInvitationIndex(0);
+    };
+    sync();
+    query.addEventListener("change", sync);
+    return () => query.removeEventListener("change", sync);
+  }, []);
+
+  useEffect(() => {
+    if (chatOpen || invitationHovered || invitationFocused || !invitationRotationAllowed
+      || experience.quickPrompts.length < 2 || invitationIndex >= experience.quickPrompts.length - 1) return;
+    const timer = window.setTimeout(() => {
+      setInvitationIndex((current) => Math.min(current + 1, experience.quickPrompts.length - 1));
+    }, 5_200);
+    return () => window.clearTimeout(timer);
+  }, [chatOpen, experience.quickPrompts.length, invitationFocused, invitationHovered, invitationIndex, invitationRotationAllowed]);
 
   function closeChat() {
     setChatOpen(false);
@@ -327,8 +351,12 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
   const outcomeHighlights = publicHighlights.filter((highlight) => highlight.kind === "outcome");
   const proofHighlight = publicHighlights.find((highlight) => highlight.kind === "proof");
   const productHighlight = publicHighlights.find((highlight) => highlight.kind === "product");
-  const primaryPrompt = experience.quickPrompts[0];
   const resultsPrompt = experience.quickPrompts.find((prompt) => /track|results/i.test(`${prompt.label} ${prompt.message}`));
+  const invitationPrompt = experience.quickPrompts.length > 0
+    ? experience.quickPrompts[invitationIndex % experience.quickPrompts.length]
+    : undefined;
+  const invitationPosition = invitationPrompt
+    ? `${(invitationIndex % experience.quickPrompts.length) + 1} / ${experience.quickPrompts.length}` : "";
 
   const themeStyle = {
     "--bg": experience.theme.background,
@@ -456,19 +484,44 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
 
     <footer className="site-footer"><span>{experience.copy.footerLead}</span><span>{clientName} · {experience.copy.footerTail}</span></footer>
 
-    {!chatOpen && <aside className="donna-launcher-stack" aria-label={`${experience.assistantLabel} chat invitation`}>
+    {!chatOpen && <aside
+      className="donna-launcher-stack"
+      aria-label={`${experience.assistantLabel} chat invitation`}
+      data-invitation-index={invitationPrompt ? invitationIndex % experience.quickPrompts.length : 0}
+      onPointerEnter={() => setInvitationHovered(true)}
+      onPointerLeave={() => setInvitationHovered(false)}
+      onFocusCapture={() => setInvitationFocused(true)}
+      onBlurCapture={(event) => {
+        const next = event.relatedTarget;
+        if (!(next instanceof Node) || !event.currentTarget.contains(next)) setInvitationFocused(false);
+      }}
+    >
       {!nudgeDismissed && <div className="donna-nudge">
         <button type="button" className="nudge-dismiss" aria-label={`Dismiss ${experience.assistantLabel} suggestion`} onClick={() => setNudgeDismissed(true)}>×</button>
-        <p className="nudge-kicker">{experience.copy.nudgeKicker}</p>
-        <strong>{proofHighlight?.title ?? experience.copy.trustLabel}</strong>
-        <p>{proofHighlight?.body ?? experience.copy.trustBody}</p>
-        {primaryPrompt && <button type="button" className="nudge-action" disabled={!ready} onClick={() => send(primaryPrompt.message)}>
-          {primaryPrompt.label} <Arrow />
-        </button>}
+        <div className="nudge-heading">
+          <PersonaAvatar experience={experience} compact />
+          <div>
+            <p className="nudge-kicker">{experience.copy.nudgeKicker}</p>
+            <strong data-testid="nudge-suggestion-label">{invitationPrompt?.label ?? experience.copy.trustLabel}</strong>
+          </div>
+        </div>
+        <p className="nudge-question" data-testid="nudge-suggestion-message">
+          {invitationPrompt?.message ?? experience.copy.trustBody}
+        </p>
+        {invitationPrompt && <div className="nudge-action-row">
+          <button type="button" className="nudge-action" aria-label={`Ask ${experience.assistantLabel}: ${invitationPrompt.label}`} disabled={!ready} onClick={() => send(invitationPrompt.message)}>
+            Ask this <Arrow />
+          </button>
+          <span className="nudge-position" aria-hidden="true">{invitationPosition}</span>
+        </div>}
+        {proofHighlight && <div className="nudge-proof">
+          <span>Verified context</span>
+          <strong>{proofHighlight.title}</strong>
+        </div>}
       </div>}
       <button ref={launcher} type="button" className="donna-launcher" aria-label={`Ask ${experience.assistantLabel}`} disabled={!ready} aria-expanded="false" aria-controls="donna-chat" onClick={() => { setChatOpen(true); setNudgeDismissed(true); }}>
         <PersonaAvatar experience={experience} />
-        <span className="launcher-copy"><strong>Ask {experience.assistantLabel}</strong><small>{experience.copy.launcherHint}</small></span>
+        <span className="launcher-copy"><strong>Ask {experience.assistantLabel}</strong><small data-testid="launcher-suggestion">{invitationPrompt ? `Try: ${invitationPrompt.label}` : experience.copy.launcherHint}</small></span>
         <Arrow />
       </button>
     </aside>}

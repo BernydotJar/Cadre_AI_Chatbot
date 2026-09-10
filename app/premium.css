@@ -587,29 +587,50 @@
   font-size:22px;
   line-height:1
 }
+.nudge-heading{
+  display:grid;
+  grid-template-columns:36px minmax(0,1fr);
+  align-items:center;
+  gap:11px;
+  margin:0 0 10px;
+  padding-right:26px
+}
+.nudge-heading>.persona-avatar{
+  width:36px;
+  flex-basis:36px
+}
+.nudge-heading>div{
+  min-width:0
+}
 .nudge-kicker{
-  margin:0 0 7px!important;
+  margin:0 0 3px!important;
   color:var(--accent-dark)!important;
   font-size:9px!important;
   font-weight:820!important;
   letter-spacing:.15em!important
 }
-.donna-nudge>strong{
+.nudge-heading strong{
   display:block;
-  margin:0 0 7px;
-  font-size:18px;
-  line-height:1.1;
-  letter-spacing:-.035em
+  font-size:16px;
+  line-height:1.12;
+  letter-spacing:-.03em
 }
-.donna-nudge>p{
+.nudge-question{
+  min-height:57px;
   margin:0;
   color:var(--muted);
   font-size:12px;
   line-height:1.58
 }
+.nudge-action-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:9px
+}
 .nudge-action{
   min-height:44px;
-  margin-top:12px;
   padding:0;
   border:0;
   background:transparent;
@@ -622,6 +643,33 @@
 }
 .nudge-action:hover{
   color:var(--text)
+}
+.nudge-position{
+  color:var(--muted);
+  font-size:10px;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:.08em
+}
+.nudge-proof{
+  display:flex;
+  align-items:baseline;
+  gap:8px;
+  margin-top:8px;
+  padding-top:10px;
+  border-top:1px solid rgba(35,31,29,.09)
+}
+.nudge-proof span{
+  color:var(--accent-dark);
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase
+}
+.nudge-proof strong{
+  color:var(--muted-strong);
+  font-size:11px;
+  font-weight:700;
+  line-height:1.35
 }
 .donna-launcher{
   position:relative;

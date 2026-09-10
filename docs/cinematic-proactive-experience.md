@@ -1,6 +1,6 @@
 # Cinematic + proactive Donna experience
 
-Status: PX6 producer implementation in progress on 2026-09-09. This document defines the product boundary; Graph evidence decides release status.
+Status: PX6 revision 13 RUNNING on 2026-09-10 for a final invitation-polish repair. This document defines the product boundary; Graph evidence decides release status.
 
 ## Product intent
 
@@ -28,7 +28,7 @@ The results proposition remains bounded: Cadre publicly describes a centralized 
 
 There are two bounded proactive surfaces:
 
-1. **Before chat:** the launcher may show one verified public fact and one configured suggested question. It does not infer personal intent or read page/account data.
+1. **Before chat:** the floating invitation reuses Donna's profile-driven avatar and the already-validated `ExperienceProfile.quickPrompts`. While chat is closed, the launcher and nudge may advance through those configured labels/messages on a bounded cadence for at most one pass, then stop so a visitor can see concrete things to ask. The nudge keeps the reviewed proof highlight separate as verified context. Rotation makes no API/model call, reads no page/account data, does not personalize, pauses while the invitation is hovered or keyboard-focused, and stays on the first prompt when `prefers-reduced-motion: reduce` is active. Clicking the nudge sends the exact configured prompt through the existing `send()` path.
 2. **After a grounded answer:** Donna may append at most one exact configured diagnostic question. Existing opt-out language such as `just answer` or `no follow-up` suppresses it.
 
 Pricing and unsupported claims never become model-led sales copy. Core policy first classifies the request. For pricing, the client-owned response may acknowledge business economics and verified Cadre outcome framing while explicitly stating that no verified price list/rate card is available. Persona may prepend one short empathy lead. The official contact link is still the only handoff.
@@ -40,7 +40,7 @@ Donna uses an original CSS signal orb with two states:
 - `idle`: slow breathing motion to signal availability;
 - `shaping`: a faster bounded deformation while a request is in flight.
 
-The launcher has one restrained glare sweep. These are the only new PX6 motion effects. The pre-existing local hero video remains the cinematic media layer. `prefers-reduced-motion` disables orb/glare animation and keeps the poster-only hero behavior.
+The launcher has one restrained glare sweep. These remain the only PX6 motion effects. Revision 13's suggestion cycling is a discrete application-state change, not a new CSS animation; reduced-motion preference also keeps that suggestion state static. The pre-existing local hero video remains the cinematic media layer. `prefers-reduced-motion` disables orb/glare animation and keeps the poster-only hero behavior.
 
 At `<=430px`, the floating launcher intentionally collapses to the signal orb only: visual launcher text is hidden to preserve the compact control, and the button's `aria-label` remains the authoritative accessible name.
 

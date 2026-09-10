@@ -24,10 +24,15 @@ test("first impression feels like a Cadre page with an inviting Donna product", 
   await expect(page.getByRole("heading", { name: "Track your AI results" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Useful by design. Bounded on purpose." })).toBeVisible();
   await expect(page.locator(".contact-link")).toHaveAccessibleName("Talk to an AI Strategist");
-  await expect(page.locator(".donna-nudge")).toContainText("100+ high-ROI use cases");
+  const nudge = page.locator(".donna-nudge");
+  await expect(nudge).toContainText("100+ high-ROI use cases");
+  await expect(nudge.locator('.persona-avatar[data-avatar-style="signal-orb"]')).toBeVisible();
+  await expect(page.getByTestId("nudge-suggestion-label")).toHaveText("Find a high-ROI starting point");
+  await expect(page.getByTestId("nudge-suggestion-message")).toHaveText("Where could Cadre AI help my business drive revenue or reduce repetitive work?");
   const launcher = page.locator(".donna-launcher");
   await expect(launcher).toBeVisible();
   await expect(launcher.locator('.persona-avatar[data-avatar-style="signal-orb"]')).toBeVisible();
+  await expect(page.getByTestId("launcher-suggestion")).toHaveText("Try: Find a high-ROI starting point");
   await launcher.click();
   await expect(page.getByRole("heading", { name: "Donna", exact: true })).toBeVisible();
   await expect(page.locator(".chat-header .persona-avatar")).toHaveAttribute("data-avatar-style", "signal-orb");
@@ -39,6 +44,58 @@ test("first impression feels like a Cadre page with an inviting Donna product", 
   await expect(reply).toContainText("What would you like to explore?");
   await expect(reply).toContainText("AI Maturity Index");
   await expect(reply.locator("a")).toHaveCount(0);
+});
+
+test("pre-chat invitation rotates configured prompts without background chat traffic and pauses on interaction", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.clock.install();
+  let calls = 0;
+  const requests: { messages?: { content?: string }[] }[] = [];
+  await page.route("**/api/chat", async (route) => {
+    calls += 1;
+    requests.push(route.request().postDataJSON() as { messages?: { content?: string }[] });
+    await route.fulfill({ json: { reply: "A grounded answer.", kind: "grounded" } });
+  });
+  await page.reload();
+
+  const stack = page.locator(".donna-launcher-stack");
+  const nudge = page.locator(".donna-nudge");
+  const label = page.getByTestId("nudge-suggestion-label");
+  const message = page.getByTestId("nudge-suggestion-message");
+  await expect(stack).toHaveAttribute("data-invitation-index", "0");
+  await expect(label).toHaveText("Find a high-ROI starting point");
+  expect(calls).toBe(0);
+
+  await page.clock.fastForward(5_300);
+  await expect(stack).toHaveAttribute("data-invitation-index", "1");
+  await expect(label).toHaveText("Show me AI agents for my team");
+  await expect(message).toHaveText("What kinds of AI agents does Cadre build for different teams?");
+  await expect(page.getByTestId("launcher-suggestion")).toHaveText("Try: Show me AI agents for my team");
+  expect(calls).toBe(0);
+
+  await nudge.hover();
+  await page.clock.fastForward(6_000);
+  await expect(stack).toHaveAttribute("data-invitation-index", "1");
+  await page.mouse.move(0, 0);
+
+  const secondAction = page.getByRole("button", { name: "Ask Donna: Show me AI agents for my team" });
+  await secondAction.focus();
+  await page.clock.fastForward(6_000);
+  await expect(stack).toHaveAttribute("data-invitation-index", "1");
+  await page.locator(".contact-link").focus();
+
+  await page.clock.fastForward(5_300);
+  await expect(stack).toHaveAttribute("data-invitation-index", "2");
+  await expect(label).toHaveText("Track AI results");
+  const exactPrompt = "How does Cadre help clients track AI tools, agents, training, and results?";
+  await expect(message).toHaveText(exactPrompt);
+  expect(calls).toBe(0);
+
+  await page.getByRole("button", { name: "Ask Donna: Track AI results" }).click();
+  await expect(messages(page, "user")).toHaveCount(1);
+  await expect(messages(page, "user").first()).toContainText(exactPrompt);
+  await expect.poll(() => calls).toBe(1);
+  expect(requests[0]?.messages?.at(-1)?.content).toBe(exactPrompt);
 });
 
 test("floating Donna closes with Escape and restores launcher focus", async ({ page }) => {
@@ -74,12 +131,18 @@ test("new PX6 chat controls preserve 44px touch targets", async ({ page, isMobil
 
 test("reduced motion disables the new orb and glare animations", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.clock.install();
   await page.reload();
   const launcher = page.locator(".donna-launcher");
+  const invitation = page.locator(".donna-launcher-stack");
   await expect(launcher).toBeVisible();
+  await expect(invitation).toHaveAttribute("data-invitation-index", "0");
   const orb = launcher.locator(".donna-orb");
   await expect(orb).toHaveCSS("animation-name", "none");
   expect(await launcher.evaluate((element) => getComputedStyle(element, "::after").animationName)).toBe("none");
+  await page.clock.fastForward(12_000);
+  await expect(invitation).toHaveAttribute("data-invitation-index", "0");
+  await expect(page.getByTestId("launcher-suggestion")).toHaveText("Try: Find a high-ROI starting point");
   await expect(page.locator(".intro-media")).toHaveAttribute("data-motion", "poster");
 });
 
