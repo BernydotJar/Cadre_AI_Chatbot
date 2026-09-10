@@ -1,0 +1,100 @@
+PX6 r12 public full Playwright matrix — rate-aware two-window execution
+release_sha=80438863ee91e18fcc4fb070e360e9754b52e887
+base=https://cadre-ai-chatbot-tawny.vercel.app
+reason=production intentionally limits one client IP to 10 requests/60s; single-invocation 68-case run reaches 429 at mobile ordinal follow-up
+started=2026-09-10T06:59:37Z
+
+== fresh window before desktop ==
+== desktop project: all 34 cases ==
+
+> cadre-ai-chatbot@0.1.0 test:e2e
+> playwright test --config=playwright.config.ts --project=desktop
+
+
+Running 34 tests using 1 worker
+
+  ✓   1 [desktop] › e2e/chat.spec.ts:17:5 › first impression feels like a Cadre page with an inviting Donna product (1.9s)
+  ✓   2 [desktop] › e2e/chat.spec.ts:44:5 › floating Donna closes with Escape and restores launcher focus (726ms)
+  ✓   3 [desktop] › e2e/chat.spec.ts:53:5 › new PX6 chat controls preserve 44px touch targets (1.5s)
+  ✓   4 [desktop] › e2e/chat.spec.ts:75:5 › reduced motion disables the new orb and glare animations (1.3s)
+  ✓   5 [desktop] › e2e/chat.spec.ts:86:5 › ambient media is local, muted, bounded, and presentation-only (1.3s)
+  ✓   6 [desktop] › e2e/chat.spec.ts:112:5 › reduced motion keeps the static poster and never mounts the ambient video (1.1s)
+  ✓   7 [desktop] › e2e/chat.spec.ts:123:5 › ambient motion control never obscures the hero across responsive widths (1.8s)
+  ✓   8 [desktop] › e2e/chat.spec.ts:154:5 › anonymous conversation uses the real server and official links (3.4s)
+  ✓   9 [desktop] › e2e/chat.spec.ts:171:5 › Donna presentation handles one configured next step and an opt-out (853ms)
+  ✓  10 [desktop] › e2e/chat.spec.ts:193:5 › all six entry points are present and clarification preserves an ordinal follow-up (2.4s)
+  ✓  11 [desktop] › e2e/chat.spec.ts:208:5 › loading is announced and rapid Enter cannot duplicate a request (918ms)
+  ✓  12 [desktop] › e2e/chat.spec.ts:228:5 › Donna visibly shapes while a grounded request is in flight (750ms)
+  ✓  13 [desktop] › e2e/chat.spec.ts:244:5 › pricing is empathetic and commercially aware without inventing a rate (985ms)
+  ✓  14 [desktop] › e2e/chat.spec.ts:255:5 › retry preserves the failed turn and does not duplicate history (951ms)
+  ✓  15 [desktop] › e2e/chat.spec.ts:273:5 › network failure has a safe retry path (925ms)
+  ✓  16 [desktop] › e2e/chat.spec.ts:282:5 › cancelling prevents a late response from appearing and preserves a retry (790ms)
+  ✓  17 [desktop] › e2e/chat.spec.ts:304:5 › malformed responses produce a recoverable safe error (723ms)
+  ✓  18 [desktop] › e2e/chat.spec.ts:313:5 › model text is inert and only exact approved URLs become links (720ms)
+  ✓  19 [desktop] › e2e/chat.spec.ts:326:5 › blank input, multiline entry, and IME composition do not send accidentally (748ms)
+  ✓  20 [desktop] › e2e/chat.spec.ts:341:5 › new conversation clears local state without persistence (805ms)
+  ✓  21 [desktop] › e2e/chat.spec.ts:353:5 › viewport has no horizontal overflow and primary controls are reachable (851ms)
+  ✓  22 [desktop] › e2e/chat.spec.ts:364:5 › long conversations and composer input remain bounded (1.8s)
+  ✓  23 [desktop] › e2e/chat.spec.ts:388:5 › long inert response remains within the mobile viewport with reduced motion (835ms)
+  ✓  24 [desktop] › e2e/chat.spec.ts:397:5 › a new conversation cannot be overwritten by an older in-flight response (785ms)
+  ✓  25 [desktop] › e2e/chat.spec.ts:421:5 › reading earlier messages is respected until Jump to latest is used (934ms)
+  ✓  26 [desktop] › e2e/chat.spec.ts:443:5 › welcome starts at the top and reset restores that position (887ms)
+  ✓  27 [desktop] › e2e/chat.spec.ts:462:5 › keyboard topic activation preserves a stable focus target (910ms)
+  ✓  28 [desktop] › e2e/chat.spec.ts:474:5 › keyboard retry preserves focus without duplicating the user turn (794ms)
+  ✓  29 [desktop] › e2e/chat.spec.ts:493:5 › client deadline yields a saved draft and does not accept late output (835ms)
+  ✓  30 [desktop] › e2e/hydration.spec.ts:3:5 › cold-load launcher waits for hydration before opening the first conversation (957ms)
+  ✓  31 [desktop] › e2e/hydration.spec.ts:43:5 › without JavaScript the public Cadre page and contact route remain usable without fake chat (602ms)
+  ✓  32 [desktop] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 320x568 (999ms)
+  ✓  33 [desktop] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 360x640 (1.0s)
+  ✓  34 [desktop] › e2e/readability.spec.ts:88:5 › important helper and privacy copy remains at least 12px (1.0s)
+
+  34 passed (38.8s)
+
+== fresh window before mobile ==
+== mobile project: all 34 cases ==
+
+> cadre-ai-chatbot@0.1.0 test:e2e
+> playwright test --config=playwright.config.ts --project=mobile
+
+
+Running 34 tests using 1 worker
+
+  ✓   1 [mobile] › e2e/chat.spec.ts:17:5 › first impression feels like a Cadre page with an inviting Donna product (1.5s)
+  ✓   2 [mobile] › e2e/chat.spec.ts:44:5 › floating Donna closes with Escape and restores launcher focus (853ms)
+  ✓   3 [mobile] › e2e/chat.spec.ts:53:5 › new PX6 chat controls preserve 44px touch targets (1.2s)
+  ✓   4 [mobile] › e2e/chat.spec.ts:75:5 › reduced motion disables the new orb and glare animations (1.0s)
+  ✓   5 [mobile] › e2e/chat.spec.ts:86:5 › ambient media is local, muted, bounded, and presentation-only (1.1s)
+  ✓   6 [mobile] › e2e/chat.spec.ts:112:5 › reduced motion keeps the static poster and never mounts the ambient video (1.0s)
+  ✓   7 [mobile] › e2e/chat.spec.ts:123:5 › ambient motion control never obscures the hero across responsive widths (1.8s)
+  ✓   8 [mobile] › e2e/chat.spec.ts:154:5 › anonymous conversation uses the real server and official links (3.4s)
+  ✓   9 [mobile] › e2e/chat.spec.ts:171:5 › Donna presentation handles one configured next step and an opt-out (761ms)
+  ✓  10 [mobile] › e2e/chat.spec.ts:193:5 › all six entry points are present and clarification preserves an ordinal follow-up (1.7s)
+  ✓  11 [mobile] › e2e/chat.spec.ts:208:5 › loading is announced and rapid Enter cannot duplicate a request (730ms)
+  ✓  12 [mobile] › e2e/chat.spec.ts:228:5 › Donna visibly shapes while a grounded request is in flight (806ms)
+  ✓  13 [mobile] › e2e/chat.spec.ts:244:5 › pricing is empathetic and commercially aware without inventing a rate (863ms)
+  ✓  14 [mobile] › e2e/chat.spec.ts:255:5 › retry preserves the failed turn and does not duplicate history (881ms)
+  ✓  15 [mobile] › e2e/chat.spec.ts:273:5 › network failure has a safe retry path (827ms)
+  ✓  16 [mobile] › e2e/chat.spec.ts:282:5 › cancelling prevents a late response from appearing and preserves a retry (875ms)
+  ✓  17 [mobile] › e2e/chat.spec.ts:304:5 › malformed responses produce a recoverable safe error (812ms)
+  ✓  18 [mobile] › e2e/chat.spec.ts:313:5 › model text is inert and only exact approved URLs become links (698ms)
+  ✓  19 [mobile] › e2e/chat.spec.ts:326:5 › blank input, multiline entry, and IME composition do not send accidentally (826ms)
+  ✓  20 [mobile] › e2e/chat.spec.ts:341:5 › new conversation clears local state without persistence (1.1s)
+  ✓  21 [mobile] › e2e/chat.spec.ts:353:5 › viewport has no horizontal overflow and primary controls are reachable (880ms)
+  ✓  22 [mobile] › e2e/chat.spec.ts:364:5 › long conversations and composer input remain bounded (1.7s)
+  ✓  23 [mobile] › e2e/chat.spec.ts:388:5 › long inert response remains within the mobile viewport with reduced motion (721ms)
+  ✓  24 [mobile] › e2e/chat.spec.ts:397:5 › a new conversation cannot be overwritten by an older in-flight response (801ms)
+  ✓  25 [mobile] › e2e/chat.spec.ts:421:5 › reading earlier messages is respected until Jump to latest is used (896ms)
+  ✓  26 [mobile] › e2e/chat.spec.ts:443:5 › welcome starts at the top and reset restores that position (761ms)
+  ✓  27 [mobile] › e2e/chat.spec.ts:462:5 › keyboard topic activation preserves a stable focus target (863ms)
+  ✓  28 [mobile] › e2e/chat.spec.ts:474:5 › keyboard retry preserves focus without duplicating the user turn (1.0s)
+  ✓  29 [mobile] › e2e/chat.spec.ts:493:5 › client deadline yields a saved draft and does not accept late output (695ms)
+  ✓  30 [mobile] › e2e/hydration.spec.ts:3:5 › cold-load launcher waits for hydration before opening the first conversation (843ms)
+  ✓  31 [mobile] › e2e/hydration.spec.ts:43:5 › without JavaScript the public Cadre page and contact route remain usable without fake chat (493ms)
+  ✓  32 [mobile] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 320x568 (986ms)
+  ✓  33 [mobile] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 360x640 (1.1s)
+  ✓  34 [mobile] › e2e/readability.spec.ts:88:5 › important helper and privacy copy remains at least 12px (862ms)
+
+  34 passed (36.3s)
+
+PUBLIC_FULL_MATRIX_RATE_AWARE_PASS=68/68
+finished=2026-09-10T07:03:03Z

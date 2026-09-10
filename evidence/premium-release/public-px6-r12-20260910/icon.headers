@@ -1,0 +1,17 @@
+HTTP/2 200 
+accept-ranges: bytes
+access-control-allow-origin: *
+age: 0
+cache-control: public, max-age=0, must-revalidate
+content-disposition: inline; filename="icon.svg"
+content-type: image/svg+xml
+date: Thu, 10 Sep 2026 06:52:17 GMT
+etag: "685ec79f32accfe3c37057452b661fe8"
+last-modified: Thu, 10 Sep 2026 06:52:17 GMT
+server: Vercel
+strict-transport-security: max-age=63072000; includeSubDomains; preload
+x-matched-path: /icon.svg
+x-vercel-cache: MISS
+x-vercel-id: iad1::zdwpt-1789023137287-8b4a2160d293
+content-length: 374
+

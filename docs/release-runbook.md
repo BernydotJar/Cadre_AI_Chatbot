@@ -11,9 +11,9 @@ Core N6 production verification and the separate Donna productization release ar
 | Core N6 release | **DONE** | Existing production alias reverified for the prior core line; release-check PASS and package check PASS |
 | Donna productization P1–P3 | **DONE + public PASS** | all gates PASS; 279/279 Vitest; 52/52 local + clean public Playwright; deployment `dpl_DMA3WxfAfMgwc7kZLueKctx6kfsy` on existing project |
 | G10 CI/CD deploy-check | **BLOCKED only for automated CD** | product/public delivery PASS; GitHub `production` still lacks the existing-project Vercel org/project/token binding |
-| GitHub remote activation | **ACTIVE; latest published PX6 line is historical** | pre-r11 source `69c590b` passed CI run `34442075458`; r12 is now DONE locally and must be published as a new exact closure SHA before CI/deploy/public equivalence. |
+| GitHub remote activation | **ACTIVE + r12 CI PASS** | exact runtime source `8043886` published through the audited path; CI run `34446809913` PASS. |
 | Premium PX2–PX5 | **DONE at PX5 revision 4 / public PASS** | repaired source `8ae8a3a` deployed on existing project; anonymous smoke + **58/58** public Playwright PASS; revision-3 57/58 failure retained |
-| Premium PX6 | **DONE locally at revision 12 / public release pending** | all three fresh r12 premium gates PASS; detached verifier **302/302 Vitest + 68/68 Playwright + 73/73 extension tests + 24/24 synthetic browser**; existing-project Vercel prebuild PASS with zero tracked drift. Publish/CI/deploy exact closure SHA, then require current public markers + full anonymous **68/68** Playwright. |
+| Premium PX6 | **DONE revision 12 + PUBLIC PASS** | exact runtime source `8043886`; CI `34446809913` PASS; existing-project deployment `dpl_FGqGheG1GSx8EmUEJvd4rhEsdKYh`; anonymous markers PASS; local 302/302 Vitest + 68/68 Playwright + 73/73 extension + 24/24 synthetic; public **68/68** PASS using two fresh client-rate windows. Two monolithic 67/68 429 runs retained. |
 | G9 Chrome preview | DONE | No further action required for core release |
 | G11 n8n contract | DONE | Real email delivery is optional and not a core release requirement |
 
@@ -114,13 +114,16 @@ The workflow already checks these. Retain its receipt.
 
 ## 6. Run public browser verification
 
-Once the deployment URL is known and approved:
+Once the deployment URL is known and approved, remember that production intentionally limits one client IP to 10 requests per 60 seconds. A single monolithic desktop+mobile external invocation can therefore test the limiter rather than the later browser case. Do **not** raise the limit, add a bypass, or weaken tests for verification. Run the complete project set in separate fresh windows:
 
 ```sh
-E2E_BASE_URL=https://THE-VERIFIED-DEPLOYMENT npm run test:e2e
+sleep 65
+E2E_BASE_URL=https://THE-VERIFIED-DEPLOYMENT npm run test:e2e -- --project=desktop
+sleep 65
+E2E_BASE_URL=https://THE-VERIFIED-DEPLOYMENT npm run test:e2e -- --project=mobile
 ```
 
-External-server mode can reach the real API/provider. Confirm inference budget/authorization before running it. Keep local intercepted browser evidence and public browser evidence labeled separately.
+This is still the complete current matrix: all desktop and all mobile cases. If a monolithic run receives 429, retain that FAIL and confirm the UI preserves the message/retry path rather than relabeling it. External-server mode can reach the real API/provider; confirm inference authorization and keep local/intercepted/public evidence separate.
 
 ## 7. Optional bounded live inference
 

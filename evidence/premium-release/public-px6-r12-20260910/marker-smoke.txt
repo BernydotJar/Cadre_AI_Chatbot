@@ -1,0 +1,57 @@
+PX6 revision 12 public marker smoke
+release_sha=80438863ee91e18fcc4fb070e360e9754b52e887
+alias=https://cadre-ai-chatbot-tawny.vercel.app
+immutable=https://cadre-ai-chatbot-k9yc245h3-cadre-ai3.vercel.app
+github_ci_run=34446809913
+started=2026-09-10T06:52:13Z
+
+== immutable deployment inspect ==
+Vercel CLI 59.12.0 (Node.js 22.23.2)
+Fetching deployment "cadre-ai-chatbot-k9yc245h3-cadre-ai3.vercel.app" in cadre-ai3
+> Fetched deployment "cadre-ai-chatbot-k9yc245h3-cadre-ai3.vercel.app" in cadre-ai3 [421ms]
+
+  General
+
+    id		dpl_FGqGheG1GSx8EmUEJvd4rhEsdKYh
+    name	cadre-ai-chatbot
+    target	production
+    status	● Ready
+    url		https://cadre-ai-chatbot-k9yc245h3-cadre-ai3.vercel.app
+    created	Thu Sep 10 2026 06:51:43 GMT+0000 (Coordinated Universal Time) [32s ago]
+
+
+  Aliases
+
+    ╶ https://cadre-ai-chatbot-tawny.vercel.app
+    ╶ https://cadre-ai-chatbot-cadre-ai3.vercel.app
+    
+
+  Builds
+
+    ┌ .        [0ms]
+    ├── λ index (707.74KB) [iad1]
+    ├── λ index.rsc (707.74KB) [iad1]
+    ├── λ _global-error (704.52KB) [iad1]
+    ├── λ _global-error.rsc (704.52KB) [iad1]
+    ├── λ _global-error.segments/__PAGE__.segment.rsc (704.52KB) [iad1]
+    └── 12 output items hidden
+    
+
+
+== health ==
+{"status":"ok"}
+== root markers ==
+PASS marker: Donna | Cadre AI
+PASS marker: data-product="cadre-donna"
+PASS marker: From AI curiosity
+PASS marker: Track your AI results
+PASS marker: Ask Donna
+PASS stale marker absent
+
+== icon ==
+PASS icon svg
+
+== deterministic hello ==
+{"reply":"Hi - I can help you explore Cadre AI's services, industries, AI agents, the AI Maturity Index, client access guidance, or how to talk with an AI strategist. What would you like to explore?","kind":"greeting"}
+PASS hello kind=greeting
+finished=2026-09-10T06:52:18Z

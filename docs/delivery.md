@@ -1,6 +1,6 @@
 # Source delivery and review
 
-The delivery is the public web app plus a lightweight source ZIP with usable Git history. The optional Chrome Integration Preview is DONE in its separate graph and generated `extension/dist` remains excluded; the optional n8n handoff contract is tracked source but is not evidence of real email delivery. The currently deployed PX5 app is a verified rollback baseline, while the active PX6 source remains RUNNING until its own final gates/public equivalence pass. Build the final ZIP only from the eventual PX6 closure commit so the package and public runtime describe the same product line. Preparation does not authorize external upload/submission or Web Store publication.
+The delivery is the public PX6 revision-12 web app plus a lightweight source ZIP with usable Git history. Runtime source `8043886` is deployed and publicly verified at `https://cadre-ai-chatbot-tawny.vercel.app`; deployment `dpl_FGqGheG1GSx8EmUEJvd4rhEsdKYh`. The optional Chrome Integration Preview is DONE in its separate graph and generated `extension/dist` remains excluded; the optional n8n handoff contract is tracked source but is not evidence of real email delivery. The final ZIP may include a later **documentation/evidence-only** closure commit after `8043886`; that does not create a new runtime release as long as no application/runtime file changed, and the package must record `8043886` as the deployed runtime source. Preparation does not authorize external upload/submission or Web Store publication.
 
 ## Package contents and exclusions
 
