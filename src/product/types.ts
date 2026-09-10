@@ -99,7 +99,7 @@ export const experienceProfileSchema = z.object({
     resultsEyebrow: z.string().min(1),
     trustEyebrow: z.string().min(1),
     trustTitle: z.string().min(1),
-    trustBody: z.string().min(1),
+    trustSectionBody: z.string().min(1),
     nudgeKicker: z.string().min(1),
     launcherHint: z.string().min(1),
     signalLabel: z.string().min(1),

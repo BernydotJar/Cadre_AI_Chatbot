@@ -45,7 +45,7 @@ const acmeScoutProfile: ChatbotProductProfile = {
       resultsEyebrow: "KEEP IT PRACTICAL",
       trustEyebrow: "HOW SCOUT WORKS",
       trustTitle: "Useful store guidance. Clear boundaries.",
-      trustBody: "The experience separates verified store knowledge from Scout's conversational style and keeps private account actions out of chat.",
+      trustSectionBody: "The experience separates verified store knowledge from Scout's conversational style and keeps private account actions out of chat.",
       nudgeKicker: "QUICK TRAIL NOTE",
       launcherHint: "Ask a store question. I'll keep it grounded.",
       signalLabel: "SCOUT · STORE GUIDE",

@@ -42,7 +42,7 @@ const experience: ExperienceProfile = {
     resultsEyebrow: "RESULTS",
     trustEyebrow: "HOW IT WORKS",
     trustTitle: "A reusable trust section.",
-    trustBody: "Fixture-specific trust copy.",
+    trustSectionBody: "Fixture-specific trust copy.",
     nudgeKicker: "QUICK NOTE",
     launcherHint: "Ask a question.",
     signalLabel: "ACME GUIDE",

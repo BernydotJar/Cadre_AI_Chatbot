@@ -440,7 +440,7 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
         <div className="section-heading compact-heading">
           <p className="section-eyebrow">{experience.copy.trustEyebrow}</p>
           <h2 id="trust-title">{experience.copy.trustTitle}</h2>
-          <p>{experience.copy.trustBody}</p>
+          <p>{experience.copy.trustSectionBody}</p>
         </div>
         <div className="trust-grid">
           <article><span>01</span><h3>Verified knowledge</h3><p>Public facts and approved links live in typed client configuration with source dates.</p></article>

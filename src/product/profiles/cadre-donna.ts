@@ -87,7 +87,7 @@ const cadreDonnaProfile: ChatbotProductProfile = {
       resultsEyebrow: "MEASURE WHAT WORKS",
       trustEyebrow: "HOW DONNA WORKS",
       trustTitle: "Useful by design. Bounded on purpose.",
-      trustBody: "The experience separates what Cadre says from how Donna says it, then keeps actions and handoffs explicit.",
+      trustSectionBody: "The experience separates what Cadre says from how Donna says it, then keeps actions and handoffs explicit.",
       nudgeKicker: "HEY — QUICK THOUGHT",
       launcherHint: "Try a question. I'll keep it grounded.",
       signalLabel: "DONNA · CADRE SIGNAL",
