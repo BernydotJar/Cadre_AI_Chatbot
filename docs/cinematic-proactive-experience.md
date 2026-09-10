@@ -44,7 +44,7 @@ The launcher has one restrained glare sweep. These are the only new PX6 motion e
 
 At `<=430px`, the floating launcher intentionally collapses to the signal orb only: visual launcher text is hidden to preserve the compact control, and the button's `aria-label` remains the authoritative accessible name.
 
-The compact chat sheet preserves a 240px minimum conversation region after a conversation starts and may scroll vertically when user text-spacing overrides expand recovery/composer content. This keeps the transcript readable without clipping privacy/retry controls inside a fixed-height mobile sheet. Composer text is at least 16px on mobile to avoid browser zoom/readability regressions.
+The compact chat sheet preserves a 240px minimum conversation region after a conversation starts and only then may the outer sheet scroll vertically when user text-spacing overrides expand recovery/composer content. Before the first send, the outer sheet remains clipped and the welcome transcript is the single vertical scroller, avoiding nested scrolling while keeping the composer outside that scroller. Composer text is at least 16px on mobile to avoid browser zoom/readability regressions.
 
 ## Page structure
 

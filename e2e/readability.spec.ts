@@ -16,6 +16,20 @@ for (const viewport of [{ width: 320, height: 568 }, { width: 360, height: 640 }
       * { line-height: 1.5 !important; letter-spacing: .12em !important; word-spacing: .16em !important; }
       p { margin-bottom: 2em !important; }
     ` });
+    const initialCard = page.locator(".chat-card");
+    const initialTranscript = page.locator(".transcript");
+    await expect(initialCard).toHaveAttribute("data-started", "false");
+    const initialOverflow = await Promise.all([
+      initialCard.evaluate((node) => getComputedStyle(node).overflowY),
+      initialTranscript.evaluate((node) => getComputedStyle(node).overflowY),
+    ]);
+    expect(initialOverflow).toEqual(["hidden", "auto"]);
+    await page.locator(".topic-browser").evaluate((node) => { (node as HTMLDetailsElement).open = true; });
+    const lastTopic = page.getByRole("button", { name: "models and data security", exact: true });
+    await lastTopic.scrollIntoViewIfNeeded();
+    await expect(lastTopic).toBeInViewport({ ratio: 1 });
+    // The composer sits outside the single welcome-state transcript scroller.
+    await expect(input).toBeInViewport({ ratio: 1 });
     const draft = "What services does Cadre AI offer?";
     await input.fill(draft);
     await input.press("Enter");
