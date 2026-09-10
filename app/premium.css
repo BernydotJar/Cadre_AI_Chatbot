@@ -808,7 +808,7 @@
 .conversation-space{
   flex:1 1 auto;
   height:auto;
-  min-height:0
+  min-height:240px
 }
 .transcript{
   padding:22px 18px 24px;
@@ -1131,6 +1131,9 @@
   .chat-card[data-started="false"] .composer textarea{
     min-height:52px
   }
+  .composer textarea{
+    font-size:16px
+  }
   .transcript{
     padding-left:15px;
     padding-right:15px
@@ -1188,7 +1191,9 @@
     right:0;
     bottom:0;
     height:88dvh;
-    border-radius:22px 22px 0 0
+    border-radius:22px 22px 0 0;
+    overflow-y:auto;
+    overscroll-behavior:contain
   }
   .chat-header{
     padding:11px 12px

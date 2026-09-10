@@ -47,7 +47,6 @@ for (const viewport of [{ width: 320, height: 568 }, { width: 360, height: 640 }
     expect(geometry.spaceHeight).toBeGreaterThanOrEqual(240);
     expect(geometry.readableHeight).toBeGreaterThanOrEqual(144);
     expect(geometry.transcriptBottom).toBeLessThanOrEqual(geometry.composerTop + 1);
-    expect(geometry.privacyBottom).toBeLessThanOrEqual(geometry.cardBottom);
     expect(geometry.headerGap).toBeGreaterThanOrEqual(0);
     expect(geometry.titleWidth).toBeGreaterThanOrEqual(40);
     expect(geometry.documentWidth).toBeLessThanOrEqual(geometry.viewportWidth);
@@ -62,6 +61,11 @@ for (const viewport of [{ width: 320, height: 568 }, { width: 360, height: 640 }
     const privacy = page.locator(".privacy-note");
     await privacy.scrollIntoViewIfNeeded();
     await expect(privacy).toBeInViewport({ ratio: 1 });
+    const [privacyBox, cardBox] = await Promise.all([privacy.boundingBox(), page.locator(".chat-card").boundingBox()]);
+    expect(privacyBox).not.toBeNull();
+    expect(cardBox).not.toBeNull();
+    if (privacyBox && cardBox) expect(privacyBox.y + privacyBox.height)
+      .toBeLessThanOrEqual(cardBox.y + cardBox.height + 1);
     await expect(privacy).toContainText("external model service");
     await expect(privacy).toContainText("no chat history after a refresh");
   });
