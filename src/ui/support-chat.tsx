@@ -282,6 +282,11 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
     void requestReply(message, buildRequestHistory(next, clarification.current));
   }
 
+  function retryFailedResponse() {
+    if (!failed) return;
+    void requestReply(failed.message, failed.request);
+  }
+
   function onSubmit(event: FormEvent<HTMLFormElement>) { event.preventDefault(); send(draft); }
   function onKeyDown(event: KeyboardEvent<HTMLTextAreaElement>) {
     if (event.key === "Enter" && !event.shiftKey && !event.nativeEvent.isComposing
@@ -342,7 +347,7 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
       <div className="composer-section">
           {failed && <div className="error-panel">
             <div role="alert"><p>{failed.reason}</p><span>Your message is saved. Edit it below or retry the same message.</span></div>
-            <button type="button" className="retry-button" onClick={() => void requestReply(failed.message, failed.request)}>Retry response <Arrow /></button>
+            <button type="button" className="retry-button" onClick={retryFailedResponse}>Retry response <Arrow /></button>
           </div>}
           <form onSubmit={onSubmit} noValidate>
             <div className={`composer${validation || overLimit ? " composer-invalid" : ""}${pending ? " composer-pending" : ""}`}>
@@ -511,8 +516,8 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
                 <span className="topic-label">{topic.label}</span><Arrow />
               </button>)}</div>
             </details>
-            {modeLabel === "Demo mode" && <p className="demo-note">You're exploring a demo with sample answers. No live model is used.</p>}
-            {modeLabel === "Chat unavailable" && <p className="demo-note">Chat isn't configured right now. You can still reach the team through the contact link.</p>}
+            {modeLabel === "Demo mode" && <p className="demo-note">{"You're exploring a demo with sample answers. No live model is used."}</p>}
+            {modeLabel === "Chat unavailable" && <p className="demo-note">{"Chat isn't configured right now. You can still reach the team through the contact link."}</p>}
           </div> : <>
             {historyTrimmed && <p className="history-note">Showing the most recent messages. Earlier context is limited.</p>}
             <ol className="message-list" aria-label="Messages" aria-busy={pending}>{messages.map((message) => <li
