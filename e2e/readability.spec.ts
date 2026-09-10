@@ -64,6 +64,9 @@ for (const viewport of [{ width: 320, height: 568 }, { width: 360, height: 640 }
 test("important helper and privacy copy remains at least 12px", async ({ page, isMobile }) => {
   await page.route("**/api/chat", (route) => route.fulfill({ status: 503, json: { reply: "Unavailable.", kind: "error" } }));
   await page.goto("/");
+  const launcherHint = page.locator(".launcher-copy small");
+  await expect(launcherHint).toBeVisible();
+  expect(await launcherHint.evaluate((node) => parseFloat(getComputedStyle(node).fontSize))).toBeGreaterThanOrEqual(12);
   await page.getByRole("button", { name: /Ask Donna/ }).last().click();
   const input = page.getByRole("textbox", { name: "Message", exact: true });
   await expect(input).toBeEditable();

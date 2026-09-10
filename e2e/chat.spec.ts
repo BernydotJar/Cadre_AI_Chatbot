@@ -49,6 +49,27 @@ test("floating Donna closes with Escape and restores launcher focus", async ({ p
   await expect(launcher).toBeFocused();
 });
 
+test("new PX6 chat controls preserve 44px touch targets", async ({ page }) => {
+  await page.reload();
+  const assertTarget = async (selector: string) => {
+    const box = await page.locator(selector).boundingBox();
+    expect(box).not.toBeNull();
+    expect(box!.width).toBeGreaterThanOrEqual(44);
+    expect(box!.height).toBeGreaterThanOrEqual(44);
+  };
+
+  await assertTarget(".nudge-dismiss");
+  await page.getByRole("button", { name: /Ask Donna/ }).last().click();
+  await assertTarget(".chat-close");
+
+  await page.route("**/api/chat", (route) => route.fulfill({ json: { reply: "A grounded answer.", kind: "grounded" } }));
+  const input = page.getByRole("textbox", { name: "Message", exact: true });
+  await input.fill("services");
+  await input.press("Enter");
+  await expect(page.getByRole("button", { name: "New conversation" })).toBeVisible();
+  await assertTarget(".reset-button");
+});
+
 test("reduced motion disables the new orb and glare animations", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.reload();

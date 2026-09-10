@@ -373,7 +373,7 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
     <header className="site-header">
       <div className="wordmark"><CompanyMark name={clientName} /><span>{clientName}</span></div>
       <nav className="site-nav" aria-label="Primary">
-        <a href="#what-cadre-does">Outcomes</a>
+        {outcomeHighlights.length > 0 && <a href="#outcomes">Outcomes</a>}
         <a href="#how-assistant-works">How {experience.assistantLabel} works</a>
         <a className="contact-link" href={contact.url} target="_blank" rel="noopener noreferrer">
           <span>{experience.copy.contactCta}</span><Arrow diagonal /><span className="sr-only"> (opens in a new tab)</span>
@@ -409,7 +409,7 @@ export function SupportChat({ productId, clientName, contact, topics, approvedLi
         </div>
       </section>
 
-      {outcomeHighlights.length > 0 && <section id="what-cadre-does" className="outcome-section" aria-labelledby="outcomes-title">
+      {outcomeHighlights.length > 0 && <section id="outcomes" className="outcome-section" aria-labelledby="outcomes-title">
         <div className="section-heading">
           <p className="section-eyebrow">{experience.copy.outcomesEyebrow}</p>
           <h2 id="outcomes-title">{experience.copy.outcomesTitle}</h2>

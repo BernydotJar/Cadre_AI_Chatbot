@@ -86,8 +86,8 @@ describe("Donna one-step initiative", () => {
     expect(body.reply).not.toContain(cadreDonna.persona.proactive.byTopic.overview!.text);
   });
 
-  it("makes pricing warm and commercially aware without inventing a number", async () => {
-    const body = await (await createChatHandler({ product: cadreDonna, env: { CHAT_PROVIDER: "mock" } })(request("Is it costly?"))).json();
+  it.each(["Is it costly?", "pricing"])("makes pricing warm and commercially aware without inventing a number: %s", async (message) => {
+    const body = await (await createChatHandler({ product: cadreDonna, env: { CHAT_PROVIDER: "mock" } })(request(message))).json();
     expect(body.kind).toBe("decline");
     expect(body.reply).toContain("Fair question — the economics matter.");
     expect(body.reply).toContain("drives revenue, profitability, and measurable business impact");
