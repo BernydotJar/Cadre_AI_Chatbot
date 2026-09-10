@@ -1,0 +1,11 @@
+VERDICT: PASS
+
+1. **One-pass termination — confirmed fixed.** `e2e/chat.spec.ts` now drives the fake clock through all four configured prompts (index 0→1→2→3), then advances another 20s while asserting the index and label stay pinned at 3 with `calls` still 0. This closes the prior critic's gap and genuinely demonstrates the "advance then stop" contract, not just a partial sequence.
+
+2. **Exact-prompt submission is proven against config, not DOM text.** The final assertion checks `requests[0]?.messages?.at(-1)?.content === exactPrompt`, where `exactPrompt` is the literal `quickPrompts[3].message` string, and the click target's accessible name (`Ask Donna: Check AI readiness`) uses the prompt *label*, not the message — so the test can't be accidentally satisfied by scraping button text.
+
+3. **Pause-on-interaction correctly covers both hover and focus, with real un-pause.** The spec hovers the nudge (index holds through 6s), unhovers, then separately focuses the action button (index holds through another 6s), then moves focus off-stack via `.contact-link.focus()` before showing the index resumes — this distinguishes hover-pause from focus-pause rather than only exercising one path, and the `onBlurCapture` `relatedTarget`-containment check in `support-chat.tsx` matches that behavior.
+
+4. **Reduced-motion static state is verified with the fake clock, not just a snapshot.** The updated reduced-motion test installs the clock, fast-forwards 12s, and reasserts both `data-invitation-index="0"` and the launcher's `Try: …` text — this rules out a rotation timer silently firing under `prefers-reduced-motion` even though the CSS orb/glare animations are separately disabled.
+
+5. **No blocking issues found; two non-blocking observations only.** (a) `nudge-position` (`"1 / 4"`) is `aria-hidden` and inline in `.nudge-action-row` — no reflow check was run at 320/360px per the r13 diff, so crowding at the narrowest widths is unverified rather than confirmed safe. (b) The `experience.copy.trustLabel`/`trustBody` fallback strings in the nudge heading/body are now dead code for the current Cadre profile (quickPrompts is always non-empty), a minor discrepancy only visible on a hypothetical zero-prompt profile, not a release blocker.
