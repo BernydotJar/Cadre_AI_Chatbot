@@ -76,6 +76,10 @@ test("important helper and privacy copy remains at least 12px", async ({ page, i
   if (!isMobile) {
     await expect(launcherHint).toBeVisible();
     expect(await launcherHint.evaluate((node) => parseFloat(getComputedStyle(node).fontSize))).toBeGreaterThanOrEqual(12);
+  } else {
+    // Under the compact <=430px launcher contract, visual helper copy is
+    // intentionally omitted; the stable aria-label above carries the name.
+    await expect(launcherHint).toBeHidden();
   }
   await launcher.click();
   const input = page.getByRole("textbox", { name: "Message", exact: true });
