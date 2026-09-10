@@ -1,0 +1,26 @@
+PX6 independent clean-worktree verification
+snapshot=df2a5d268841541c69aceb20ca02797d505e6d77
+node=v22.23.2
+npm=10.9.8
+
+== git integrity ==
+dangling blob 29442132d8877438a56ae08c5dedc33acc9178be
+dangling blob 3516378bc22af526a152d04434c558b6190266d3
+dangling blob 1fb8f760110892d71af15f0ba044380e7a1044fa
+dangling blob 6ffa853eabcf6b01da303cd8cb80013cb0ac304c
+dangling blob beceecb4c7dd37a25057e3236da90ccc3207c31a
+
+== locked install ==
+npm warn deprecated eslint@9.39.5: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+
+added 380 packages in 8s
+
+== typecheck ==
+
+> cadre-ai-chatbot@0.1.0 typecheck
+> tsc --noEmit
+
+src/product/fixtures/acme-scout.ts(55,7): error TS1117: An object literal cannot have multiple properties with the same name.
+src/product/profiles/cadre-donna.ts(98,7): error TS1117: An object literal cannot have multiple properties with the same name.
+src/product/types.ts(109,5): error TS1117: An object literal cannot have multiple properties with the same name.
+tests/product/contracts.test.ts(52,5): error TS1117: An object literal cannot have multiple properties with the same name.
