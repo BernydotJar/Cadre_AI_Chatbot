@@ -22,7 +22,7 @@ The runtime still composes three independent layers:
 
 The page may render only `ClientConfig.publicHighlights`. Current Cadre highlights cover three public business outcomes, the published 100+ high-ROI / 50+ companies proof statement, and the public `Track your AI results` proposition. Every optional highlight link must pass the same official-domain allowlist as chat links.
 
-The results proposition remains bounded: Cadre publicly describes a centralized portal for tools, agents, training, and results, but this app does not invent a portal URL or claim account access. The approved next step remains the public Cadre contact route until a public portal URL is verified.
+The results proposition remains bounded: Cadre publicly describes a centralized portal for tools, agents, training, and results. As of the 2026-09-10 source-freshness repair, the highlight's "Get Your AI Results" link uses the actual published CTA destination (`https://portal.gocadre.ai/ai-maturity-index`, with the exact `portal.gocadre.ai` host delegated via `ClientConfig.additionalOfficialDomains`) — a public AI Maturity Index entry point, not a verified private client-login/account portal. This app still does not invent or claim a private account-portal address; account-specific access remains routed to the official Cadre contact link.
 
 ## Proactive conversation contract
 

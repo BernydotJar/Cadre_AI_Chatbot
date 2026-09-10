@@ -29,18 +29,20 @@ describe("official knowledge refresh — six-topic boundary", () => {
     if (route.kind === "match") expect(route.entry.topic).toBe("portal");
   });
 
-  it("explains the portal without inventing access", () => {
+  it("explains the portal without inventing account access, distinguishing the public results entry point from a private login", () => {
     const reply = respond([{ role: "user", content: "client portal" }], cadre);
     expect(reply.text).toContain("tools, agents, training, and results");
     expect(reply.text).toContain("does not have access");
-    expect(reply.text).toContain("no public portal address is verified");
+    expect(reply.text).toContain("no private client-login address is verified");
+    expect(reply.text).toContain("not a private client login");
     expect(reply.links).toEqual([cadre.contact]);
   });
 
-  it("explains assessment results without issuing a score or timeline", () => {
+  it("explains assessment results without issuing a score or an invented turnaround", () => {
     const reply = respond([{ role: "user", content: "maturity index" }], cadre);
     expect(reply.text).toContain("grade for each area");
-    expect(reply.text).toContain("scoring weights and assessment duration are not verified");
+    expect(reply.text).toContain("scoring weights beyond the eight-pillar framework are not verified");
+    expect(reply.text).toContain("about 10 minutes");
     expect(reply.text).toContain("cannot run the assessment or produce a score");
     expect(reply.text).not.toMatch(/45.day|your score is/i);
   });

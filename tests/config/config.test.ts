@@ -5,16 +5,39 @@ import { validateClientConfig } from "@/config/types";
 import { respond } from "@/core/policy";
 
 describe("client config invariants", () => {
-  it("Cadre config validates with unique topics and on-domain links", () => {
+  it("Cadre config validates with unique topics and on-domain links (primary or explicitly delegated)", () => {
     expect(() => validateClientConfig(cadre)).not.toThrow();
+    const allowedHosts = [
+      new URL(cadre.officialDomain).hostname,
+      ...(cadre.additionalOfficialDomains ?? []).map((url) => new URL(url).hostname),
+    ];
+    expect(allowedHosts).toEqual(["cadre.ai", "portal.gocadre.ai"]);
     const links = [
       cadre.contact,
       ...cadre.knowledge.flatMap((entry) => entry.approvedLinks),
       ...(cadre.publicHighlights ?? []).flatMap((highlight) => highlight.link ? [highlight.link] : []),
     ];
     for (const link of links) {
-      expect(new URL(link.url).hostname).toBe("cadre.ai");
+      const host = new URL(link.url).hostname;
+      expect(allowedHosts.some((allowed) => host === allowed || host.endsWith(`.${allowed}`))).toBe(true);
     }
+    expect(links.some((link) => new URL(link.url).hostname === "portal.gocadre.ai")).toBe(true);
+  });
+
+  it("approves a link on an explicitly delegated additional official domain, but not an undeclared look-alike", () => {
+    const good = structuredClone(cadre);
+    good.knowledge[0]!.approvedLinks.push({
+      label: "Delegated subdomain",
+      url: "https://portal.gocadre.ai/some-page",
+    });
+    expect(() => validateClientConfig(good)).not.toThrow();
+
+    const bad = structuredClone(cadre);
+    bad.knowledge[0]!.approvedLinks.push({
+      label: "Sibling host, not explicitly delegated",
+      url: "https://other.gocadre.ai/steal",
+    });
+    expect(() => validateClientConfig(bad)).toThrow(/official domain/);
   });
 
   it("every knowledge entry declares provenance", () => {

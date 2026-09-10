@@ -1,6 +1,6 @@
 # Architecture overview
 
-Status: **PX5 released/verified baseline + PX6 producer implementation in progress** as of 2026-09-09. This document explains the current design; only the Graph ledgers and `progress/checkpoint.md` determine whether the active increment is verified or released.
+Status: **PX5 released/verified public baseline + PX6 revision 11 source-freshness repair in progress** as of 2026-09-10. PX6 revision 10 previously passed its local gates and CI, then was reopened before public equivalence when fresh Cadre source observations changed the public results/Maturity entry point. This document explains the current design; only the Graph ledgers and `progress/checkpoint.md` determine whether the active increment is verified or released.
 
 ## One-sentence mental model
 
@@ -109,7 +109,7 @@ flowchart TB
 
 | Area | Primary paths | Owns | Does not own |
 |---|---|---|---|
-| Client configuration | `src/config/` | Six topics, verified facts/provenance, approved URLs, `publicHighlights`, pricing/unsupported/account boundaries | Persona behavior, experience styling, secrets, accounts, network calls |
+| Client configuration | `src/config/` | Six topics, verified facts/provenance, primary + explicitly delegated approved URL hosts, `publicHighlights`, pricing/unsupported/account boundaries | Persona behavior, experience styling, secrets, accounts, network calls |
 | Product composition | `src/product/` | Product/persona/experience schemas, Donna profile, allowlisted registry, one-question initiative, tone-only `boundaryVoice`, quick prompts, safe browser projection | New factual authority, provider credentials, autonomous actions |
 | Conversation core | `src/core/` | Validation, deterministic routing, clarification, reply policy | React, network, provider credentials |
 | Provider | `src/provider/` | Mock/OpenRouter fact selection, deadlines, retry and spend controls | Final business authority, arbitrary URLs |
@@ -132,7 +132,7 @@ If the corpus grows enough that deterministic routing becomes brittle, a semanti
 
 After a grounded reply is assembled, `src/product/conversation.ts` may append one configured Donna diagnostic question for that topic. The schema rejects URL-shaped, multiline, multi-question or bundled-statement guidance, and narrow user opt-out language suppresses it. For non-grounded boundaries, `boundaryVoice` may add only a short empathy lead; deterministic policy still owns whether the result is pricing/unsupported/account/unknown and still owns the client-approved handoff text and URL.
 
-`chatExperience()` projects product ID, client/contact/approved links, starter labels, `ExperienceProfile`, and explicitly reviewed `publicHighlights` to the browser. It does not project the full knowledge corpus, routing trigger lists, persona operating principles, provider configuration, or credentials. The fictional Acme Outdoors + Scout fixture validates that the same shell can project a different persona/theme/copy without leaking Cadre/Donna presentation; it is not registered for production use.
+`chatExperience()` projects product ID, client/contact/exact approved links, starter labels, `ExperienceProfile`, and explicitly reviewed `publicHighlights` to the browser. Link validation stays generic: a client may declare a small `additionalOfficialDomains` allowlist when its own public site links to a separate product host; Cadre currently delegates only the observed `portal.gocadre.ai` host rather than the broader sibling domain. It does not project the full knowledge corpus, routing trigger lists, persona operating principles, provider configuration, or credentials. The fictional Acme Outdoors + Scout fixture validates that the same shell can project a different persona/theme/copy without leaking Cadre/Donna presentation; it is not registered for production use.
 
 ## PX6 website + floating Donna presentation
 

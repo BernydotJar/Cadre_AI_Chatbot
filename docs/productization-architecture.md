@@ -1,6 +1,6 @@
 # Productized conversational assistant architecture
 
-Status: **P1–P3 productization released and publicly verified; PX6 presentation/persona increment currently in Producer**, 2026-09-09. The released productization evidence remains `evidence/productization/public-release-20260909.md`; PX6 does not inherit that PASS and must earn its own gates.
+Status: **P1–P3 productization released and publicly verified; PX6 revision 11 source-freshness repair currently active**, 2026-09-10. Revision 10 earned local PX6 gates and CI but did not earn public equivalence; a later source refresh invalidated that revision before deployment. The released productization evidence remains `evidence/productization/public-release-20260909.md`; PX6 revision 11 must earn fresh gates.
 
 ## Product hypothesis
 
@@ -16,7 +16,7 @@ flowchart LR
   E --> G[Bounded fact selector]
 ```
 
-- `ClientConfig` owns what the system may assert, where it may link, deterministic boundaries, pricing-boundary framing, and reviewed public presentation facts (`publicHighlights`).
+- `ClientConfig` owns what the system may assert, where it may link, deterministic boundaries, pricing-boundary framing, and reviewed public presentation facts (`publicHighlights`). The primary `officialDomain` can be supplemented by a small explicit `additionalOfficialDomains` allowlist for observed client-linked product hosts; Cadre currently delegates only `portal.gocadre.ai`, while undeclared sibling/foreign hosts remain rejected.
 - `PersonaProfile` owns how the assistant behaves conversationally without gaining factual authority. It may add one configured grounded follow-up and short boundary-empathy leads only.
 - `ExperienceProfile` owns how the reusable UI presents the product, including the avatar style and high-value first-turn prompts.
 - `ChatbotProductProfile` is the validated composition root and deployable unit.

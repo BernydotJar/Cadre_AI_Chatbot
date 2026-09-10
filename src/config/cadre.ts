@@ -6,6 +6,11 @@ import { validateClientConfig, type ClientConfig } from "./types";
  * Fact provenance (kept per entry in `source`):
  * - "https://cadre.ai (retrieved 2026-09-09)": verified against the official
  *   public website on that date (cadreai.com 301-redirects to cadre.ai).
+ * - "https://cadre.ai / https://portal.gocadre.ai/ai-maturity-index (retrieved
+ *   2026-09-10)": a bounded source-freshness refresh of the "Track your AI
+ *   results" / AI Maturity Index entry points only; portal.gocadre.ai is a
+ *   Cadre-linked public destination explicitly delegated via `additionalOfficialDomains`,
+ *   not a private client-login URL or an ownership claim.
  * - "Cadre AI company profile (provided 2026-09)": company-supplied profile
  *   facts for this assistant's knowledge set (e.g. the partner list) — stated
  *   by the company, not independently verified on the public site.
@@ -21,6 +26,14 @@ const cadreConfig: ClientConfig = {
   botName: "Cadre AI Assistant",
   tagline: "Ask about Cadre AI's services, booking a strategy call, or the AI Maturity Index.",
   officialDomain: "https://cadre.ai",
+  /**
+   * Cadre's own public "Get Your AI Results" CTA (cadre.ai) resolves to
+   * portal.gocadre.ai — a Cadre-linked public destination observed from the
+   * public site on 2026-09-10. Delegating the exact observed host here (rather
+   * than hardcoding it in validation) lets that published destination become
+   * an approved link without widening trust to unrelated gocadre.ai hosts.
+   */
+  additionalOfficialDomains: ["https://portal.gocadre.ai"],
   contact: { label: "Contact Cadre AI", url: "https://cadre.ai/contact" },
   publicHighlights: [
     {
@@ -56,8 +69,8 @@ const cadreConfig: ClientConfig = {
       kind: "product",
       title: "Track your AI results",
       body: "Cadre gives you a centralized portal to track tools, agents, training, and results. Stay aligned, stay accountable, and scale what works.",
-      link: { label: "Talk to Cadre about AI results", url: "https://cadre.ai/contact" },
-      source: { origin: "https://cadre.ai; https://cadre.ai/departments", retrievedAt: "2026-09-09" },
+      link: { label: "Get Your AI Results", url: "https://portal.gocadre.ai/ai-maturity-index" },
+      source: { origin: "https://cadre.ai (Track your AI results section and Get Your AI Results CTA)", retrievedAt: "2026-09-10" },
     },
   ],
   knowledge: [
@@ -144,14 +157,14 @@ const cadreConfig: ClientConfig = {
         "my ai agents", "my results",
       ],
       facts: [
-        "Cadre describes a central portal for tools, agents, training, and results; its public results action leads to the contact page.",
-        "This assistant does not have access to client portals or account systems, and no public portal address is verified in its knowledge set.",
+        "Cadre describes a central portal for tools, agents, training, and results; its public 'Get Your AI Results' action leads to the AI Maturity Index page, a public entry point that asks for company and work-email details to get started — not a private client login.",
+        "This assistant does not have access to client portals or account systems, and no private client-login address is verified in its knowledge set.",
         "Existing clients should use the access instructions from their Cadre AI team, or reach out through the contact page to be connected with the right person.",
       ],
       approvedLinks: [
         { label: "Contact Cadre AI", url: "https://cadre.ai/contact" },
       ],
-      source: { origin: "https://cadre.ai/industries (Track your AI results); https://cadre.ai/contact (no public login link found in reviewed pages)", retrievedAt: "2026-09-09" },
+      source: { origin: "https://cadre.ai (Track your AI results section); https://portal.gocadre.ai/ai-maturity-index (public entry point, not a verified client login); https://cadre.ai/contact (no private client-login link found in reviewed pages)", retrievedAt: "2026-09-10" },
     },
     {
       id: "maturity-index",
@@ -163,14 +176,14 @@ const cadreConfig: ClientConfig = {
       ],
       facts: [
         "The AI Maturity Index is Cadre AI's assessment that scores a company across its eight-pillar framework.",
-        "Cadre describes a grade for each area, explanations, and guidance for improvement; scoring weights and assessment duration are not verified in this knowledge set.",
-        "To get scored, use the official contact page — the site's 'Get Your AI Maturity Index' action goes there.",
+        "Cadre describes a grade for each area, explanations, and guidance for improvement; scoring weights beyond the eight-pillar framework are not verified in this knowledge set.",
+        "Cadre's public AI Maturity Index page states it is free, takes about 10 minutes, and is for you and your team; it asks for your company name, company website, your name, and work email, then emails a 6-digit code to continue. This assistant does not collect that information in chat.",
         "This assistant cannot run the assessment or produce a score in chat.",
       ],
       approvedLinks: [
-        { label: "Get Your AI Maturity Index", url: "https://cadre.ai/contact" },
+        { label: "Get Your AI Results", url: "https://portal.gocadre.ai/ai-maturity-index" },
       ],
-      source: { origin: "https://cadre.ai (maturity CTA); https://cadre.ai/contact (AI Maturity Index FAQ)", retrievedAt: "2026-09-09" },
+      source: { origin: "https://cadre.ai (maturity CTA); https://portal.gocadre.ai/ai-maturity-index (AI Maturity Index page)", retrievedAt: "2026-09-10" },
     },
     {
       id: "models-and-security",

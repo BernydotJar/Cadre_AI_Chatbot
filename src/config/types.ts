@@ -57,8 +57,17 @@ export const clientConfigSchema = z.object({
   botName: z.string().min(1),
   /** Short description shown in the UI header. */
   tagline: z.string().min(1),
-  /** Official https domain; every approved link must live under it. */
+  /** Primary official https domain for this client. */
   officialDomain: z.url().startsWith("https://"),
+  /**
+   * Optional explicit allowlist of additional official https domains this
+   * client has itself delegated (e.g. a separate product/portal domain it
+   * operates). Approved links may match `officialDomain`, any domain listed
+   * here, or a subdomain of either — never an undeclared foreign domain.
+   * This stays a generic mechanism: no client-specific domain is hardcoded
+   * in validation, only declared here in configuration.
+   */
+  additionalOfficialDomains: z.array(z.url().startsWith("https://")).max(8).optional(),
   /** Canonical human-escalation link (contact page). */
   contact: approvedLinkSchema,
   /** Optional verified public proof/product facts for the surrounding page. */
@@ -118,7 +127,10 @@ function deepFreeze<T>(value: T): T {
  */
 export function validateClientConfig(config: ClientConfig): ClientConfig {
   const parsed = clientConfigSchema.parse(config);
-  const domain = new URL(parsed.officialDomain).hostname;
+  const officialHosts = [
+    new URL(parsed.officialDomain).hostname,
+    ...(parsed.additionalOfficialDomains ?? []).map((url) => new URL(url).hostname),
+  ];
   const links = [
     parsed.contact,
     ...parsed.knowledge.flatMap((entry) => entry.approvedLinks),
@@ -126,9 +138,12 @@ export function validateClientConfig(config: ClientConfig): ClientConfig {
   ];
   for (const link of links) {
     const host = new URL(link.url).hostname;
-    if (host !== domain && !host.endsWith(`.${domain}`)) {
+    const onOfficialDomain = officialHosts.some(
+      (domain) => host === domain || host.endsWith(`.${domain}`),
+    );
+    if (!onOfficialDomain) {
       throw new Error(
-        `approved link ${link.url} is not on the official domain ${domain}`,
+        `approved link ${link.url} is not on the official domain or an explicitly delegated official domain (${officialHosts.join(", ")})`,
       );
     }
   }

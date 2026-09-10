@@ -30,7 +30,7 @@ describe("POST /api/chat bounded grounded pipeline (no live calls)", () => {
     ["hello", "greeting", "What would you like to explore?"],
     ["What does Cadre do?", "grounded", "Core services"],
     ["How do I book a call?", "grounded", "cannot create bookings"],
-    ["I need portal access", "grounded", "no public portal address is verified"],
+    ["I need portal access", "grounded", "no private client-login address is verified"],
     ["What is the maturity index?", "grounded", "cannot run the assessment"],
     ["Which models do you use?", "grounded", "Certifications and client-specific controls are not verified here"],
     ["What is your pricing?", "decline", "price list or rate card"],

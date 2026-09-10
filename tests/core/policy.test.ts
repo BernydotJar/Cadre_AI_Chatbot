@@ -60,7 +60,7 @@ describe("response policy — grounded answers (S1–S5)", () => {
     const reply = respond([user(message)], cadre);
     expect(reply.kind).toBe("grounded");
     expect(reply.text).toContain("does not have access to client portals");
-    expect(reply.text).toContain("no public portal address is verified");
+    expect(reply.text).toContain("no private client-login address is verified");
     expect(reply.links).toEqual([cadre.contact]);
   });
 
