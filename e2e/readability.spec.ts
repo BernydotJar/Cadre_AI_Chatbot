@@ -32,11 +32,15 @@ for (const viewport of [{ width: 320, height: 568 }, { width: 360, height: 640 }
       const composer = document.querySelector(".composer-section")!.getBoundingClientRect();
       const card = document.querySelector(".chat-card")!.getBoundingClientRect();
       const privacy = document.querySelector(".privacy-note")!.getBoundingClientRect();
+      const identity = document.querySelector(".chat-identity")!.getBoundingClientRect();
+      const actions = document.querySelector(".chat-header-actions")!.getBoundingClientRect();
+      const title = document.querySelector(".chat-header h2")!.getBoundingClientRect();
       return {
         spaceHeight: space.height,
         readableHeight: rect.height - parseFloat(styles.paddingTop) - parseFloat(styles.paddingBottom),
         transcriptBottom: rect.bottom, composerTop: composer.top,
         privacyBottom: privacy.bottom, cardBottom: card.bottom,
+        headerGap: actions.left - identity.right, titleWidth: title.width,
         documentWidth: document.documentElement.scrollWidth, viewportWidth: innerWidth,
       };
     });
@@ -44,6 +48,8 @@ for (const viewport of [{ width: 320, height: 568 }, { width: 360, height: 640 }
     expect(geometry.readableHeight).toBeGreaterThanOrEqual(144);
     expect(geometry.transcriptBottom).toBeLessThanOrEqual(geometry.composerTop + 1);
     expect(geometry.privacyBottom).toBeLessThanOrEqual(geometry.cardBottom);
+    expect(geometry.headerGap).toBeGreaterThanOrEqual(0);
+    expect(geometry.titleWidth).toBeGreaterThanOrEqual(40);
     expect(geometry.documentWidth).toBeLessThanOrEqual(geometry.viewportWidth);
 
     // Scroll the document as needed: do not hide content to fit one screen.
