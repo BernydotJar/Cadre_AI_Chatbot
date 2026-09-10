@@ -13,7 +13,7 @@ Core N6 production verification and the separate Donna productization release ar
 | G10 CI/CD deploy-check | **BLOCKED only for automated CD** | product/public delivery PASS; GitHub `production` still lacks the existing-project Vercel org/project/token binding |
 | GitHub remote activation | **ACTIVE + revision-4 CI PASS** | repaired source `8ae8a3a` published through the audited channel; CI run `34405396973` passed |
 | Premium PX2–PX5 | **DONE at PX5 revision 4 / public PASS** | repaired source `8ae8a3a` deployed on existing project; anonymous smoke + **58/58** public Playwright PASS; revision-3 57/58 failure retained |
-| Premium PX6 | **RUNNING / not yet verified** | finish critic/fixer/final verification, close all three gates, then publish/deploy exact SHA and require full anonymous current Playwright PASS |
+| Premium PX6 | **DONE locally at revision 10 / public release pending** | all three premium gates PASS; clean verifier **301/301 Vitest + 68/68 Playwright**; existing-project Vercel prebuild PASS; publish/CI/deploy exact closure SHA and require full anonymous public Playwright PASS |
 | G9 Chrome preview | DONE | No further action required for core release |
 | G11 n8n contract | DONE | Real email delivery is optional and not a core release requirement |
 
