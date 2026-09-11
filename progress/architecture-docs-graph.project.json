@@ -1,0 +1,67 @@
+{
+  "schema_version": "graph-harness.project.v1",
+  "project_id": "donna-architecture-documentation-r15",
+  "mode": "MVP",
+  "gate_definitions": [
+    {"id":"verification","required_evidence_kinds":["test_output"],"blocking":true},
+    {"id":"design-review","required_evidence_kinds":["review_report"],"blocking":true},
+    {"id":"integration-proof","required_evidence_kinds":["integration_check"],"blocking":true}
+  ],
+  "nodes": [
+    {
+      "id":"AD0-freeze-r15-baseline",
+      "kind":"feature-increment",
+      "title":"Freeze r15 architecture evidence boundary",
+      "status":"spec_ready",
+      "depends_on":[],
+      "capability":"engineering",
+      "gates":{"done":["verification"]},
+      "allowed_paths":["docs/**","progress/architecture-docs-*","evidence/architecture-docs/**"],
+      "metadata":{"authorization":"progress/architecture-docs-authorization-2026-09-11.md","boundary":"Identify exact deployed/runtime/documentation evidence. No runtime edits."}
+    },
+    {
+      "id":"AD1-as-built-architecture",
+      "kind":"feature-increment",
+      "title":"Model r15 AS-BUILT architecture views",
+      "status":"spec_ready",
+      "depends_on":["AD0-freeze-r15-baseline"],
+      "capability":"engineering",
+      "gates":{"done":["design-review","verification"]},
+      "allowed_paths":["docs/**","progress/architecture-docs-*","evidence/architecture-docs/**"],
+      "metadata":{"authorization":"progress/architecture-docs-authorization-2026-09-11.md","boundary":"Four evidence-backed views only: System Context, Runtime & Trust, Component Architecture, Engineering Control Plane."}
+    },
+    {
+      "id":"AD2-aws-target-reference",
+      "kind":"feature-increment",
+      "title":"Define AWS TARGET / NOT DEPLOYED reference architecture",
+      "status":"spec_ready",
+      "depends_on":["AD0-freeze-r15-baseline"],
+      "capability":"engineering",
+      "gates":{"done":["design-review","verification"]},
+      "allowed_paths":["docs/**","progress/architecture-docs-*","evidence/architecture-docs/**"],
+      "metadata":{"authorization":"progress/architecture-docs-authorization-2026-09-11.md","boundary":"Migration/reference target only. Preserve current stateless Node/Next.js and FactSelector contracts; do not claim AWS deployment."}
+    },
+    {
+      "id":"AD3-lucid-architecture-pack",
+      "kind":"feature-increment",
+      "title":"Create editable Lucidchart architecture pack",
+      "status":"spec_ready",
+      "depends_on":["AD1-as-built-architecture","AD2-aws-target-reference"],
+      "capability":"engineering",
+      "gates":{"done":["design-review","integration-proof"]},
+      "allowed_paths":["docs/**","progress/architecture-docs-*","evidence/architecture-docs/**"],
+      "metadata":{"authorization":"progress/architecture-docs-authorization-2026-09-11.md","boundary":"One editable Lucidchart document with distinct AS-BUILT and TARGET pages and traceable labels."}
+    },
+    {
+      "id":"AD4-architecture-handoff",
+      "kind":"feature-increment",
+      "title":"Independent architecture review and handoff",
+      "status":"spec_ready",
+      "depends_on":["AD3-lucid-architecture-pack"],
+      "capability":"engineering",
+      "gates":{"done":["verification","integration-proof"]},
+      "allowed_paths":["docs/**","progress/architecture-docs-*","evidence/architecture-docs/**"],
+      "metadata":{"authorization":"progress/architecture-docs-authorization-2026-09-11.md","boundary":"Verify source mapping, status labels, Lucid editability, and no AS-BUILT/TARGET conflation."}
+    }
+  ]
+}
