@@ -1,0 +1,13 @@
+AD9 Independent Verification - 2026-09-11
+RESULT=PASS
+
+PASS 19 manual sections
+PASS composer limit documented
+PASS key UI vocabulary documented
+PASS persistent-memory boundary documented
+PASS n8n non-user boundary documented
+PASS Chrome preview boundary documented
+PASS no Rice implementation leakage
+PASS recovery controls source-backed
+PASS 2000-char input bound source-backed
+RUNTIME_DRIFT=0
