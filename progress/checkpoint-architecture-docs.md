@@ -58,3 +58,48 @@ Owner requested a UML sequence view matching the supplied reference style. A sou
 - No runtime source or deployment configuration changed.
 
 Graph node: `AD5-as-built-runtime-sequence`.
+
+---
+
+## Documentation continuation terminal checkpoint — 2026-09-11
+
+State: **COMPLETED**
+
+Owner continuation scope delivered:
+
+- AD6 `reference-patterns-and-doc-scope` — DONE
+- AD7 `consolidated-lucid-master` — DONE
+- AD8 `donna-sdd-r15` — DONE
+- AD9 `donna-user-manual-r15` — DONE
+- AD10 `documentation-handoff` — DONE
+
+Canonical architecture is now one editable seven-page Lucid document:
+
+- `Donna Architecture Pack - r15`
+- `bd103b7c-614d-4e48-9cd0-e5ede867f924`
+- Pages: System Context, Runtime & Trust, Component Architecture, Engineering Control Plane, TARGET AWS, Runtime Request Sequence, User Journey & Operating Modes.
+
+Canonical written deliverables:
+
+- `docs/donna-documentation-reference-patterns-r15.md`
+- `docs/donna-architecture-pack-r15.md`
+- `docs/donna-software-design-document-r15.md`
+- `docs/donna-user-manual-r15.md`
+- `docs/donna-documentation-pack-r15.md`
+
+Final live non-model smoke at handoff:
+
+- `GET /api/health` — 200 / ok
+- `GET /` — 200 / `Ask Donna` present
+- deterministic `hello` — 200 / greeting
+
+Truth/quality state:
+
+- Documentation graph validated with 113 events after AD10 closure.
+- READY nodes: none.
+- Runtime drift from documentation-continuation baseline `87db004a9d5a6b3b1bca7b822547d014aa111ef8`: 0 files under `app/`, `src/`, `extension/`, `integrations/`, `.github/`.
+- AD7 critic found and fixed real Lucid legibility defects before release.
+- AD10 integration-proof first rejected a `review_report` as the wrong evidence kind; the required `integration_check` was then recorded and the gate passed without weakening the contract.
+- Existing application/runtime limitations remain documented and were not converted into new development.
+
+Terminal rationale: all safe, useful, unlocked work inside the owner-authorized documentation scope is complete; further work would either duplicate documentation or open a new runtime/product scope.

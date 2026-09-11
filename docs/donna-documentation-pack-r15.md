@@ -87,4 +87,4 @@ The only current architecture artifact for review is `bd103b7c-614d-4e48-9cd0-e5
 
 **Documentation package: READY FOR HANDOFF.**
 
-The final release gate must still persist the AD10 review/verification evidence and transition the documentation Graph to its terminal state. After that graph event, this index remains the canonical entry point for the r15 documentation package.
+The AD10 release gate has persisted verification/integration evidence and transitioned the documentation Graph to `done`. This index is the canonical entry point for the r15 documentation package.
