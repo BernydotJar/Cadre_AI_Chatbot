@@ -1,0 +1,21 @@
+AD8 Independent Verification - 2026-09-11
+RESULT=PASS
+
+Document shape:
+PASS 23 canonical top-level sections
+PASS sign-off present
+PASS AWS truth label present
+PASS optional integration truth label present
+PASS r15 detached verification retained
+PASS public browser verification retained
+PASS r15 deployment identity retained
+PASS no Rice implementation leakage
+
+Source cross-checks:
+PASS error status contract source-backed
+PASS alternate model allowlist source-backed
+PASS principal message/reply limits source-backed
+PASS Donna persona wording source-backed
+
+Runtime drift from frozen continuation baseline:
+RUNTIME_DRIFT=0
