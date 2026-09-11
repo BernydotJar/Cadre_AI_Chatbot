@@ -95,9 +95,16 @@ test("important helper and privacy copy remains at least 12px", async ({ page, i
     await expect(launcherHint).toBeVisible();
     expect(await launcherHint.evaluate((node) => parseFloat(getComputedStyle(node).fontSize))).toBeGreaterThanOrEqual(12);
   } else {
-    // Under the compact <=430px launcher contract, visual helper copy is
+    // Under the compact <=430px launcher contract, launcher helper copy is
     // intentionally omitted; the stable aria-label above carries the name.
     await expect(launcherHint).toBeHidden();
+    const invitationCopy = page.locator(
+      ".donna-nudge .nudge-kicker, .donna-nudge .nudge-question, .donna-nudge .nudge-action, .donna-nudge .nudge-proof span, .donna-nudge .nudge-proof strong",
+    );
+    await expect(page.locator(".donna-nudge")).toBeVisible();
+    for (const element of await invitationCopy.all()) {
+      expect(await element.evaluate((node) => parseFloat(getComputedStyle(node).fontSize))).toBeGreaterThanOrEqual(12);
+    }
   }
   await launcher.click();
   const input = page.getByRole("textbox", { name: "Message", exact: true });

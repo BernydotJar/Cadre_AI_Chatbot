@@ -1214,11 +1214,55 @@
   .results-copy h2{
     font-size:42px
   }
-  .donna-nudge{
-    display:none
-  }
   .donna-launcher-stack{
-    width:auto
+    width:min(320px,calc(100vw - 24px))
+  }
+  .donna-nudge{
+    display:block;
+    padding:14px 38px 13px 14px;
+    border-radius:16px
+  }
+  .nudge-heading{
+    grid-template-columns:32px minmax(0,1fr);
+    gap:9px;
+    margin-bottom:7px;
+    padding-right:20px
+  }
+  .nudge-heading>.persona-avatar{
+    width:32px;
+    flex-basis:32px
+  }
+  .nudge-kicker{
+    font-size:12px!important
+  }
+  .nudge-heading strong{
+    font-size:14px
+  }
+  .nudge-question{
+    min-height:0;
+    font-size:12px;
+    line-height:1.45;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+    overflow:hidden
+  }
+  .nudge-action-row{
+    margin-top:6px
+  }
+  .nudge-action{
+    font-size:12px
+  }
+  .nudge-proof{
+    gap:6px;
+    margin-top:6px;
+    padding-top:7px
+  }
+  .nudge-proof span{
+    font-size:12px
+  }
+  .nudge-proof strong{
+    font-size:12px
   }
   .donna-launcher{
     width:62px;

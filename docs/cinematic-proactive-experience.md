@@ -42,7 +42,7 @@ Donna uses an original CSS signal orb with two states:
 
 The launcher has one restrained glare sweep. These remain the only PX6 motion effects. Revision 13's suggestion cycling is a discrete application-state change, not a new CSS animation; reduced-motion preference also keeps that suggestion state static. The pre-existing local hero video remains the cinematic media layer. `prefers-reduced-motion` disables orb/glare animation and keeps the poster-only hero behavior.
 
-At `<=430px`, the floating launcher intentionally collapses to the signal orb only: visual launcher text is hidden to preserve the compact control, and the button's `aria-label` remains the authoritative accessible name.
+At `<=430px`, the floating launcher intentionally collapses to the signal orb only: visual launcher text is hidden to preserve the compact control, and the button's `aria-label` remains the authoritative accessible name. The separate pre-chat invitation nudge remains available above that launcher in a compact mobile layout; its question, action, and verified-context copy keep the same >=12px readability floor as other important helper/trust copy.
 
 The compact chat sheet preserves a 240px minimum conversation region after a conversation starts and only then may the outer sheet scroll vertically when user text-spacing overrides expand recovery/composer content. Before the first send, the outer sheet remains clipped and the welcome transcript is the single vertical scroller, avoiding nested scrolling while keeping the composer outside that scroller. Composer text is at least 16px on mobile to avoid browser zoom/readability regressions.
 
