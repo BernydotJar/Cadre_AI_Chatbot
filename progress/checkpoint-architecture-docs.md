@@ -31,17 +31,18 @@ The target preserves the existing stateless Next.js/Node + deterministic core + 
 
 Lucid creation returned an editable five-page document. All pages were exported and visually inspected. Runtime & Trust and AWS connector routing were refined in-place after visual QA. Architecture semantics remained unchanged.
 
-Graph Harness is authoritative for AD0-AD4 state; this checkpoint is a resumable projection.
+Graph Harness is authoritative for AD0-AD5 state; this checkpoint is a resumable projection.
 
 ## Terminal Graph state
 
-**COMPLETED.** Architecture/documentation graph sequence 48 is valid with no READY nodes.
+**COMPLETED.** Architecture/documentation graph sequence 60 is valid with no READY nodes.
 
 - `AD0-freeze-r15-baseline` — DONE; verification PASS.
 - `AD1-as-built-architecture` — DONE; design-review PASS; verification PASS.
 - `AD2-aws-target-reference` — DONE; design-review PASS; verification PASS.
 - `AD3-lucid-architecture-pack` — DONE; design-review PASS; integration-proof PASS.
 - `AD4-architecture-handoff` — DONE; verification PASS; integration-proof PASS.
+- `AD5-as-built-runtime-sequence` — DONE; verification PASS; design-review PASS; integration-proof PASS.
 
 No application/runtime path changed in this workstream. The editable Lucidchart is the final architecture artifact for this node set.
 
