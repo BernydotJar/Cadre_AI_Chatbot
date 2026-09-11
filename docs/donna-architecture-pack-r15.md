@@ -182,3 +182,16 @@ Create one editable Lucidchart document titled **Donna Architecture Pack - r15**
 5. `TARGET - AWS Reference (NOT DEPLOYED)`
 
 Every page must include a visible status banner. The AWS page must use official AWS 2024 Lucid shapes for AWS services/resources. No AWS service may appear on an AS-BUILT page. The AS-BUILT pages must not show Vercel/GitHub/OpenRouter as AWS resources.
+
+## Lucidchart delivery artifact
+
+Editable document: `Donna Architecture Pack - r15`
+
+- Lucid document ID: `3991f2c1-fc1d-4cad-ab01-eec0d3296bfc`
+- Edit URL: `https://lucid.app/lucidchart/3991f2c1-fc1d-4cad-ab01-eec0d3296bfc/edit`
+- Pages: **5**
+- Page order: four `AS-BUILT` views followed by one `TARGET - AWS Reference (NOT DEPLOYED)` view.
+- AWS page uses official Lucid AWS 2024 service/resource shapes.
+- Visual QA was performed by exporting all five pages as PNG. Runtime & Trust and AWS connector routing were refined in-place after that inspection; the architecture semantics were unchanged.
+
+This Lucid artifact is documentation only. It does not modify or redeploy the frozen r15 application.

@@ -1,0 +1,10 @@
+AD2 AWS TARGET verification
+source_commit=9c589f7b9aa6060433a393ac9d7310477c1672fa
+target_label=PASS
+runtime_contract_preserved=PASS
+provider_contract_preserved=PASS
+request_path=PASS
+no_forced_database=PASS
+no_unapproved_provider_swap=PASS
+distributed_control_optional=PASS
+AD2_RESULT=PASS

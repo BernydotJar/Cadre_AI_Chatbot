@@ -1,0 +1,20 @@
+AD1 AS-BUILT verification
+source_commit=9c589f7b9aa6060433a393ac9d7310477c1672fa
+runtime_drift_from_e9001c0=0
+exists=PASS app/api/chat/route.ts
+exists=PASS src/server/chat.ts
+exists=PASS src/core/route.ts
+exists=PASS src/core/policy.ts
+exists=PASS src/config/cadre.ts
+exists=PASS src/product/profiles/cadre-donna.ts
+exists=PASS src/provider/openrouter.ts
+exists=PASS extension/src/content-script.ts
+exists=PASS integrations/n8n/cadre-handoff.workflow.json
+exists=PASS .github/workflows/ci.yml
+exists=PASS .github/workflows/deploy-production.yml
+release_identity=PASS
+provider_boundary=PASS
+n8n_optional_boundary=PASS
+chrome_optional_boundary=PASS
+public_release_evidence=PASS
+AD1_RESULT=PASS
