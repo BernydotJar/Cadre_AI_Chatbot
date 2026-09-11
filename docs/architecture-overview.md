@@ -1,6 +1,6 @@
 # Architecture overview
 
-Status: **PX5 released/verified public baseline + PX6 revision 11 source-freshness repair in progress** as of 2026-09-10. PX6 revision 10 previously passed its local gates and CI, then was reopened before public equivalence when fresh Cadre source observations changed the public results/Maturity entry point. This document explains the current design; only the Graph ledgers and `progress/checkpoint.md` determine whether the active increment is verified or released.
+Status: **PX6 revision 15 DONE + PUBLIC PASS** as of 2026-09-11. Runtime repair `af7e3ff` is published in closure `f334616`, GitHub CI `34562930679` PASS, existing-project Vercel deployment `dpl_DHvLHiEaTGgtDJNXEENugKER8HLr` is Ready, and the complete rate-aware public browser matrix is 70/70 PASS. Historical r13/r14 failures remain in the append-only Graph evidence.
 
 ## One-sentence mental model
 

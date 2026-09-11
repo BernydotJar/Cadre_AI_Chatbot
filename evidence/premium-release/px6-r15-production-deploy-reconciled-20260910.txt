@@ -1,0 +1,52 @@
+PX6 revision 15 production deployment reconciliation
+timestamp=2026-09-11T04:42:15Z
+source_head=f33461679ebbe5322a9030f1f2b17319874d7e03
+ci_run=34562930679 conclusion=success
+immutable_deployment=https://cadre-ai-chatbot-8jzn4qlxp-cadre-ai3.vercel.app
+production_alias=https://cadre-ai-chatbot-tawny.vercel.app
+--- vercel inspect immutable deployment ---
+Vercel CLI 59.12.0 (Node.js 22.23.2)
+Fetching deployment "cadre-ai-chatbot-8jzn4qlxp-cadre-ai3.vercel.app" in cadre-ai3
+> Fetched deployment "cadre-ai-chatbot-8jzn4qlxp-cadre-ai3.vercel.app" in cadre-ai3 [409ms]
+
+  General
+
+    id		dpl_DHvLHiEaTGgtDJNXEENugKER8HLr
+    name	cadre-ai-chatbot
+    target	production
+    status	● Ready
+    url		https://cadre-ai-chatbot-8jzn4qlxp-cadre-ai3.vercel.app
+    created	Fri Sep 11 2026 04:41:46 GMT+0000 (Coordinated Universal Time) [31s ago]
+
+
+  Aliases
+
+    ╶ https://cadre-ai-chatbot-tawny.vercel.app
+    ╶ https://cadre-ai-chatbot-cadre-ai3.vercel.app
+    
+
+  Builds
+
+    ┌ .        [0ms]
+    ├── λ index (733.14KB) [iad1]
+    ├── λ index.rsc (733.14KB) [iad1]
+    ├── λ _global-error (729.37KB) [iad1]
+    ├── λ _global-error.rsc (729.37KB) [iad1]
+    ├── λ _global-error.segments/__PAGE__.segment.rsc (729.37KB) [iad1]
+    └── 12 output items hidden
+    
+
+--- health ---
+Redirecting...
+
+--- alias health ---
+{"status":"ok"}
+--- release markers ---
+hero_marker=PASS
+results_marker=PASS
+ask_donna_marker=PASS
+product_marker=PASS
+stale_marker_absent=PASS
+--- deterministic hello ---
+{"reply":"Hi - I can help you explore Cadre AI's services, industries, AI agents, the AI Maturity Index, client access guidance, or how to talk with an AI strategist. What would you like to explore?","kind":"greeting"}
+RECONCILIATION_RESULT=PASS

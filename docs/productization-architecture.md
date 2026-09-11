@@ -1,6 +1,6 @@
 # Productized conversational assistant architecture
 
-Status: **P1–P3 productization released and publicly verified; PX6 revision 11 source-freshness repair currently active**, 2026-09-10. Revision 10 earned local PX6 gates and CI but did not earn public equivalence; a later source refresh invalidated that revision before deployment. The released productization evidence remains `evidence/productization/public-release-20260909.md`; PX6 revision 11 must earn fresh gates.
+Status: **P1–P3 productization released and PX6 revision 15 DONE + PUBLIC PASS**, 2026-09-11. Runtime repair `af7e3ff` is contained in published closure `f334616`, verified by GitHub CI `34562930679`, the existing-project production deployment, and a complete rate-aware 70/70 public browser matrix. Historical revision failures remain retained in Graph evidence.
 
 ## Product hypothesis
 

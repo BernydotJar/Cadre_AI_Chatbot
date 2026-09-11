@@ -1,6 +1,6 @@
 # Cinematic + proactive Donna experience
 
-Status: PX6 revision 15 is DONE locally after the final invitation-polish repair; public revision-15 equivalence is pending. The revision-13/14 failures are retained in Graph evidence. This document defines the product boundary; Graph evidence decides release status.
+Status: PX6 revision 15 is **DONE + PUBLIC PASS** after the final invitation-polish repair. Runtime repair `af7e3ff` is published in closure `f334616`, deployed through the existing Vercel project as `dpl_DHvLHiEaTGgtDJNXEENugKER8HLr`, and passes the complete rate-aware 70/70 public browser matrix. The revision-13/14 failures remain retained in Graph evidence. This document defines the product boundary; Graph evidence decides release status.
 
 ## Product intent
 

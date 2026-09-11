@@ -11,9 +11,9 @@ Core N6 production verification and the separate Donna productization release ar
 | Core N6 release | **DONE** | Existing production alias reverified for the prior core line; release-check PASS and package check PASS |
 | Donna productization P1–P3 | **DONE + public PASS** | all gates PASS; 279/279 Vitest; 52/52 local + clean public Playwright; deployment `dpl_DMA3WxfAfMgwc7kZLueKctx6kfsy` on existing project |
 | G10 CI/CD deploy-check | **BLOCKED only for automated CD** | product/public delivery PASS; GitHub `production` still lacks the existing-project Vercel org/project/token binding |
-| GitHub remote activation | **ACTIVE + r12 CI PASS** | exact runtime source `8043886` published through the audited path; CI run `34446809913` PASS. |
+| GitHub remote activation | **ACTIVE + r15 CI PASS** | published closure `f334616` (runtime repair `af7e3ff`) reached `origin/main` through the audited path; CI run `34562930679` PASS. |
 | Premium PX2–PX5 | **DONE at PX5 revision 4 / public PASS** | repaired source `8ae8a3a` deployed on existing project; anonymous smoke + **58/58** public Playwright PASS; revision-3 57/58 failure retained |
-| Premium PX6 | **DONE revision 12 + PUBLIC PASS** | exact runtime source `8043886`; CI `34446809913` PASS; existing-project deployment `dpl_FGqGheG1GSx8EmUEJvd4rhEsdKYh`; anonymous markers PASS; local 302/302 Vitest + 68/68 Playwright + 73/73 extension + 24/24 synthetic; public **68/68** PASS using two fresh client-rate windows. Two monolithic 67/68 429 runs retained. |
+| Premium PX6 | **DONE revision 15 + PUBLIC PASS** | runtime repair `af7e3ff` in published closure `f334616`; CI `34562930679` PASS; existing-project deployment `dpl_DHvLHiEaTGgtDJNXEENugKER8HLr`; anonymous markers PASS; local 302/302 Vitest + 70/70 Playwright + 73/73 extension + 24/24 synthetic; public **70/70** PASS using two fresh client-rate windows. r13 68/70 and r14 critic rejection retained as repair evidence. |
 | G9 Chrome preview | DONE | No further action required for core release |
 | G11 n8n contract | DONE | Real email delivery is optional and not a core release requirement |
 
