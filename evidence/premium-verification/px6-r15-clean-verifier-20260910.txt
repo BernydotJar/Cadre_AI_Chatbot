@@ -1,0 +1,194 @@
+PX6 revision 15 independent detached verifier
+timestamp=2026-09-11T04:35:30Z
+source_head=af7e3ff91ae91fc231defe87fde0139bd1c7f298
+Preparing worktree (detached HEAD af7e3ff)
+HEAD is now at af7e3ff fix(donna): keep mobile invitation readable
+verifier_head=af7e3ff91ae91fc231defe87fde0139bd1c7f298
+dangling blob 29442132d8877438a56ae08c5dedc33acc9178be
+dangling blob beceecb4c7dd37a25057e3236da90ccc3207c31a
+dangling blob 3516378bc22af526a152d04434c558b6190266d3
+dangling blob 1fb8f760110892d71af15f0ba044380e7a1044fa
+dangling blob 6ffa853eabcf6b01da303cd8cb80013cb0ac304c
+npm warn deprecated eslint@9.39.5: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+
+added 380 packages, and audited 381 packages in 7s
+
+151 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+> cadre-ai-chatbot@0.1.0 typecheck
+> tsc --noEmit
+
+
+> cadre-ai-chatbot@0.1.0 lint
+> eslint .
+
+
+> cadre-ai-chatbot@0.1.0 test
+> vitest run
+
+[33m(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `"type": "module"` in the closest package.json
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.[39m
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90m/tmp/px6-r15-clean-verifier-20260910-wd2vuq[39m
+
+ [32m✓[39m tests/core/policy.test.ts [2m([22m[2m59 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+ [32m✓[39m tests/api/chat-route.test.ts [2m([22m[2m45 tests[22m[2m)[22m[32m 48[2mms[22m[39m
+ [32m✓[39m tests/provider/openrouter.test.ts [2m([22m[2m48 tests[22m[2m)[22m[32m 50[2mms[22m[39m
+ [32m✓[39m tests/product/contracts.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+ [32m✓[39m tests/config/config.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m tests/product/donna.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 33[2mms[22m[39m
+ [32m✓[39m tests/config/knowledge-refresh.test.ts [2m([22m[2m22 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+ [32m✓[39m tests/tools/release-gate.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m tests/core/route.test.ts [2m([22m[2m33 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+ [32m✓[39m tests/tools/graph-baseline.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+ [32m✓[39m tests/provider/model-selection.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 24[2mms[22m[39m
+ [32m✓[39m tests/ui/conversation.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m tests/core/validate.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m tests/server/rate-limit.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 23[2mms[22m[39m
+ [32m✓[39m tests/product/view.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m tests/product/media-assets.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m16 passed[39m[22m[90m (16)[39m
+[2m      Tests [22m [1m[32m302 passed[39m[22m[90m (302)[39m
+[2m   Start at [22m 04:35:45
+[2m   Duration [22m 785ms[2m (import 38%, transform 36%, tests 24%, worker 2%)[22m
+
+
+> cadre-ai-chatbot@0.1.0 build
+> next build
+
+▲ Next.js 16.3.4 (Turbopack)
+✓ Running next.config.ts took 21ms
+⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 2.7s
+  Running TypeScript ...
+  Finished TypeScript in 1919ms ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/5) ...
+  Generating static pages using 7 workers (1/5) 
+  Generating static pages using 7 workers (2/5) 
+  Generating static pages using 7 workers (3/5) 
+✓ Generating static pages using 7 workers (5/5) in 295ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ○ /_not-found
+├ ƒ /api/chat
+├ ƒ /api/health
+└ ○ /icon.svg
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+> cadre-ai-chatbot@0.1.0 test:e2e
+> playwright test --config=playwright.config.ts
+
+
+Running 70 tests using 1 worker
+
+  ✓   1 [desktop] › e2e/chat.spec.ts:17:5 › first impression feels like a Cadre page with an inviting Donna product (851ms)
+  ✓   2 [desktop] › e2e/chat.spec.ts:49:5 › pre-chat invitation rotates configured prompts without background chat traffic and pauses on interaction (529ms)
+  ✓   3 [desktop] › e2e/chat.spec.ts:110:5 › floating Donna closes with Escape and restores launcher focus (295ms)
+  ✓   4 [desktop] › e2e/chat.spec.ts:119:5 › new PX6 chat controls preserve 44px touch targets (406ms)
+  ✓   5 [desktop] › e2e/chat.spec.ts:141:5 › reduced motion disables the new orb and glare animations (370ms)
+  ✓   6 [desktop] › e2e/chat.spec.ts:158:5 › ambient media is local, muted, bounded, and presentation-only (487ms)
+  ✓   7 [desktop] › e2e/chat.spec.ts:184:5 › reduced motion keeps the static poster and never mounts the ambient video (313ms)
+  ✓   8 [desktop] › e2e/chat.spec.ts:195:5 › ambient motion control never obscures the hero across responsive widths (474ms)
+  ✓   9 [desktop] › e2e/chat.spec.ts:226:5 › anonymous conversation uses the real server and official links (414ms)
+  ✓  10 [desktop] › e2e/chat.spec.ts:243:5 › Donna presentation handles one configured next step and an opt-out (418ms)
+  ✓  11 [desktop] › e2e/chat.spec.ts:265:5 › all six entry points are present and clarification preserves an ordinal follow-up (389ms)
+  ✓  12 [desktop] › e2e/chat.spec.ts:280:5 › loading is announced and rapid Enter cannot duplicate a request (300ms)
+  ✓  13 [desktop] › e2e/chat.spec.ts:300:5 › Donna visibly shapes while a grounded request is in flight (335ms)
+  ✓  14 [desktop] › e2e/chat.spec.ts:316:5 › pricing is empathetic and commercially aware without inventing a rate (357ms)
+  ✓  15 [desktop] › e2e/chat.spec.ts:327:5 › retry preserves the failed turn and does not duplicate history (380ms)
+  ✓  16 [desktop] › e2e/chat.spec.ts:345:5 › network failure has a safe retry path (329ms)
+  ✓  17 [desktop] › e2e/chat.spec.ts:354:5 › cancelling prevents a late response from appearing and preserves a retry (345ms)
+  ✓  18 [desktop] › e2e/chat.spec.ts:376:5 › malformed responses produce a recoverable safe error (307ms)
+  ✓  19 [desktop] › e2e/chat.spec.ts:385:5 › model text is inert and only exact approved URLs become links (311ms)
+  ✓  20 [desktop] › e2e/chat.spec.ts:398:5 › blank input, multiline entry, and IME composition do not send accidentally (315ms)
+  ✓  21 [desktop] › e2e/chat.spec.ts:413:5 › new conversation clears local state without persistence (380ms)
+  ✓  22 [desktop] › e2e/chat.spec.ts:425:5 › viewport has no horizontal overflow and primary controls are reachable (294ms)
+  ✓  23 [desktop] › e2e/chat.spec.ts:436:5 › long conversations and composer input remain bounded (1.4s)
+  ✓  24 [desktop] › e2e/chat.spec.ts:460:5 › long inert response remains within the mobile viewport with reduced motion (344ms)
+  ✓  25 [desktop] › e2e/chat.spec.ts:469:5 › a new conversation cannot be overwritten by an older in-flight response (394ms)
+  ✓  26 [desktop] › e2e/chat.spec.ts:493:5 › reading earlier messages is respected until Jump to latest is used (586ms)
+  ✓  27 [desktop] › e2e/chat.spec.ts:515:5 › welcome starts at the top and reset restores that position (410ms)
+  ✓  28 [desktop] › e2e/chat.spec.ts:534:5 › keyboard topic activation preserves a stable focus target (360ms)
+  ✓  29 [desktop] › e2e/chat.spec.ts:546:5 › keyboard retry preserves focus without duplicating the user turn (338ms)
+  ✓  30 [desktop] › e2e/chat.spec.ts:565:5 › client deadline yields a saved draft and does not accept late output (442ms)
+  ✓  31 [desktop] › e2e/hydration.spec.ts:3:5 › cold-load launcher waits for hydration before opening the first conversation (428ms)
+  ✓  32 [desktop] › e2e/hydration.spec.ts:43:5 › without JavaScript the public Cadre page and contact route remain usable without fake chat (205ms)
+  ✓  33 [desktop] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 320x568 (514ms)
+  ✓  34 [desktop] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 360x640 (560ms)
+  ✓  35 [desktop] › e2e/readability.spec.ts:88:5 › important helper and privacy copy remains at least 12px (395ms)
+  ✓  36 [mobile] › e2e/chat.spec.ts:17:5 › first impression feels like a Cadre page with an inviting Donna product (685ms)
+  ✓  37 [mobile] › e2e/chat.spec.ts:49:5 › pre-chat invitation rotates configured prompts without background chat traffic and pauses on interaction (457ms)
+  ✓  38 [mobile] › e2e/chat.spec.ts:110:5 › floating Donna closes with Escape and restores launcher focus (256ms)
+  ✓  39 [mobile] › e2e/chat.spec.ts:119:5 › new PX6 chat controls preserve 44px touch targets (348ms)
+  ✓  40 [mobile] › e2e/chat.spec.ts:141:5 › reduced motion disables the new orb and glare animations (285ms)
+  ✓  41 [mobile] › e2e/chat.spec.ts:158:5 › ambient media is local, muted, bounded, and presentation-only (398ms)
+  ✓  42 [mobile] › e2e/chat.spec.ts:184:5 › reduced motion keeps the static poster and never mounts the ambient video (293ms)
+  ✓  43 [mobile] › e2e/chat.spec.ts:195:5 › ambient motion control never obscures the hero across responsive widths (471ms)
+  ✓  44 [mobile] › e2e/chat.spec.ts:226:5 › anonymous conversation uses the real server and official links (384ms)
+  ✓  45 [mobile] › e2e/chat.spec.ts:243:5 › Donna presentation handles one configured next step and an opt-out (341ms)
+  ✓  46 [mobile] › e2e/chat.spec.ts:265:5 › all six entry points are present and clarification preserves an ordinal follow-up (314ms)
+  ✓  47 [mobile] › e2e/chat.spec.ts:280:5 › loading is announced and rapid Enter cannot duplicate a request (309ms)
+  ✓  48 [mobile] › e2e/chat.spec.ts:300:5 › Donna visibly shapes while a grounded request is in flight (280ms)
+  ✓  49 [mobile] › e2e/chat.spec.ts:316:5 › pricing is empathetic and commercially aware without inventing a rate (339ms)
+  ✓  50 [mobile] › e2e/chat.spec.ts:327:5 › retry preserves the failed turn and does not duplicate history (343ms)
+  ✓  51 [mobile] › e2e/chat.spec.ts:345:5 › network failure has a safe retry path (244ms)
+  ✓  52 [mobile] › e2e/chat.spec.ts:354:5 › cancelling prevents a late response from appearing and preserves a retry (280ms)
+  ✓  53 [mobile] › e2e/chat.spec.ts:376:5 › malformed responses produce a recoverable safe error (229ms)
+  ✓  54 [mobile] › e2e/chat.spec.ts:385:5 › model text is inert and only exact approved URLs become links (245ms)
+  ✓  55 [mobile] › e2e/chat.spec.ts:398:5 › blank input, multiline entry, and IME composition do not send accidentally (259ms)
+  ✓  56 [mobile] › e2e/chat.spec.ts:413:5 › new conversation clears local state without persistence (280ms)
+  ✓  57 [mobile] › e2e/chat.spec.ts:425:5 › viewport has no horizontal overflow and primary controls are reachable (226ms)
+  ✓  58 [mobile] › e2e/chat.spec.ts:436:5 › long conversations and composer input remain bounded (1.2s)
+  ✓  59 [mobile] › e2e/chat.spec.ts:460:5 › long inert response remains within the mobile viewport with reduced motion (224ms)
+  ✓  60 [mobile] › e2e/chat.spec.ts:469:5 › a new conversation cannot be overwritten by an older in-flight response (333ms)
+  ✓  61 [mobile] › e2e/chat.spec.ts:493:5 › reading earlier messages is respected until Jump to latest is used (445ms)
+  ✓  62 [mobile] › e2e/chat.spec.ts:515:5 › welcome starts at the top and reset restores that position (328ms)
+  ✓  63 [mobile] › e2e/chat.spec.ts:534:5 › keyboard topic activation preserves a stable focus target (277ms)
+  ✓  64 [mobile] › e2e/chat.spec.ts:546:5 › keyboard retry preserves focus without duplicating the user turn (297ms)
+  ✓  65 [mobile] › e2e/chat.spec.ts:565:5 › client deadline yields a saved draft and does not accept late output (279ms)
+  ✓  66 [mobile] › e2e/hydration.spec.ts:3:5 › cold-load launcher waits for hydration before opening the first conversation (391ms)
+  ✓  67 [mobile] › e2e/hydration.spec.ts:43:5 › without JavaScript the public Cadre page and contact route remain usable without fake chat (139ms)
+  ✓  68 [mobile] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 320x568 (497ms)
+  ✓  69 [mobile] › e2e/readability.spec.ts:4:7 › text spacing keeps the transcript and recovery readable at 360x640 (529ms)
+  ✓  70 [mobile] › e2e/readability.spec.ts:88:5 › important helper and privacy copy remains at least 12px (349ms)
+
+  70 passed (29.6s)
+Extension generated: extension/dist (15 files; no provider config or credentials read)
+[33m(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - ESM syntax in a file loaded as CommonJS (extension/vitest.config.ts:1:1). Use a `.mjs` extension or set `"type": "module"` in the closest package.json
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.[39m
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90m/tmp/px6-r15-clean-verifier-20260910-wd2vuq[39m
+
+ [32m✓[39m extension/tests/build.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m extension/tests/bridge.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 34[2mms[22m[39m
+ [32m✓[39m extension/tests/contracts.test.ts [2m([22m[2m50 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m3 passed[39m[22m[90m (3)[39m
+[2m      Tests [22m [1m[32m73 passed[39m[22m[90m (73)[39m
+[2m   Start at [22m 04:36:23
+[2m   Duration [22m 253ms[2m (transform 65%, import 23%, tests 10%, worker 1%)[22m
+
+{"result":"PASS","checks":24,"actualSiteRequests":0,"realApiRequests":0,"artifacts":"extension/evidence/px6-r15-clean-verifier-20260910-extension"}
+{"event_count": 157, "project_id": "cadre-ai-chatbot", "ready_nodes": [], "valid": true}
+{"event_count": 253, "project_id": "cadre-donna-premium-experience", "ready_nodes": [], "valid": true}
+VERIFIER_RESULT=PASS

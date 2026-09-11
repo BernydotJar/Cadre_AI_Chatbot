@@ -1,6 +1,6 @@
 # Cinematic + proactive Donna experience
 
-Status: PX6 revision 13 RUNNING on 2026-09-10 for a final invitation-polish repair. This document defines the product boundary; Graph evidence decides release status.
+Status: PX6 revision 15 is DONE locally after the final invitation-polish repair; public revision-15 equivalence is pending. The revision-13/14 failures are retained in Graph evidence. This document defines the product boundary; Graph evidence decides release status.
 
 ## Product intent
 
