@@ -175,6 +175,139 @@
         "authorization": "progress/architecture-docs-sequence-authorization-2026-09-11.md",
         "boundary": "Documentation-only AS-BUILT UML sequence grounded in r15 request code. No runtime edits; no target/AWS elements; preserve deterministic-vs-probabilistic authority boundaries."
       }
+    },
+    {
+      "id": "AD6-reference-patterns-and-doc-scope",
+      "kind": "feature-increment",
+      "title": "Extract reference patterns and freeze Donna documentation scope",
+      "status": "spec_ready",
+      "depends_on": [
+        "AD5-as-built-runtime-sequence"
+      ],
+      "capability": "engineering",
+      "gates": {
+        "done": [
+          "design-review",
+          "verification"
+        ]
+      },
+      "allowed_paths": [
+        "docs/**",
+        "progress/architecture-docs-*",
+        "progress/checkpoint-architecture-docs.md",
+        "evidence/architecture-docs/**"
+      ],
+      "metadata": {
+        "authorization": "progress/architecture-docs-continuation-authorization-2026-09-11.md",
+        "boundary": "Use supplied Rice documents as documentation-pattern references only; define Donna SDD/manual/master-diagram structure without importing Rice runtime claims."
+      }
+    },
+    {
+      "id": "AD7-consolidated-lucid-master",
+      "kind": "feature-increment",
+      "title": "Consolidate all Donna r15 diagrams into one Lucid master",
+      "status": "spec_ready",
+      "depends_on": [
+        "AD6-reference-patterns-and-doc-scope"
+      ],
+      "capability": "engineering",
+      "gates": {
+        "done": [
+          "design-review",
+          "verification",
+          "integration-proof"
+        ]
+      },
+      "allowed_paths": [
+        "docs/**",
+        "progress/architecture-docs-*",
+        "progress/checkpoint-architecture-docs.md",
+        "evidence/architecture-docs/**"
+      ],
+      "metadata": {
+        "authorization": "progress/architecture-docs-continuation-authorization-2026-09-11.md",
+        "boundary": "One canonical editable multipage Lucid document containing the five established architecture views, detailed runtime sequence, and a source-grounded user journey/operating-modes view. No runtime edits."
+      }
+    },
+    {
+      "id": "AD8-donna-sdd-r15",
+      "kind": "feature-increment",
+      "title": "Produce formal Donna r15 Software Design Document",
+      "status": "spec_ready",
+      "depends_on": [
+        "AD6-reference-patterns-and-doc-scope",
+        "AD7-consolidated-lucid-master"
+      ],
+      "capability": "engineering",
+      "gates": {
+        "done": [
+          "design-review",
+          "verification"
+        ]
+      },
+      "allowed_paths": [
+        "docs/**",
+        "progress/architecture-docs-*",
+        "progress/checkpoint-architecture-docs.md",
+        "evidence/architecture-docs/**"
+      ],
+      "metadata": {
+        "authorization": "progress/architecture-docs-continuation-authorization-2026-09-11.md",
+        "boundary": "Formal engineering handoff for frozen r15: architecture, components, interfaces, configuration/data posture, AI/provider boundary, security, QA, deployment, risks, operations, known gaps, references and sign-off."
+      }
+    },
+    {
+      "id": "AD9-donna-user-manual-r15",
+      "kind": "feature-increment",
+      "title": "Produce Donna r15 User Manual",
+      "status": "spec_ready",
+      "depends_on": [
+        "AD7-consolidated-lucid-master"
+      ],
+      "capability": "engineering",
+      "gates": {
+        "done": [
+          "design-review",
+          "verification"
+        ]
+      },
+      "allowed_paths": [
+        "docs/**",
+        "progress/architecture-docs-*",
+        "progress/checkpoint-architecture-docs.md",
+        "evidence/architecture-docs/**"
+      ],
+      "metadata": {
+        "authorization": "progress/architecture-docs-continuation-authorization-2026-09-11.md",
+        "boundary": "End-user guidance must reflect only delivered website behavior; optional Chrome/n8n capabilities must be explicitly separated and no unsupported transactional capability may be implied."
+      }
+    },
+    {
+      "id": "AD10-documentation-handoff",
+      "kind": "feature-increment",
+      "title": "Independent documentation review and final handoff",
+      "status": "spec_ready",
+      "depends_on": [
+        "AD8-donna-sdd-r15",
+        "AD9-donna-user-manual-r15"
+      ],
+      "capability": "engineering",
+      "gates": {
+        "done": [
+          "verification",
+          "integration-proof"
+        ]
+      },
+      "allowed_paths": [
+        "docs/**",
+        "progress/architecture-docs-*",
+        "progress/checkpoint-architecture-docs.md",
+        "evidence/architecture-docs/**"
+      ],
+      "metadata": {
+        "authorization": "progress/architecture-docs-continuation-authorization-2026-09-11.md",
+        "boundary": "Cross-check master Lucid, SDD, manual, references, truth labels and repo index against frozen r15; finish only when documentation pack is internally consistent and evidence-backed."
+      }
     }
   ]
 }
