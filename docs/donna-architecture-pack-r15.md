@@ -195,3 +195,37 @@ Editable document: `Donna Architecture Pack - r15`
 - Visual QA was performed by exporting all five pages as PNG. Runtime & Trust and AWS connector routing were refined in-place after that inspection; the architecture semantics were unchanged.
 
 This Lucid artifact is documentation only. It does not modify or redeploy the frozen r15 application.
+
+---
+
+## AS-BUILT companion - Detailed Runtime Request Sequence
+
+A detailed UML sequence diagram now accompanies Page 2 (`AS-BUILT - Runtime & Trust`). It follows the actual frozen r15 request path and mirrors the lifeline/activation/alternative-fragment style of the supplied reference image.
+
+### Participants
+
+1. User
+2. Donna Web UI (`src/ui` + `app/page.tsx`)
+3. `POST /api/chat` (`app/api/chat/route.ts`)
+4. `createChatHandler` (`src/server/chat.ts`)
+5. Policy + Router (`src/core/policy.ts` + `src/core/route.ts`)
+6. Client/Product Config (`src/config` + `src/product`)
+7. `FactSelector` (`src/provider`)
+8. OpenRouter API
+
+### Main sequence
+
+User submit -> bounded JSON request -> request deadline/rate/content/schema admission -> active product/client/persona resolution -> deterministic `decide(...)` + `composeReply(...)` -> alternative:
+
+- **grounded:** bounded `FactSelector.selectFacts(...)` -> OpenRouter `/key` metadata check -> strict-schema `/chat/completions` -> validated fact indices -> reorder all approved facts -> optional one configured proactive question;
+- **non-grounded:** deterministic greeting/clarification/boundary/unsupported copy -> optional tone-only persona lead.
+
+Both branches converge on app-owned approved links, max-reply guard, `{reply, kind}` JSON, inert-text/allowlisted-link rendering, plus a separate fail-closed error path.
+
+Editable companion Lucidchart:
+
+- Document ID: `66ba9fb3-c567-40b0-9c06-1b40ade57daf`
+- Edit URL: `https://lucid.app/lucidchart/66ba9fb3-c567-40b0-9c06-1b40ade57daf/edit`
+- Status: **AS-BUILT / documentation only**
+
+The primary five-page architecture pack remains the canonical overview. Page 2 now contains a clickable block linking to this detailed sequence view.

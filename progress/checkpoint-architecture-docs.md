@@ -44,3 +44,16 @@ Graph Harness is authoritative for AD0-AD4 state; this checkpoint is a resumable
 - `AD4-architecture-handoff` — DONE; verification PASS; integration-proof PASS.
 
 No application/runtime path changed in this workstream. The editable Lucidchart is the final architecture artifact for this node set.
+
+
+## AD5 addendum - detailed AS-BUILT runtime sequence
+
+Owner requested a UML sequence view matching the supplied reference style. A source-backed companion Lucidchart was created and linked from Page 2 of the primary architecture pack.
+
+- Sequence document ID: `66ba9fb3-c567-40b0-9c06-1b40ade57daf`
+- Edit URL: `https://lucid.app/lucidchart/66ba9fb3-c567-40b0-9c06-1b40ade57daf/edit`
+- Main pack Page 2 now contains a clickable `AS-BUILT DETAILED SEQUENCE DIAGRAM` block.
+- Sequence is grounded in `app/api/chat/route.ts`, `src/server/chat.ts`, `src/core/route.ts`, `src/core/policy.ts`, `src/product/conversation.ts`, and `src/provider/openrouter.ts`.
+- No runtime source or deployment configuration changed.
+
+Graph node: `AD5-as-built-runtime-sequence`.
