@@ -173,34 +173,36 @@ No RDS/Aurora/DynamoDB is required for parity because r15 has no application dat
 
 ## Lucidchart document contract
 
-Create one editable Lucidchart document titled **Donna Architecture Pack - r15** with exactly these five pages in this order:
+The canonical architecture deliverable is one editable Lucidchart document titled **Donna Architecture Pack - r15** with seven pages in this order:
 
 1. `AS-BUILT - System Context`
 2. `AS-BUILT - Runtime & Trust`
 3. `AS-BUILT - Component Architecture`
 4. `AS-BUILT - Engineering Control Plane`
 5. `TARGET - AWS Reference (NOT DEPLOYED)`
+6. `AS-BUILT - Runtime Request Sequence`
+7. `AS-BUILT - User Journey & Operating Modes`
 
-Every page must include a visible status banner. The AWS page must use official AWS 2024 Lucid shapes for AWS services/resources. No AWS service may appear on an AS-BUILT page. The AS-BUILT pages must not show Vercel/GitHub/OpenRouter as AWS resources.
+Every page carries an explicit truth/status banner or equivalent scope label. The AWS page uses official AWS 2024 Lucid shapes for AWS services/resources. No AWS service is represented as deployed on an AS-BUILT page. Pages 6 and 7 are deliberately part of the same master document so request-time behavior and user-visible operating modes can be reviewed without following a companion-file link.
 
 ## Lucidchart delivery artifact
 
 Editable document: `Donna Architecture Pack - r15`
 
-- Lucid document ID: `3991f2c1-fc1d-4cad-ab01-eec0d3296bfc`
-- Edit URL: `https://lucid.app/lucidchart/3991f2c1-fc1d-4cad-ab01-eec0d3296bfc/edit`
-- Pages: **5**
-- Page order: four `AS-BUILT` views followed by one `TARGET - AWS Reference (NOT DEPLOYED)` view.
-- AWS page uses official Lucid AWS 2024 service/resource shapes.
-- Visual QA was performed by exporting all five pages as PNG. Runtime & Trust and AWS connector routing were refined in-place after that inspection; the architecture semantics were unchanged.
+- Canonical Lucid document ID: `bd103b7c-614d-4e48-9cd0-e5ede867f924`
+- Edit URL: `https://lucid.app/lucidchart/bd103b7c-614d-4e48-9cd0-e5ede867f924/edit`
+- View URL: `https://lucid.app/lucidchart/bd103b7c-614d-4e48-9cd0-e5ede867f924/view`
+- Pages: **7**
+- Visual QA: all seven pages exported and inspected. Page 6's alternative fragment and Page 7's boundary copy were repaired after visual review for legibility.
+- Historical documents `3991f2c1-fc1d-4cad-ab01-eec0d3296bfc` and `66ba9fb3-c567-40b0-9c06-1b40ade57daf` are retained in Lucid as explicitly **Superseded** history and are no longer canonical.
 
 This Lucid artifact is documentation only. It does not modify or redeploy the frozen r15 application.
 
 ---
 
-## AS-BUILT companion - Detailed Runtime Request Sequence
+## Page 6 — AS-BUILT Runtime Request Sequence
 
-A detailed UML sequence diagram now accompanies Page 2 (`AS-BUILT - Runtime & Trust`). It follows the actual frozen r15 request path and mirrors the lifeline/activation/alternative-fragment style of the supplied reference image.
+The sequence page follows the actual frozen r15 request path using lifelines, numbered calls and a visible `alt` fragment.
 
 ### Participants
 
@@ -213,19 +215,24 @@ A detailed UML sequence diagram now accompanies Page 2 (`AS-BUILT - Runtime & Tr
 7. `FactSelector` (`src/provider`)
 8. OpenRouter API
 
-### Main sequence
+### Sequence semantics
 
 User submit -> bounded JSON request -> request deadline/rate/content/schema admission -> active product/client/persona resolution -> deterministic `decide(...)` + `composeReply(...)` -> alternative:
 
-- **grounded:** bounded `FactSelector.selectFacts(...)` -> OpenRouter `/key` metadata check -> strict-schema `/chat/completions` -> validated fact indices -> reorder all approved facts -> optional one configured proactive question;
+- **grounded:** bounded `FactSelector.selectFacts(...)` -> OpenRouter key metadata check -> strict-schema `/chat/completions` -> validated fact indices -> exact approved fact assembly -> approved links -> optional one configured proactive question;
 - **non-grounded:** deterministic greeting/clarification/boundary/unsupported copy -> optional tone-only persona lead.
 
-Both branches converge on app-owned approved links, max-reply guard, `{reply, kind}` JSON, inert-text/allowlisted-link rendering, plus a separate fail-closed error path.
+Both paths converge on app-owned reply composition and safe rendering. Invalid input, timeout, malformed provider output, expired/over-budget configuration and provider faults use controlled fail-closed behavior instead of fabricating a live answer.
 
-Editable companion Lucidchart:
+## Page 7 — AS-BUILT User Journey & Operating Modes
 
-- Document ID: `66ba9fb3-c567-40b0-9c06-1b40ade57daf`
-- Edit URL: `https://lucid.app/lucidchart/66ba9fb3-c567-40b0-9c06-1b40ade57daf/edit`
-- Status: **AS-BUILT / documentation only**
+This page is intentionally non-code-centric. It shows what a visitor can actually do:
 
-The primary five-page architecture pack remains the canonical overview. Page 2 now contains a clickable block linking to this detailed sequence view.
+- open the public Donna experience without login;
+- ask a supported public/business question or select a suggested question/topic;
+- receive a grounded answer from reviewed public facts and approved links, optionally followed by one configured question;
+- receive deterministic clarification/boundary handling for pricing, account/private, unsupported or ambiguous requests;
+- continue within bounded in-request history or leave/reset without persistent cross-session memory in the app.
+
+It also separates the **AS-BUILT / OPTIONAL** Chrome preview and n8n handoff prototype from the normal public website path, and explicitly lists capabilities r15 does not provide.
+
